@@ -1,7 +1,9 @@
 # tp-2015-1c-vainqueur
 
+ /home/utnso/TPOperativos.
+ estado ya en consola y dentro de la carpeta TPOperativos
 
-1. hacer el git pull vainqueur master
+1. hacer el git pull vainqueur master (se recomienda esto y no el git clone)
 2. creo archivo y hago el git add
 3. git commit -m "mensaje de lo que hice"
 4. git push vainqueur master 
