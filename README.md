@@ -11,8 +11,12 @@ otra opci{on para el punto 4.
 4. git push -u vainqueur master
 
 esto hace que recuerde el nombre del repositorio 
-por lo que ya no habria que volver a ponerlo, entonces la 
-próxima vez que hagamos el push sería
+por lo que ya no habria que volver a ponerlo,
+
+ahora se debe hacer :
+git config --global push.default simple
+
+entonces la próxima vez que hagamos el push sería
 
 4. git push 
 
