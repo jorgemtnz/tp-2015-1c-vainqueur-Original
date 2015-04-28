@@ -10,6 +10,7 @@
 
 void cargarComandos ();
 void aplicarComando();
+
 typedef struct comandos{
 	char* comando;
 	char* descripcion;

@@ -10,13 +10,19 @@
 #include <string.h>
 #include "consola.h"
 
-int main (){
+int main (int argc, char * argv[]){
 		int cont = 1;
 		int r1 ;// resultado de la evaluacion de string
 		char* comandoIngresado;
 		char* directorio;
 
 
+		printf("Palabras Ingresadas por consola: \n");
+		printf("Palabra 1: %s \n", argv[1]);
+		printf("Palabra 2: %s \n", argv[2]);
+		printf("Palabra 3: %s \n", argv[3]);
+		printf("Palabra 4: %s \n", argv[4]);
+/*
 		cargarComandos();
 
 
