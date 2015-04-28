@@ -11,7 +11,7 @@
 #include "consola.h"
 
 int main (){
-		int cont = 1;
+		int i = 1;
 		int r1 ;// resultado de la evaluacion de string
 		char* comandoIngresado;
 		char* directorio;
@@ -22,20 +22,22 @@ int main (){
 
 		printf("-------Comandos cargados------- \n");
 
-	//while(1){
+	while(1){
 
 		printf("Pedime lo que quieras>>>");
 
-		stdin("%s",&comandoIngresado);
+		scanf("%s",comandoIngresado);
+		printf("%s",comandoIngresado);
+		//
 
 		//do{
 
 
-		r1 = strcmp(&comandoIngresado, listaComandos [cont].comando);//compara si el comandoIngresado existe
+		r1 = strcmp(*comandoIngresado, listaComandos [i].comando);//compara si el comandoIngresado existe
 		printf("%d",r1);
 
 
-			cont = cont+1;
+			//cont = cont+1;
 		//}while((r1 != 0) ||(cont > 30));//sale cuando r1 da 0 o cuando el cont supera los comandos
 
 		/*
@@ -53,7 +55,7 @@ int main (){
 
 
 
-
+	}
 
 
 
@@ -78,3 +80,4 @@ void cargarComandos (void){ //deben cargarse las funciones respetando los numero
 	listaComandos [1].comando = "formatear";
 
 }
+
