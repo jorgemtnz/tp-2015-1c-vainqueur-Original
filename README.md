@@ -25,4 +25,9 @@ entonces la próxima vez que hagamos el push sería
 eh igualmente se pude hacer a partir de este momento solamente git pull
 ya que recuerda el nombre del repositorio y el branch que este activo será el
 que subirá.
-
+-----------------------------------------------------------
+Problemas y solución
+----------------------------
+problema: necesitamos regresar a un commit anterior
+consecuencia: al hacerlo aplicando el comando corrrespondiente.Todo volvera a su estado anterior del ultimo commit, al que hemos regresado. Entonces se borraran todos los archivos creados nuevos, y se perderan las modificiones realizadas.
+solución: ir creando una copia de los archivos que tenemos para poder tenerlos. Por lo que es conveniente tener además varios branch para trabajar.
