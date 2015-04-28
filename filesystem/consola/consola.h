@@ -10,7 +10,11 @@
 
 void cargarComandos ();
 void aplicarComando();
+<<<<<<< HEAD
 
+=======
+int are_equal();
+>>>>>>> f052dd49d64ec01f1ff0fb69fe62e776bfe94efc
 typedef struct comandos{
 	char* comando;
 	char* descripcion;

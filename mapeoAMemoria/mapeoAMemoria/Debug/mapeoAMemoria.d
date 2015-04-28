@@ -1,1 +1,0 @@
-mapeoAMemoria.d: ../mapeoAMemoria.c
