@@ -1,7 +1,7 @@
                      
 La idea es escribir en que archivo se esta trabajando para no pisarnos unos con otros y evitar tener que hacer merge.
 este archivo se puede editar directamente desde aqui, lo que es más facil y conveniente para que los demás al hacer 
-pull vean en que archivo se esta trabajando. 
+pull vean en que archivo se esta trabajando. Son nuestros semáforos.
 
                marta        filesystem              job            nodo           mapper             reducer       socket
                                     
@@ -9,7 +9,7 @@ Lucas
 -------------------------------------------------------------------------------------------------------------------------------
 Maxi                                                                                                                                                                                  
 -------------------------------------------------------------------------------------------------------------------------------
-javier                            X                                                                                                                                                                                        
+javier                     nombreArchivo                                                                                                                                                                                        
 -------------------------------------------------------------------------------------------------------------------------------
 santiago                                                                                                                                                
 -------------------------------------------------------------------------------------------------------------------------------
