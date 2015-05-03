@@ -8,18 +8,19 @@
 #ifndef CONSOLA_CONSOLA_H_
 #define CONSOLA_CONSOLA_H_
 
-void cargarComandos ();
-void aplicarComando();
-<<<<<<< HEAD
+void cargarFunciones ();
+void aplicarFunciones();
+int buscarFunciones(char* a);
+void mostrarFunciones();
 
-=======
-int are_equal();
->>>>>>> f052dd49d64ec01f1ff0fb69fe62e776bfe94efc
-typedef struct comandos{
-	char* comando;
+
+
+
+typedef struct Funciones{
+	char* comandos;
 	char* descripcion;
-}comandos;
+}Funciones;
 
-comandos listaComandos [16];
+Funciones listaComandos [19];
 
 #endif /* CONSOLA_CONSOLA_H_ */
