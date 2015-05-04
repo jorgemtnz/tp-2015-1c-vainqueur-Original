@@ -1,0 +1,54 @@
+20:24:26 **** Incremental Build of configuration Debug for project mapeoAMemoria ****
+make all 
+Building file: ../mapeoAMemoria.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"mapeoAMemoria.d" -MT"mapeoAMemoria.d" -o "mapeoAMemoria.o" "../mapeoAMemoria.c"
+../mapeoAMemoria.c: In function ‘main’:
+../mapeoAMemoria.c:20:5: warning: implicit declaration of function ‘open’ [-Wimplicit-function-declaration]
+     fd = open(FILEPATH, O_RDWR | O_CREAT | O_TRUNC, (mode_t)0600);
+     ^
+../mapeoAMemoria.c:20:25: error: ‘O_RDWR’ undeclared (first use in this function)
+     fd = open(FILEPATH, O_RDWR | O_CREAT | O_TRUNC, (mode_t)0600);
+                         ^
+../mapeoAMemoria.c:20:25: note: each undeclared identifier is reported only once for each function it appears in
+../mapeoAMemoria.c:20:34: error: ‘O_CREAT’ undeclared (first use in this function)
+     fd = open(FILEPATH, O_RDWR | O_CREAT | O_TRUNC, (mode_t)0600);
+                                  ^
+../mapeoAMemoria.c:20:44: error: ‘O_TRUNC’ undeclared (first use in this function)
+     fd = open(FILEPATH, O_RDWR | O_CREAT | O_TRUNC, (mode_t)0600);
+                                            ^
+../mapeoAMemoria.c:22:2: warning: implicit declaration of function ‘perror’ [-Wimplicit-function-declaration]
+  perror("Error opening file for writing");
+  ^
+../mapeoAMemoria.c:23:2: warning: implicit declaration of function ‘exit’ [-Wimplicit-function-declaration]
+  exit(EXIT_FAILURE);
+  ^
+../mapeoAMemoria.c:23:2: warning: incompatible implicit declaration of built-in function ‘exit’ [enabled by default]
+../mapeoAMemoria.c:23:7: error: ‘EXIT_FAILURE’ undeclared (first use in this function)
+  exit(EXIT_FAILURE);
+       ^
+../mapeoAMemoria.c:28:5: warning: implicit declaration of function ‘lseek’ [-Wimplicit-function-declaration]
+     result = lseek(fd, FILESIZE-1, SEEK_SET);
+     ^
+../mapeoAMemoria.c:28:36: error: ‘SEEK_SET’ undeclared (first use in this function)
+     result = lseek(fd, FILESIZE-1, SEEK_SET);
+                                    ^
+../mapeoAMemoria.c:30:2: warning: implicit declaration of function ‘close’ [-Wimplicit-function-declaration]
+  close(fd);
+  ^
+../mapeoAMemoria.c:32:2: warning: incompatible implicit declaration of built-in function ‘exit’ [enabled by default]
+  exit(EXIT_FAILURE);
+  ^
+../mapeoAMemoria.c:45:5: warning: implicit declaration of function ‘write’ [-Wimplicit-function-declaration]
+     result = write(fd, "", 1);
+     ^
+../mapeoAMemoria.c:49:2: warning: incompatible implicit declaration of built-in function ‘exit’ [enabled by default]
+  exit(EXIT_FAILURE);
+  ^
+../mapeoAMemoria.c:58:2: warning: incompatible implicit declaration of built-in function ‘exit’ [enabled by default]
+  exit(EXIT_FAILURE);
+  ^
+make: *** [mapeoAMemoria.o] Error 1
+
+20:24:27 Build Finished (took 891ms)
+
