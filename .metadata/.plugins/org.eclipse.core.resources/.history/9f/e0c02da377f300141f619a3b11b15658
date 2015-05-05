@@ -1,0 +1,2 @@
+int tamanio_archivo(int);
+int abreArchivo(char*);

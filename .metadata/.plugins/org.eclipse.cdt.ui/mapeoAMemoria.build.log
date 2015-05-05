@@ -1,6 +1,15 @@
-17:14:59 **** Incremental Build of configuration Debug for project mapeoAMemoria ****
+20:25:05 **** Incremental Build of configuration Debug for project mapeoAMemoria ****
 make all 
-make: No se hace nada para «all».
+Building file: ../main.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"main.d" -MT"main.d" -o "main.o" "../main.c"
+Finished building: ../main.c
+ 
+Building target: mapeoAMemoria
+Invoking: GCC C Linker
+gcc  -o "mapeoAMemoria"  ./CrearArchivo/crearArchivo.o  ./main.o ./mapeo.o ./mapeoAMemoria.o ./nuevoMapeo.o   
+Finished building target: mapeoAMemoria
+ 
 
-17:14:59 Build Finished (took 193ms)
+20:25:07 Build Finished (took 1s.954ms)
 
