@@ -4,8 +4,12 @@
 #include <sys/types.h>
 #include <fcntl.h>
 #include "mapeoAMemoria.h"
+#include "CrearArchivo/crearArchivo.h"
 
 int main() {
+	printf ("asdasdasdas");
+	crearArchivo("ArchivoDePrueba"); //Crear Archivo Para Mapear de 190 mb
+	/*
 	//Variables
 	const char * bloqueDeMemoria;
 	int direccionArchivo;
@@ -18,5 +22,9 @@ int main() {
 	bloqueDeMemoria = mmap (NULL,2e+7,PROT_WRITE, MAP_PRIVATE, direccionArchivo, 0); //2e+7 son 20mb
 	//if (bloqueDeMemoria == MAP_FAILED) handle_error("mmap");
 	//munmap() para desmapear
-	return 0;
-}
+	 *
+
+	*/
+
+	return 1;
+	}

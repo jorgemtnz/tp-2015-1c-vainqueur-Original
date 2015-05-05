@@ -13,7 +13,7 @@ int tamanio_archivo(int fd){
 	fstat(fd, &buf);
 	return buf.st_size;
 }
-
+/*
 int main (int argc, char *argv[]){
 	int mapper;
 	char* mapeo;
@@ -41,3 +41,4 @@ int main (int argc, char *argv[]){
 	return EXIT_SUCCESS;
 
 }
+*/

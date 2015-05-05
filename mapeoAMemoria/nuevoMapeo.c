@@ -15,12 +15,12 @@
 #define FILEPATH "/mapeoAMemoria/tmp/mmaped.bin"
 #define NUMINTS  (1000)
 #define FILESIZE (NUMINTS * sizeof(int))
-
+/*
 int main(int argc, char *argv[])
 {
     int i;
     int fd;
-    int *map;  /* mmapped array of int's */
+    int *map;  // mmapped array of int's
 
     fd = open(FILEPATH, O_RDONLY);
     if (fd == -1) {
@@ -35,8 +35,8 @@ int main(int argc, char *argv[])
 	exit(EXIT_FAILURE);
     }
 
-    /* Read the file int-by-int from the mmap
-     */
+    // Read the file int-by-int from the mmap
+
     for (i = 1; i <=NUMINTS; ++i) {
 	printf("%d: %d\n", i, map[i]);
     }
@@ -47,4 +47,4 @@ int main(int argc, char *argv[])
     close(fd);
     return 0;
 }
-
+*/
