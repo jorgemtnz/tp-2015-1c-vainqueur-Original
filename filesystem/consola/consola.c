@@ -14,16 +14,16 @@
 
 	int main (){
 		int indiceComando;
-		char* comando = malloc (200) ;
-		char* funcion = malloc (200);
-		char* dir = malloc(1000);
+		char* comando = malloc (200) ;//libera esapcio para el comando a ingresar
+		char* funcion = malloc (200);//libera para la funcion
+		char* dir = malloc(1000);//libera para el directorio
 
-	cargarFunciones();
+	cargarFunciones();//es una funcion que carga los comando de manera manual en memoria volatil/electronica
 
 
 				printf("-------Comandos cargados------- \n");
 
-	while(1)	{
+	while(1)	{//ciclo del while para que la consola siga preguntado por otras funciones
 
 		printf("Pedime lo que quieras>>>");
 
@@ -34,7 +34,7 @@
 
 			indiceComando = buscarFunciones(funcion);//busca la funcion
 
-			aplicarFunciones (indiceComando,dir);
+			aplicarFunciones (indiceComando,dir);//aplica el comando encontrado
 
 
 
@@ -53,7 +53,7 @@ void aplicarFunciones (int a, char* d){ //selecciona un case en base al numero q
 	switch (a)
 	{
 	case 1:
-		printf("Esta es la funcion formatear \n y el directorio ingresado es = %s \n", d);
+		printf("Esta es la funcion formatear \n y el directorio ingresado es = %s \n", d);//no todas las funciones usan el dir pero yo lo puse por las dudas
 		break;
 	case 2:
 		printf("Esta es la funcion eliminar \n y el directorio ingresado es = %s \n", d);
@@ -104,7 +104,7 @@ void aplicarFunciones (int a, char* d){ //selecciona un case en base al numero q
 		mostrarFunciones();
 				break;
 	case 18:
-		printf("--Ojo ese comando no existe!! proba con --man\n");
+		printf("--Ojo ese comando no existe!! proba con man\n");
 	}
 
 
@@ -112,7 +112,7 @@ void aplicarFunciones (int a, char* d){ //selecciona un case en base al numero q
 
 void cargarFunciones (void){ //deben cargarse las funciones respetando los numeros del case
 	  listaComandos [1].comandos = "formatear";
-	  listaComandos [1].descripcion = "Funcion --formatear dir--";
+	  listaComandos [1].descripcion = "Funcion --formatear dir--";//aca en descripcion le mande en base a un presentimiento lo que recibia se puede cambiar despues
 	  listaComandos [2].comandos = "eliminar";
 	  listaComandos [2].descripcion = "Funcion --eliminar dir/archv--";
 	  listaComandos [3].comandos = "renombrar";
@@ -149,7 +149,7 @@ void cargarFunciones (void){ //deben cargarse las funciones respetando los numer
 }
 
 int buscarFunciones(char* a){//busca la funcion ingresada
-	int cont = 0, r ;
+	int cont = 0, r ;//en cont se va a almacenar el numero de la funcion que se va a aplicar en el swicht case
 
 	do{
 		cont = cont + 1;
