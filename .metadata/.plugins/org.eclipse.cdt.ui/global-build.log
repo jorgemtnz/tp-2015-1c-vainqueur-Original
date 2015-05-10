@@ -203,3 +203,137 @@ Finished building target: filesystem
 19:15:18 **** Incremental Build of configuration Debug for project filesystem ****
 make all 
 make: No se hace nada para «all».
+19:29:22 **** Build of configuration Debug for project Consola ****
+make all 
+Building file: ../consola.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"consola.d" -MT"consola.d" -o "consola.o" "../consola.c"
+Finished building: ../consola.c
+ 
+Building target: Consola
+Invoking: GCC C Linker
+gcc  -o "Consola"  ./consola.o   
+Finished building target: Consola
+ 
+19:29:24 **** Incremental Build of configuration Debug for project filesystem ****
+make all 
+make: No se hace nada para «all».
+19:54:17 **** Incremental Build of configuration Debug for project Consola ****
+make all 
+Building file: ../consola.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"consola.d" -MT"consola.d" -o "consola.o" "../consola.c"
+Finished building: ../consola.c
+ 
+Building target: Consola
+Invoking: GCC C Linker
+gcc  -o "Consola"  ./consola.o   
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 0 tiene un índice de símbolo 11 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 1 tiene un índice de símbolo 12 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 2 tiene un índice de símbolo 2 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 3 tiene un índice de símbolo 2 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 4 tiene un índice de símbolo 11 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 5 tiene un índice de símbolo 13 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 6 tiene un índice de símbolo 13 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 7 tiene un índice de símbolo 13 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 8 tiene un índice de símbolo 12 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 9 tiene un índice de símbolo 13 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 10 tiene un índice de símbolo 13 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 11 tiene un índice de símbolo 13 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 12 tiene un índice de símbolo 13 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 13 tiene un índice de símbolo 13 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 14 tiene un índice de símbolo 13 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 15 tiene un índice de símbolo 13 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 16 tiene un índice de símbolo 13 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 17 tiene un índice de símbolo 13 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 18 tiene un índice de símbolo 13 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 19 tiene un índice de símbolo 13 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 20 tiene un índice de símbolo 13 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 21 tiene un índice de símbolo 22 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_line): la reubicación 0 tiene un índice de símbolo 2 inválido
+/usr/lib/gcc/i686-linux-gnu/4.8/../../../i386-linux-gnu/crt1.o: En la función `_start':
+(.text+0x18): referencia a `main' sin definir
+collect2: error: ld returned 1 exit status
+make: *** [Consola] Error 1
+19:54:20 **** Incremental Build of configuration Debug for project filesystem ****
+make all 
+Building file: ../consola/consola.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"consola/consola.d" -MT"consola/consola.d" -o "consola/consola.o" "../consola/consola.c"
+Finished building: ../consola/consola.c
+ 
+Building file: ../main.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"main.d" -MT"main.d" -o "main.o" "../main.c"
+../main.c:4:21: fatal error: consola.h: No existe el archivo o el directorio
+ #include "consola.h"
+                     ^
+compilation terminated.
+make: *** [main.o] Error 1
+19:55:04 **** Incremental Build of configuration Debug for project Consola ****
+make all 
+Building target: Consola
+Invoking: GCC C Linker
+gcc  -o "Consola"  ./consola.o   
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 0 tiene un índice de símbolo 11 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 1 tiene un índice de símbolo 12 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 2 tiene un índice de símbolo 2 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 3 tiene un índice de símbolo 2 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 4 tiene un índice de símbolo 11 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 5 tiene un índice de símbolo 13 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 6 tiene un índice de símbolo 13 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 7 tiene un índice de símbolo 13 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 8 tiene un índice de símbolo 12 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 9 tiene un índice de símbolo 13 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 10 tiene un índice de símbolo 13 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 11 tiene un índice de símbolo 13 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 12 tiene un índice de símbolo 13 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 13 tiene un índice de símbolo 13 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 14 tiene un índice de símbolo 13 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 15 tiene un índice de símbolo 13 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 16 tiene un índice de símbolo 13 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 17 tiene un índice de símbolo 13 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 18 tiene un índice de símbolo 13 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 19 tiene un índice de símbolo 13 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 20 tiene un índice de símbolo 13 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): la reubicación 21 tiene un índice de símbolo 22 inválido
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_line): la reubicación 0 tiene un índice de símbolo 2 inválido
+/usr/lib/gcc/i686-linux-gnu/4.8/../../../i386-linux-gnu/crt1.o: En la función `_start':
+(.text+0x18): referencia a `main' sin definir
+collect2: error: ld returned 1 exit status
+make: *** [Consola] Error 1
+19:55:05 **** Incremental Build of configuration Debug for project filesystem ****
+make all 
+Building file: ../main.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"main.d" -MT"main.d" -o "main.o" "../main.c"
+../main.c:4:21: fatal error: consola.h: No existe el archivo o el directorio
+ #include "consola.h"
+                     ^
+compilation terminated.
+make: *** [main.o] Error 1
+20:05:49 **** Incremental Build of configuration Debug for project filesystem ****
+make all 
+Building file: ../consola/consola.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"consola/consola.d" -MT"consola/consola.d" -o "consola/consola.o" "../consola/consola.c"
+Finished building: ../consola/consola.c
+ 
+Building file: ../main.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"main.d" -MT"main.d" -o "main.o" "../main.c"
+../main.c:4:21: fatal error: consola.h: No existe el archivo o el directorio
+ #include "consola.h"
+                     ^
+compilation terminated.
+make: *** [main.o] Error 1
+20:06:53 **** Incremental Build of configuration Debug for project filesystem ****
+make all 
+Building file: ../main.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"main.d" -MT"main.d" -o "main.o" "../main.c"
+../main.c:4:21: fatal error: consola.h: No existe el archivo o el directorio
+ #include "consola.h"
+                     ^
+compilation terminated.
+make: *** [main.o] Error 1

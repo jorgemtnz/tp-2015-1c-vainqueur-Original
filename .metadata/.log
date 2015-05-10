@@ -969,3 +969,6 @@ Binding(CTRL+D,
 		,,true),null),
 	org.eclipse.ui.defaultAcceleratorConfiguration,
 	org.eclipse.ui.textEditorScope,,,system)
+
+!ENTRY org.eclipse.cdt.core 1 0 2015-05-10 19:29:05.066
+!MESSAGE Indexed 'Consola' (1 sources, 39 headers) in 1,46 sec: 1.228 declarations; 2.267 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)

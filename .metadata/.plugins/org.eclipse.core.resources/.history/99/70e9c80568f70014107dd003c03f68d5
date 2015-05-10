@@ -8,17 +8,20 @@
 #ifndef CONSOLA_CONSOLA_H_
 #define CONSOLA_CONSOLA_H_
 
-void cargarFunciones();
+void cargarFunciones ();
 void aplicarFunciones();
 int buscarFunciones(char* a);
 void mostrarFunciones();
 int levantaConsola();
 
-typedef struct Funciones {
+
+
+
+typedef struct Funciones{
 	char* comandos;
 	char* descripcion;
-} Funciones;
+}Funciones;
 
-Funciones listaComandos[19];
+Funciones listaComandos [19];
 
 #endif /* CONSOLA_CONSOLA_H_ */
