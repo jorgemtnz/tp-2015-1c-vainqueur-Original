@@ -188,3 +188,18 @@ Invoking: GCC C Linker
 gcc  -o "mapeoAMemoria"  ./CrearArchivo/crearArchivo.o  ./main.o ./mapeo.o ./mapeoAMemoria.o ./nuevoMapeo.o   
 Finished building target: mapeoAMemoria
  
+19:01:26 **** Build of configuration Debug for project filesystem ****
+make all 
+Building file: ../consola/consola.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"consola/consola.d" -MT"consola/consola.d" -o "consola/consola.o" "../consola/consola.c"
+Finished building: ../consola/consola.c
+ 
+Building target: filesystem
+Invoking: GCC C Linker
+gcc  -o "filesystem"  ./consola/consola.o   
+Finished building target: filesystem
+ 
+19:15:18 **** Incremental Build of configuration Debug for project filesystem ****
+make all 
+make: No se hace nada para «all».
