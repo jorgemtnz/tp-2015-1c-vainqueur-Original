@@ -337,3 +337,283 @@ gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"main.d" -MT"main.d" -o "mai
                      ^
 compilation terminated.
 make: *** [main.o] Error 1
+23:35:06 **** Incremental Build of configuration Debug for project filesystem ****
+make all 
+Building file: ../main.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"main.d" -MT"main.d" -o "main.o" "../main.c"
+../main.c:4:41: fatal error: /filesystem/consola/consola.h: No existe el archivo o el directorio
+ #include "/filesystem/consola/consola.h"
+                                         ^
+compilation terminated.
+make: *** [main.o] Error 1
+23:50:50 **** Incremental Build of configuration Debug for project filesystem ****
+make all 
+Building file: ../consola.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"consola.d" -MT"consola.d" -o "consola.o" "../consola.c"
+Finished building: ../consola.c
+ 
+Building file: ../main.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"main.d" -MT"main.d" -o "main.o" "../main.c"
+../main.c:4:41: fatal error: /filesystem/consola/consola.h: No existe el archivo o el directorio
+ #include "/filesystem/consola/consola.h"
+                                         ^
+compilation terminated.
+make: *** [main.o] Error 1
+23:51:12 **** Incremental Build of configuration Debug for project filesystem ****
+make all 
+Building file: ../main.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"main.d" -MT"main.d" -o "main.o" "../main.c"
+Finished building: ../main.c
+ 
+Building target: filesystem
+Invoking: GCC C Linker
+gcc  -o "filesystem"  ./consola/consola.o  ./consola.o ./main.o   
+./consola.o: En la función `levantaConsola':
+/home/utnso/TPOperativos/filesystem/Debug/../consola.c:13: definiciones múltiples de `levantaConsola'
+./consola/consola.o:/home/utnso/TPOperativos/filesystem/Debug/../consola/consola.c:13: primero se definió aquí
+./consola.o: En la función `cargarFunciones':
+/home/utnso/TPOperativos/filesystem/Debug/../consola.c:130: definiciones múltiples de `cargarFunciones'
+./consola/consola.o:/home/utnso/TPOperativos/filesystem/Debug/../consola/consola.c:130: primero se definió aquí
+./consola.o: En la función `buscarFunciones':
+/home/utnso/TPOperativos/filesystem/Debug/../consola.c:168: definiciones múltiples de `buscarFunciones'
+./consola/consola.o:/home/utnso/TPOperativos/filesystem/Debug/../consola/consola.c:168: primero se definió aquí
+./consola.o: En la función `aplicarFunciones':
+/home/utnso/TPOperativos/filesystem/Debug/../consola.c:39: definiciones múltiples de `aplicarFunciones'
+./consola/consola.o:/home/utnso/TPOperativos/filesystem/Debug/../consola/consola.c:39: primero se definió aquí
+./consola.o: En la función `mostrarFunciones':
+/home/utnso/TPOperativos/filesystem/Debug/../consola.c:184: definiciones múltiples de `mostrarFunciones'
+./consola/consola.o:/home/utnso/TPOperativos/filesystem/Debug/../consola/consola.c:184: primero se definió aquí
+collect2: error: ld returned 1 exit status
+make: *** [filesystem] Error 1
+23:56:36 **** Incremental Build of configuration Debug for project filesystem ****
+make all 
+Building target: filesystem
+Invoking: GCC C Linker
+gcc  -o "filesystem"  ./consola/consola.o  ./consola.o ./main.o   
+./consola.o: En la función `levantaConsola':
+/home/utnso/TPOperativos/filesystem/Debug/../consola.c:13: definiciones múltiples de `levantaConsola'
+./consola/consola.o:/home/utnso/TPOperativos/filesystem/Debug/../consola/consola.c:13: primero se definió aquí
+./consola.o: En la función `cargarFunciones':
+/home/utnso/TPOperativos/filesystem/Debug/../consola.c:130: definiciones múltiples de `cargarFunciones'
+./consola/consola.o:/home/utnso/TPOperativos/filesystem/Debug/../consola/consola.c:130: primero se definió aquí
+./consola.o: En la función `buscarFunciones':
+/home/utnso/TPOperativos/filesystem/Debug/../consola.c:168: definiciones múltiples de `buscarFunciones'
+./consola/consola.o:/home/utnso/TPOperativos/filesystem/Debug/../consola/consola.c:168: primero se definió aquí
+./consola.o: En la función `aplicarFunciones':
+/home/utnso/TPOperativos/filesystem/Debug/../consola.c:39: definiciones múltiples de `aplicarFunciones'
+./consola/consola.o:/home/utnso/TPOperativos/filesystem/Debug/../consola/consola.c:39: primero se definió aquí
+./consola.o: En la función `mostrarFunciones':
+/home/utnso/TPOperativos/filesystem/Debug/../consola.c:184: definiciones múltiples de `mostrarFunciones'
+./consola/consola.o:/home/utnso/TPOperativos/filesystem/Debug/../consola/consola.c:184: primero se definió aquí
+collect2: error: ld returned 1 exit status
+make: *** [filesystem] Error 1
+00:06:47 **** Incremental Build of configuration Debug for project filesystem ****
+make all 
+Building file: ../consola.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"consola.d" -MT"consola.d" -o "consola.o" "../consola.c"
+../consola.c: In function ‘levantaConsola’:
+../consola.c:19:2: warning: implicit declaration of function ‘cargarFunciones’ [-Wimplicit-function-declaration]
+  cargarFunciones(); //es una funcion que carga los comando de manera manual en memoria volatil/electronica
+  ^
+../consola.c:30:3: warning: implicit declaration of function ‘buscarFunciones’ [-Wimplicit-function-declaration]
+   indiceComando = buscarFunciones(funcion); //busca la funcion
+   ^
+../consola.c:32:3: warning: implicit declaration of function ‘aplicarFunciones’ [-Wimplicit-function-declaration]
+   aplicarFunciones(indiceComando, dir); //aplica el comando encontrado
+   ^
+../consola.c: At top level:
+../consola.c:43:6: warning: conflicting types for ‘aplicarFunciones’ [enabled by default]
+ void aplicarFunciones(int a, char* d) { //selecciona un case en base al numero que llevaba el contador y aplica la funcion recibe el dir
+      ^
+../consola.c:32:3: note: previous implicit declaration of ‘aplicarFunciones’ was here
+   aplicarFunciones(indiceComando, dir); //aplica el comando encontrado
+   ^
+../consola.c: In function ‘aplicarFunciones’:
+../consola.c:126:3: warning: implicit declaration of function ‘mostrarFunciones’ [-Wimplicit-function-declaration]
+   mostrarFunciones();
+   ^
+../consola.c: At top level:
+../consola.c:134:6: warning: conflicting types for ‘cargarFunciones’ [enabled by default]
+ void cargarFunciones(void) { //deben cargarse las funciones respetando los numeros del case
+      ^
+../consola.c:19:2: note: previous implicit declaration of ‘cargarFunciones’ was here
+  cargarFunciones(); //es una funcion que carga los comando de manera manual en memoria volatil/electronica
+  ^
+../consola.c: In function ‘cargarFunciones’:
+../consola.c:135:2: error: ‘listaComandos’ undeclared (first use in this function)
+  listaComandos[1].comandos = "formatear";
+  ^
+../consola.c:135:2: note: each undeclared identifier is reported only once for each function it appears in
+../consola.c: In function ‘buscarFunciones’:
+../consola.c:177:17: error: ‘listaComandos’ undeclared (first use in this function)
+   r = strcmp(a, listaComandos[cont].comandos);
+                 ^
+../consola.c: At top level:
+../consola.c:188:6: warning: conflicting types for ‘mostrarFunciones’ [enabled by default]
+ void mostrarFunciones() { //va mostrando todas las funciones cargadas
+      ^
+../consola.c:126:3: note: previous implicit declaration of ‘mostrarFunciones’ was here
+   mostrarFunciones();
+   ^
+../consola.c: In function ‘mostrarFunciones’:
+../consola.c:193:28: error: ‘listaComandos’ undeclared (first use in this function)
+   printf("COMANDO = %s\n", listaComandos[cont2].comandos);
+                            ^
+make: *** [consola.o] Error 1
+00:08:11 **** Incremental Build of configuration Debug for project filesystem ****
+make all 
+Building file: ../consola.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"consola.d" -MT"consola.d" -o "consola.o" "../consola.c"
+../consola.c: In function ‘levantaConsola’:
+../consola.c:25:2: warning: implicit declaration of function ‘cargarFunciones’ [-Wimplicit-function-declaration]
+  cargarFunciones(); //es una funcion que carga los comando de manera manual en memoria volatil/electronica
+  ^
+../consola.c:36:3: warning: implicit declaration of function ‘buscarFunciones’ [-Wimplicit-function-declaration]
+   indiceComando = buscarFunciones(funcion); //busca la funcion
+   ^
+../consola.c:38:3: warning: implicit declaration of function ‘aplicarFunciones’ [-Wimplicit-function-declaration]
+   aplicarFunciones(indiceComando, dir); //aplica el comando encontrado
+   ^
+../consola.c: At top level:
+../consola.c:49:6: warning: conflicting types for ‘aplicarFunciones’ [enabled by default]
+ void aplicarFunciones(int a, char* d) { //selecciona un case en base al numero que llevaba el contador y aplica la funcion recibe el dir
+      ^
+../consola.c:38:3: note: previous implicit declaration of ‘aplicarFunciones’ was here
+   aplicarFunciones(indiceComando, dir); //aplica el comando encontrado
+   ^
+../consola.c: In function ‘aplicarFunciones’:
+../consola.c:132:3: warning: implicit declaration of function ‘mostrarFunciones’ [-Wimplicit-function-declaration]
+   mostrarFunciones();
+   ^
+../consola.c: At top level:
+../consola.c:140:6: warning: conflicting types for ‘cargarFunciones’ [enabled by default]
+ void cargarFunciones(void) { //deben cargarse las funciones respetando los numeros del case
+      ^
+../consola.c:25:2: note: previous implicit declaration of ‘cargarFunciones’ was here
+  cargarFunciones(); //es una funcion que carga los comando de manera manual en memoria volatil/electronica
+  ^
+../consola.c:194:6: warning: conflicting types for ‘mostrarFunciones’ [enabled by default]
+ void mostrarFunciones() { //va mostrando todas las funciones cargadas
+      ^
+../consola.c:132:3: note: previous implicit declaration of ‘mostrarFunciones’ was here
+   mostrarFunciones();
+   ^
+Finished building: ../consola.c
+ 
+Building target: filesystem
+Invoking: GCC C Linker
+gcc  -o "filesystem"  ./consola/consola.o  ./consola.o ./main.o   
+./consola.o: En la función `levantaConsola':
+/home/utnso/TPOperativos/filesystem/Debug/../consola.c:19: definiciones múltiples de `levantaConsola'
+./consola/consola.o:/home/utnso/TPOperativos/filesystem/Debug/../consola/consola.c:13: primero se definió aquí
+./consola.o: En la función `cargarFunciones':
+/home/utnso/TPOperativos/filesystem/Debug/../consola.c:140: definiciones múltiples de `cargarFunciones'
+./consola/consola.o:/home/utnso/TPOperativos/filesystem/Debug/../consola/consola.c:130: primero se definió aquí
+./consola.o: En la función `buscarFunciones':
+/home/utnso/TPOperativos/filesystem/Debug/../consola.c:178: definiciones múltiples de `buscarFunciones'
+./consola/consola.o:/home/utnso/TPOperativos/filesystem/Debug/../consola/consola.c:168: primero se definió aquí
+./consola.o: En la función `aplicarFunciones':
+/home/utnso/TPOperativos/filesystem/Debug/../consola.c:49: definiciones múltiples de `aplicarFunciones'
+./consola/consola.o:/home/utnso/TPOperativos/filesystem/Debug/../consola/consola.c:39: primero se definió aquí
+./consola.o: En la función `mostrarFunciones':
+/home/utnso/TPOperativos/filesystem/Debug/../consola.c:194: definiciones múltiples de `mostrarFunciones'
+./consola/consola.o:/home/utnso/TPOperativos/filesystem/Debug/../consola/consola.c:184: primero se definió aquí
+collect2: error: ld returned 1 exit status
+make: *** [filesystem] Error 1
+00:09:10 **** Incremental Build of configuration Debug for project filesystem ****
+make all 
+Building file: ../main.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"main.d" -MT"main.d" -o "main.o" "../main.c"
+Finished building: ../main.c
+ 
+Building target: filesystem
+Invoking: GCC C Linker
+gcc  -o "filesystem"  ./consola/consola.o  ./consola.o ./main.o   
+./consola.o: En la función `levantaConsola':
+/home/utnso/TPOperativos/filesystem/Debug/../consola.c:19: definiciones múltiples de `levantaConsola'
+./consola/consola.o:/home/utnso/TPOperativos/filesystem/Debug/../consola/consola.c:13: primero se definió aquí
+./consola.o: En la función `cargarFunciones':
+/home/utnso/TPOperativos/filesystem/Debug/../consola.c:140: definiciones múltiples de `cargarFunciones'
+./consola/consola.o:/home/utnso/TPOperativos/filesystem/Debug/../consola/consola.c:130: primero se definió aquí
+./consola.o: En la función `buscarFunciones':
+/home/utnso/TPOperativos/filesystem/Debug/../consola.c:178: definiciones múltiples de `buscarFunciones'
+./consola/consola.o:/home/utnso/TPOperativos/filesystem/Debug/../consola/consola.c:168: primero se definió aquí
+./consola.o: En la función `aplicarFunciones':
+/home/utnso/TPOperativos/filesystem/Debug/../consola.c:49: definiciones múltiples de `aplicarFunciones'
+./consola/consola.o:/home/utnso/TPOperativos/filesystem/Debug/../consola/consola.c:39: primero se definió aquí
+./consola.o: En la función `mostrarFunciones':
+/home/utnso/TPOperativos/filesystem/Debug/../consola.c:194: definiciones múltiples de `mostrarFunciones'
+./consola/consola.o:/home/utnso/TPOperativos/filesystem/Debug/../consola/consola.c:184: primero se definió aquí
+collect2: error: ld returned 1 exit status
+make: *** [filesystem] Error 1
+00:12:05 **** Incremental Build of configuration Debug for project filesystem ****
+make all 
+Building target: filesystem
+Invoking: GCC C Linker
+gcc  -o "filesystem"  ./consola.o ./main.o   
+Finished building target: filesystem
+ 
+00:15:12 **** Clean-only build of configuration Debug for project filesystem ****
+make clean 
+make: *** No hay ninguna regla para construir el objetivo «clean».  Alto.
+00:15:12 **** Build of configuration Debug for project filesystem ****
+make all 
+Building file: ../consola.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"consola.d" -MT"consola.d" -o "consola.o" "../consola.c"
+../consola.c: In function ‘levantaConsola’:
+../consola.c:25:2: warning: implicit declaration of function ‘cargarFunciones’ [-Wimplicit-function-declaration]
+  cargarFunciones(); //es una funcion que carga los comando de manera manual en memoria volatil/electronica
+  ^
+../consola.c:36:3: warning: implicit declaration of function ‘buscarFunciones’ [-Wimplicit-function-declaration]
+   indiceComando = buscarFunciones(funcion); //busca la funcion
+   ^
+../consola.c:38:3: warning: implicit declaration of function ‘aplicarFunciones’ [-Wimplicit-function-declaration]
+   aplicarFunciones(indiceComando, dir); //aplica el comando encontrado
+   ^
+../consola.c: At top level:
+../consola.c:49:6: warning: conflicting types for ‘aplicarFunciones’ [enabled by default]
+ void aplicarFunciones(int a, char* d) { //selecciona un case en base al numero que llevaba el contador y aplica la funcion recibe el dir
+      ^
+../consola.c:38:3: note: previous implicit declaration of ‘aplicarFunciones’ was here
+   aplicarFunciones(indiceComando, dir); //aplica el comando encontrado
+   ^
+../consola.c: In function ‘aplicarFunciones’:
+../consola.c:132:3: warning: implicit declaration of function ‘mostrarFunciones’ [-Wimplicit-function-declaration]
+   mostrarFunciones();
+   ^
+../consola.c: At top level:
+../consola.c:140:6: warning: conflicting types for ‘cargarFunciones’ [enabled by default]
+ void cargarFunciones(void) { //deben cargarse las funciones respetando los numeros del case
+      ^
+../consola.c:25:2: note: previous implicit declaration of ‘cargarFunciones’ was here
+  cargarFunciones(); //es una funcion que carga los comando de manera manual en memoria volatil/electronica
+  ^
+../consola.c:194:6: warning: conflicting types for ‘mostrarFunciones’ [enabled by default]
+ void mostrarFunciones() { //va mostrando todas las funciones cargadas
+      ^
+../consola.c:132:3: note: previous implicit declaration of ‘mostrarFunciones’ was here
+   mostrarFunciones();
+   ^
+Finished building: ../consola.c
+ 
+Building file: ../main.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"main.d" -MT"main.d" -o "main.o" "../main.c"
+Finished building: ../main.c
+ 
+Building target: filesystem
+Invoking: GCC C Linker
+gcc  -o "filesystem"  ./consola.o ./main.o   
+Finished building target: filesystem
+ 
+00:16:53 **** Incremental Build of configuration Debug for project filesystem ****
+make all 
+make: No se hace nada para «all».

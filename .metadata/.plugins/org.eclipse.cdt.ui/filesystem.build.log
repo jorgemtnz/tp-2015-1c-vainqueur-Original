@@ -1,13 +1,6 @@
-20:06:53 **** Incremental Build of configuration Debug for project filesystem ****
+00:16:53 **** Incremental Build of configuration Debug for project filesystem ****
 make all 
-Building file: ../main.c
-Invoking: GCC C Compiler
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"main.d" -MT"main.d" -o "main.o" "../main.c"
-../main.c:4:21: fatal error: consola.h: No existe el archivo o el directorio
- #include "consola.h"
-                     ^
-compilation terminated.
-make: *** [main.o] Error 1
+make: No se hace nada para «all».
 
-20:06:56 Build Finished (took 2s.252ms)
+00:16:53 Build Finished (took 235ms)
 
