@@ -1,7 +1,0 @@
-# pack-refs with: peeled fully-peeled 
-d01c85f1d85462d0c3fdb837dfa3a973c720b79e refs/remotes/origin/gh-pages
-2879625974db1dc825442be5a1f8c46280a177c1 refs/remotes/origin/master
-8d76c4dc30d2f4f3c770832681c2239404774e4a refs/tags/cspec.1.0
-078bfccb568cbad6b95234fec7c0a4aa5b59b4ef refs/tags/cspec.1.1
-396445c217b366fd3a41c33a38e9a8dd75c3f0e5 refs/tags/cspecs.v0.1
-aaf9ed71948efd676b4556e100233209b6dcdb85 refs/tags/cspecs.v0.1.1

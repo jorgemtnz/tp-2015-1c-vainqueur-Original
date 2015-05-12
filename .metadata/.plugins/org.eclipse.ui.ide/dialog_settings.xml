@@ -8,8 +8,8 @@
 		<item value="false" key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID"/>
 		<item value="false" key="WizardProjectsImportPage.STORE_NESTED_PROJECTS"/>
 		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
-			<item value="/home/utnso/TPOperativos/filesystem/consola"/>
 			<item value="/home/utnso/TPOperativos/filesystem"/>
+			<item value="/home/utnso/TPOperativos/filesystem/consola"/>
 			<item value="/home/utnso/TPOperativos/mapeoAMemoria"/>
 			<item value="/home/utnso/Escritorio/compartida/sisoFUSe/sisoputnfrba-2012-1c-noentiendo-64-ddccfca6a331ee852d695ce571488ed0c35094fb/fsc"/>
 		</list>
