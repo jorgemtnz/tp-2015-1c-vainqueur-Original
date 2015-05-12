@@ -1,5 +1,10 @@
-20:35:14 **** Incremental Build of configuration Debug for project filesystem ****
+20:01:52 **** Incremental Build of configuration Debug for project filesystem ****
 make all 
+Building file: ../filesystem.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"filesystem.d" -MT"filesystem.d" -o "filesystem.o" "../filesystem.c"
+Finished building: ../filesystem.c
+ 
 Building file: ../main.c
 Invoking: GCC C Compiler
 gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"main.d" -MT"main.d" -o "main.o" "../main.c"
@@ -7,9 +12,9 @@ Finished building: ../main.c
  
 Building target: filesystem
 Invoking: GCC C Linker
-gcc  -o "filesystem"  ./consola.o ./main.o   
+gcc  -o "filesystem"  ./consola.o ./filesystem.o ./main.o   
 Finished building target: filesystem
  
 
-20:35:17 Build Finished (took 2s.652ms)
+20:01:55 Build Finished (took 2s.780ms)
 

@@ -1,0 +1,47 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <commons/list.h>
+//bloque
+typedef struct bloq {
+	char nombre[25];
+	char nombreDirectorio[25];
+	char nombreArchivo[25];
+	int tamaño;
+	struct bloq* ptrSgt;
+} bloq;
+// Archivo
+typedef struct archiv {
+	char nombre[25];
+	int estado;
+	int tamaño;
+	char directorioPadre[25];
+	bloq listaBloques;
+	struct archiv* ptrSgt;
+} archiv;
+//directorio
+typedef struct direct {
+	char nombre[25];
+	char directorioPadre[25];
+	int index;
+	archiv listaArchivos;
+	struct direct* ptrSgt;
+} direct;
+//nodo
+typedef struct nod {
+	char nombre[25];
+	int estado;
+	int tamaño;
+	bloq listaBloques;
+	struct nod* ptrSgt;
+} nod;
+//fylesystem Estructura principal
+typedef struct fs {
+	int estado;
+	nod listaNodos;
+	direct listaDirectorios;
+} fs;
+// persistencia del estado del filesystem se hará en un archivo
+
+
+
