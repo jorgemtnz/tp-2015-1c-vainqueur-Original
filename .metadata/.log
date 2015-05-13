@@ -1774,3 +1774,6 @@ org.eclipse.core.internal.resources.ResourceException: Resource '/commons/Debug/
 !MESSAGE Resource '/commons/Debug/tests/integration-tests/logger' does not exist.
 !SUBENTRY 1 org.eclipse.core.resources 4 368 2015-05-12 19:33:15.573
 !MESSAGE Resource '/commons/Debug/tests/integration-tests/logger' does not exist.
+
+!ENTRY org.eclipse.cdt.core 1 0 2015-05-12 23:50:03.262
+!MESSAGE Indexed 'commons-library' (0 sources, 0 headers) in 0,001 sec: 0 declarations; 0 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)

@@ -600,3 +600,224 @@ Invoking: GCC C Linker
 gcc  -o "filesystem"  ./consola.o ./filesystem.o ./main.o   
 Finished building target: filesystem
  
+21:16:58 **** Incremental Build of configuration Debug for project filesystem ****
+make all 
+Building file: ../filesystem.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"filesystem.d" -MT"filesystem.d" -o "filesystem.o" "../filesystem.c"
+../filesystem.c:20:6: error: duplicate member ‘estado’
+  int estado;
+      ^
+../filesystem.c:21:6: error: duplicate member ‘tamanio’
+  int tamanio;
+      ^
+make: *** [filesystem.o] Error 1
+21:17:34 **** Incremental Build of configuration Debug for project filesystem ****
+make all 
+Building file: ../consola.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"consola.d" -MT"consola.d" -o "consola.o" "../consola.c"
+../consola.c: In function ‘levantaConsola’:
+../consola.c:25:2: warning: implicit declaration of function ‘cargarFunciones’ [-Wimplicit-function-declaration]
+  cargarFunciones(); //es una funcion que carga los comando de manera manual en memoria volatil/electronica
+  ^
+../consola.c:36:3: warning: implicit declaration of function ‘buscarFunciones’ [-Wimplicit-function-declaration]
+   indiceComando = buscarFunciones(funcion); //busca la funcion
+   ^
+../consola.c:38:3: warning: implicit declaration of function ‘aplicarFunciones’ [-Wimplicit-function-declaration]
+   aplicarFunciones(indiceComando, dir); //aplica el comando encontrado
+   ^
+../consola.c: At top level:
+../consola.c:49:6: warning: conflicting types for ‘aplicarFunciones’ [enabled by default]
+ void aplicarFunciones(int a, char* d) { //selecciona un case en base al numero que llevaba el contador y aplica la funcion recibe el dir
+      ^
+../consola.c:38:3: note: previous implicit declaration of ‘aplicarFunciones’ was here
+   aplicarFunciones(indiceComando, dir); //aplica el comando encontrado
+   ^
+../consola.c: In function ‘aplicarFunciones’:
+../consola.c:132:3: warning: implicit declaration of function ‘mostrarFunciones’ [-Wimplicit-function-declaration]
+   mostrarFunciones();
+   ^
+../consola.c: At top level:
+../consola.c:140:6: warning: conflicting types for ‘cargarFunciones’ [enabled by default]
+ void cargarFunciones(void) { //deben cargarse las funciones respetando los numeros del case
+      ^
+../consola.c:25:2: note: previous implicit declaration of ‘cargarFunciones’ was here
+  cargarFunciones(); //es una funcion que carga los comando de manera manual en memoria volatil/electronica
+  ^
+../consola.c:194:6: warning: conflicting types for ‘mostrarFunciones’ [enabled by default]
+ void mostrarFunciones() { //va mostrando todas las funciones cargadas
+      ^
+../consola.c:132:3: note: previous implicit declaration of ‘mostrarFunciones’ was here
+   mostrarFunciones();
+   ^
+Finished building: ../consola.c
+ 
+Building file: ../filesystem.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"filesystem.d" -MT"filesystem.d" -o "filesystem.o" "../filesystem.c"
+../filesystem.c:20:6: error: duplicate member ‘tamanio’
+  int tamanio;
+      ^
+make: *** [filesystem.o] Error 1
+21:18:35 **** Incremental Build of configuration Debug for project filesystem ****
+make all 
+Building file: ../filesystem.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"filesystem.d" -MT"filesystem.d" -o "filesystem.o" "../filesystem.c"
+Finished building: ../filesystem.c
+ 
+Building target: filesystem
+Invoking: GCC C Linker
+gcc  -o "filesystem"  ./consola.o ./filesystem.o ./main.o   
+Finished building target: filesystem
+ 
+23:55:58 **** Build of configuration Debug for project commons-library ****
+make all 
+Building file: ../src/commons/collections/dictionary.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -fPIC -MMD -MP -MF"src/commons/collections/dictionary.d" -MT"src/commons/collections/dictionary.d" -o "src/commons/collections/dictionary.o" "../src/commons/collections/dictionary.c"
+Finished building: ../src/commons/collections/dictionary.c
+ 
+Building file: ../src/commons/collections/list.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -fPIC -MMD -MP -MF"src/commons/collections/list.d" -MT"src/commons/collections/list.d" -o "src/commons/collections/list.o" "../src/commons/collections/list.c"
+Finished building: ../src/commons/collections/list.c
+ 
+Building file: ../src/commons/collections/queue.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -fPIC -MMD -MP -MF"src/commons/collections/queue.d" -MT"src/commons/collections/queue.d" -o "src/commons/collections/queue.o" "../src/commons/collections/queue.c"
+Finished building: ../src/commons/collections/queue.c
+ 
+Building file: ../src/commons/bitarray.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -fPIC -MMD -MP -MF"src/commons/bitarray.d" -MT"src/commons/bitarray.d" -o "src/commons/bitarray.o" "../src/commons/bitarray.c"
+Finished building: ../src/commons/bitarray.c
+ 
+Building file: ../src/commons/config.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -fPIC -MMD -MP -MF"src/commons/config.d" -MT"src/commons/config.d" -o "src/commons/config.o" "../src/commons/config.c"
+Finished building: ../src/commons/config.c
+ 
+Building file: ../src/commons/error.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -fPIC -MMD -MP -MF"src/commons/error.d" -MT"src/commons/error.d" -o "src/commons/error.o" "../src/commons/error.c"
+Finished building: ../src/commons/error.c
+ 
+Building file: ../src/commons/log.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -fPIC -MMD -MP -MF"src/commons/log.d" -MT"src/commons/log.d" -o "src/commons/log.o" "../src/commons/log.c"
+Finished building: ../src/commons/log.c
+ 
+Building file: ../src/commons/process.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -fPIC -MMD -MP -MF"src/commons/process.d" -MT"src/commons/process.d" -o "src/commons/process.o" "../src/commons/process.c"
+Finished building: ../src/commons/process.c
+ 
+Building file: ../src/commons/string.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -fPIC -MMD -MP -MF"src/commons/string.d" -MT"src/commons/string.d" -o "src/commons/string.o" "../src/commons/string.c"
+Finished building: ../src/commons/string.c
+ 
+Building file: ../src/commons/temporal.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -fPIC -MMD -MP -MF"src/commons/temporal.d" -MT"src/commons/temporal.d" -o "src/commons/temporal.o" "../src/commons/temporal.c"
+Finished building: ../src/commons/temporal.c
+ 
+Building file: ../src/commons/txt.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -fPIC -MMD -MP -MF"src/commons/txt.d" -MT"src/commons/txt.d" -o "src/commons/txt.o" "../src/commons/txt.c"
+Finished building: ../src/commons/txt.c
+ 
+Building target: libcommons-library.so
+Invoking: GCC C Linker
+gcc -shared -o "libcommons-library.so"  ./src/commons/collections/dictionary.o ./src/commons/collections/list.o ./src/commons/collections/queue.o  ./src/commons/bitarray.o ./src/commons/config.o ./src/commons/error.o ./src/commons/log.o ./src/commons/process.o ./src/commons/string.o ./src/commons/temporal.o ./src/commons/txt.o   
+Finished building target: libcommons-library.so
+ 
+23:59:54 **** Incremental Build of configuration Debug for project commons-library ****
+make all 
+make: No se hace nada para «all».
+23:59:54 **** Incremental Build of configuration Debug for project filesystem ****
+make all 
+Building file: ../consola.c
+Invoking: GCC C Compiler
+gcc -I"/home/utnso/TPOperativos/commons-library" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"consola.d" -MT"consola.d" -o "consola.o" "../consola.c"
+../consola.c: In function ‘levantaConsola’:
+../consola.c:25:2: warning: implicit declaration of function ‘cargarFunciones’ [-Wimplicit-function-declaration]
+  cargarFunciones(); //es una funcion que carga los comando de manera manual en memoria volatil/electronica
+  ^
+../consola.c:36:3: warning: implicit declaration of function ‘buscarFunciones’ [-Wimplicit-function-declaration]
+   indiceComando = buscarFunciones(funcion); //busca la funcion
+   ^
+../consola.c:38:3: warning: implicit declaration of function ‘aplicarFunciones’ [-Wimplicit-function-declaration]
+   aplicarFunciones(indiceComando, dir); //aplica el comando encontrado
+   ^
+../consola.c: At top level:
+../consola.c:49:6: warning: conflicting types for ‘aplicarFunciones’ [enabled by default]
+ void aplicarFunciones(int a, char* d) { //selecciona un case en base al numero que llevaba el contador y aplica la funcion recibe el dir
+      ^
+../consola.c:38:3: note: previous implicit declaration of ‘aplicarFunciones’ was here
+   aplicarFunciones(indiceComando, dir); //aplica el comando encontrado
+   ^
+../consola.c: In function ‘aplicarFunciones’:
+../consola.c:132:3: warning: implicit declaration of function ‘mostrarFunciones’ [-Wimplicit-function-declaration]
+   mostrarFunciones();
+   ^
+../consola.c: At top level:
+../consola.c:140:6: warning: conflicting types for ‘cargarFunciones’ [enabled by default]
+ void cargarFunciones(void) { //deben cargarse las funciones respetando los numeros del case
+      ^
+../consola.c:25:2: note: previous implicit declaration of ‘cargarFunciones’ was here
+  cargarFunciones(); //es una funcion que carga los comando de manera manual en memoria volatil/electronica
+  ^
+../consola.c:194:6: warning: conflicting types for ‘mostrarFunciones’ [enabled by default]
+ void mostrarFunciones() { //va mostrando todas las funciones cargadas
+      ^
+../consola.c:132:3: note: previous implicit declaration of ‘mostrarFunciones’ was here
+   mostrarFunciones();
+   ^
+Finished building: ../consola.c
+ 
+Building file: ../filesystem.c
+Invoking: GCC C Compiler
+gcc -I"/home/utnso/TPOperativos/commons-library" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"filesystem.d" -MT"filesystem.d" -o "filesystem.o" "../filesystem.c"
+../filesystem.c:4:36: fatal error: commons-library/config.h: No existe el archivo o el directorio
+ #include <commons-library/config.h>
+                                    ^
+compilation terminated.
+make: *** [filesystem.o] Error 1
+00:00:11 **** Incremental Build of configuration Debug for project commons-library ****
+make all 
+make: No se hace nada para «all».
+00:00:11 **** Incremental Build of configuration Debug for project filesystem ****
+make all 
+Building file: ../filesystem.c
+Invoking: GCC C Compiler
+gcc -I"/home/utnso/TPOperativos/commons-library" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"filesystem.d" -MT"filesystem.d" -o "filesystem.o" "../filesystem.c"
+Finished building: ../filesystem.c
+ 
+Building file: ../main.c
+Invoking: GCC C Compiler
+gcc -I"/home/utnso/TPOperativos/commons-library" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"main.d" -MT"main.d" -o "main.o" "../main.c"
+Finished building: ../main.c
+ 
+Building target: filesystem
+Invoking: GCC C Linker
+gcc -L"/home/utnso/TPOperativos/commons-library/Debug" -o "filesystem"  ./consola.o ./filesystem.o ./main.o   -lcommons-library
+Finished building target: filesystem
+ 
+00:01:17 **** Incremental Build of configuration Debug for project commons-library ****
+make all 
+make: No se hace nada para «all».
+00:01:18 **** Incremental Build of configuration Debug for project filesystem ****
+make all 
+Building file: ../filesystem.c
+Invoking: GCC C Compiler
+gcc -I"/home/utnso/TPOperativos/commons-library" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"filesystem.d" -MT"filesystem.d" -o "filesystem.o" "../filesystem.c"
+Finished building: ../filesystem.c
+ 
+Building target: filesystem
+Invoking: GCC C Linker
+gcc -L"/home/utnso/TPOperativos/commons-library/Debug" -o "filesystem"  ./consola.o ./filesystem.o ./main.o   -lcommons-library
+Finished building target: filesystem
+ 

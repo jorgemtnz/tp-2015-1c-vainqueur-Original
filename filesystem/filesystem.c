@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <commons/collections/list.h>
 
 //bloque
 typedef struct bloq {
@@ -17,8 +18,6 @@ typedef struct archiv {
 	char nombre[25];
 	char directorioPadre[25];
 	bloq listaBloques;
-	int estado;
-	int tamanio;
 	struct archiv* ptrSgt;
 } archiv;
 //directorio
