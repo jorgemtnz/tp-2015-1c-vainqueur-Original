@@ -15,12 +15,7 @@ void crearArchivo(char* nombreArchivo)
 			{
 				letra ='a';
 			}
-			/*
-			 else if (letra <'A' && letra > '>')
-			{
-				letra = ' ';
-			}
-			*/
+
 			fwrite(&letra , sizeof(letra),sizeof(letra),archivo);
 		}
 		printf("Creado Renglon %d \n",a+1);

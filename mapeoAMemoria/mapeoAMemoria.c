@@ -27,7 +27,6 @@ int abreArchivo(char* dirArchivo) {
 
 char* mapeaAMemoria(int tamanio, int mapper, char* ptrDirArchivo) {
 	char* ptrMapeo;
-
 	if ((ptrMapeo = mmap( NULL, tamanio, PROT_READ, MAP_SHARED, mapper, 0))
 			== MAP_FAILED) {
 		//Si no se pudo ejecutar el MMAP, imprimir el error y abortar;
