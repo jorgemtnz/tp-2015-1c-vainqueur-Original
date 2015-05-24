@@ -1,6 +1,6 @@
-00:01:17 **** Incremental Build of configuration Debug for project commons-library ****
+17:33:51 **** Incremental Build of configuration Debug for project commons-library ****
 make all 
 make: No se hace nada para «all».
 
-00:01:18 Build Finished (took 588ms)
+17:33:51 Build Finished (took 291ms)
 

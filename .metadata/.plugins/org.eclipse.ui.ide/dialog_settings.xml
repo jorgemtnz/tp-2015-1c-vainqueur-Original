@@ -8,14 +8,22 @@
 		<item value="false" key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID"/>
 		<item value="false" key="WizardProjectsImportPage.STORE_NESTED_PROJECTS"/>
 		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="/home/utnso/TPOperativos/Redireccion IO"/>
+			<item value="/home/utnso/TPOperativos/commons"/>
 			<item value="/home/utnso/TPOperativos/filesystem"/>
 			<item value="/home/utnso/TPOperativos/filesystem/consola"/>
 			<item value="/home/utnso/TPOperativos/mapeoAMemoria"/>
-			<item value="/home/utnso/Escritorio/compartida/sisoFUSe/sisoputnfrba-2012-1c-noentiendo-64-ddccfca6a331ee852d695ce571488ed0c35094fb/fsc"/>
 		</list>
 		<list key="WizardProjectsImportPage.STORE_ARCHIVES">
 			<item value=""/>
 		</list>
+	</section>
+	<section name="TaskPropertiesDialogSettings">
+		<item value="828" key="DIALOG_WIDTH"/>
+		<item value="110" key="DIALOG_Y_ORIGIN"/>
+		<item value="270" key="DIALOG_X_ORIGIN"/>
+		<item value="318" key="DIALOG_HEIGHT"/>
+		<item value="1|Ubuntu|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="NewWizardAction">
 	</section>
