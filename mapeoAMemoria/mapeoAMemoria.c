@@ -8,7 +8,7 @@
 #include <errno.h>
 
 // recibe un puntero a la ruta del archivo, un puntero al comienzo de la memoria mapeada, un puntero al tamaño de la pagina
-// esto es asi porque necesitamos luego desmapear la memoria y para ello necesitamos el tamaño de pagina y el puntero.
+// esto es asi porque necesitamos luego desmapear la memoria y para ello necesitamos el tamaño de pagina y el puntero
 void mapeoAmemoria(char* dirArchivo, char* ptrmapeo, int* ptrtamanio) {
 	int archivo;
 	int tamanio;

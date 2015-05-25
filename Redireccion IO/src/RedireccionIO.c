@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <unistd.h>
+#include "../home/utnso/TpOperativos/mapeoAMemoria/mapeoAMemoria.h"
 
 #define NUMERO_PIPES 2
 #define PIPE_LECTURA_PADRE 0
@@ -17,21 +18,37 @@
 
 int pipes[NUMERO_PIPES][2];
 
-int main(int argc, char *argv[]) {
+//void ejecutarRedireccionandoIO (entrada,salida,funcion);
+
+int main( entrada, salida, funcion) {
+	//Definido para el mapeo
+	char* comienzoMemoriaMapeada;
+	int * tamanioPagina;
 	//Inicializacion pipes de lectura y escritura
 	pipe(pipes[PIPE_ESCRITURA_PADRE]);
 	pipe(pipes[PIPE_LECTURA_PADRE]);
-
+	mapeoAmemoria("ArchivoPrueba.txt", comienzoMemoriaMapeada, tamanioPagina);
 	if (fork() == 0) {
 		//Proceso Hijo
 		/*Asigno el proceso "bc" a argv, bc permite hacer cuentas y demas
 		 * , lo inicializo con el argumento -q asi no muestra mensaje de bienvenida
-		 	y le paso una cuenta por pipe desde el padre por entrada standar
+		 y le paso una cuenta por pipe desde el padre por entrada standar
 		 */
-		char *argv[] = { "/usr/bin/bc","-q",  0 };
-		//Redirijo los fd a los fd standar
-		dup2(HIJO_LECTURA_FD, STDIN_FILENO);
+		char *argv[] = { "/usr/bin/bc", "-q", 0 };
+		//Duplico el fd de lectura del hijo al fd de la entrada standar
+		if (dup2(HIJO_LECTURA_FD, STDIN_FILENO) == -1) {
+			perror(
+					"[ERROR] Funcion DUP2: No se pudo duplicar el File Descriptor para la entrada\n");
+			exit(-1);
+		}
+		//Duplico el fd de escritura del hijo al fd de la salida standar
 		dup2(HIJO_ESCRITURA_FD, STDOUT_FILENO);
+		if (dup2(HIJO_LECTURA_FD, STDIN_FILENO) == -1) {
+			perror(
+					"[ERROR] Funcion DUP2: No se pudo duplicar el File Descriptor para la salida\n");
+			exit(-1);
+		}
+
 		//Cierro los pipes que no se van a usar
 
 		close(PADRE_LECTURA_FD);
