@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <unistd.h>
-#include "../home/utnso/TpOperativos/mapeoAMemoria/mapeoAMemoria.h"
+#include "/home/utnso/TpOperativos/mapeoAMemoria/mapeoAMemoria.h"
 
 #define NUMERO_PIPES 2
 #define PIPE_LECTURA_PADRE 0
@@ -22,12 +22,12 @@ int pipes[NUMERO_PIPES][2];
 
 int main( entrada, salida, funcion) {
 	//Definido para el mapeo
-	char* comienzoMemoriaMapeada;
-	int * tamanioPagina;
+	char* ptrComienzoMemoriaMapeada;
+	int * ptrTamanioPagina;
 	//Inicializacion pipes de lectura y escritura
 	pipe(pipes[PIPE_ESCRITURA_PADRE]);
 	pipe(pipes[PIPE_LECTURA_PADRE]);
-	mapeoAmemoria("ArchivoPrueba.txt", comienzoMemoriaMapeada, tamanioPagina);
+	mapeoAmemoria("ArchivoPrueba.txt", ptrComienzoMemoriaMapeada, ptrTamanioPagina);
 	if (fork() == 0) {
 		//Proceso Hijo
 		/*Asigno el proceso "bc" a argv, bc permite hacer cuentas y demas
