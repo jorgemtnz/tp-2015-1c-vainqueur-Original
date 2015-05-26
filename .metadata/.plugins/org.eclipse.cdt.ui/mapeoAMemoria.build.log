@@ -1,29 +1,6 @@
-17:33:51 **** Incremental Build of configuration Debug for project mapeoAMemoria ****
+22:16:57 **** Incremental Build of configuration Debug for project mapeoAMemoria ****
 make all 
-Building file: ../CrearArchivo/crearArchivo.c
-Invoking: GCC C Compiler
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"CrearArchivo/crearArchivo.d" -MT"CrearArchivo/crearArchivo.d" -o "CrearArchivo/crearArchivo.o" "../CrearArchivo/crearArchivo.c"
-../CrearArchivo/crearArchivo.c: In function ‘crearArchivo’:
-../CrearArchivo/crearArchivo.c:13:4: warning: implicit declaration of function ‘rand’ [-Wimplicit-function-declaration]
-    letra = rand() % 'z';
-    ^
-Finished building: ../CrearArchivo/crearArchivo.c
- 
-Building file: ../main.c
-Invoking: GCC C Compiler
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"main.d" -MT"main.d" -o "main.o" "../main.c"
-Finished building: ../main.c
- 
-Building file: ../mapeoAMemoria.c
-Invoking: GCC C Compiler
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"mapeoAMemoria.d" -MT"mapeoAMemoria.d" -o "mapeoAMemoria.o" "../mapeoAMemoria.c"
-Finished building: ../mapeoAMemoria.c
- 
-Building target: mapeoAMemoria
-Invoking: GCC C Linker
-gcc  -o "mapeoAMemoria"  ./CrearArchivo/crearArchivo.o  ./main.o ./mapeo.o ./mapeoAMemoria.o   
-Finished building target: mapeoAMemoria
- 
+make: No se hace nada para «all».
 
-17:33:55 Build Finished (took 3s.234ms)
+22:16:57 Build Finished (took 404ms)
 
