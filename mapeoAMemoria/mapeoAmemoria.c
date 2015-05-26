@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
@@ -10,7 +9,6 @@
 
 // recibe un puntero a la ruta del archivo, un puntero al comienzo de la memoria mapeada, un puntero al tamaño de la pagina
 // esto es asi porque necesitamos luego desmapear la memoria y para ello necesitamos el tamaño de pagina y el puntero
-
 
 int tamanio_archivo(int fd) {
 	struct stat buf;
@@ -44,23 +42,15 @@ char* mapeaAMemoria(int tamanio, int fdArchivo, char* ptrDirArchivo) {
 
 }
 void imprimeMapeo(int tamanio, char* mapeo) {
-//for (int i=0; i< 2; i ++ ){
-
 	printf("Tamaño del archivo: %d\nContenido:'%s'\n", tamanio, mapeo);
-//}
-
 }
 
 void desMapea(int tamanio, char* mapeo) {
 	munmap(mapeo, tamanio);
-
 }
 
-void cierraArchivo(int ptrArchivo)
-
-{
-	close(ptrArchivo);
-
+void cierraArchivo(int fdArchivo) {
+	close(fdArchivo);
 }
 void mapeoAmemoria(char* dirArchivo, char* ptrmapeo, int* ptrtamanio) {
 	int archivo;
@@ -75,8 +65,7 @@ void mapeoAmemoria(char* dirArchivo, char* ptrmapeo, int* ptrtamanio) {
 
 }
 
-int  main()
-{
-return 0;
+int main() {
+	return 0;
 }
 
