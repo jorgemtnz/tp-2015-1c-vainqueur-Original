@@ -74,7 +74,9 @@ void mapeoAmemoria(char* dirArchivo, char* ptrmapeo, int* ptrtamanio) {
 	ptrmapeo = mapeo;
 
 }
-int  main()
-{ return 0;
 
+int  main()
+{
+return 0;
 }
+
