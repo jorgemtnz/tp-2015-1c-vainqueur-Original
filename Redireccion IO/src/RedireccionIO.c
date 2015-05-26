@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <fcntl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 //#include "../home/utnso/TpOperativos/mapeoAMemoria/mapeoAMemoria.h"
 
 #define NUMERO_PIPES 2
@@ -23,9 +26,8 @@ int pipes[NUMERO_PIPES][NUMERO_CANALES];
 //void ejecutarRedireccionandoIO (entrada,salida,funcion);
 
 int main() {
-	//Definido para el mapeo
-	//char* ptrComienzoMemoriaMapeada;
-	//int * ptrTamanioPagina;
+	int fdArchivoSalida,fdArchivoEntrada;
+
 	//Inicializacion pipes de lectura y escritura
 	pipe(pipes[ESCRITURA_PADRE]);
 	pipe(pipes[LECTURA_PADRE]);
@@ -37,16 +39,18 @@ int main() {
 		 * , lo inicializo con el argumento -q asi no muestra mensaje de bienvenida
 		 y le paso una cuenta por pipe desde el padre por entrada standar
 		 */
+		fdArchivoSalida = open("/tmp/Salida.txt", O_RDWR  | O_CREAT);
+		fdArchivoEntrada = open("Entrada.txt", O_RDONLY);
 		char *argv[] = { "/usr/bin/bc", "-q", 0 };
 		//Duplico el fd de lectura del hijo al fd de la entrada standar
-		if (dup2(CANAL_LECTURA_HIJO, STDIN_FILENO) == -1) {
+		if (dup2(fdArchivoEntrada, STDIN_FILENO) == -1) {
 			perror(
 					"[ERROR] Funcion DUP2: No se pudo duplicar el File Descriptor para la entrada\n");
 			exit(-1);
 		}
 		//Duplico el fd de escritura del hijo al fd de la salida standar
 
-		if (dup2(CANAL_ESCRITURA_HIJO, STDOUT_FILENO) == -1) {
+		if (dup2(fdArchivoSalida, STDOUT_FILENO) == -1) {
 			perror(
 					"[ERROR] Funcion DUP2: No se pudo duplicar el File Descriptor para la salida\n");
 			exit(-1);
@@ -63,25 +67,22 @@ int main() {
 		execv(argv[0], argv);
 
 	} else {
-		//Proceso Padre
-		char buffer[100];
-		int contador = 0;
 
 		/* Cierro los pipes que le hijo no va a usar */
 		close(CANAL_ESCRITURA_HIJO);
 		close(CANAL_LECTURA_HIJO);
 
 		// Escribo a la entrada del hijo
-		write(CANAL_ESCRITURA_PADRE, "3000 * 8\n", 9);
+		//write(CANAL_ESCRITURA_PADRE, "3000 * 8\n", 9);
 
 		// Leo de la salida standar del hijo
-		contador = read(CANAL_LECTURA_PADRE, buffer, sizeof(buffer) - 1);
+		/*contador = read(CANAL_LECTURA_PADRE, buffer, sizeof(buffer) - 1);
 		if (contador >= 0) {
 			buffer[contador] = 0;
 			printf("%s", buffer);
 		} else {
 			printf("Error I/O\n");
-		}
+		}*/
 	}
 	return 0;
 }
