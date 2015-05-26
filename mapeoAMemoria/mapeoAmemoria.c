@@ -17,51 +17,52 @@ int tamanio_archivo(int fd) {
 }
 
 int abreArchivo(char* dirArchivo) {
-	int mapper;
-
-	if ((mapper = open(dirArchivo, O_RDONLY)) == -1) {
+	int fd;
+	if ((fd = open(dirArchivo, O_RDONLY)) == -1) {
 		//Si no se pudo abrir, imprimir el error y abortar;
-		fprintf(stderr, "Error al abrir el archivo '%s': %s\n", dirArchivo,
-				strerror(errno));
-		abort();
+		perror("[ERROR] Funcion OPEN: Error al abrir el archivo \n");
+		exit(-1);
 	}
-	return mapper;
+	return fd;
 }
 
 char* mapeaAMemoria(int tamanio, int fdArchivo, char* ptrDirArchivo) {
 	char* ptrMapeo;
 	if ((ptrMapeo = mmap( NULL, tamanio, PROT_READ, MAP_SHARED, fdArchivo, 0))
 			== MAP_FAILED) {
-		//Si no se pudo ejecutar el MMAP, imprimir el error y abortar;
-		fprintf(stderr,
-				"Error al ejecutar MMAP del archivo '%s' de tamaño: %d: %s\n",
-				ptrDirArchivo, tamanio, strerror(errno));
-		abort();
+		perror("[ERROR] Funcion MMAP: Error al mapear el archivo\n");
+		exit(-1);
 	}
 	return ptrMapeo;
 }
 
-void imprimeMapeo(int tamanio, char* mapeo) {
-	printf("Tamaño del archivo: %d\nContenido:'%s'\n", tamanio, mapeo);
+void imprimeMapeo(int tamanio, char* ptrAMapeo) {
+	printf("Tamaño del archivo: %d\nContenido:'%s'\n", tamanio, ptrAMapeo);
 }
 
-void desMapea(int tamanio, char* mapeo) {
-	munmap(mapeo, tamanio);
+void desMapea(int tamanio, char* ptrAMapeo) {
+	if (munmap(ptrAMapeo, tamanio) == -1) {
+		perror("[ERROR] Funcion MUNMAP: Error al desmapear memoria\n");
+		exit(-1);
+	}
 }
 
 void cierraArchivo(int fdArchivo) {
-	close(fdArchivo);
+	if (close(fdArchivo) == -1) {
+		perror("[ERROR] Funcion CLOSE: Error al cerrar el archivo\n");
+		exit(-1);
+	}
 }
 
 void mapeoAmemoria(char* dirArchivo, char* ptrmapeo, int* ptrtamanio) {
 	int archivo;
 	int tamanio;
-	char* mapeo;
+	char* ptrAMapeo;
 	archivo = abreArchivo(dirArchivo);
 	tamanio = tamanio_archivo(archivo);
-	mapeo = mapeaAMemoria(tamanio, archivo, dirArchivo);
+	ptrAMapeo = mapeaAMemoria(tamanio, archivo, dirArchivo);
 	cierraArchivo(archivo);
 	*ptrtamanio = tamanio;
-	ptrmapeo = mapeo;
+	ptrmapeo = ptrAMapeo;
 }
 

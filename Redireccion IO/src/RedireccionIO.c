@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 //#include "../home/utnso/TpOperativos/mapeoAMemoria/mapeoAMemoria.h"
 
@@ -82,4 +83,5 @@ int main() {
 			printf("Error I/O\n");
 		}
 	}
+	return 0;
 }
