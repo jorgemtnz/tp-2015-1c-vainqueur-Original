@@ -39,8 +39,8 @@ char* mapeaAMemoria(int tamanio, int fdArchivo, char* ptrDirArchivo) {
 		abort();
 	}
 	return ptrMapeo;
-
 }
+
 void imprimeMapeo(int tamanio, char* mapeo) {
 	printf("Tamaño del archivo: %d\nContenido:'%s'\n", tamanio, mapeo);
 }
@@ -52,6 +52,7 @@ void desMapea(int tamanio, char* mapeo) {
 void cierraArchivo(int fdArchivo) {
 	close(fdArchivo);
 }
+
 void mapeoAmemoria(char* dirArchivo, char* ptrmapeo, int* ptrtamanio) {
 	int archivo;
 	int tamanio;
@@ -62,10 +63,5 @@ void mapeoAmemoria(char* dirArchivo, char* ptrmapeo, int* ptrtamanio) {
 	cierraArchivo(archivo);
 	*ptrtamanio = tamanio;
 	ptrmapeo = mapeo;
-
-}
-
-int main() {
-	return 0;
 }
 

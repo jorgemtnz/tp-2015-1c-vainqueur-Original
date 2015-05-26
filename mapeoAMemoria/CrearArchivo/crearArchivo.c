@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 void crearArchivo(char* nombreArchivo)
 {
@@ -21,10 +22,5 @@ void crearArchivo(char* nombreArchivo)
 		printf("Creado Renglon %d \n",a+1);
 	}
 	fclose(archivo);
-}
-
-int uno()
-{
-	return 1;
 }
 
