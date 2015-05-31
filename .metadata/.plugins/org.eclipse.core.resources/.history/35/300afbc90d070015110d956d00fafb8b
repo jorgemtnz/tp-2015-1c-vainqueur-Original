@@ -5,7 +5,6 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include "RedireccionIO.h"
-#include <commons/collections/list.h>
 
 int main()
 {
