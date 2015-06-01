@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "funciones.h"
+#include "../src/funciones.h"
 #define MAXSTRING 1024
 
 int main() {

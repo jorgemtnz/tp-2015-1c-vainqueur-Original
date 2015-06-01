@@ -15,16 +15,18 @@
 
 
 int  do_socket(){
-	int c = socket(AF_INET, SOCK_STREAM, 0);
-	if(c == -1){
+	// Usado por servidor y por cliente
+	int fileDescriptor = socket(AF_INET, SOCK_STREAM, 0);
+	if(fileDescriptor == -1){
 		perror("[ERROR] Funcion socket\n");
 		exit(-1);
 	}
 	printf("[OK] Funcion SOCKET: Descriptor creado \n");
-	return c;
+	return fileDescriptor;
 }
 
 void do_bind_to_port(int sockfd, int puerto){
+	// Usado por el Servidor
 	struct sockaddr_in miDireccion;
 	// Seteamos los valores a la estructura miDireccion
 	miDireccion.sin_family      = AF_INET;
@@ -34,15 +36,15 @@ void do_bind_to_port(int sockfd, int puerto){
 
 	// Resolvemos el ADDRES already in use
 	int reuse = 1;
-
 	    if(setsockopt(sockfd,SOL_SOCKET, SO_REUSEADDR, (char*)&reuse, sizeof(int)) == -1){
 	      perror("[ERROR] No es posible reusar el socket\n");
 	      exit(1);
 	    }
-	// Funcion bind
-	int c = bind(sockfd, (struct sockaddr *)&miDireccion, sizeof(struct sockaddr));
 
-	if(c == -1){
+	// Funcion bind
+	int posibleError = bind(sockfd, (struct sockaddr *)&miDireccion, sizeof(struct sockaddr));
+
+	if(posibleError == -1){
 		perror("[ERROR] Funcion BIND: No se pudo asociar con el puerto\n");
 		exit(-1);
 	}
@@ -50,16 +52,17 @@ void do_bind_to_port(int sockfd, int puerto){
 	printf("[OK] Funcion BIND. Vinculada al puerto [ %d ]\n",puerto);
 }
 
-void do_connect(int sockfd,char* DEST_IP, int puerto){
-	struct sockaddr_in servidor;
+void do_connect(int sockfd,char* ip_Destino, int puerto){
+	// Usado por el cliente
+	struct sockaddr_in datosServidor;
 	// Seteo estructura dest_addr
-	servidor.sin_family      = AF_INET;
-	servidor.sin_port        = htons(puerto);
-	servidor.sin_addr.s_addr = inet_addr(DEST_IP);
-	memset(&(servidor.sin_zero), '\0', 8);
+	datosServidor.sin_family      = AF_INET;
+	datosServidor.sin_port        = htons(puerto);
+	datosServidor.sin_addr.s_addr = inet_addr(ip_Destino);
+	memset(&(datosServidor.sin_zero), '\0', 8);
 
-	int c = connect(sockfd, (struct sockaddr *)&servidor, sizeof(struct sockaddr));
-	if(c==-1){
+	int posibleError = connect(sockfd, (struct sockaddr *)&datosServidor, sizeof(struct sockaddr));
+	if(posibleError ==-1){
 		perror("[ERROR] Funcion connect\n");
 		exit(-1);
 	}
@@ -67,16 +70,17 @@ void do_connect(int sockfd,char* DEST_IP, int puerto){
 }
 
 void  do_listen(int sockfd, int conexionesEntrantesPermitidas){
-	int c = listen(sockfd,conexionesEntrantesPermitidas);
-	if(c == -1){
+	// Usado por el Servidor
+	int posibleError = listen(sockfd,conexionesEntrantesPermitidas);
+	if(posibleError == -1){
 		perror("[ERROR] Funcion listen\n");
 		exit(-1);
 	}
 	printf("[OK] Funcion LISTEN. Admite [ %d ] conexiones entrantes\n",conexionesEntrantesPermitidas);
 }
 
-
 int  do_accept(int sockfd){
+	// Usado por el servidor
 	struct sockaddr_storage cliente;
 	unsigned int addres_size = sizeof(cliente);
 
@@ -92,11 +96,12 @@ int  do_accept(int sockfd){
 }
 
 void do_send(int sockfd,const void *msg, int len){
+	// Usado por servidor y cliente
 	int bytes_enviados = send(sockfd, msg, len, 0);
 
 	if(bytes_enviados == -1){
 		perror("[ERROR] Funcion recv\n");
-		exit(1);}
+		exit(-1);           }
 
 	if(bytes_enviados != len){
 		perror("[ERROR] No se envio la cadena entera\n");
@@ -104,6 +109,7 @@ void do_send(int sockfd,const void *msg, int len){
 }
 
 void do_recv(int sockfd, void *buf, int len){
+	// Usado por servidor y cliente
 	int bytes_recibidos = recv(sockfd, buf,len, 0);
 
 	if(bytes_recibidos == -1){
@@ -112,6 +118,7 @@ void do_recv(int sockfd, void *buf, int len){
 }
 
 void do_close(int sockfd){
+	// Usado por servidor y cliente
 	// Esto impedirá más lecturas y escrituras al socket. Cualquiera que intente leer o
 	// escribir sobre el socket en el extremo remoto recibirá un error.
 	close(sockfd);
