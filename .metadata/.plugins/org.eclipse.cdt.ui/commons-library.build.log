@@ -1,65 +1,6 @@
-17:45:11 **** Build of configuration Debug for project commons-library ****
+22:15:48 **** Incremental Build of configuration Debug for project commons-library ****
 make all 
-Building file: ../src/commons/collections/dictionary.c
-Invoking: GCC C Compiler
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -fPIC -MMD -MP -MF"src/commons/collections/dictionary.d" -MT"src/commons/collections/dictionary.d" -o "src/commons/collections/dictionary.o" "../src/commons/collections/dictionary.c"
-Finished building: ../src/commons/collections/dictionary.c
- 
-Building file: ../src/commons/collections/list.c
-Invoking: GCC C Compiler
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -fPIC -MMD -MP -MF"src/commons/collections/list.d" -MT"src/commons/collections/list.d" -o "src/commons/collections/list.o" "../src/commons/collections/list.c"
-Finished building: ../src/commons/collections/list.c
- 
-Building file: ../src/commons/collections/queue.c
-Invoking: GCC C Compiler
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -fPIC -MMD -MP -MF"src/commons/collections/queue.d" -MT"src/commons/collections/queue.d" -o "src/commons/collections/queue.o" "../src/commons/collections/queue.c"
-Finished building: ../src/commons/collections/queue.c
- 
-Building file: ../src/commons/bitarray.c
-Invoking: GCC C Compiler
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -fPIC -MMD -MP -MF"src/commons/bitarray.d" -MT"src/commons/bitarray.d" -o "src/commons/bitarray.o" "../src/commons/bitarray.c"
-Finished building: ../src/commons/bitarray.c
- 
-Building file: ../src/commons/config.c
-Invoking: GCC C Compiler
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -fPIC -MMD -MP -MF"src/commons/config.d" -MT"src/commons/config.d" -o "src/commons/config.o" "../src/commons/config.c"
-Finished building: ../src/commons/config.c
- 
-Building file: ../src/commons/error.c
-Invoking: GCC C Compiler
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -fPIC -MMD -MP -MF"src/commons/error.d" -MT"src/commons/error.d" -o "src/commons/error.o" "../src/commons/error.c"
-Finished building: ../src/commons/error.c
- 
-Building file: ../src/commons/log.c
-Invoking: GCC C Compiler
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -fPIC -MMD -MP -MF"src/commons/log.d" -MT"src/commons/log.d" -o "src/commons/log.o" "../src/commons/log.c"
-Finished building: ../src/commons/log.c
- 
-Building file: ../src/commons/process.c
-Invoking: GCC C Compiler
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -fPIC -MMD -MP -MF"src/commons/process.d" -MT"src/commons/process.d" -o "src/commons/process.o" "../src/commons/process.c"
-Finished building: ../src/commons/process.c
- 
-Building file: ../src/commons/string.c
-Invoking: GCC C Compiler
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -fPIC -MMD -MP -MF"src/commons/string.d" -MT"src/commons/string.d" -o "src/commons/string.o" "../src/commons/string.c"
-Finished building: ../src/commons/string.c
- 
-Building file: ../src/commons/temporal.c
-Invoking: GCC C Compiler
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -fPIC -MMD -MP -MF"src/commons/temporal.d" -MT"src/commons/temporal.d" -o "src/commons/temporal.o" "../src/commons/temporal.c"
-Finished building: ../src/commons/temporal.c
- 
-Building file: ../src/commons/txt.c
-Invoking: GCC C Compiler
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -fPIC -MMD -MP -MF"src/commons/txt.d" -MT"src/commons/txt.d" -o "src/commons/txt.o" "../src/commons/txt.c"
-Finished building: ../src/commons/txt.c
- 
-Building target: libcommons-library.so
-Invoking: GCC C Linker
-gcc -shared -o "libcommons-library.so"  ./src/commons/collections/dictionary.o ./src/commons/collections/list.o ./src/commons/collections/queue.o  ./src/commons/bitarray.o ./src/commons/config.o ./src/commons/error.o ./src/commons/log.o ./src/commons/process.o ./src/commons/string.o ./src/commons/temporal.o ./src/commons/txt.o   
-Finished building target: libcommons-library.so
- 
+make: No se hace nada para «all».
 
-17:45:19 Build Finished (took 8s.374ms)
+22:15:48 Build Finished (took 419ms)
 

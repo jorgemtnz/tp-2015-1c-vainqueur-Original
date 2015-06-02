@@ -19,6 +19,17 @@ typedef struct bloq {
 	struct bloq* ptrSgt;
 } bloq;
 // Archivo
+typedef struct element {
+	char nombre[25];
+	int estado;
+	int index;
+	int tamanio;
+	int directorioPadre;
+	bloq listaBloques; //del archivos
+	int elemento; //1 para directorio, 0 para archivo o documento.
+	nod listaNodos; //lista de nodos donde guardo el bloque
+	struct element* ptrSgt;
+} element;
 
 //nodo
 typedef struct nod {
@@ -29,17 +40,6 @@ typedef struct nod {
 	char* ptrdirEspacioNodo;
 	struct nod* ptrSgt;
 } nod;
-typedef struct element {
-	char nombre[25];
-	int estado;
-	int index;
-	int tamanio;
-	int directorioPadre;
-	bloq listaBloques; //del archivo osea el archivo dividido.
-	int elemento; //1 para directorio, 0 para archivo o documento.
-	nod listaNodos; //lista de nodos donde guardo el bloque
-	struct element* ptrSgt;
-} element;
 //fylesystem Estructura principal
 typedef struct fs {
 	int estado;
