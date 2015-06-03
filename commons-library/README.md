@@ -1,5 +1,7 @@
 Las librerias commons ya están instaladas localmente. Hay que ver cuando otro
  miembro descargue esto. Si las puede usar.
+se debe dar clic derecho en el proyecto que se quiere usar y luego en C/C++ ir a paths & symbols
+y al botón add para agregar las commons.
 
 Problema: instalar las commons descargarlas, no se instalan.
 consecuencia: si se hace un clone de las commons, crea un .git 
