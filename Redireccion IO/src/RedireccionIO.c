@@ -5,13 +5,13 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include "RedireccionIO.h"
-#include <commons/collections/list.h>
+#include <commons/delEquipo/mapeoAMemoria.h>
 
-int main()
-{
+int main() {
 	printf("Ejecutando \n");
-	if(ejecutarScriptRedireccionandoIO("Salida.txt", "Entrada.txt", "/usr/bin/sort","") == 0)
-	{
+
+	if (ejecutarScriptRedireccionandoIO("Salida.txt", "Entrada.txt",
+			"/usr/bin/sort", "") == 0) {
 		printf("Ejecucion correcta \n");
 
 	}
@@ -19,21 +19,20 @@ int main()
 }
 
 int ejecutarScriptRedireccionandoIO(char * dirArchivoSalida,
-		char * dirArchivoEntrada, char * dirScript, char * nombreScript) {
+		char * ptrDireccionMapeo, char * dirScript,
+		char * nombreScript) {
 
-	int fdArchivoSalida, fdArchivoEntrada;
+	int fdArchivoSalida;
 	char *parametrosScript[] = { nombreScript, NULL };
 	//Inicializacion pipes de lectura y escritura
-	/*pipe(pipes[ESCRITURA_PADRE]);
-	 pipe(pipes[LECTURA_PADRE]);*/
+	pipe(pipes[ESCRITURA_PADRE]);
+	//pipe(pipes[LECTURA_PADRE]);
 
 	if (fork() == 0) {
 		//Abro el archivo que voy a usar como salida
 		fdArchivoSalida = open(dirArchivoSalida, O_RDWR | O_CREAT);
-		//Abro el archivo que voy a usar como entrada
-		fdArchivoEntrada = open(dirArchivoEntrada, O_RDONLY);
 		//Duplico el fd de lectura del hijo al fd de la entrada standar
-		if (dup2(fdArchivoEntrada, STDIN_FILENO) == -1) {
+		if (dup2(CANAL_LECTURA_HIJO, STDIN_FILENO) == -1) {
 			perror(
 					"[ERROR] Funcion DUP2: No se pudo duplicar el File Descriptor para la entrada\n");
 			exit(-1);
@@ -46,22 +45,27 @@ int ejecutarScriptRedireccionandoIO(char * dirArchivoSalida,
 		}
 		//Cierro los pipes que no se van a usar
 		/*close(CANAL_LECTURA_PADRE);
-		 close(CANAL_ESCRITURA_PADRE);
-		 close(CANAL_LECTURA_HIJO);
-		 close(CANAL_ESCRITURA_HIJO);*/
+		  close(CANAL_ESCRITURA_HIJO);*/
+		close(CANAL_ESCRITURA_PADRE);
+		close(CANAL_LECTURA_HIJO);
 		//Ejecuto proceso en argv[0]
-		if(execv(dirScript, parametrosScript) == -1)
-		{
+		if (execv(dirScript, parametrosScript) == -1) {
 			perror(
-			"[ERROR] Funcion EXECV: No se pudo ejecutar el script ingresado\n");
+					"[ERROR] Funcion EXECV: No se pudo ejecutar el script ingresado\n");
 			exit(-1);
 		}
 
 	} else {
-
-		/* Cierro los pipes que le hijo no va a usar */
+		//Cierro los pipes que le hijo no va a usar
+		close(CANAL_LECTURA_HIJO);
 		//close(CANAL_ESCRITURA_HIJO);
-		//close(CANAL_LECTURA_HIJO);
+		//Recibo direccion de memoria del mapeo y lo mando por pipe al hijo
+		if (write(CANAL_ESCRITURA_PADRE, ptrDireccionMapeo, sizeof(ptrDireccionMapeo))
+				== -1) {
+			perror(
+					"[ERROR] Funcion WRITE: El padre no pudo escribir en el pipe\n");
+			exit(-1);
+		}
 	}
 	return 0;
 }

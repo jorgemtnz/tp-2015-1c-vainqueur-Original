@@ -8,48 +8,44 @@
 #ifndef FILESYSTEM_H_
 #define FILESYSTEM_H_
 
-
-
 #endif /* FILESYSTEM_H_ */
 
 //bloque
 typedef struct bloq {
-	char nombre[25];
-	char nombreDirectorio[25];
+	int nombre;
+	int nombreDirectorio[25];
 	char nombreArchivo[25];
 	int tamanio;
 	struct bloq* ptrSgt;
 } bloq;
 // Archivo
-typedef struct archiv {
-	int estado;
-	int tamanio;
-	char nombre[25];
-	char directorioPadre[25];
-	bloq listaBloques;
-	struct archiv* ptrSgt;
-} archiv;
-//directorio
-typedef struct direct {
-	char nombre[25];
-	char directorioPadre[25];
-	int index;
-	archiv listaArchivos;
-	struct direct* ptrSgt;
-} direct;
+
 //nodo
 typedef struct nod {
 	char nombre[25];
 	int estado;
 	int tamanio;
-	bloq listaBloques;
+	bloq listaBloques; //del nodo
+	char* ptrdirEspacioNodo;
 	struct nod* ptrSgt;
 } nod;
+typedef struct element {
+	char nombre[25];
+	int estado;
+	int index;
+	int tamanio;
+	int directorioPadre;
+	bloq listaBloques; //del archivo osea el archivo dividido.
+	int elemento; //1 para directorio, 0 para archivo o documento.
+	nod listaNodos; //lista de nodos donde guardo el bloque
+	struct element* ptrSgt;
+} element;
 //fylesystem Estructura principal
 typedef struct fs {
 	int estado;
-	nod listaNodos;
-	direct listaDirectorios;
+	nod listaNodos; //lista nodos conectados
+	element listaDirectorios;
+	int espacioDisponible;
 } fs;
 // persistencia del estado del filesystem se hará en un archivo, piente usar commons/list.h para manejar listas
 //pendiente usar funciones para manejar archivos, se deben crear. No estan en las commons.
