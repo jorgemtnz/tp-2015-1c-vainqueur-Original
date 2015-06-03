@@ -1,18 +1,12 @@
-/*
- ** FILE:  Funciones.C
- ** AUTOR: Lucas Voboril
- ** FECHA: /05/2015
- **
- */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>     //memset
 #include <sys/types.h>
 #include <sys/socket.h>
+#include <sys/time.h>
 #include <errno.h>      //perror
 #include <arpa/inet.h>  //INADDR_ANY
 #include <unistd.h>     //close
-
 
 int  do_socket(){
 	// Usado por servidor y por cliente
@@ -122,4 +116,21 @@ void do_close(int sockfd){
 	// Esto impedirá más lecturas y escrituras al socket. Cualquiera que intente leer o
 	// escribir sobre el socket en el extremo remoto recibirá un error.
 	close(sockfd);
+}
+
+void do_select(int maxNumDeFD, fd_set *fdListoLectura, fd_set *fdListoEscritura,fd_set *fdListoEjecucion, int segundos, int miliSegundos){
+	struct timeval tv;
+	// Esta estructura de tiempo de permite establecer un período máximo de espera.
+	// Si segundos = 0 y miliSegundos = 0 => regresará inmediatamente después de interrogar
+	// a todos tus file descriptor
+	// Si segundos = NULL y miliSegundos = NULL => espera infinitamente
+	int microsegundos = miliSegundos * 1000;
+	tv.tv_sec = segundos;
+	tv.tv_usec = microsegundos;
+
+	int posibleError = select( (maxNumDeFD+1), &fdListoLectura, &fdListoEscritura, &fdListoEjecucion,&tv);
+	if(posibleError == -1){
+		perror("[ERROR] Funcion select\n");
+		exit(-1);
+	}
 }
