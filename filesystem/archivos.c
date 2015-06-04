@@ -1,28 +1,33 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <commons/string.h>
-#include <commons/txt.h>
+#include <src/commons/string.h>
+#include <src/commons/txt.h>
 #include "filesystem.h"
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <commons/propias/mapeoAmemoria.h>
+#include "mapeoAMemoria.h"
 
 int  main(int argc, char **argv) {
 
 	char * archivoEstructura;
 		int fdArchivo;
+		int fdEstructura;
 		char* dirArchivo = "/tmp/archivoProcesar.txt";
-		char* contenidoBloque;
+		char* dirArchivoEstructura = "/tmp/archivoEstructura.txt";
+		char* ptrContenidoBloques;
 
 		fdArchivo = open(dirArchivo, O_RDWR);
+		fdEstructura = open(dirArchivoEstructura, O_RDWR | O_CREAT);
 
 
-		 contenidoBloque = string_n_split(fdArchivo, 1, "/n");
+
+		 ptrContenidoBloques = string_split(fdArchivo, "/n");
 
 		return 0;
 
 }
+
 
 
