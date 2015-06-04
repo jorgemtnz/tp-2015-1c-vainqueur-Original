@@ -1,18 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
+<<<<<<< HEAD
 	<section name="BasicNewProjectResourceWizard">
+=======
+	<section name="org.eclipse.ui.internal.ide.dialogs.ProjectContentsLocationArea">
+		<item value="/home/utnso/TPOperativos/mapeoAMemoria" key="OUTSIDE_LOCATION"/>
+	</section>
+	<section name="TaskPropertiesDialogSettings">
+		<item value="828" key="DIALOG_WIDTH"/>
+		<item value="110" key="DIALOG_Y_ORIGIN"/>
+		<item value="318" key="DIALOG_HEIGHT"/>
+		<item value="270" key="DIALOG_X_ORIGIN"/>
+		<item value="1|Ubuntu|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
+>>>>>>> 5827d4aae7aad09c9da0a894ab7431e3b90c1820
 	</section>
 	<section name="ExternalProjectImportWizard">
 		<item value="false" key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED"/>
 		<item value="false" key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID"/>
 		<item value="false" key="WizardProjectsImportPage.STORE_NESTED_PROJECTS"/>
 		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+<<<<<<< HEAD
 			<item value="/home/utnso/TPOperativos/tp-2015-1c-vainqueur/tp-2015-1c-vainqueur"/>
+=======
+			<item value="/home/utnso/TPOperativos/Redireccion IO"/>
+			<item value="/home/utnso/TPOperativos/commons"/>
+			<item value="/home/utnso/TPOperativos/filesystem"/>
+			<item value="/home/utnso/TPOperativos/filesystem/consola"/>
+			<item value="/home/utnso/TPOperativos/mapeoAMemoria"/>
+>>>>>>> 5827d4aae7aad09c9da0a894ab7431e3b90c1820
 		</list>
 		<list key="WizardProjectsImportPage.STORE_ARCHIVES">
 			<item value=""/>
 		</list>
 	</section>
+<<<<<<< HEAD
+=======
+	<section name="CleanDialogSettings">
+		<item value="565" key="DIALOG_WIDTH"/>
+		<item value="62" key="DIALOG_Y_ORIGIN"/>
+		<item value="390" key="DIALOG_HEIGHT"/>
+		<item value="402" key="DIALOG_X_ORIGIN"/>
+		<item value="false" key="TOGGLE_SELECTED"/>
+	</section>
+>>>>>>> 5827d4aae7aad09c9da0a894ab7431e3b90c1820
 	<section name="NewWizardAction">
 	</section>
 </section>

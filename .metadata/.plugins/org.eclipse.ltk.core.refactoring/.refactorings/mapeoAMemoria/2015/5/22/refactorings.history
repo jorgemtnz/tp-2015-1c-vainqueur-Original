@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;mapeoAMemoria/mapeoAMemoria.h&apos; to &apos;mapeoAmemoria.h&apos;" description="Rename resource &apos;mapeoAMemoria.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="mapeoAMemoria.h" name="mapeoAmemoria.h" stamp="1432602135156" updateReferences="true"/>
+</session>

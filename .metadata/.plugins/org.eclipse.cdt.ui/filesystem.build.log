@@ -1,0 +1,13 @@
+22:15:48 **** Incremental Build of configuration Debug for project filesystem ****
+make all 
+Building target: filesystem
+Invoking: GCC C Linker
+gcc -L"/home/utnso/TPOperativos/commons-library/Debug" -o "filesystem"  ./consola.o ./filesystem.o ./main.o   -lcommons-library
+./main.o: En la función `main':
+/home/utnso/TPOperativos/filesystem/Debug/../main.c:8: definiciones múltiples de `main'
+./filesystem.o:/home/utnso/TPOperativos/filesystem/Debug/../filesystem.c:10: primero se definió aquí
+collect2: error: ld returned 1 exit status
+make: *** [filesystem] Error 1
+
+22:15:50 Build Finished (took 1s.143ms)
+

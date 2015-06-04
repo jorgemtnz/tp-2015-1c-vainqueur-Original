@@ -3,4 +3,7 @@
 //org.eclipse.debug.core.PREFERRED_DELEGATES/org.eclipse.cdt.launch.postmortemLaunchType=org.eclipse.cdt.dsf.gdb.launch.coreCLaunch,debug,;
 //org.eclipse.debug.core.PREFERRED_DELEGATES/org.eclipse.cdt.launch.remoteApplicationLaunchType=org.eclipse.rse.remotecdt.dsf.debug,debug,;
 eclipse.preferences.version=1
+<<<<<<< HEAD
 prefWatchExpressions=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\n<watchExpressions>\n<expression enabled\="true" text\="strcmp(a, listaComandos [1].comandos)"/>\n<expression enabled\="true" text\="listaComandos [1].comandos"/>\n<expression enabled\="true" text\="a"/>\n<expression enabled\="true" text\="listaComandos [cont].comandos"/>\n</watchExpressions>\n
+=======
+>>>>>>> 5827d4aae7aad09c9da0a894ab7431e3b90c1820

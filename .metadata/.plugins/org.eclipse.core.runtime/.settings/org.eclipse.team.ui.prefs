@@ -1,4 +1,7 @@
 eclipse.preferences.version=1
 org.eclipse.team.ui.first_time=false
+<<<<<<< HEAD
 org.eclipse.team.ui.sychronizing_default_participant=org.eclipse.egit.ui.modelCompareParticipant
 org.eclipse.team.ui.sychronizing_default_participant_sec_id=1430263119595
+=======
+>>>>>>> 5827d4aae7aad09c9da0a894ab7431e3b90c1820

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;mapeoAMemoria/copiaMapeo.c&apos; to &apos;nuevoMapeo.c&apos;" description="Rename resource &apos;copiaMapeo.c&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="copiaMapeo.c" name="nuevoMapeo.c" stamp="1430770488179" updateReferences="true"/>
+</session>

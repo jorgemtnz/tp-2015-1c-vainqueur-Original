@@ -1,0 +1,15 @@
+17:52:33 **** Incremental Build of configuration Debug for project Redireccion IO ****
+make all 
+Building file: ../src/RedireccionIO.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/RedireccionIO.d" -MT"src/RedireccionIO.d" -o "src/RedireccionIO.o" "../src/RedireccionIO.c"
+Finished building: ../src/RedireccionIO.c
+ 
+Building target: Redireccion IO
+Invoking: GCC C Linker
+gcc  -o "Redireccion IO"  ./src/RedireccionIO.o ./src/sortRedirecciona.o   
+Finished building target: Redireccion IO
+ 
+
+17:52:34 Build Finished (took 1s.906ms)
+

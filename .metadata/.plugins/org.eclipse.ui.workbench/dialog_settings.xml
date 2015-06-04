@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.internal.QuickAccess">
+<<<<<<< HEAD
 		<item value="640" key="dialogWidth"/>
 		<item value="480" key="dialogHeight"/>
+=======
+		<item value="847" key="dialogWidth"/>
+		<item value="409" key="dialogHeight"/>
+>>>>>>> 5827d4aae7aad09c9da0a894ab7431e3b90c1820
 		<list key="orderedProviders">
 		</list>
 		<list key="textArray">
@@ -12,10 +17,22 @@
 		<list key="textEntries">
 		</list>
 	</section>
+<<<<<<< HEAD
+=======
+	<section name="WorkbenchPreferenceDialogSettings">
+		<item value="0" key="DIALOG_Y_ORIGIN"/>
+		<item value="215" key="DIALOG_X_ORIGIN"/>
+	</section>
+>>>>>>> 5827d4aae7aad09c9da0a894ab7431e3b90c1820
 	<section name="ImportExportAction">
 		<item value="org.eclipse.ui.wizards.import.ExternalProject" key="ImportExportPage.STORE_SELECTED_IMPORT_WIZARD_ID"/>
 		<list key="ImportExportPage.STORE_EXPANDED_IMPORT_CATEGORIES">
 			<item value="org.eclipse.ui.Basic"/>
+<<<<<<< HEAD
+=======
+			<item value="org.eclipse.cdt.ui.importWizardCategory"/>
+			<item value="org.eclipse.equinox.p2.category"/>
+>>>>>>> 5827d4aae7aad09c9da0a894ab7431e3b90c1820
 		</list>
 	</section>
 </section>

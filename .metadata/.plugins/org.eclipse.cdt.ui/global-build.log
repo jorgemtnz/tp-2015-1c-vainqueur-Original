@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 16:19:50 **** Incremental Build of configuration Debug for project fileSystem ****
 make all 
 make: No se hace nada para «all».
@@ -2932,3 +2933,43 @@ gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"filesystem.d" -MT"filesyste
   int tamanio;
       ^
 make: *** [filesystem.o] Error 1
+=======
+22:15:20 **** Incremental Build of configuration Debug for project commons-library ****
+make all 
+make: No se hace nada para «all».
+22:15:20 **** Incremental Build of configuration Debug for project filesystem ****
+make all 
+Building file: ../filesystem.c
+Invoking: GCC C Compiler
+gcc -I"/home/utnso/TPOperativos/commons-library" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"filesystem.d" -MT"filesystem.d" -o "filesystem.o" "../filesystem.c"
+../filesystem.c: In function ‘main’:
+../filesystem.c:12:6: warning: variable ‘fdArchivoEstructura’ set but not used [-Wunused-but-set-variable]
+  int fdArchivoEstructura;
+      ^
+../filesystem.c:11:9: warning: unused variable ‘archivoEstructura’ [-Wunused-variable]
+  char * archivoEstructura;
+         ^
+Finished building: ../filesystem.c
+ 
+Building target: filesystem
+Invoking: GCC C Linker
+gcc -L"/home/utnso/TPOperativos/commons-library/Debug" -o "filesystem"  ./consola.o ./filesystem.o ./main.o   -lcommons-library
+./main.o: En la función `main':
+/home/utnso/TPOperativos/filesystem/Debug/../main.c:8: definiciones múltiples de `main'
+./filesystem.o:/home/utnso/TPOperativos/filesystem/Debug/../filesystem.c:10: primero se definió aquí
+collect2: error: ld returned 1 exit status
+make: *** [filesystem] Error 1
+22:15:48 **** Incremental Build of configuration Debug for project commons-library ****
+make all 
+make: No se hace nada para «all».
+22:15:48 **** Incremental Build of configuration Debug for project filesystem ****
+make all 
+Building target: filesystem
+Invoking: GCC C Linker
+gcc -L"/home/utnso/TPOperativos/commons-library/Debug" -o "filesystem"  ./consola.o ./filesystem.o ./main.o   -lcommons-library
+./main.o: En la función `main':
+/home/utnso/TPOperativos/filesystem/Debug/../main.c:8: definiciones múltiples de `main'
+./filesystem.o:/home/utnso/TPOperativos/filesystem/Debug/../filesystem.c:10: primero se definió aquí
+collect2: error: ld returned 1 exit status
+make: *** [filesystem] Error 1
+>>>>>>> 5827d4aae7aad09c9da0a894ab7431e3b90c1820
