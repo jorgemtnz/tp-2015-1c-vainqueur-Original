@@ -35,7 +35,6 @@ typedef struct element {
 	int index;
 	int tamanio;
 	int directorioPadre;
-	bloq listaBloques; //del archivo osea el archivo dividido.
 	int elemento; //1 para directorio, 0 para archivo o documento.
 	nod listaNodos; //lista de nodos donde guardo el bloque
 	struct element* ptrSgt;
