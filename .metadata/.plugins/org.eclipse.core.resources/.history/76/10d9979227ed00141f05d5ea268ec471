@@ -1,0 +1,53 @@
+/*
+ * consola.c
+ *
+ *  Created on: 21/4/2015
+ *      Author: utnso
+ */
+
+
+#include <stdio.h>
+#include <string.h>
+#include "consola.h"
+
+int main (){
+
+		int r1;// resultado de la evaluacion de string
+		char* comandoIngresado;
+		char* directorio;
+
+
+		cargarComandos();
+
+
+		printf("-------Comandos cargados------- \n");
+
+	//while(1){
+
+		printf("Pedime lo que quieras>>>");
+
+		scanf("%s",&comandoIngresado);
+
+
+		r1 = strcmp(comandoIngresado, listaComandos [1].comando);
+		printf("%d",r1);
+		if (r1==0){
+			printf("es el comando");
+		}
+		else {
+			printf("no es");
+	//	}
+
+
+	}
+
+
+
+
+	return 0;
+}
+
+void cargarComandos (void){
+	listaComandos [1].comando = "formatear";
+
+}

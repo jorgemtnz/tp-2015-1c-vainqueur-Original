@@ -1,0 +1,37 @@
+/*
+ * hol.c
+ *
+ *  Created on: 2/5/2015
+ *      Author: utnso
+ */
+
+int main(){
+typedef struct comandos{
+	char* comando;
+
+}comandos;
+
+comandos listaComandos [10];
+
+
+listaComandos [1].comando="formatear";
+int r, cont = 0;
+
+int buscarComando(char* a){
+
+	do{
+		r = strcmp(a, listaComandos [1].comando);
+		cont = cont + 1;
+	}while((cont>30) || (r == 0));
+
+	if (cont>30){
+		printf("no existe el comando");
+		return 0;
+	}
+
+return cont;
+}
+
+
+return 0;
+}
