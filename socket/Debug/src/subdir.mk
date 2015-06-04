@@ -4,12 +4,15 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../src/mapeoAMemoria.c \
 ../src/sockets.c 
 
 OBJS += \
+./src/mapeoAMemoria.o \
 ./src/sockets.o 
 
 C_DEPS += \
+./src/mapeoAMemoria.d \
 ./src/sockets.d 
 
 
