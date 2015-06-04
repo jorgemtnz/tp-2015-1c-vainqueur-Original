@@ -1,0 +1,2 @@
+void crearArchivo(char* nombreArchivo);
+
