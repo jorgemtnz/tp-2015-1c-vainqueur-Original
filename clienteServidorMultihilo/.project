@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>Redireccion IO</name>
+	<name>clienteServidorMultihilo</name>
 	<comment></comment>
 	<projects>
 		<project>commons-library</project>

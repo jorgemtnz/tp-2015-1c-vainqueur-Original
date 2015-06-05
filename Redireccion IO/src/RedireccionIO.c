@@ -5,7 +5,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include "RedireccionIO.h"
-#include <commons/delEquipo/mapeoAMemoria.h>
+#include <mapeoAMemoria/mapeoAMemoria.h>
 
 int main() {
 	printf("Ejecutando \n");

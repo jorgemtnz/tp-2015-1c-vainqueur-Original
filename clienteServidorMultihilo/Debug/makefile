@@ -1,0 +1,50 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+-include ../makefile.init
+
+RM := rm -rf
+
+# All of the sources participating in the build are defined here
+-include sources.mk
+-include src/subdir.mk
+-include subdir.mk
+-include objects.mk
+
+ifneq ($(MAKECMDGOALS),clean)
+ifneq ($(strip $(C_DEPS)),)
+-include $(C_DEPS)
+endif
+endif
+
+-include ../makefile.defs
+
+# Add inputs and outputs from these tool invocations to the build variables 
+
+# All Target
+all: clienteServidorMultihilo
+
+dependents:
+	-cd /home/utnso/TpOperativos/tp-2015-1c-vainqueur/commons-library/Debug && $(MAKE) all
+	-cd /home/utnso/TpOperativos/tp-2015-1c-vainqueur/socket/Debug && $(MAKE) all
+
+# Tool invocations
+clienteServidorMultihilo: $(OBJS) $(USER_OBJS) /home/utnso/TpOperativos/tp-2015-1c-vainqueur/commons-library/Debug/libcommons-library.so /home/utnso/TpOperativos/tp-2015-1c-vainqueur/socket/Debug/libdelEquipo.so
+	@echo 'Building target: $@'
+	@echo 'Invoking: GCC C Linker'
+	gcc -L"/home/utnso/TpOperativos/tp-2015-1c-vainqueur/socket/Debug" -L"/home/utnso/TpOperativos/tp-2015-1c-vainqueur/commons-library/Debug" -o "clienteServidorMultihilo" $(OBJS) $(USER_OBJS) $(LIBS)
+	@echo 'Finished building target: $@'
+	@echo ' '
+
+# Other Targets
+clean:
+	-$(RM) $(OBJS)$(C_DEPS)$(EXECUTABLES) clienteServidorMultihilo
+	-@echo ' '
+
+.PHONY: all clean dependents
+.SECONDARY:
+/home/utnso/TpOperativos/tp-2015-1c-vainqueur/commons-library/Debug/libcommons-library.so:
+/home/utnso/TpOperativos/tp-2015-1c-vainqueur/socket/Debug/libdelEquipo.so:
+
+-include ../makefile.targets

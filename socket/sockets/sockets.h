@@ -9,7 +9,7 @@ void do_connect(int sockfd,char* ip_destino, int puerto);
 void do_listen(int sockfd, int conexionesEntrantesPermitidas);
 int  do_accept(int sockfd);
 void do_send(int sockfd,const void *msg, int len);
-void do_recv(int sockfd, void *buf, int len);
+int do_recv(int sockfd, void *buf, int len);
 void do_close(int sockfd);
 void do_select(int maxNumDeFD, fd_set *fdListoLectura, fd_set *fdListoEscritura,fd_set *fdListoEjecucion, int segundos, int miliSegundos);
 
