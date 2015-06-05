@@ -31,3 +31,14 @@ int  main(int argc, char **argv) {
 
 
 
+void leerRegistro(int arch, fs* fileSystem){
+  read(arch,fileSystem,sizeof(fs));//lee el archivo y pone la estructura en la estructura fs
+
+}
+
+
+
+void guardarRegistro(int arch,fs* fileSystem){//esto mientras este el archivo abierto sino lo abrimos aca
+
+  write(arch,fileSystem,sizeof(fs));//le paso el registro fileSystem,y el archivo y lo escribe
+}
