@@ -223,3 +223,183 @@ make: No se hace nada para «all».
 16:20:19 **** Incremental Build of configuration Debug for project clienteServidorMultihilo ****
 make all 
 make: No se hace nada para «all».
+16:41:59 **** Incremental Build of configuration Debug for project delEquipo ****
+make all 
+make: No se hace nada para «all».
+16:41:59 **** Incremental Build of configuration Debug for project commons-library ****
+make all 
+make: No se hace nada para «all».
+16:42:00 **** Incremental Build of configuration Debug for project clienteServidorMultihilo ****
+make all 
+make: No se hace nada para «all».
+16:42:36 **** Incremental Build of configuration Debug for project delEquipo ****
+make all 
+make: No se hace nada para «all».
+16:42:37 **** Incremental Build of configuration Debug for project commons-library ****
+make all 
+make: No se hace nada para «all».
+16:42:37 **** Incremental Build of configuration Debug for project clienteServidorMultihilo ****
+make all 
+make: No se hace nada para «all».
+16:45:21 **** Incremental Build of configuration Debug for project commons-library ****
+make all 
+make: No se hace nada para «all».
+16:45:21 **** Incremental Build of configuration Debug for project delEquipo ****
+make all 
+make: No se hace nada para «all».
+16:45:22 **** Incremental Build of configuration Debug for project clienteServidorMultihilo ****
+make all 
+Building file: ../src/clienteServidorMultihilo.c
+Invoking: GCC C Compiler
+gcc -I"/home/utnso/TpOperativos/tp-2015-1c-vainqueur/delEquipo" -I"/home/utnso/TpOperativos/tp-2015-1c-vainqueur/commons-library" -O0 -g3 -Wall -c -fmessage-length=0 -pthread -MMD -MP -MF"src/clienteServidorMultihilo.d" -MT"src/clienteServidorMultihilo.d" -o "src/clienteServidorMultihilo.o" "../src/clienteServidorMultihilo.c"
+Finished building: ../src/clienteServidorMultihilo.c
+ 
+Building target: clienteServidorMultihilo
+Invoking: GCC C Linker
+gcc -L"/home/utnso/TpOperativos/tp-2015-1c-vainqueur/delEquipo/Debug" -L"/home/utnso/TpOperativos/tp-2015-1c-vainqueur/commons-library/Debug" -o "clienteServidorMultihilo"  ./src/clienteServidorMultihilo.o   -ldelEquipo -lpthread -lcommons-library
+Finished building target: clienteServidorMultihilo
+ 
+16:45:31 **** Incremental Build of configuration Debug for project commons-library ****
+make all 
+make: No se hace nada para «all».
+16:45:31 **** Incremental Build of configuration Debug for project delEquipo ****
+make all 
+make: No se hace nada para «all».
+16:45:31 **** Incremental Build of configuration Debug for project clienteServidorMultihilo ****
+make all 
+Building file: ../src/clienteServidorMultihilo.c
+Invoking: GCC C Compiler
+gcc -I"/home/utnso/TpOperativos/tp-2015-1c-vainqueur/delEquipo" -I"/home/utnso/TpOperativos/tp-2015-1c-vainqueur/commons-library" -O0 -g3 -Wall -c -fmessage-length=0 -pthread -MMD -MP -MF"src/clienteServidorMultihilo.d" -MT"src/clienteServidorMultihilo.d" -o "src/clienteServidorMultihilo.o" "../src/clienteServidorMultihilo.c"
+Finished building: ../src/clienteServidorMultihilo.c
+ 
+Building target: clienteServidorMultihilo
+Invoking: GCC C Linker
+gcc -L"/home/utnso/TpOperativos/tp-2015-1c-vainqueur/delEquipo/Debug" -L"/home/utnso/TpOperativos/tp-2015-1c-vainqueur/commons-library/Debug" -o "clienteServidorMultihilo"  ./src/clienteServidorMultihilo.o   -ldelEquipo -lpthread -lcommons-library
+Finished building target: clienteServidorMultihilo
+ 
+16:45:38 **** Incremental Build of configuration Debug for project delEquipo ****
+make all 
+make: No se hace nada para «all».
+16:45:38 **** Incremental Build of configuration Debug for project commons-library ****
+make all 
+make: No se hace nada para «all».
+16:45:38 **** Incremental Build of configuration Debug for project clienteServidorMultihilo ****
+make all 
+make: No se hace nada para «all».
+16:46:09 **** Incremental Build of configuration Debug for project delEquipo ****
+make all 
+make: No se hace nada para «all».
+16:46:09 **** Incremental Build of configuration Debug for project commons-library ****
+make all 
+make: No se hace nada para «all».
+16:46:09 **** Incremental Build of configuration Debug for project clienteServidorMultihilo ****
+make all 
+make: No se hace nada para «all».
+16:48:01 **** Incremental Build of configuration Debug for project delEquipo ****
+make all 
+make: No se hace nada para «all».
+16:48:01 **** Incremental Build of configuration Debug for project commons-library ****
+make all 
+make: No se hace nada para «all».
+16:48:01 **** Incremental Build of configuration Debug for project clienteServidorMultihilo ****
+make all 
+make: No se hace nada para «all».
+16:49:32 **** Incremental Build of configuration Debug for project delEquipo ****
+make all 
+make: No se hace nada para «all».
+16:49:32 **** Incremental Build of configuration Debug for project commons-library ****
+make all 
+make: No se hace nada para «all».
+16:49:32 **** Incremental Build of configuration Debug for project clienteServidorMultihilo ****
+make all 
+make: No se hace nada para «all».
+16:49:39 **** Incremental Build of configuration Debug for project delEquipo ****
+make all 
+make: No se hace nada para «all».
+16:49:39 **** Incremental Build of configuration Debug for project commons-library ****
+make all 
+make: No se hace nada para «all».
+16:49:39 **** Incremental Build of configuration Debug for project clienteServidorMultihilo ****
+make all 
+make: No se hace nada para «all».
+16:49:43 **** Incremental Build of configuration Debug for project delEquipo ****
+make all 
+make: No se hace nada para «all».
+16:49:43 **** Incremental Build of configuration Debug for project commons-library ****
+make all 
+make: No se hace nada para «all».
+16:49:43 **** Incremental Build of configuration Debug for project clienteServidorMultihilo ****
+make all 
+make: No se hace nada para «all».
+16:49:52 **** Incremental Build of configuration Debug for project delEquipo ****
+make all 
+make: No se hace nada para «all».
+16:49:52 **** Incremental Build of configuration Debug for project commons-library ****
+make all 
+make: No se hace nada para «all».
+16:49:52 **** Incremental Build of configuration Debug for project clienteServidorMultihilo ****
+make all 
+make: No se hace nada para «all».
+16:50:39 **** Incremental Build of configuration Debug for project delEquipo ****
+make all 
+make: No se hace nada para «all».
+16:50:39 **** Incremental Build of configuration Debug for project commons-library ****
+make all 
+make: No se hace nada para «all».
+16:50:39 **** Incremental Build of configuration Debug for project clienteServidorMultihilo ****
+make all 
+make: No se hace nada para «all».
+16:50:50 **** Incremental Build of configuration Debug for project delEquipo ****
+make all 
+make: No se hace nada para «all».
+16:50:50 **** Incremental Build of configuration Debug for project commons-library ****
+make all 
+make: No se hace nada para «all».
+16:50:50 **** Incremental Build of configuration Debug for project clienteServidorMultihilo ****
+make all 
+make: No se hace nada para «all».
+16:54:04 **** Incremental Build of configuration Debug for project delEquipo ****
+make all 
+make: No se hace nada para «all».
+16:54:04 **** Incremental Build of configuration Debug for project commons-library ****
+make all 
+make: No se hace nada para «all».
+16:54:05 **** Incremental Build of configuration Debug for project clienteServidorMultihilo ****
+make all 
+make: No se hace nada para «all».
+16:57:58 **** Incremental Build of configuration Debug for project delEquipo ****
+make all 
+make: No se hace nada para «all».
+16:57:58 **** Incremental Build of configuration Debug for project commons-library ****
+make all 
+make: No se hace nada para «all».
+16:57:58 **** Incremental Build of configuration Debug for project clienteServidorMultihilo ****
+make all 
+make: No se hace nada para «all».
+16:59:44 **** Incremental Build of configuration Debug for project delEquipo ****
+make all 
+make: No se hace nada para «all».
+16:59:44 **** Incremental Build of configuration Debug for project commons-library ****
+make all 
+make: No se hace nada para «all».
+16:59:44 **** Incremental Build of configuration Debug for project clienteServidorMultihilo ****
+make all 
+make: No se hace nada para «all».
+17:00:58 **** Incremental Build of configuration Debug for project delEquipo ****
+make all 
+make: No se hace nada para «all».
+17:00:59 **** Incremental Build of configuration Debug for project commons-library ****
+make all 
+make: No se hace nada para «all».
+17:00:59 **** Incremental Build of configuration Debug for project clienteServidorMultihilo ****
+make all 
+make: No se hace nada para «all».
+17:01:24 **** Incremental Build of configuration Debug for project delEquipo ****
+make all 
+make: No se hace nada para «all».
+17:01:24 **** Incremental Build of configuration Debug for project commons-library ****
+make all 
+make: No se hace nada para «all».
+17:01:25 **** Incremental Build of configuration Debug for project clienteServidorMultihilo ****
+make all 
+make: No se hace nada para «all».
