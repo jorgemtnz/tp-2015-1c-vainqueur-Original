@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <pthread.h>
 #include <sockets/sockets.h>
-#include <string.h>
 
 
 #define PUERTO 7000
@@ -32,7 +31,7 @@ void * servidorHilo() {
 	pthread_mutex_lock(&mutex1);
 	recibirPorSocket(fdSocketNuevasConecciones, buffer, sizeof(buffer));
 	printf("Mensaje Recibido por el servidor : %s \n", buffer);
-	strcpy(buffer,"Mensaje Para Cliente \n");
+	strcpy(&buffer,"Mensaje Para Cliente \n");
 	enviarPorSocket(fdSocketNuevasConecciones, buffer, sizeof(buffer));
 	pthread_mutex_unlock(&mutex2);
 	pthread_mutex_lock(&mutex1);

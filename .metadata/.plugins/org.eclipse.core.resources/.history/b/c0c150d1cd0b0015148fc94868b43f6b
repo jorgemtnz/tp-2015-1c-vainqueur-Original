@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <pthread.h>
 #include <sockets/sockets.h>
-#include <string.h>
 
 
-#define PUERTO 7000
+#define PUERTO 9001
+#define IP 0
 #define CONECCIONES_ENTRANTES_PERMITIDAS 4
 
 pthread_mutex_t mutex1 = PTHREAD_MUTEX_INITIALIZER;
@@ -17,7 +17,7 @@ pthread_mutex_t mutex2 = PTHREAD_MUTEX_INITIALIZER;
  */
 void * servidorHilo() {
 	int fdSocketEscucha, fdSocketNuevasConecciones; // Escuchar sobre fdSocketEscucha, nuevas conexiones sobre fdSocketNuevasConecciones
-	char buffer[100];
+	char buffer[100] = "Mensaje Para Cliente \n";
 	fdSocketEscucha = crearSocket();
 	asociarSocket(fdSocketEscucha, PUERTO);
 	escucharSocket(fdSocketEscucha, CONECCIONES_ENTRANTES_PERMITIDAS);
@@ -26,18 +26,20 @@ void * servidorHilo() {
 	//wait mutex1
 	pthread_mutex_lock(&mutex1);
 	pthread_mutex_lock(&mutex1);
-	fdSocketNuevasConecciones = aceptarConexionSocket(fdSocketEscucha);
+	while (1) {
+		fdSocketNuevasConecciones = aceptarConexionSocket(fdSocketEscucha);
+	}
 	//signal mutex2
 	pthread_mutex_unlock(&mutex2);
 	pthread_mutex_lock(&mutex1);
 	recibirPorSocket(fdSocketNuevasConecciones, buffer, sizeof(buffer));
 	printf("Mensaje Recibido por el servidor : %s \n", buffer);
-	strcpy(buffer,"Mensaje Para Cliente \n");
+	pthread_mutex_unlock(&mutex2);
+	pthread_mutex_lock(&mutex1);
 	enviarPorSocket(fdSocketNuevasConecciones, buffer, sizeof(buffer));
 	pthread_mutex_unlock(&mutex2);
 	pthread_mutex_lock(&mutex1);
 	cerrarSocket(fdSocketEscucha);
-	pthread_mutex_unlock(&mutex2);
 	pthread_exit(0);
 }
 
@@ -48,7 +50,7 @@ void * clienteHilo() {
 	int fdCliente;
 	char buffer[100] = "Mensaje Para Servidor \n";
 	fdCliente = crearSocket();
-	conectarSocket(fdCliente, "127.0.0.1", PUERTO);
+	conectarSocket(fdCliente, IP, PUERTO);
 	//signal mutex1
 	pthread_mutex_unlock(&mutex1);
 	//wait mutex2
