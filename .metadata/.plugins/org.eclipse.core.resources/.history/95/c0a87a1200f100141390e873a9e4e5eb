@@ -1,3 +1,0 @@
-consola/consola.d: ../consola/consola.c ../consola/consola.h
-
-../consola/consola.h:

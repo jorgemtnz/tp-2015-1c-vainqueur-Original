@@ -1,22 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
-<<<<<<< HEAD
-	<item value="Default C header template" key="LastUsedHeaderTemplate"/>
 	<section name="completion_proposal_size">
 	</section>
-=======
-	<item value="Default C source template" key="LastUsedSourceTemplate"/>
-	<section name="completion_proposal_size">
-	</section>
-	<section name="org.eclipse.cdt.ui.text.hover.CMacroExpansionExploration.internal">
-		<item value="442" key="size.width"/>
-		<item value="227" key="size.height"/>
-	</section>
-	<section name="RenameInformationPopup">
-	</section>
-	<section name="CRenameRefactoringInputPage">
-	</section>
->>>>>>> 5827d4aae7aad09c9da0a894ab7431e3b90c1820
 	<section name="org.eclipse.cdt.ui.text.hover.CMacroExpansionExploration">
 	</section>
 </section>

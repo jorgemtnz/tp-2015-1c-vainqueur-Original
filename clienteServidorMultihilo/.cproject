@@ -31,7 +31,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/delEquipo}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/commons-library}&quot;"/>
 								</option>
-								<option id="gnu.c.compiler.option.misc.other.1776975871" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -pthread" valueType="string"/>
+								<option id="gnu.c.compiler.option.misc.other.1776975871" name="Other flags" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -pthread" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.881991342" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.exe.debug.6231703" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.exe.debug">

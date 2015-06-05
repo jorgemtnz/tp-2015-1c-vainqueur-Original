@@ -1,11 +1,9 @@
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=5827d4aae7aad09c9da0a894ab7431e3b90c1820
 PROBLEMS_FILTERS_MIGRATE=true
-<<<<<<< HEAD
-eclipse.preferences.version=1
-platformState=1428772524572
-=======
 TASKS_FILTERS_MIGRATE=true
 eclipse.preferences.version=1
-platformState=1428881633754
->>>>>>> 5827d4aae7aad09c9da0a894ab7431e3b90c1820
+platformState=1428830036004
 quickStart=false
 tipsAndTricks=true

@@ -1,8 +1,7 @@
-<<<<<<< HEAD
-GitRepositoriesView.GitDirectories=/home/utnso/TPOperativos/tp-2015-1c-vainqueur/.git\:
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=5827d4aae7aad09c9da0a894ab7431e3b90c1820
+GitRepositoriesView.GitDirectories=/home/utnso/TpOperativos/tp-2015-1c-vainqueur/.git\:/home/utnso/TPOperativos/.git\:
 RepositorySearchDialogDeepSearch=false
 RepositorySearchDialogSearchPath=/home/utnso/TPOperativos/tp-2015-1c-vainqueur
-=======
-GitRepositoriesView.GitDirectories=/home/utnso/TPOperativos/.git\:
->>>>>>> 5827d4aae7aad09c9da0a894ab7431e3b90c1820
 eclipse.preferences.version=1
