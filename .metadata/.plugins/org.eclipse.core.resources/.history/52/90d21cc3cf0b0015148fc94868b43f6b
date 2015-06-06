@@ -32,7 +32,7 @@ void * servidorHilo() {
 	pthread_mutex_lock(&mutex1);
 	recibirPorSocket(fdSocketNuevasConecciones, buffer, sizeof(buffer));
 	printf("Mensaje Recibido por el servidor : %s \n", buffer);
-	strcpy(buffer,"Mensaje Para Cliente \n");
+	strcpy(&buffer,&"Mensaje Para Cliente \n");
 	enviarPorSocket(fdSocketNuevasConecciones, buffer, sizeof(buffer));
 	pthread_mutex_unlock(&mutex2);
 	pthread_mutex_lock(&mutex1);
