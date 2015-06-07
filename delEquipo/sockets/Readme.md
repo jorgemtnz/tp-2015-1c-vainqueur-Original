@@ -30,3 +30,11 @@ Operaciones con la coleccion
 3) FD_CLR(unFD,&miColeccion)   >> Quitamos fds de la coleccion
 4) FD_ISSET(unFD,&miColeccion) >> Pertenencia: indica si unFD esta seteado (pertenece a la coleccion)
 
+Ejecutar programas compilados que usen librerias compartidas
+1) Ir a la consola
+2) cd /home/utnso
+3) leafpad .bashrc
+4) Al final de todo el archivo agregamos las lineas
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/TPOperativos/delEquipo/Debug
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/TPOperativos/commons-library/Debug
+

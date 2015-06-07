@@ -142,26 +142,18 @@ void cerrarSocket(int sockfd)
 	close(sockfd);
 }
 
-void seleccionarSocket(int maxNumDeFD, fd_set *fdListoLectura,
-		fd_set *fdListoEscritura, fd_set *fdListoEjecucion, int* segundos,
-		int* miliSegundos)
+void seleccionarSocket(int maxNumDeFD, fd_set *fdListoLectura, fd_set *fdListoEscritura, fd_set *fdListoEjecucion, int segundos, int miliSegundos)
 {
 	struct timeval tv;
 	// Esta estructura de tiempo de permite establecer un período máximo de espera.
 	// Si segundos = 0 y miliSegundos = 0 => regresará inmediatamente después de interrogar
 	// a todos tus file descriptor
 	// Si segundos = NULL y miliSegundos = NULL => espera infinitamente
-	if (segundos == NULL || miliSegundos == NULL)
-	{
-		tv.tv_sec  = segundos;
-		tv.tv_usec = miliSegundos;
-	}
-	else
-	{
-		int microsegundos = *miliSegundos * 1000;
-		tv.tv_sec  = *segundos;
-		tv.tv_usec = *microsegundos;
-	}
+
+	int microsegundos = miliSegundos * 1000;
+	tv.tv_sec  = segundos;
+	tv.tv_usec = microsegundos;
+
 
 	int posibleError = select((maxNumDeFD + 1), fdListoLectura, fdListoEscritura, fdListoEjecucion, &tv);
 
