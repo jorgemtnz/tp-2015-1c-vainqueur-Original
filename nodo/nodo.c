@@ -21,7 +21,7 @@ temp inicializa(int* fdArchivo, char* dirArchivoDatos)
 	listaArchivoTemporal.ptrSgt = NULL;
 	fdArchivo = open(dirArchivoDatos, O_RDWR | O_CREAT); //abre el datos.bin o lo crea
 
-	ftruncate(fdArchivo, 2000000000); //lo hace de n bytes
+//	ftruncate(fdArchivo, 2000000000); //lo hace de n bytes
 
 	return listaArchivoTemporal;
 

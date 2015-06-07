@@ -1,6 +1,0 @@
-17:13:27 **** Build of configuration Default for project p ****
-make all 
-make: *** No hay ninguna regla para construir el objetivo «all».  Alto.
-
-17:13:27 Build Finished (took 342ms)
-
