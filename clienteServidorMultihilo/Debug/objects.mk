@@ -4,5 +4,5 @@
 
 USER_OBJS :=
 
-LIBS := -ldelEquipo -lpthread -lcommons-library
+LIBS := -ldelEquipo -lpthread
 
