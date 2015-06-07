@@ -25,6 +25,9 @@
 *.out
 *.app
 *.i*86
+
+# carpeta de eclipse
+.metadata/
 *.x86_64
 *.hex
 
