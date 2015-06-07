@@ -33,3 +33,10 @@
 
 # Debug files
 *.dSYM/
+
+<<<<<<< HEAD
+#carpetaEclipseMetadata
+=======
+#carpeta Eclipse Metadata
+>>>>>>> b99e943a0ec43fa121c470ae67cc503e39ec479b
+.metadata
