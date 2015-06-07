@@ -30,6 +30,7 @@
 .metadata/
 *.x86_64
 *.hex
+metadata/
 
 # Debug files
 *.dSYM/
