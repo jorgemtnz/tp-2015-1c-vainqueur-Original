@@ -9,7 +9,6 @@ int main(int argc, char **argv) {
 
 	levantaConsola();
 
-	return 1;
-
+	return 0;
 }
 

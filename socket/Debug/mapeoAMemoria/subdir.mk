@@ -4,20 +4,20 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../src/clienteServidorMultihilo.c 
+../mapeoAMemoria/mapeoAMemoria.c 
 
 OBJS += \
-./src/clienteServidorMultihilo.o 
+./mapeoAMemoria/mapeoAMemoria.o 
 
 C_DEPS += \
-./src/clienteServidorMultihilo.d 
+./mapeoAMemoria/mapeoAMemoria.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
-src/%.o: ../src/%.c
+mapeoAMemoria/%.o: ../mapeoAMemoria/%.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C Compiler'
-	gcc -I"/home/utnso/TPOperativos/delEquipo" -O0 -g3 -Wall -c -fmessage-length=0 -pthread -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
+	gcc -O0 -g3 -Wall -c -fmessage-length=0 -fPIC -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

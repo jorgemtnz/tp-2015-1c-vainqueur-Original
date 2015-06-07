@@ -26,14 +26,13 @@ endif
 all: clienteServidorMultihilo
 
 dependents:
-	-cd /home/utnso/TpOperativos/tp-2015-1c-vainqueur/commons-library/Debug && $(MAKE) all
-	-cd /home/utnso/TpOperativos/tp-2015-1c-vainqueur/socket/Debug && $(MAKE) all
+	-cd /home/utnso/TPOperativos/delEquipo/Debug && $(MAKE) all
 
 # Tool invocations
-clienteServidorMultihilo: $(OBJS) $(USER_OBJS) /home/utnso/TpOperativos/tp-2015-1c-vainqueur/commons-library/Debug/libcommons-library.so /home/utnso/TpOperativos/tp-2015-1c-vainqueur/socket/Debug/libdelEquipo.so
+clienteServidorMultihilo: $(OBJS) $(USER_OBJS) /home/utnso/TPOperativos/delEquipo/Debug/libdelEquipo.so
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C Linker'
-	gcc -L"/home/utnso/TpOperativos/tp-2015-1c-vainqueur/socket/Debug" -L"/home/utnso/TpOperativos/tp-2015-1c-vainqueur/commons-library/Debug" -o "clienteServidorMultihilo" $(OBJS) $(USER_OBJS) $(LIBS)
+	gcc -L"/home/utnso/TPOperativos/delEquipo/Debug" -o "clienteServidorMultihilo" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -44,7 +43,6 @@ clean:
 
 .PHONY: all clean dependents
 .SECONDARY:
-/home/utnso/TpOperativos/tp-2015-1c-vainqueur/commons-library/Debug/libcommons-library.so:
-/home/utnso/TpOperativos/tp-2015-1c-vainqueur/socket/Debug/libdelEquipo.so:
+/home/utnso/TPOperativos/delEquipo/Debug/libdelEquipo.so:
 
 -include ../makefile.targets

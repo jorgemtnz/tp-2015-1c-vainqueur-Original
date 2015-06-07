@@ -2,34 +2,96 @@
 #include <stdlib.h>
 #include <pthread.h>
 #include <sockets/sockets.h>
+#include <string.h>
+#include <semaphore.h>
 
-#define PUERTO 9000
-#define IP 0
+#define PUERTO 7000
 #define CONECCIONES_ENTRANTES_PERMITIDAS 4
 
-void * servidorHilo() {
-	int fdSocketEscucha, fdSocketNuevasConecciones; // Escuchar sobre fdSocketEscucha, nuevas conexiones sobre fdSocketNuevasConecciones
-	fdSocketEscucha = doSocket();
-	do_bind_to_port(fdSocketEscucha,PUERTO);
-	do_listen(fdSocketEscucha,CONECCIONES_ENTRANTES_PERMITIDAS);
+sem_t semaforoServidor;
+sem_t semaforoCliente;
 
-	while(1)
-	{
-		fdSocketNuevasConecciones = do_accept(fdSocketEscucha);
-	}
+// Prototipos
+void * servidorHilo();
+void * clienteHilo();
+
+int main() {
+	// Inicializo semaforos en 0
+	int semaforo1 = sem_init(&semaforoCliente,  0, 0);
+	int semaforo2 = sem_init(&semaforoServidor,0,0);
+
+	pthread_t tidServidor,
+			  tidCliente;
+
+	pthread_attr_t atributos1,
+				   atributos2;
+
+	pthread_attr_init(&atributos1);
+	pthread_attr_init(&atributos2);
+
+	tidServidor = pthread_create(&tidServidor, &atributos1, servidorHilo, NULL);
+	tidCliente  = pthread_create(&tidServidor, &atributos2, clienteHilo,  NULL);
+
+	pthread_join(tidServidor, NULL);
+	pthread_join(tidCliente,  NULL);
+
+	return 0;
+}
+
+void * servidorHilo() {
+	int fdSocketEscucha,
+		fdSocketNuevasConecciones; // Escuchar sobre fdSocketEscucha, nuevas conexiones sobre fdSocketNuevasConecciones
+	char buffer[100];
+
+	fdSocketEscucha = crearSocket();
+	asociarSocket(fdSocketEscucha, PUERTO);
+	escucharSocket(fdSocketEscucha, CONECCIONES_ENTRANTES_PERMITIDAS);
+
+	sem_post(&semaforoCliente);
+	sem_wait(&semaforoServidor);
+
+	fdSocketNuevasConecciones = aceptarConexionSocket(fdSocketEscucha);
+
+	sem_post(&semaforoCliente);
+	sem_wait(&semaforoServidor);
+
+	recibirPorSocket(fdSocketNuevasConecciones, buffer, sizeof(buffer));
+	printf("Mensaje Recibido por el servidor : %s \n", buffer);
+	strcpy(buffer,"Mensaje Para Cliente \n");
+
+	enviarPorSocket(fdSocketNuevasConecciones, buffer, sizeof(buffer));
+
+	sem_post(&semaforoCliente);
+	sem_wait(&semaforoServidor);
+
+	cerrarSocket(fdSocketEscucha);
+
+	pthread_exit(0);
 }
 
 void * clienteHilo() {
 	int fdCliente;
-	fdCliente = doSocket();
-	do_connect(fdCliente,IP,PUERTO);
+	char buffer[100] = "Mensaje Para Servidor \n";
 
-}
+	fdCliente = crearSocket();
 
-int main(void) {
-	pthread_t tidServidor, tidCliente;
-	tidServidor = pthread_create(tidServidor, NULL, servidorHilo, NULL);
-	tidCliente = pthread_create(tidServidor, NULL, clienteHilo, NULL);
-	pthread_join(tidServidor, NULL);
-	pthread_join(tidCliente, NULL);
+	sem_wait(&semaforoCliente);
+	conectarSocket(fdCliente, "127.0.0.1", PUERTO);
+
+	sem_post(&semaforoServidor);
+	sem_wait(&semaforoCliente);
+
+	enviarPorSocket(fdCliente, buffer, sizeof(buffer));
+
+	sem_post(&semaforoServidor);
+	sem_wait(&semaforoCliente);
+
+	recibirPorSocket(fdCliente, buffer, sizeof(buffer));
+	printf("Mensaje Recibido por el Cliente: %s \n", buffer);
+
+	sem_post(&semaforoServidor);
+	sem_wait(&semaforoCliente);
+
+	cerrarSocket(fdCliente);
+	pthread_exit(0);
 }
