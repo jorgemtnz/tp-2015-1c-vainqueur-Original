@@ -17,30 +17,27 @@ void * clienteHilo();
 
 int main() {
 	// Inicializo semaforos en 0
-	int semaforo1 = sem_init(&semaforoCliente,  0, 0);
-	int semaforo2 = sem_init(&semaforoServidor,0,0);
+	int semaforo1 = sem_init(&semaforoCliente, 0, 0);
+	int semaforo2 = sem_init(&semaforoServidor, 0, 0);
 
-	pthread_t tidServidor,
-			  tidCliente;
+	pthread_t tidServidor, tidCliente;
 
-	pthread_attr_t atributos1,
-				   atributos2;
+	pthread_attr_t atributos1, atributos2;
 
 	pthread_attr_init(&atributos1);
 	pthread_attr_init(&atributos2);
 
 	tidServidor = pthread_create(&tidServidor, &atributos1, servidorHilo, NULL);
-	tidCliente  = pthread_create(&tidServidor, &atributos2, clienteHilo,  NULL);
+	tidCliente = pthread_create(&tidServidor, &atributos2, clienteHilo, NULL);
 
 	pthread_join(tidServidor, NULL);
-	pthread_join(tidCliente,  NULL);
+	pthread_join(tidCliente, NULL);
 
 	return 0;
 }
 
 void * servidorHilo() {
-	int fdSocketEscucha,
-		fdSocketNuevasConecciones; // Escuchar sobre fdSocketEscucha, nuevas conexiones sobre fdSocketNuevasConecciones
+	int fdSocketEscucha, fdSocketNuevasConecciones; // Escuchar sobre fdSocketEscucha, nuevas conexiones sobre fdSocketNuevasConecciones
 	char buffer[100];
 
 	fdSocketEscucha = crearSocket();
@@ -57,7 +54,7 @@ void * servidorHilo() {
 
 	recibirPorSocket(fdSocketNuevasConecciones, buffer, sizeof(buffer));
 	printf("Mensaje Recibido por el servidor : %s \n", buffer);
-	strcpy(buffer,"Mensaje Para Cliente \n");
+	strcpy(buffer, "Mensaje Para Cliente \n");
 
 	enviarPorSocket(fdSocketNuevasConecciones, buffer, sizeof(buffer));
 

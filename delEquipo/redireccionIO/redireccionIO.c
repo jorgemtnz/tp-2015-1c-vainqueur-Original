@@ -1,11 +1,10 @@
+#include "redireccionIO.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include "RedireccionIO.h"
-#include <mapeoAMemoria/mapeoAMemoria.h>
 
 int main() {
 	printf("Ejecutando \n");
