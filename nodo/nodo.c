@@ -26,7 +26,7 @@ temporal_t inicializa(int* fdArchivo, char* dirArchivoDatos)
 	return listaArchivoTemporal;
 
 }
-
+/*
 int main()
 {
 
@@ -42,3 +42,4 @@ int main()
 
 	return 0;
 }
+*/
