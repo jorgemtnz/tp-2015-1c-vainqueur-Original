@@ -47,7 +47,6 @@
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug.442973191" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug"/>
 							<tool id="cdt.managedbuild.tool.gnu.assembler.exe.debug.1409563184" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.exe.debug">
 								<option id="gnu.both.asm.option.include.paths.220541850" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Sockets}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/delEquipo}&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1780165517" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
