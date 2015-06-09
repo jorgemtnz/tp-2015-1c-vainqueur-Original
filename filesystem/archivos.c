@@ -78,12 +78,44 @@ bloq* crearBloque(){//constructor del bloque
 return bloque;
 }
 
+element* crearElemento(int identificadorCarpetaOArchivo){
+
+	if (identificadorCarpetaOArchivo==0){//carga los parametros en NULL menos elemento y le asigan el que corresponde (FALTA)
+		element* archivo = malloc(sizeof(element));
+		archivo->elemento = 0;//es el identificador que se lo reconoce como archivo
+		archivo->directorioPadre = NULL;
+		archivo->index = NULL;
+
+
+
+	}
+}
 fs* inicilizarFS(int archivoConfig){//entra como parametro el fd del archivo config(CONSTRUCTOR DEL FS)
 	fs* fileSystem = malloc(sizeof(fs));
 	fileSystem->estado = 0;//creo que 0 era disponible sino lo cambiamos
 	fileSystem->listaNodos = nod* list_create();
 return fileSystem;//retorna el fs
 }
+
+/*-----------------------------------------------------------------------*/
+
+/*------------------------FUNCIONES DESTRUCTORAS-------------------------*/
+void destruirBloque(bloq* bloque){//libera memoria del tipo bloque
+	free(bloque->nombre);
+	free(bloque->nombreArchivo);
+	free(bloque->nombreDirectorio);
+	free(bloque->tamanio);
+	free(bloque->ptrSgt);
+}
+
+void destruirNodo(nod* nodo){//libera la memoria del nodo
+	free(nodo->estado);
+	free(nodo->nombre);
+	free(nodo->tamanio);
+	list_clean_and_destroy_elements(nodo->listaBloques,(bloq* bloque));//falta ver bien como se escribe esta funcion pero tendria que vaciar la lista de blqoues de un nodo
+}
+
+
 
 /*-----------------------------------------------------------------------*/
 
