@@ -13,7 +13,7 @@
 //bloque
 typedef struct bloq {
 	int nombre;
-	int nombreDirectorio[25];
+	int nombreDirectorio;
 	char nombreArchivo[25];
 	int tamanio;
 	struct bloq* ptrSgt;
@@ -26,7 +26,7 @@ typedef struct nod {
 	int estado;
 	int tamanio;
 	bloq listaBloques; //del nodo
-	char* ptrdirEspacioNodo;
+	//char* ptrdirEspacioNodo;
 	struct nod* ptrSgt;
 } nod;
 typedef struct element {
