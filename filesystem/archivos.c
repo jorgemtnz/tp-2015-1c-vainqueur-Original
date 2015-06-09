@@ -97,7 +97,7 @@ element* crearElemento(){//crea un elemento generico para despues configurarlo c
 return elemento;
 }
 
-fs* inicilizarFS(int archivoConfig){//entra como parametro el fd del archivo config(CONSTRUCTOR DEL FS)
+fs* inicilizarFS(int archivoConfig){//entra como parametro el fd del archivo config(CONSTRUCTOR DEL FS)[EN CONSTRUCCION]
 	fs* fileSystem = malloc(sizeof(fs));
 	fileSystem->estado = 0;//creo que 0 era disponible sino lo cambiamos
 	fileSystem->listaNodos = nod* list_create();
