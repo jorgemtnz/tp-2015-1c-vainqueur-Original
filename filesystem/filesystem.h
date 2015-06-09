@@ -16,7 +16,7 @@ typedef struct bloq {
 	int nombreDirectorio;
 	char nombreArchivo[25];
 	int tamanio;
-	struct bloq* ptrSgt;
+	//struct bloq* ptrSgt;[LAS FUNCIONES DE LISTAS DE LAS COMMONS SE VAN A ENCARGAR DE CREAR LOS PUNTEROS]
 } bloq;
 // Archivo
 
@@ -25,8 +25,8 @@ typedef struct nod {
 	char nombre[25];
 	int estado;
 	int tamanio;
-	bloq listaBloques; //del nodo
-	//char* ptrdirEspacioNodo;
+	t_list *listaBloques; //del nodo
+	//char* ptrdirEspacioNodo;[LAS FUNCIONES DE LISTAS DE LAS COMMONS SE VAN A ENCARGAR DE CREAR LOS PUNTEROS]
 	struct nod* ptrSgt;
 } nod;
 typedef struct element {
@@ -36,14 +36,14 @@ typedef struct element {
 	int tamanio;
 	int directorioPadre;
 	int elemento; //1 para directorio, 0 para archivo o documento.
-	nod listaNodos; //lista de nodos donde guardo el bloque
-	struct element* ptrSgt;
+	t_list *listaNodos; //lista de nodos donde guardo el bloque
+	//struct element* ptrSgt;[LAS FUNCIONES DE LISTAS DE LAS COMMONS SE VAN A ENCARGAR DE CREAR LOS PUNTEROS]
 } element;
 //fylesystem Estructura principal
 typedef struct fs {
 	int estado;
-	nod listaNodos; //lista nodos conectados
-	element listaDirectorios;
+	t_list *listaNodos; //lista nodos conectados
+	t_list *listaDirectorios;
 	int espacioDisponible;
 } fs;
 // persistencia del estado del filesystem se hará en un archivo, piente usar commons/list.h para manejar listas
