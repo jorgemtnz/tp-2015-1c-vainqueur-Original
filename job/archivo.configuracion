@@ -1,0 +1,10 @@
+Archivo de configuracion
+
+IP Marta: 21312.31231.231
+Puerto: 1231
+
+void* mapper;
+void* reducer;
+int   aceptaCombiner;
+FILE* listaDeArchivos;
+char* nombreDelArchivoDondeAlmacenarResultado[50];

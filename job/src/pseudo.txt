@@ -1,0 +1,33 @@
+################################################  Proceso JOB  ################################################
+
+// Es esperable que varias instancias del proceso Job se encuentren ejecutando de manera
+// simultánea en el sistema y cada uno de ellos ejecutando instancias de los hilos mapper e
+// hilos reducer.
+
+void leerArchivoDeConfiguracionPropio(FILE* archivoDeConfig);
+void conectarConMarta(char* ipMarta,int puerto);				// Terminado
+
+void ejecutarRutinaMapper(void* archivos); //Pueden ser uno o varios archivos
+{
+	void crearHiloMapper();
+	// mapper toma los datos que ingresan por stdin, los convierte, los sort y los manda a stdout
+	void conectarseAlNodo();
+	void indicarAlNodoQueApliqueMap(int bloque);
+	{
+		void guardaArchivosMapeadosEn(char* dirTemporal,)
+	}
+	void recibirConfirmacionDelNodo();
+	void confirmarOperacionAMarta(char* ipDeMarta);
+}
+
+void ejecutarRutinaReducer(void* archivos); //Pueden ser uno o varios archivos
+{
+	void crearHiloReducer(int acepptaCombiner);
+	void conecarAlNodo(char* ipNodo,char* nombresDeArchivosAReducir,char* codigoDeReduce, char* nombreDondeAlmacenarResultado);
+	void indicarAlNodoQueApliqueReduce(char* ipNodo,FILE* archivosAlmacenadosTemporalmente); // Un archivo siempre debe ser local al nodo, los otros podrian existir en otros nodos
+
+	// OBSERVACION: Ver ultimos dos parrafos de la pagina 8
+
+	void recibirConfirmacionDelNodo();
+	void confirmarOperacionAMarta(char* ipDeMarta);
+}
