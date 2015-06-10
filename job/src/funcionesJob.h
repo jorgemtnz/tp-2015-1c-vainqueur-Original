@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sockets/sockets.h>
+
 #define MAXLINE 100
 
 // Estructura del archivo.config
