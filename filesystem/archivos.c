@@ -38,17 +38,17 @@ void agregarN(fs* fileSystem ,char* nombre){//FALTA VER EL TEMA DE SOCKETS
 	 nod* nodo;
 	 nodo = crearNodo(nombre);//se usa el constructor para crear el nodo
 	list_add(fileSystem.listaNodos,nodo);//agrega al nodo a la lista de nodos del FS
-	//agregarDir(fileSystem->listaDirectorios,nodo->nombre);//se agrega un dir con el nombre del nodo[EN PROCESO]
+	//agregarDir(fileSystem->listaDirectorios,nodo->nombre);//se agrega un dir con el nombre del nodo[EN PROCESO]-quizas no se haría
 
 }
 
 void eliminarN(fs* fileSystem, char* nombre){//faltaria la condicion pero nose como ponerla
-	//list_remove_by_condition(fileSystem->listaNodos));//remueve de la lista el nodo que concuerda con el nombre ingresado eso creo
+	list_remove_by_condition(fileSystem->listaNodos),bool(nombre) );//remueve de la lista el nodo que concuerda con el nombre ingresado eso creo
 }
 
 fs* formatear(fs* fileSystem){//recive una entidad FS , libera su memoria y despues la crea devuelta, habia que ver sino inicilizarla[EN PROCESO TODAVIA LE FALTA]
 	free(fileSystem);
-	fs* fileSystem;
+	fs fileSystem;
 	fileSystem = inicilizarFs();
 return fileSystem;
 }
@@ -87,20 +87,21 @@ return bloque;
 
 element* crearElemento(){//crea un elemento generico para despues configurarlo como archivo o carpeta
 	element* elemento = malloc(sizeof(element));//liberamos espacio para el elemnto
-	elemento->elemento = NULL;
-	elemento->directorioPadre = NULL;
-	elemento->index = NULL;
-	elemento->estado = NULL;
-	elemento->listaNodos = NULL;
-	elemento->nombre = NULL;
-	elemento->tamanio = NULL;
+	elemento->elemento = 0;
+	elemento->directorioPadre = 0;
+	elemento->index = 0;
+	elemento->estado = 0;
+	elemento->listaNodos = '\0';
+//	elemento->nombre[25] = {'n','o','\0'};
+	elemento->nombre[25] = {'\0'};
+	elemento->tamanio = 0;
 return elemento;
 }
 
 fs* crearFileSystem(){//entra como parametro el fd del archivo config(CONSTRUCTOR DEL FS)[EN CONSTRUCCION]
 	fs* fileSystem = malloc(sizeof(fs));
 	fileSystem->estado = 0;//creo que 0 era disponible sino lo cambiamos
-	fileSystem->listaNodos = nod* list_create();
+	fileSystem->listaNodos = list_create();//nod*
 	fileSystem->listaDirectorios = element* list_create();// crea lista de elementos
 	fileSystem->espacioDisponible = 0;
 return fileSystem;//retorna el fs
@@ -129,7 +130,7 @@ void destruirNodo(nod* nodo){//libera la memoria del nodo
 
 /*------------------------FUNCIONES AUXILIARES---------------------------*/
 void cargarBloques(t_list *listaBloques){
-	for(int i=0;i<=102;i++){//ciclo de for para cargar los 102 bloques
+	for(int i=0;i<=102;i++){  //ciclo de for para cargar los 102 bloques
 		bloq* bloque;//varaible para almacenar el bloque creado
 		bloque = crearBloque();//crea el bloque
 		list_add(listaBloques, bloque);//lo agrega a la lista

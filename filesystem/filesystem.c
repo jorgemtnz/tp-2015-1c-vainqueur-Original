@@ -10,7 +10,7 @@
 /*int main( ){
 	char * archivoEstructura;
 	int fdArchivoEstructura;
-	char* dirArchivo = "estructura.txt";
+	char* dirArchivo = "/tmp/estructura.txt";
 
 	fdArchivoEstructura = open(dirArchivo, O_RDWR | O_CREAT);
 	return 0;

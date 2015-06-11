@@ -16,7 +16,7 @@ typedef struct bloq {
 	int nombreDirectorio;
 	char nombreArchivo[25];
 	int tamanio;
-	//struct bloq* ptrSgt;[LAS FUNCIONES DE LISTAS DE LAS COMMONS SE VAN A ENCARGAR DE CREAR LOS PUNTEROS]
+	struct bloq* ptrSgt; //[LAS FUNCIONES DE LISTAS DE LAS COMMONS SE VAN A ENCARGAR DE CREAR LOS PUNTEROS]
 } bloq;
 // Archivo
 
@@ -37,7 +37,7 @@ typedef struct element {
 	int directorioPadre;
 	int elemento; //1 para directorio, 0 para archivo o documento.
 	t_list *listaNodos; //hacer lista nodo/bloque(ponerle si es copia:int 0-n o no)
-	//struct element* ptrSgt;[LAS FUNCIONES DE LISTAS DE LAS COMMONS SE VAN A ENCARGAR DE CREAR LOS PUNTEROS]
+//struct element* ptrSgt;[LAS FUNCIONES DE LISTAS DE LAS COMMONS SE VAN A ENCARGAR DE CREAR LOS PUNTEROS]
 } element;
 //fylesystem Estructura principal
 typedef struct fs {
