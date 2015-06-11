@@ -36,13 +36,13 @@ typedef struct element {
 	int tamanio;
 	int directorioPadre;
 	int elemento; //1 para directorio, 0 para archivo o documento.
-	t_list *listaNodos; //lista de nodos donde guardo el bloque
+	t_list *listaNodos; //hacer lista nodo/bloque(ponerle si es copia:int 0-n o no)
 	//struct element* ptrSgt;[LAS FUNCIONES DE LISTAS DE LAS COMMONS SE VAN A ENCARGAR DE CREAR LOS PUNTEROS]
 } element;
 //fylesystem Estructura principal
 typedef struct fs {
 	int estado;
-	t_list *listaNodos; //lista nodos conectados
+	nod* listaNodos; //lista nodos conectados
 	t_list *listaDirectorios;
 	int espacioDisponible;
 } fs;

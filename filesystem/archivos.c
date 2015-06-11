@@ -8,7 +8,7 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include "mapeoAMemoria.h"
+//#include "mapeoAMemoria.h"
 
 int  main(int argc, char **argv) {
 
@@ -38,7 +38,7 @@ void agregarN(fs* fileSystem ,char* nombre){//FALTA VER EL TEMA DE SOCKETS
 	 nod* nodo;
 	 nodo = crearNodo(nombre);//se usa el constructor para crear el nodo
 	list_add(fileSystem.listaNodos,nodo);//agrega al nodo a la lista de nodos del FS
-	agregarDir(fileSystem->listaDirectorios,nodo->nombre);//se agrega un dir con el nombre del nodo[EN PROCESO]
+	//agregarDir(fileSystem->listaDirectorios,nodo->nombre);//se agrega un dir con el nombre del nodo[EN PROCESO]
 
 }
 
@@ -46,7 +46,7 @@ void eliminarN(fs* fileSystem, char* nombre){//faltaria la condicion pero nose c
 	//list_remove_by_condition(fileSystem->listaNodos));//remueve de la lista el nodo que concuerda con el nombre ingresado eso creo
 }
 
-fs formatear(fs* fileSystem){//recive una entidad FS , libera su memoria y despues la crea devuelta, habia que ver sino inicilizarla[EN PROCESO TODAVIA LE FALTA]
+fs* formatear(fs* fileSystem){//recive una entidad FS , libera su memoria y despues la crea devuelta, habia que ver sino inicilizarla[EN PROCESO TODAVIA LE FALTA]
 	free(fileSystem);
 	fs* fileSystem;
 	fileSystem = inicilizarFs();
@@ -58,7 +58,7 @@ void crearCarpeta(fs* fileSystem,int dirPadre, char* nombre){
 	carpeta = crearElemento();
 	carpeta->directorioPadre = dirPadre;
 	carpeta->index;// = habira que generar una funcion que devuelva el index correspondiente en base al directorio padre en el que se agrega la carpeta
-
+	fileSystem.listaDirectorios = list_add(fileSystem.listaDirectorios, carpeta);
 }
 
 /*---------------------------------------------------------------*/
@@ -78,9 +78,9 @@ return nodo;
 
 bloq* crearBloque(){//constructor del bloque
 	bloq* bloque = malloc(sizeof(bloq));
-	bloque->nombre = NULL;
-	bloque->nombreArchivo = NULL;
-	bloque->nombreDirectorio = NULL;
+	bloque->nombre = 0;
+	bloque->nombreArchivo = "";
+	bloque->nombreDirectorio = 0;
 	bloque->tamanio = 20971520;//20 mb
 return bloque;
 }
@@ -97,11 +97,12 @@ element* crearElemento(){//crea un elemento generico para despues configurarlo c
 return elemento;
 }
 
-fs* inicilizarFS(int archivoConfig){//entra como parametro el fd del archivo config(CONSTRUCTOR DEL FS)[EN CONSTRUCCION]
+fs* crearFileSystem(){//entra como parametro el fd del archivo config(CONSTRUCTOR DEL FS)[EN CONSTRUCCION]
 	fs* fileSystem = malloc(sizeof(fs));
 	fileSystem->estado = 0;//creo que 0 era disponible sino lo cambiamos
 	fileSystem->listaNodos = nod* list_create();
 	fileSystem->listaDirectorios = element* list_create();// crea lista de elementos
+	fileSystem->espacioDisponible = 0;
 return fileSystem;//retorna el fs
 }
 
@@ -119,7 +120,7 @@ void destruirNodo(nod* nodo){//libera la memoria del nodo
 	free(nodo->estado);
 	free(nodo->nombre);
 	free(nodo->tamanio);
-	list_clean_and_destroy_elements(nodo->listaBloques,(bloq* bloque));//falta ver bien como se escribe esta funcion pero tendria que vaciar la lista de blqoues de un nodo
+	//list_clean_and_destroy_elements(nodo->listaBloques,(bloq* bloque));//falta ver bien como se escribe esta funcion pero tendria que vaciar la lista de blqoues de un nodo
 }
 
 
