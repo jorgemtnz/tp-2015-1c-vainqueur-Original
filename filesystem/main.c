@@ -1,7 +1,4 @@
 #include "filesystem.h"
-#include "consola.h"
-#include <stdlib.h>
-#include <stdio.h>
 
 int main(int argc, char **argv) {
 	int fdArchivo, fdEstructura, fdArchConfig;
@@ -16,8 +13,9 @@ int main(int argc, char **argv) {
 	fdArchivo = open(dirArchivo, O_RDWR);
 	fdEstructura = open(dirArchivoEstructura, O_RDWR | O_CREAT);
 
-	inicializarFS();
-     levantaConsola();
+	crearFileSystem();
+	inicializarFilesystem();
+	levantarConsola();
 
 	return 0;
 

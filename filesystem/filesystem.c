@@ -48,6 +48,9 @@ void inicializarFilesystem(){		// Se inicializa cuando se formatea
 
 /*-----------------------------------------------------------------------*/
 
+
+
+
 /*------------------------FUNCIONES DESTRUCTORAS-------------------------*/
 void liberaMemoriaBloque(bloq* bloque) { //libera memoria del tipo bloque
 	free(&bloque -> numero);
@@ -109,6 +112,10 @@ void liberaMemoriaFS(){
 
 /*-----------------------------------------------------------------------*/
 
+
+
+
+
 /*------------------------FUNCIONES AUXILIARES---------------------------*/
 void cargarBloques(t_list *listaBloques) {
 	int i = 0;
@@ -140,7 +147,38 @@ void guardarRegistro(int arch) { //esto mientras este el archivo abierto sino lo
 
 /*----------------------------------------------------------------------*/
 
-/*-------------------FUNCIONES DE CONSOLA------------------------*/
+
+
+
+
+
+/*------------------- CONSOLA------------------------*/
+//	    "formatearMDFS", "eliminarArchivo", "renombrarArchivo",
+//		"moverArchivos",				    // Archivos
+//		"crearDirectorio", "eliminarDirectorio", "renombrarDirectorio",
+//		"moverDirectorio",      // Directorios
+//		"copiarArchivoLocalAlMDFS", "copiarArchivoDelMDFSAlFSLocal",
+//		"solicitarMD5deUnArchivoenMDFS", "verBloque", "borrarBloque",
+//		"copiarBloque",										          // Bloques
+//		"agregarNodo", "eliminarNodo",								// Nodos
+//		"mostrarComandos"
+
+
+void levantarConsola() {
+	char comando[50];
+	int idFunc;
+
+	mostrarFunciones();
+
+	while (1) {
+
+		printf("Ingrese un comando >> ");
+		fgets(comando, 50, stdin);
+
+		idFunc = idFuncion(comando);
+		aplicarFuncion(idFunc);
+	}
+}
 
 void agregarN(char* nombre) { //FALTA VER EL TEMA DE SOCKETS
 	nod* nodo;
@@ -154,7 +192,7 @@ void eliminarN(char* nombre) { //faltaria la condicion pero nose como ponerla
 //list_remove_by_condition(FILESYSTEM->listaNodos), condicion(nombre) );//remueve de la lista el nodo que concuerda con el nombre ingresado eso creo
 }
 
-void formatear(int fdArchConfig) { //recive una entidad FS , libera su memoria y despues la crea devuelta, habia que ver sino inicilizarla[EN PROCESO TODAVIA LE FALTA]
+void formatearMDFS(int fdArchConfig) { //recive una entidad FS , libera su memoria y despues la crea devuelta, habia que ver sino inicilizarla[EN PROCESO TODAVIA LE FALTA]
 	liberaMemoriaFS();
 	inicializarFilesystem();
 }
@@ -183,7 +221,107 @@ void crearDirectorio() {
 }
 
 
+void mostrarFunciones() {
+	int contador = 0;
+	do {
+		contador += 1;
+		printf("*------------------------------------------*\n");
+		printf("COMANDO 	= %s\n", funciones[contador]);
+		printf("DESCRIPCION = %s\n", descripciones[contador]);
+		printf("*------------------------------------------*\n");
+	} while (contador <= NUMEROFUNCIONESCONSOLA);
+}
+
+int idFuncion(char* funcion) {
+	int i;
+	for (i = 0;
+			(i < NUMEROFUNCIONESCONSOLA) && (strcmp(funcion, funciones[i]) != 0);
+			i++)
+		;
+	return (i <= NUMEROFUNCIONESCONSOLA - 1) ? (i + 1) : -1;
+}
 
 
-/*---------------------------------------------------------------*/
+void aplicarFuncion(int idFuncion) { //selecciona un case en base al numero que llevaba el contador y aplica la funcion recibe el dir
+	switch (idFuncion) {
+
+	case FORMATEAR_MDFS:
+		printf(
+				"Esta es la funcion formatear \n y el directorio ingresado es = %s \n"); //no todas las funciones usan el dir pero yo lo puse por las dudas
+		break;
+
+	case ELIMINAR_ARCHIVO:
+		printf(
+				"Esta es la funcion eliminar \n y el directorio ingresado es = %s \n");
+		break;
+	case RENOMBRAR_ARCHIVO:
+		printf(
+				"Esta es la funcion renombrar \n y el directorio ingresado es = %s \n");
+		break;
+	case MOVER_ARCHIVOS:
+		printf(
+				"Esta es la funcion mover \n y el directorio ingresado es = %s \n");
+		break;
+	case CREAR_DIRECTORIO:
+		printf(
+				"Esta es la funcion crearD \n y el directorio ingresado es = %s \n");
+		break;
+	case ELIMINAR_DIRECTORIO:
+		printf(
+				"Esta es la funcion eliminarD \n y el directorio ingresado es = %s \n");
+		break;
+	case RENOMBRAR_DIRECTORIO:
+		printf(
+				"Esta es la funcion renombrarD \n y el directorio ingresado es = %s \n");
+		break;
+	case MOVER_DIRECTORIO:
+		printf(
+				"Esta es la funcion moverD \n y el directorio ingresado es = %s \n");
+		break;
+	case COPIAR_ARCHIVO_LOCAL_AL_MDFS:
+		printf(
+				"Esta es la funcion copiar \n y el directorio ingresado es = %s \n");
+		break;
+	case COPIAR_ARCHIVO_DEL_MDFS_AL_FS_LOCAL:
+		printf(
+				"Esta es la funcion copiarFSL \n y el directorio ingresado es = %s \n");
+		break;
+	case SOLICITAR_MD5_DE_UN_ARCHIVO_EN_MDFS:
+		printf(
+				"Esta es la funcion md5 \n y el directorio ingresado es = %s \n");
+		break;
+	case VER_BLOQUE:
+		printf(
+				"Esta es la funcion verB \n y el directorio ingresado es = %s \n");
+		break;
+	case BORRAR_BLOQUE:
+		printf(
+				"Esta es la funcion borrarB \n y el directorio ingresado es = %s \n");
+		break;
+	case COPIAR_BLOQUE:
+		printf(
+				"Esta es la funcion copiarB \n y el directorio ingresado es = %s \n");
+		break;
+	case AGREGAR_NODO:
+		printf(
+				"Esta es la funcion agregarN \n y el directorio ingresado es = %s \n");
+		break;
+
+	case ELIMINAR_NODO:
+		printf(
+				"Esta es la funcion eliminarN \n y el directorio ingresado es = %s \n");
+		break;
+
+	case MOSTRAR_COMANDOS:
+		mostrarFunciones();
+		break;
+
+	case -1:
+		printf("--Ojo ese comando no existe!! proba con mostrarComandos\n");
+		break;
+	}
+
+}
+
+
 
