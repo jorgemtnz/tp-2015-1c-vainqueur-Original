@@ -104,11 +104,10 @@ fs* inicializarFs(int fdArchConfig){
 return filesystem;
 }
 
-fs* formatear(int fdArchConfig) {	//recive una entidad FS , libera su memoria y despues la crea devuelta, habia que ver sino inicilizarla[EN PROCESO TODAVIA LE FALTA]
+void formatear(int fdArchConfig) {	//recive una entidad FS , libera su memoria y despues la crea devuelta, habia que ver sino inicilizarla[EN PROCESO TODAVIA LE FALTA]
 //free(fileSystem);
 
 	FILESYSTEM = inicializarFs(fdArchConfig);
-	return FILESYSTEM;
 }
 
 void crearCarpeta( int dirPadre, char* nombre) {
@@ -119,6 +118,9 @@ void crearCarpeta( int dirPadre, char* nombre) {
 FILESYSTEM->listaDirectorios = list_add(FILESYSTEM->listaDirectorios, carpeta);
 }
 
+void inicializarFS(int fdArchConfig){
+
+}
 /*---------------------------------------------------------------*/
 
 

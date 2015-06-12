@@ -6,6 +6,7 @@
  */
 
 #ifndef FILESYSTEM_H_
+#define FILESYSTEM_H_
 #include <commons/collections/list.h>
 #include <fcntl.h>
 #include <sys/types.h>
@@ -72,8 +73,8 @@ typedef struct fs {
 fs* FILESYSTEM;
 // persistencia del estado del filesystem se hará en un archivo, piente usar commons/list.h para manejar listas
 //pendiente usar funciones para manejar archivos, se deben crear. No estan en las commons.
-fs* formatear(fs* fileSystem);
-void crearCarpeta(fs* fileSystem, int dirPadre, char* nombre);
+void formatear(int fdArchConfig);
+void crearCarpeta( int dirPadre, char* nombre);
 void eliminarN(fs* fileSystem, char* nombre) ;
 void agregarN(fs* fileSystem, char* nombre) ;
 void guardarRegistro(int arch, fs* fileSystem);
