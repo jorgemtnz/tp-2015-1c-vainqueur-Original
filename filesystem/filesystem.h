@@ -7,6 +7,7 @@
 
 #ifndef FILESYSTEM_H_
 #define FILESYSTEM_H_
+
 #include <commons/collections/list.h>
 #include <fcntl.h>
 #include <sys/types.h>
@@ -16,7 +17,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-
 #define FILESYSTEM_H_
 #define ESDIRECTORIO 1
 #define ESARCHIVO 0
@@ -39,7 +39,7 @@ typedef struct bloq {
 
 //nodo
 typedef struct nod {
-	char nombre[25];
+	char* nombre;
 	int estado;
 	int tamanio;
 	t_list* listaBloques; //del nodo
@@ -53,7 +53,7 @@ typedef struct nodBloq {
 } nodBloq;
 
 typedef struct element {
-	char nombre[25];
+	char* nombre;
 	int estado;
 	int index;
 	int tamanio;
@@ -75,10 +75,10 @@ fs* FILESYSTEM;
 //pendiente usar funciones para manejar archivos, se deben crear. No estan en las commons.
 void formatear(int fdArchConfig);
 void crearCarpeta( int dirPadre, char* nombre);
-void eliminarN(fs* fileSystem, char* nombre) ;
-void agregarN(fs* fileSystem, char* nombre) ;
-void guardarRegistro(int arch, fs* fileSystem);
-void leerRegistro(int arch, fs* fileSystem) ;
+void eliminarN(char* nombre) ;
+void agregarN(char* nombre) ;
+void guardarRegistro(int arch);
+void leerRegistro(int arch) ;
 void cargarBloques(t_list *listaBloques);
 void destruirNodo(nod* nodo) ;
 void destruirBloque(bloq* bloque) ;
