@@ -16,7 +16,7 @@ int main(int argc, char **argv) {
 	fdArchivo = open(dirArchivo, O_RDWR);
 	fdEstructura = open(dirArchivoEstructura, O_RDWR | O_CREAT);
 
-     inicializarFS(fdArchConfig);
+	inicializarFS();
      levantaConsola();
 
 	return 0;
