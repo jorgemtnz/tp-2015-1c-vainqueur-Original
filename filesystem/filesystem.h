@@ -17,6 +17,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
+
 #define FILESYSTEM_H_
 #define ESDIRECTORIO 1
 #define ESARCHIVO 0
@@ -25,7 +27,7 @@
 #define NODOOPERATIVO 1
 #define NODONOOPERATIVO 0
 #define NUMEROBLOQUES 102
-
+#define TAMANIONODO 2147483648 // 2Gb en bytes
 
 //bloque
 typedef struct bloq {
@@ -41,13 +43,13 @@ typedef struct bloq {
 typedef struct nod {
 	char* nombre;
 	int estado;
-	int tamanio;
+//	long long tamanio;  consultar, posiblemente no sea necesario
 	t_list* listaBloques; //del nodo
 	char* ptrdirEspacioNodo;
 	// struct nod* ptrSgt; [LAS FUNCIONES DE LISTAS DE LAS COMMONS SE VAN A ENCARGAR DE CREAR LOS PUNTEROS]
 } nod;
 typedef struct nodBloq {
-	int numeroCopia;
+	int numeroCopia; // 0 original, 1 copia 1, n copia n.
 	int numeroNodo;
 	int numeroBloque;
 } nodBloq;
@@ -66,7 +68,7 @@ typedef struct element {
 typedef struct fs {
 	int estado;
 	t_list* listaNodos; //lista nodos conectados
-	t_list* listaDirectorios;
+	t_list* listaElementos;
 	int espacioDisponible;
 } fs;
 

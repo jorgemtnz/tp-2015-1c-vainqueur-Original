@@ -1,13 +1,12 @@
 #include "filesystem.h"
 
-
 /*------------------FUNCIONES CONSTRUCTORAS----------------------*/
 
 nod* crearNodo(char* nombre) {	//constructor del nodo
 	nod* nodo = malloc(sizeof(nod));
 	strcpy(nodo->nombre, nombre);	//le pongo nombre al nodo
 	nodo->estado = NODOOPERATIVO; // pongo en estado operativo
-	nodo->tamanio = 2;
+	//nodo->tamanio = TAMANIONODO; consultar, posiblemente no sea necesario
 	nodo->listaBloques = list_create(); // bloq * creamos lista de bloques
 	cargarBloques(nodo->listaBloques); //carga 102 bloques
 
@@ -39,7 +38,7 @@ fs* crearFileSystem() { //entra como parametro el fd del archivo config(CONSTRUC
 	fs* fileSystem = malloc(sizeof(fs));
 	fileSystem->estado = 0; //creo que 0 era disponible sino lo cambiamos
 	fileSystem->listaNodos = list_create(); //nod*
-	fileSystem->listaDirectorios = list_create(); // crea lista de elementos element *
+	fileSystem->listaElementos = list_create(); // crea lista de elementos element *
 	fileSystem->espacioDisponible = 0;
 	return fileSystem; //retorna el fs
 }
@@ -47,13 +46,62 @@ fs* crearFileSystem() { //entra como parametro el fd del archivo config(CONSTRUC
 /*-----------------------------------------------------------------------*/
 
 /*------------------------FUNCIONES DESTRUCTORAS-------------------------*/
-void destruirBloque(bloq* bloque) { //libera memoria del tipo bloque
+void liberaMemoriaBloque(bloq* bloque) { //libera memoria del tipo bloque
+	free(&bloque->nombre);
+	free(&bloque->nombreArchivo);
+	free(&bloque->nombreDirectorio);
+	free(&bloque->tamanio);
 	free(bloque);
 }
+void liberaMemoriaNodo(nod* nodo) { //libera la memoria del nodo
+	int i = 0;
 
-void destruirNodo(nod* nodo) { //libera la memoria del nodo
+	free(&nodo->estado);fs* inicializarFs(int fdArchConfig) {
+
+		return FILESYSTEM;
+	}
+	free(&nodo->nombre);
+	free(&nodo->ptrdirEspacioNodo);
+	free(&nodo->tamanio);
+	for (; i <= nodo->listaBloques->elements_count; i++) { //libero memoria de los bloques
+		list_destroy_and_destroy_elements(nodo->listaBloques,
+				(void*) liberaMemoriaBloque); //consultar porque no agarra el index
+	}
 	free(nodo);
-//list_clean_and_destroy_elements(nodo->listaBloques,(bloq* bloque));//falta ver bien como se escribe esta funcion pero tendria que vaciar la lista de blqoues de un nodo
+}
+
+void liberaNodoBloque(nodBloq* nodoBloque) {
+	free(&(nodoBloque->numeroBloque));
+	free(&(nodoBloque->numeroCopia));
+	free(&(nodoBloque->numeroNodo));
+	free(nodoBloque);
+}
+
+void liberaMemoriaElement(element* elemento) {
+	int i = 0;
+	free(&(elemento->directorioPadre));
+	free(&(elemento->elemento));
+	free(&(elemento->estado));
+	free(&(elemento->index));
+	free(&(elemento->nombre));
+	free(&(elemento->tamanio));
+	for (; i <= elemento->listaNodoBloque->elements_count; i++) { //libero memoria de los Nodobloques
+		list_destroy_and_destroy_elements(elemento->listaNodoBloque, (void*)liberaNodoBloque);
+	}  //consultar el uso de list_destroy que no esta recibiendo el index i
+	free(elemento);
+}
+void liberaMemoriaFS(){
+	int i=0;
+	free(&FILESYSTEM->espacioDisponible);
+	free(&FILESYSTEM->estado);
+	for (; i <= FILESYSTEM->listaNodos->elements_count; i++) { //libero memoria de los Nodobloques
+			list_destroy_and_destroy_elements(FILESYSTEM->listaNodos, (void*)liberaMemoriaNodo);
+		}  //consultar el uso de list_destroy que no esta recibiendo el index i
+
+	for (; i <= FILESYSTEM->listaElementos->elements_count; i++) { //libero memoria de los Nodobloques
+			list_destroy_and_destroy_elements(FILESYSTEM->listaElementos, (void*)liberaMemoriaElement);
+		} //consultar el uso de list_destroy que no esta recibiendo el index i
+	free(FILESYSTEM);
 }
 
 /*-----------------------------------------------------------------------*/
@@ -82,7 +130,7 @@ void guardarRegistro(int arch) { //esto mientras este el archivo abierto sino lo
 
 /*-------------------FUNCIONES DE CONSOLA------------------------*/
 
-void agregarN( char* nombre) { //FALTA VER EL TEMA DE SOCKETS
+void agregarN(char* nombre) { //FALTA VER EL TEMA DE SOCKETS
 	nod* nodo;
 	nodo = crearNodo(nombre); //se usa el constructor para crear el nodo
 	list_add(FILESYSTEM->listaNodos, nodo); //agrega al nodo a la lista de nodos del FS
@@ -94,30 +142,25 @@ void eliminarN(char* nombre) { //faltaria la condicion pero nose como ponerla
 //list_remove_by_condition(FILESYSTEM->listaNodos), condicion(nombre) );//remueve de la lista el nodo que concuerda con el nombre ingresado eso creo
 }
 
-fs* inicializarFs(int fdArchConfig){
-
-return FILESYSTEM;
-}
-
-void formatear(int fdArchConfig) {	//recive una entidad FS , libera su memoria y despues la crea devuelta, habia que ver sino inicilizarla[EN PROCESO TODAVIA LE FALTA]
+void formatear(int fdArchConfig) { //recive una entidad FS , libera su memoria y despues la crea devuelta, habia que ver sino inicilizarla[EN PROCESO TODAVIA LE FALTA]
 //free(fileSystem);
 
 	FILESYSTEM = inicializarFs(fdArchConfig);
 }
 
-void crearCarpeta( int dirPadre, char* nombre) {
+void crearCarpeta(int dirPadre, char* nombre) {
 	element* carpeta;
 	carpeta = crearElemento();
 	carpeta->nombre = nombre;
 	carpeta->directorioPadre = dirPadre;
-	carpeta->index;	// = habira que generar una funcion que devuelva el index correspondiente en base al directorio padre en el que se agrega la carpeta
-FILESYSTEM->listaDirectorios = list_add(FILESYSTEM->listaDirectorios, carpeta);
+	carpeta->index = malloc(sizeof(int));	// int = habira que generar una funcion que devuelva el index correspondiente en base al directorio padre en el que se agrega la carpeta
+	FILESYSTEM->listaElementos = list_add(FILESYSTEM->listaElementos,
+			carpeta);
 }
 
-void inicializarFS(int fdArchConfig){
+void inicializarFS(int fdArchConfig) {
+
 
 }
 /*---------------------------------------------------------------*/
-
-
 
