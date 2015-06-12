@@ -22,7 +22,7 @@
 #define OPERATIVO 1		// Nodo y FS
 #define NOOPERATIVO 0
 #define DISPONIBLE 1	// Archivos
-#define NODISṔONIBLE 0
+#define NODISPONIBLE 0
 #define NUMEROBLOQUES 102
 #define UBICACIONNODO "/tmp/nodo.txt"
 #define NUMEROFUNCIONESCONSOLA 18
@@ -96,12 +96,13 @@ void inicializarFilesystem();
 void levantarConsola();
 void aplicarFuncion(int idFuncion);
 void man(char* funcion);
-void mostrarFunciones();
+void mostrarComandos();
 int  idFuncion(char* funcion);
 // +++++++++++++++++++++++++++++++++++ Variables Globales +++++++++++++++++++++++++++++++++++
 fs* FILESYSTEM;
 
-char* funciones[] = { "formatearMDFS", "eliminarArchivo", "renombrarArchivo",
+
+char* funcionesConsola[] = { "formatearMDFS", "eliminarArchivo", "renombrarArchivo",
 		"moverArchivos",				    // Archivos
 		"crearDirectorio", "eliminarDirectorio", "renombrarDirectorio",
 		"moverDirectorio",      // Directorios
@@ -132,7 +133,7 @@ enum nomFun {
 };
 
 //Completar descripciones
-char* descripciones[] = { "Descrpcion de la funcion 1",
+char* descripcionesConsola[] = { "Descrpcion de la funcion 1",
 		"Descrpcion de la funcion 2", "Descrpcion de la funcion 3",
 		"Descrpcion de la funcion 4", "Descrpcion de la funcion 5",
 		"Descrpcion de la funcion 6", "Descrpcion de la funcion 7",
@@ -141,6 +142,7 @@ char* descripciones[] = { "Descrpcion de la funcion 1",
 		"Descrpcion de la funcion 12", "Descrpcion de la funcion 13",
 		"Descrpcion de la funcion 14", "Descrpcion de la funcion 15",
 		"Descrpcion de la funcion 16", "Descrpcion de la funcion 17"};
+
 
 
 #endif /* FILESYSTEM_H_ */
