@@ -15,7 +15,7 @@ void levantarArchivoConfiguracion() {
 		nodoNuevo = NODO_NUEVO;
 	}
 	if (strcmp(temporal, "NO") == 0) {
-		nodoNuevo = NODO_NUEVO;
+		nodoNuevo = NODO_NO_NUEVO;
 	}
 	config_destroy(archivoConfig);
 }
@@ -36,10 +36,13 @@ int ejecutarReduce(int soportaCombiner) {
 	if (soportaCombiner) {
 
 	}
+	return 0;
 }
+
 int ejecutarMap(char * nombreArchivoTemporal, char * ptrDireccionMapeo) {
-	char ruta[60] = "/tmp/";
-	strcat(ruta, nombreArchivoTemporal);
+	char *ruta;
+	strcpy(ruta,dirTemp);
+	ruta = strcat(ruta, nombreArchivoTemporal);
 	if (ejecutarScriptRedireccionandoIO(ruta, ptrDireccionMapeo,
 	RUTAMAP, "") < 0) {
 		perror("[ERROR] Funcion ejecutarScriptRedireccionandoIO\n");
@@ -48,16 +51,18 @@ int ejecutarMap(char * nombreArchivoTemporal, char * ptrDireccionMapeo) {
 	return EJECUCIONOK;
 }
 
+
+void conectarNodo(nodo_t* datosDelNodo) {
+	int fdNodo = crearSocket();
+	int numNodo = datosDelNodo->idNodo;
+	conectarSocket(fdNodo,ipFS,puertoFS);
+	printf("Nodo: %d conectado al FS con ip %s mediante el puerto %d \n",
+			numNodo, ipFS, puertoFS);
+}
+
+
 int main() {
 	nodo_t datosDelNodo;
 	datosDelNodo.idNodo = 1;
 	return 0;
 }
-
-void conectarNodo(nodo_t* datosDelNodo, char* ipFS, int puertoFS) {
-	int fdNodo = crearSocket();
-	conectarSocket(fdNodo, ipFS, puerto);
-	printf("Nodo: %d conectado al FS con ip %s mediante el puerto %d \n",
-			datosDelNodo->idNodo, ipFS, puerto);
-}
-
