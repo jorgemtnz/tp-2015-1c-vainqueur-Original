@@ -1,3 +1,6 @@
+Limpio carpeta para que no haya basura. Es importante que borren todo lo que tienen (en carpeta y en eclipse) y hagan 
+git clone https://github.com/sisoputnfrba/tp-2015-1c-vainqueur /home/utnso/TPOperativos
+
 # tp-2015-1c-vainqueur
 
 archivo problemas y soluciones: drive - > complementosTP2015/ soluciones.docx
