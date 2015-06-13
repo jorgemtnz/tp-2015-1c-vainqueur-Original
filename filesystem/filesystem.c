@@ -125,16 +125,6 @@ void leerRegistro(int arch) {
 	read(arch, FILESYSTEM, sizeof(fs)); //lee el archivo y pone la estructura en la estructura fs
 }
 
-void mostrarElementos() {
-	int elementosEnLista = FILESYSTEM->listaElementos->elements_count;
-	int i;
-	for (i = 0; i <= elementosEnLista; i++) {
-		element* elementoi;
-		elementoi = list_get(FILESYSTEM->listaElementos, i);
-		printf("Index:%d Elemento:%s\n", elementoi->index, elementoi->nombre);
-	}
-}
-
 void guardarRegistro(int arch) { //esto mientras este el archivo abierto sino lo abrimos aca
 
 	write(arch, FILESYSTEM, sizeof(fs)); //le paso el registro fileSystem,y el archivo y lo escribe
@@ -143,63 +133,41 @@ void guardarRegistro(int arch) { //esto mientras este el archivo abierto sino lo
 /*----------------------------------------------------------------------*/
 
 /*------------------- CONSOLA------------------------*/
-//	    SformatearMDFS SeliminarArchiv nrenombrarArchivo
-//	    nmoverArchivo
-//		ncrearDirectorio SeliminarDirectorio nrenombrarDirectorio
-//		nmoverDirectorio
-//		ncopiarArchivoLocalAlMDFS    ncopiarArchivoDelMDFSAlFSLocal
-//		nsolicitarMD5deUnArchivoenMDFS nverBloque  nborrarBloque
-//	     ncopiarBloque
-//		nagregarNodoeliminarNodo
-//		smostrarComandos
-void agregarN(char* nombre) { //FALTA VER EL TEMA DE SOCKETS
-	nod* nodo;
-	nodo = crearNodo(nombre); //se usa el constructor para crear el nodo
-	list_add(FILESYSTEM->listaNodosConectados, nodo); //agrega al nodo a la lista de nodos del FS
-//agregarDir(fileSystem->listaDirectorios,nodo->nombre);//se agrega un dir con el nombre del nodo[EN PROCESO]-quizas no se haría
+// s	formatearMDFS
+// s    eliminarArchiv
+// n 	renombrarArchivo
+// n	moverArchivo
+// s	crearDirectorio 		// Terminada ????
+// S    eliminarDirectorio
+// n    renombrarDirectorio
+// n	moverDirectorio
+// n	copiarArchivoLocalAlMDFS
+// n	copiarArchivoDelMDFSAlFSLocal
+// n	solicitarMD5deUnArchivoenMDFS
+// n	verBloque
+// n	borrarBloque
+// n	copiarBloque
+// s	agregarNodo  			// No debe recibir argumentos // Falta sockets
+// n	eliminarNodo			// No debe recibir argumentos
+// s	mostrarComandos
+// s 	mostrarElementos // Yapa
 
-}
-
-void eliminarN(char* nombre) { //faltaria la condicion pero nose como ponerla
-//list_remove_by_condition(FILESYSTEM->listaNodos), condicion(nombre) );//remueve de la lista el nodo que concuerda con el nombre ingresado eso creo
-}
-
-void formatearMDFS() { //recive una entidad FS , libera su memoria y despues la crea devuelta, habia que ver sino inicilizarla[EN PROCESO TODAVIA LE FALTA]
+void formatearMDFS() {
 	liberaMemoriaFS();
 	inicializarFilesystem();
-
 }
 
 void eliminarElemento(char* nombreElemento) {
 	int i = 0;
-	int elementosEnLista = FILESYSTEM->listaElementos->elements_count;
+	int elementosEnLista = FILESYSTEM -> listaElementos -> elements_count;
 	for (; i <= elementosEnLista; i++) {
 		element* elementoi;
 		elementoi = list_get(FILESYSTEM->listaElementos, i);
 
 		list_remove_by_condition(FILESYSTEM->listaElementos,
 				string_equals_ignore_case(elementoi->nombre, nombreElemento));
-
 	}
-
-}
-
-void eliminarArchivo() {
-	char nombreArchivo[50];
-
-	printf("Ingrese el nombre del archivo: ");
-	scanf("%s", nombreArchivo);
-	eliminarElemento(nombreArchivo);
-
-}
-
-void eliminarDirectorio() {
-	char nombreDirectorio[50];
-
-	printf("Ingrese el nombre del Directorio: ");
-	scanf("%s", nombreDirectorio);
-	eliminarElemento(nombreDirectorio);
-}
+} // Generica, sirve para archivos y directorios
 
 void crearDirectorio() {
 	element* carpeta;
@@ -223,9 +191,70 @@ void crearDirectorio() {
 	list_add(FILESYSTEM->listaElementos, carpeta);
 }
 
-/*---------CONSOLA IMPLEMENTACION------*/
+
+void eliminarArchivo() {
+	char nombreArchivo[50];
+
+	printf("Ingrese el nombre del archivo: ");
+	scanf("%s", nombreArchivo);
+	eliminarElemento(nombreArchivo);
+
+}
+
+void eliminarDirectorio() {
+	char nombreDirectorio[50];
+
+	printf("Ingrese el nombre del Directorio: ");
+	scanf("%s", nombreDirectorio);
+	eliminarElemento(nombreDirectorio);
+}
+
+
+void agregarNodo(char* nombre) { //FALTA VER EL TEMA DE SOCKETS
+	nod* nodo;
+	nodo = crearNodo(nombre);
+	list_add(FILESYSTEM->listaNodosConectados, nodo);
+	// Agrega al nodo a la lista de nodos del FS
+}
+
+void eliminarNodo(char* nombre) { //faltaria la condicion pero nose como ponerla
+//list_remove_by_condition(FILESYSTEM->listaNodos), condicion(nombre) );//remueve de la lista el nodo que concuerda con el nombre ingresado eso creo
+}
+
+
+void mostrarElementos() {
+	int elementosEnLista = FILESYSTEM->listaElementos->elements_count;
+	int i;
+	for (i = 0; i <= elementosEnLista; i++) {
+		element* elementoi;
+		elementoi = list_get(FILESYSTEM->listaElementos, i);
+		printf("Index:%d Elemento:%s\n", elementoi->index, elementoi->nombre);
+	}
+}
 
 void mostrarComandos() {
+	char* funcionesConsola[] = {
+			"formatearMDFS",
+			"eliminarArchivo", "renombrarArchivo","moverArchivos",	 // Archivos
+			"crearDirectorio", "eliminarDirectorio", "renombrarDirectorio", "moverDirectorio",  // Directorios
+			"copiarArchivoLocalAlMDFS",
+			"copiarArchivoDelMDFSAlFSLocal",
+			"solicitarMD5deUnArchivoenMDFS",
+			"verBloque", "borrarBloque","copiarBloque",	// Bloques
+			"agregarNodo", "eliminarNodo", // Nodos
+			"mostrarComandos", "mostrarElementos"};
+
+	char* descripcionesConsola[] = { "Descrpcion de la funcion 1",
+			"Descripcion de la funcion 2", "Descripcion de la funcion 3",
+			"Descripcion de la funcion 4", "Descripcion de la funcion 5",
+			"Descripcion de la funcion 6", "Descripcion de la funcion 7",
+			"Descripcion de la funcion 8", "Descripcion de la funcion 9",
+			"Descripcion de la funcion 10", "Descripcion de la funcion 11",
+			"Descripcion de la funcion 12", "Descripcion de la funcion 13",
+			"Descripcion de la funcion 14", "Descripcion de la funcion 15",
+			"Descripcion de la funcion 16", "Descripcion de la funcion 17",
+			"Descripcion de la funcion 18"};
+
 	int contador = 0;
 	do {
 		contador += 1;
@@ -236,8 +265,21 @@ void mostrarComandos() {
 	} while (contador <= NUMEROFUNCIONESCONSOLA);
 }
 
+// ---------CONSOLA IMPLEMENTACION------
 int idFuncion(char* funcion) {
 	int i;
+
+	char* funcionesConsola[] = {
+			"formatearMDFS",
+			"eliminarArchivo", "renombrarArchivo","moverArchivos",	 // Archivos
+			"crearDirectorio", "eliminarDirectorio", "renombrarDirectorio", "moverDirectorio",  // Directorios
+			"copiarArchivoLocalAlMDFS",
+			"copiarArchivoDelMDFSAlFSLocal",
+			"solicitarMD5deUnArchivoenMDFS",
+			"verBloque", "borrarBloque","copiarBloque",	// Bloques
+			"agregarNodo", "eliminarNodo", // Nodos
+			"mostrarComandos", "mostrarElementos"};
+
 	for (i = 0;
 			(i < NUMEROFUNCIONESCONSOLA)
 					&& (strcmp(funcion, funcionesConsola[i]) != 0); i++)
@@ -248,10 +290,17 @@ int idFuncion(char* funcion) {
 void aplicarFuncion(int idFuncion) { //selecciona un case en base al numero que llevaba el contador y aplica la funcion recibe el dir
 	switch (idFuncion) {
 
+	enum nomFun {FORMATEAR_MDFS = 1,ELIMINAR_ARCHIVO,RENOMBRAR_ARCHIVO,MOVER_ARCHIVOS,CREAR_DIRECTORIO,ELIMINAR_DIRECTORIO,RENOMBRAR_DIRECTORIO,MOVER_DIRECTORIO,
+		COPIAR_ARCHIVO_LOCAL_AL_MDFS,COPIAR_ARCHIVO_DEL_MDFS_AL_FS_LOCAL,SOLICITAR_MD5_DE_UN_ARCHIVO_EN_MDFS,VER_BLOQUE,BORRAR_BLOQUE,COPIAR_BLOQUE,
+		AGREGAR_NODO,ELIMINAR_NODO,	MOSTRAR_COMANDOS, MOSTRAR_ELEMENTOS}; // Lo que hace el enum es convertirme lo que dice en enteros
+
+
 	case FORMATEAR_MDFS:
+		formatearMDFS();
 		break;
 
 	case ELIMINAR_ARCHIVO:
+		eliminarArchivo();
 		break;
 
 	case RENOMBRAR_ARCHIVO:
@@ -261,9 +310,11 @@ void aplicarFuncion(int idFuncion) { //selecciona un case en base al numero que 
 		break;
 
 	case CREAR_DIRECTORIO:
+		crearDirectorio();
 		break;
 
 	case ELIMINAR_DIRECTORIO:
+		eliminarDirectorio();
 		break;
 
 	case RENOMBRAR_DIRECTORIO:
@@ -298,6 +349,10 @@ void aplicarFuncion(int idFuncion) { //selecciona un case en base al numero que 
 
 	case MOSTRAR_COMANDOS:
 		mostrarComandos();
+		break;
+
+	case MOSTRAR_ELEMENTOS:
+		mostrarElementos();
 		break;
 
 	case -1:
