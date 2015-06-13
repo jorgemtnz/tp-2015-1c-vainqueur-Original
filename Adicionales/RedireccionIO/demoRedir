@@ -25,7 +25,7 @@ int pipes[NUMERO_PIPES][NUMERO_CANALES];
 
 //void ejecutarRedireccionandoIO (entrada,salida,funcion);
 
-int main() {
+int demoRedir() {
 	//Definido para el mapeo
 	//char* ptrComienzoMemoriaMapeada;
 	//int * ptrTamanioPagina;
