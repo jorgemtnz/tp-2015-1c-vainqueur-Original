@@ -130,6 +130,21 @@ void guardarRegistro(int arch) { //esto mientras este el archivo abierto sino lo
 	write(arch, FILESYSTEM, sizeof(fs)); //le paso el registro fileSystem,y el archivo y lo escribe
 }
 
+element buscarElementoPor(char* nombre){
+	int i, elementosEnLista;
+	element elementoBuscado, elementoi;
+	elementosEnLista = FILESYSTEM->listaElementos->elements_count;
+
+	for(i=0;i <= elementosEnLista;i++){
+	elementoi = list_get(FILESYSTEM->listaElementos,i);
+	if (elementoi.nombre==nombre){
+		elementoBuscado = elementoi;
+		BusquedaDeElementoExitosa = 1;
+	}
+	}
+	return elementoBuscado;
+}
+
 /*----------------------------------------------------------------------*/
 
 /*------------------- CONSOLA------------------------*/
@@ -165,7 +180,6 @@ void eliminarElemento(char* nombreElemento) {
 	for (i=0; i <= elementosEnLista; i++) { // Recorremos la lista
 		element* elementoi;
 		elementoi = list_get(FILESYSTEM->listaElementos, i);
-
 		sonIguales = string_equals_ignore_case(elementoi->nombre, nombreElemento);
 		// Si las cadenas son iguales => encontro string => lo elimino
 
@@ -176,6 +190,23 @@ void eliminarElemento(char* nombreElemento) {
 		// Si las cadenas son distintas => Sigue el for
 	}
 } // Generica, sirve para archivos y directorios
+
+void renombrarArchivo(){
+	char* nuevoNombre;
+	element archivo;
+	printf("Ingrese nuevo nombre para el archivo");
+	scanf("%s", nuevoNombre);
+	archivo = buscarElementoPor(nuevoNombre);
+	if (BusquedaDeElementoExitosa){
+		archivo.nombre = nuevoNombre;
+	}else{
+		perror("%s", "El archivo no fue encontrado");
+	}
+}
+
+void moverArchivo(){
+
+}
 
 void crearDirectorio() {
 	element* carpeta;

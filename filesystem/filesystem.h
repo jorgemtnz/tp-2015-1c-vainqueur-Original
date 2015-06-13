@@ -27,6 +27,7 @@
 #define UBICACIONNODO "/tmp/nodo.txt"
 #define NUMEROFUNCIONESCONSOLA 18
 
+
 // +++++++++++++++++++++++++++++++++++++++ Estructuras +++++++++++++++++++++++++++++++++++++
 typedef struct bloq {
 	int numero;
@@ -63,6 +64,10 @@ typedef struct fs {
 	t_list* listaNodosConectados;
 	t_list* listaElementos;
 } fs;
+
+// +++++++++++++++++++++++++++++++++++++++ Variables Globales +++++++++++++++++++++++++++++++++++++
+
+int BusquedaDeElementoExitosa = 0; // si es 0 no lo encontró, si es 1 lo encontró
 
 
 // +++++++++++++++++++++++++++++++++++++++ Prototipos +++++++++++++++++++++++++++++++++++++
