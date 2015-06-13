@@ -140,6 +140,8 @@ element buscarElementoPor(char* nombre){
 	if (elementoi.nombre==nombre){
 		elementoBuscado = elementoi;
 		BusquedaDeElementoExitosa = 1;
+	}else{
+		BusquedaDeElementoExitosa = 0;
 	}
 	}
 	return elementoBuscado;
@@ -150,7 +152,7 @@ element buscarElementoPor(char* nombre){
 /*------------------- CONSOLA------------------------*/
 // s	formatearMDFS
 // s    eliminarArchiv
-// n 	renombrarArchivo
+// s 	renombrarArchivo
 // n	moverArchivo
 // s	crearDirectorio 		// Terminada ????
 // S    eliminarDirectorio
@@ -192,20 +194,37 @@ void eliminarElemento(char* nombreElemento) {
 } // Generica, sirve para archivos y directorios
 
 void renombrarArchivo(){
-	char* nuevoNombre;
+	char* nombre, nuevoNombre;
 	element archivo;
+	printf("Ingrese nombre de archivo a renombrar");
+	scanf("%s", nombre);
 	printf("Ingrese nuevo nombre para el archivo");
 	scanf("%s", nuevoNombre);
-	archivo = buscarElementoPor(nuevoNombre);
+	archivo = buscarElementoPor(nombre);
 	if (BusquedaDeElementoExitosa){
 		archivo.nombre = nuevoNombre;
 	}else{
-		perror("%s", "El archivo no fue encontrado");
+		perror("No existe el archivo");
+		exit(-1);
 	}
 }
 
 void moverArchivo(){
+	char* nombreArchivo;
+	char directorioNuevo[100]; // Hacer un define
+	element archivo;
 
+	printf("Ingrese nombre de archivo");
+	scanf("%s", nombreArchivo);
+	printf("Ingrese nueva ruta");
+	scanf("%s", directorioNuevo);
+
+	archivo = buscarElementoPor(nombreArchivo);
+	if (BusquedaDeElementoExitosa){
+
+
+	eliminarElemento(nombreArchivo);
+	}
 }
 
 void crearDirectorio() {
