@@ -150,7 +150,7 @@ void guardarRegistro(int arch) { //esto mientras este el archivo abierto sino lo
 // s	agregarNodo  			// No debe recibir argumentos // Falta sockets
 // n	eliminarNodo			// No debe recibir argumentos
 // s	mostrarComandos
-// s 	mostrarElementos // Yapa
+// s 	mostrarElementos 	// Yapa
 
 void formatearMDFS() {
 	liberaMemoriaFS();
@@ -158,14 +158,22 @@ void formatearMDFS() {
 }
 
 void eliminarElemento(char* nombreElemento) {
-	int i = 0;
+	int i;
 	int elementosEnLista = FILESYSTEM -> listaElementos -> elements_count;
-	for (; i <= elementosEnLista; i++) {
+	int sonIguales;
+
+	for (i=0; i <= elementosEnLista; i++) { // Recorremos la lista
 		element* elementoi;
 		elementoi = list_get(FILESYSTEM->listaElementos, i);
 
-		list_remove_by_condition(FILESYSTEM->listaElementos,
-				string_equals_ignore_case(elementoi->nombre, nombreElemento));
+		sonIguales = string_equals_ignore_case(elementoi->nombre, nombreElemento);
+		// Si las cadenas son iguales => encontro string => lo elimino
+
+		if(sonIguales){
+			list_remove(FILESYSTEM->listaElementos, i);
+		}
+
+		// Si las cadenas son distintas => Sigue el for
 	}
 } // Generica, sirve para archivos y directorios
 
@@ -228,7 +236,7 @@ void mostrarElementos() {
 	for (i = 0; i <= elementosEnLista; i++) {
 		element* elementoi;
 		elementoi = list_get(FILESYSTEM->listaElementos, i);
-		printf("Index:%d Elemento:%s\n", elementoi->index, elementoi->nombre);
+		printf("Index:%d   Elemento:%s\n", elementoi->index, elementoi->nombre);
 	}
 }
 
