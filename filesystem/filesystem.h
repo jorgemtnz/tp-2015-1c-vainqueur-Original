@@ -65,10 +65,6 @@ typedef struct fs {
 	t_list* listaElementos;
 } fs;
 
-// +++++++++++++++++++++++++++++++++++++++ Variables Globales +++++++++++++++++++++++++++++++++++++
-
-int BusquedaDeElementoExitosa = 0; // si es 0 no lo encontró, si es 1 lo encontró
-
 
 // +++++++++++++++++++++++++++++++++++++++ Prototipos +++++++++++++++++++++++++++++++++++++
 // Funciones Constructoras

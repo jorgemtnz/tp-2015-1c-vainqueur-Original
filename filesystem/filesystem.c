@@ -130,20 +130,21 @@ void guardarRegistro(int arch) { //esto mientras este el archivo abierto sino lo
 	write(arch, FILESYSTEM, sizeof(fs)); //le paso el registro fileSystem,y el archivo y lo escribe
 }
 
-element buscarElementoPor(char* nombre){
+element* buscarElementoPor(char* nombre) {
 	int i, elementosEnLista;
-	element elementoBuscado, elementoi;
+	element *elementoBuscado;
+	element* elementoi;
 	elementosEnLista = FILESYSTEM->listaElementos->elements_count;
 
-	for(i=0;i <= elementosEnLista;i++){
-	elementoi = list_get(FILESYSTEM->listaElementos,i);
-	if (elementoi.nombre==nombre){
-		elementoBuscado = elementoi;
-		BusquedaDeElementoExitosa = 1;
-	}else{
-		BusquedaDeElementoExitosa = 0;
+	for (i = 0; i <= elementosEnLista; i++) {
+		elementoi = list_get(FILESYSTEM->listaElementos, i);
+		if (string_equals_ignore_case(elementoi->nombre, nombre)) {
+			elementoBuscado = elementoi;
+		} else {
+			return NULL;
+		}
 	}
-	}
+
 	return elementoBuscado;
 }
 
@@ -153,11 +154,11 @@ element buscarElementoPor(char* nombre){
 // s	formatearMDFS
 // s    eliminarArchiv
 // s 	renombrarArchivo
-// n	moverArchivo
+// s	moverArchivo
 // s	crearDirectorio 		// Terminada ????
 // S    eliminarDirectorio
-// n    renombrarDirectorio
-// n	moverDirectorio
+// n    renombrarDirectorio // Es muy similar a renombrarArchivo
+// n	moverDirectorio 	// Es muy similar a moverArchivo
 // n	copiarArchivoLocalAlMDFS
 // n	copiarArchivoDelMDFSAlFSLocal
 // n	solicitarMD5deUnArchivoenMDFS
@@ -168,7 +169,6 @@ element buscarElementoPor(char* nombre){
 // n	eliminarNodo			// No debe recibir argumentos
 // s	mostrarComandos
 // s 	mostrarElementos 	// Yapa
-
 void formatearMDFS() {
 	liberaMemoriaFS();
 	inicializarFilesystem();
@@ -176,16 +176,17 @@ void formatearMDFS() {
 
 void eliminarElemento(char* nombreElemento) {
 	int i;
-	int elementosEnLista = FILESYSTEM -> listaElementos -> elements_count;
+	int elementosEnLista = FILESYSTEM->listaElementos->elements_count;
 	int sonIguales;
 
-	for (i=0; i <= elementosEnLista; i++) { // Recorremos la lista
+	for (i = 0; i <= elementosEnLista; i++) { // Recorremos la lista
 		element* elementoi;
 		elementoi = list_get(FILESYSTEM->listaElementos, i);
-		sonIguales = string_equals_ignore_case(elementoi->nombre, nombreElemento);
+		sonIguales = string_equals_ignore_case(elementoi->nombre,
+				nombreElemento);
 		// Si las cadenas son iguales => encontro string => lo elimino
 
-		if(sonIguales){
+		if (sonIguales) {
 			list_remove(FILESYSTEM->listaElementos, i);
 		}
 
@@ -193,38 +194,50 @@ void eliminarElemento(char* nombreElemento) {
 	}
 } // Generica, sirve para archivos y directorios
 
-void renombrarArchivo(){
+void renombrarArchivo() {
 	char* nombre, nuevoNombre;
-	element archivo;
+	element* ptrArchivo;
+
 	printf("Ingrese nombre de archivo a renombrar");
 	scanf("%s", nombre);
 	printf("Ingrese nuevo nombre para el archivo");
 	scanf("%s", nuevoNombre);
-	archivo = buscarElementoPor(nombre);
-	if (BusquedaDeElementoExitosa){
-		archivo.nombre = nuevoNombre;
-	}else{
+
+	ptrArchivo = buscarElementoPor(nombre);
+	if (ptrArchivo != NULL) {
+		strcpy((ptrArchivo->nombre), nombre);
+	} else {
 		perror("No existe el archivo");
 		exit(-1);
 	}
 }
 
-void moverArchivo(){
+void moverArchivo() {
 	char* nombreArchivo;
-	char directorioNuevo[100]; // Hacer un define
-	element archivo;
+	char directorioDestino[100]; // Hacer un define
+	element* archivo;
+	element* directorio;
 
 	printf("Ingrese nombre de archivo");
 	scanf("%s", nombreArchivo);
-	printf("Ingrese nueva ruta");
-	scanf("%s", directorioNuevo);
+	printf("Ingrese el nombre del directorio destino");
+	scanf("%s", directorioDestino);
 
-	archivo = buscarElementoPor(nombreArchivo);
-	if (BusquedaDeElementoExitosa){
+	directorio = buscarElementoPor(directorioDestino);
+	if (directorio != NULL) {
 
-
-	eliminarElemento(nombreArchivo);
+		archivo = buscarElementoPor(nombreArchivo);
+		if (archivo != NULL) {
+			archivo->directorioPadre = directorio->index;
+		} else {
+			perror("No se encontró Archivo");
+			exit(-1);
+		}
+	} else {
+		perror("No se encontró directorio destino");
+		exit(-1);
 	}
+
 }
 
 void crearDirectorio() {
@@ -249,7 +262,6 @@ void crearDirectorio() {
 	list_add(FILESYSTEM->listaElementos, carpeta);
 }
 
-
 void eliminarArchivo() {
 	char nombreArchivo[50];
 
@@ -267,18 +279,29 @@ void eliminarDirectorio() {
 	eliminarElemento(nombreDirectorio);
 }
 
+void copiarArchivoLocalAlMDFS() {
+
+	char* ruta;
+	int* ptrComienzoMemoriaMapeada;
+	int* ptrTamanioDePagina;
+
+	printf("Ingrese ruta de archivo");
+	scanf("%s", ruta);
+
+	mapeoAmemoria(ruta, ptrComienzoMemoriaMapeada, ptrTamanioDePagina);
+
+}
 
 void agregarNodo(char* nombre) { //FALTA VER EL TEMA DE SOCKETS
 	nod* nodo;
 	nodo = crearNodo(nombre);
 	list_add(FILESYSTEM->listaNodosConectados, nodo);
-	// Agrega al nodo a la lista de nodos del FS
+// Agrega al nodo a la lista de nodos del FS
 }
 
 void eliminarNodo(char* nombre) { //faltaria la condicion pero nose como ponerla
 //list_remove_by_condition(FILESYSTEM->listaNodos), condicion(nombre) );//remueve de la lista el nodo que concuerda con el nombre ingresado eso creo
 }
-
 
 void mostrarElementos() {
 	int elementosEnLista = FILESYSTEM->listaElementos->elements_count;
@@ -291,16 +314,16 @@ void mostrarElementos() {
 }
 
 void mostrarComandos() {
-	char* funcionesConsola[] = {
-			"formatearMDFS",
-			"eliminarArchivo", "renombrarArchivo","moverArchivos",	 // Archivos
-			"crearDirectorio", "eliminarDirectorio", "renombrarDirectorio", "moverDirectorio",  // Directorios
-			"copiarArchivoLocalAlMDFS",
-			"copiarArchivoDelMDFSAlFSLocal",
-			"solicitarMD5deUnArchivoenMDFS",
-			"verBloque", "borrarBloque","copiarBloque",	// Bloques
+	char* funcionesConsola[] = { "formatearMDFS", "eliminarArchivo",
+			"renombrarArchivo",
+			"moverArchivos",	 // Archivos
+			"crearDirectorio", "eliminarDirectorio", "renombrarDirectorio",
+			"moverDirectorio",  // Directorios
+			"copiarArchivoLocalAlMDFS", "copiarArchivoDelMDFSAlFSLocal",
+			"solicitarMD5deUnArchivoenMDFS", "verBloque", "borrarBloque",
+			"copiarBloque",	// Bloques
 			"agregarNodo", "eliminarNodo", // Nodos
-			"mostrarComandos", "mostrarElementos"};
+			"mostrarComandos", "mostrarElementos" };
 
 	char* descripcionesConsola[] = { "Descrpcion de la funcion 1",
 			"Descripcion de la funcion 2", "Descripcion de la funcion 3",
@@ -311,7 +334,7 @@ void mostrarComandos() {
 			"Descripcion de la funcion 12", "Descripcion de la funcion 13",
 			"Descripcion de la funcion 14", "Descripcion de la funcion 15",
 			"Descripcion de la funcion 16", "Descripcion de la funcion 17",
-			"Descripcion de la funcion 18"};
+			"Descripcion de la funcion 18" };
 
 	int contador = 0;
 	do {
@@ -327,16 +350,16 @@ void mostrarComandos() {
 int idFuncion(char* funcion) {
 	int i;
 
-	char* funcionesConsola[] = {
-			"formatearMDFS",
-			"eliminarArchivo", "renombrarArchivo","moverArchivos",	 // Archivos
-			"crearDirectorio", "eliminarDirectorio", "renombrarDirectorio", "moverDirectorio",  // Directorios
-			"copiarArchivoLocalAlMDFS",
-			"copiarArchivoDelMDFSAlFSLocal",
-			"solicitarMD5deUnArchivoenMDFS",
-			"verBloque", "borrarBloque","copiarBloque",	// Bloques
+	char* funcionesConsola[] = { "formatearMDFS", "eliminarArchivo",
+			"renombrarArchivo",
+			"moverArchivos",	 // Archivos
+			"crearDirectorio", "eliminarDirectorio", "renombrarDirectorio",
+			"moverDirectorio",  // Directorios
+			"copiarArchivoLocalAlMDFS", "copiarArchivoDelMDFSAlFSLocal",
+			"solicitarMD5deUnArchivoenMDFS", "verBloque", "borrarBloque",
+			"copiarBloque",	// Bloques
 			"agregarNodo", "eliminarNodo", // Nodos
-			"mostrarComandos", "mostrarElementos"};
+			"mostrarComandos", "mostrarElementos" };
 
 	for (i = 0;
 			(i < NUMEROFUNCIONESCONSOLA)
@@ -348,74 +371,91 @@ int idFuncion(char* funcion) {
 void aplicarFuncion(int idFuncion) { //selecciona un case en base al numero que llevaba el contador y aplica la funcion recibe el dir
 	switch (idFuncion) {
 
-	enum nomFun {FORMATEAR_MDFS = 1,ELIMINAR_ARCHIVO,RENOMBRAR_ARCHIVO,MOVER_ARCHIVOS,CREAR_DIRECTORIO,ELIMINAR_DIRECTORIO,RENOMBRAR_DIRECTORIO,MOVER_DIRECTORIO,
-		COPIAR_ARCHIVO_LOCAL_AL_MDFS,COPIAR_ARCHIVO_DEL_MDFS_AL_FS_LOCAL,SOLICITAR_MD5_DE_UN_ARCHIVO_EN_MDFS,VER_BLOQUE,BORRAR_BLOQUE,COPIAR_BLOQUE,
-		AGREGAR_NODO,ELIMINAR_NODO,	MOSTRAR_COMANDOS, MOSTRAR_ELEMENTOS}; // Lo que hace el enum es convertirme lo que dice en enteros
+	enum nomFun {
+		FORMATEAR_MDFS = 1,
+		ELIMINAR_ARCHIVO,
+		RENOMBRAR_ARCHIVO,
+		MOVER_ARCHIVOS,
+		CREAR_DIRECTORIO,
+		ELIMINAR_DIRECTORIO,
+		RENOMBRAR_DIRECTORIO,
+		MOVER_DIRECTORIO,
+		COPIAR_ARCHIVO_LOCAL_AL_MDFS,
+		COPIAR_ARCHIVO_DEL_MDFS_AL_FS_LOCAL,
+		SOLICITAR_MD5_DE_UN_ARCHIVO_EN_MDFS,
+		VER_BLOQUE,
+		BORRAR_BLOQUE,
+		COPIAR_BLOQUE,
+		AGREGAR_NODO,
+		ELIMINAR_NODO,
+		MOSTRAR_COMANDOS,
+		MOSTRAR_ELEMENTOS
+	};
+// Lo que hace el enum es convertirme lo que dice en enteros
 
+case FORMATEAR_MDFS:
+	formatearMDFS();
+	break;
 
-	case FORMATEAR_MDFS:
-		formatearMDFS();
-		break;
+case ELIMINAR_ARCHIVO:
+	eliminarArchivo();
+	break;
 
-	case ELIMINAR_ARCHIVO:
-		eliminarArchivo();
-		break;
+case RENOMBRAR_ARCHIVO:
+	break;
 
-	case RENOMBRAR_ARCHIVO:
-		break;
+case MOVER_ARCHIVOS:
+	break;
 
-	case MOVER_ARCHIVOS:
-		break;
+case CREAR_DIRECTORIO:
+	crearDirectorio();
+	break;
 
-	case CREAR_DIRECTORIO:
-		crearDirectorio();
-		break;
+case ELIMINAR_DIRECTORIO:
+	eliminarDirectorio();
+	break;
 
-	case ELIMINAR_DIRECTORIO:
-		eliminarDirectorio();
-		break;
+case RENOMBRAR_DIRECTORIO:
+	break;
 
-	case RENOMBRAR_DIRECTORIO:
-		break;
+case MOVER_DIRECTORIO:
+	break;
 
-	case MOVER_DIRECTORIO:
-		break;
+case COPIAR_ARCHIVO_LOCAL_AL_MDFS:
+	break;
 
-	case COPIAR_ARCHIVO_LOCAL_AL_MDFS:
-		break;
+case COPIAR_ARCHIVO_DEL_MDFS_AL_FS_LOCAL:
+	break;
 
-	case COPIAR_ARCHIVO_DEL_MDFS_AL_FS_LOCAL:
-		break;
+case SOLICITAR_MD5_DE_UN_ARCHIVO_EN_MDFS:
+	break;
 
-	case SOLICITAR_MD5_DE_UN_ARCHIVO_EN_MDFS:
-		break;
+case VER_BLOQUE:
+	break;
 
-	case VER_BLOQUE:
-		break;
+case BORRAR_BLOQUE:
+	break;
 
-	case BORRAR_BLOQUE:
-		break;
+case COPIAR_BLOQUE:
+	break;
 
-	case COPIAR_BLOQUE:
-		break;
+case AGREGAR_NODO:
+	break;
 
-	case AGREGAR_NODO:
-		break;
+case ELIMINAR_NODO:
+	break;
 
-	case ELIMINAR_NODO:
-		break;
+case MOSTRAR_COMANDOS:
+	mostrarComandos();
+	break;
 
-	case MOSTRAR_COMANDOS:
-		mostrarComandos();
-		break;
+case MOSTRAR_ELEMENTOS:
+	mostrarElementos();
+	break;
 
-	case MOSTRAR_ELEMENTOS:
-		mostrarElementos();
-		break;
-
-	case -1:
-		printf("--Ojo ese comando no existe!! proba con mostrarComandos\n");
-		break;
+case -1:
+	printf("--Ojo ese comando no existe!! proba con mostrarComandos\n");
+	break;
 
 	}
 }
