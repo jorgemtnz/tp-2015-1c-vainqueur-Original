@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>nodo</name>
+	<name>config</name>
 	<comment></comment>
 	<projects>
 		<project>commons-library</project>
-		<project>delEquipo</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
