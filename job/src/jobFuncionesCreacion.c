@@ -2,40 +2,44 @@
 
 t_solicitudDeTrabajo* crearSolicitudDeTrabajo() {
 	t_solicitudDeTrabajo* ptrSolicitudDeTrabajo;
+	ptrSolicitudDeTrabajo = malloc(sizeof(t_solicitudDeTrabajo));
 
-	if (malloc(sizeof(t_solicitudDeTrabajo)) == NULL) {
-		perror(
-				"No se aloco memoria para SolicitudDeTrabajo pertenece a la estructura "
+	if (ptrSolicitudDeTrabajo == NULL) {
+		perror("[ERROR] No se aloco memoria para SolicitudDeTrabajo pertenece a la estructura "
 						"Job>..>SolicitudDeTrabajo");
 		exit(-1);
-	} else {
-		ptrSolicitudDeTrabajo->combiner = NO;
-		ptrSolicitudDeTrabajo->archvATrabajar = '\0';
-		ptrSolicitudDeTrabajo->funcion = '\0';
-		return ptrSolicitudDeTrabajo;
 	}
+
+	ptrSolicitudDeTrabajo->combiner = NO;
+	ptrSolicitudDeTrabajo->archvATrabajar = '\0';
+	ptrSolicitudDeTrabajo->funcion = '\0';
+	return ptrSolicitudDeTrabajo;
+
 }
 
 t_relacionNodoBloque* crearRelacionNodoBloque() {
 	t_relacionNodoBloque* ptrRelacionNodoBloque;
+	ptrRelacionNodoBloque = malloc(sizeof(t_relacionNodoBloque));
 
-	if (malloc(sizeof(t_relacionNodoBloque)) == NULL) {
-		perror(
-				"No se aloco memoria para RelacionNodoBloque pertenece a la estructura "
+	if (ptrRelacionNodoBloque == NULL) {
+		perror("[ERROR] No se aloco memoria para RelacionNodoBloque pertenece a la estructura "
 						"Job>..>RelacionNodoBloque");
 		exit(-1);
-	} else {
-		ptrRelacionNodoBloque->numeroBloque = 0;
-		ptrRelacionNodoBloque->numeroNodo = 0;
-		return ptrRelacionNodoBloque;
 	}
 
-}
+	ptrRelacionNodoBloque->numeroBloque = 0;
+	ptrRelacionNodoBloque->numeroNodo   = 0;
+	return ptrRelacionNodoBloque;
+	}
 
 t_relacionNodoArchTemp* crearRelacionNodoArchTemp() {
-	t_relacionNodoArchTemp relacionNodoArchTemp;
-	if(malloc(sizeof(t_relacionNodoBloque))==NULL){
+	t_relacionNodoArchTemp* ptrRelacionNodoArchTemp;
+	ptrRelacionNodoArchTemp = malloc(sizeof(t_relacionNodoBloque));
 
+	if(ptrRelacionNodoArchTemp == NULL){
+		perror("[ERROR] No se aloco memoria para RelacionNodoArchTemp pertenece a la estructura "
+				"Job>..>RelacionNodoArchTemp");
+		exit(-1);
 	}
 }
 

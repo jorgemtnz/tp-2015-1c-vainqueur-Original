@@ -112,8 +112,8 @@ void levantarConsola();
 
 // +++++++++++++++++++++++++++++++++++ Variables Globales +++++++++++++++++++++++++++++++++++
 fs* FILESYSTEM;
-int* vg_puerto_listen;
-char*** vg_lista_nodos; // Puntero a array de strings
+int vg_puerto_listen;
+char** vg_lista_nodos; // array de strings
 
 
 #endif /* FILESYSTEM_H_ */

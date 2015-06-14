@@ -6,8 +6,8 @@ void leerArchivoDeConfiguracion(char* nomArchivo){
 	t_config * archivoConfig;
 
 	archivoConfig = config_create(RUTACONFIGFS);
-	*vg_puerto_listen = config_get_int_value(archivoConfig, "PUERTO_LISTEN");
-	*vg_lista_nodos   = config_get_array_value(archivoConfig, "LISTA_NODOS");
+	vg_puerto_listen = config_get_int_value(archivoConfig, "PUERTO_LISTEN");
+	vg_lista_nodos   = config_get_array_value(archivoConfig, "LISTA_NODOS");
 
 	config_destroy(archivoConfig);
 }

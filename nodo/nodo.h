@@ -35,14 +35,14 @@ typedef struct nodo {
 // Variables Globales
 
 // Archivo Config
-int *vg_puerto_FS,
-	*vg_nodo_Nuevo,
-	*vg_puerto_Nodo;
+int vg_puerto_FS,
+	vg_nodo_Nuevo,
+	vg_puerto_Nodo;
 
-char **vg_ip_FS,
-	 **vg_archivo_Bin,
-	 **vg_dirTemp,
-	 **vg_ip_Nodo; // ** puntero a string
+char *vg_ip_FS,
+	 *vg_archivo_Bin,
+	 *vg_dirTemp,
+	 *vg_ip_Nodo;
 // Fin archivo config
 
 
