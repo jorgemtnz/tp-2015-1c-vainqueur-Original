@@ -42,7 +42,6 @@ typedef struct nod {
 //	long    long tamanio; 2GB  consultar, posiblemente no sea necesario
 	t_list* listaBloques;   //del nodo
 	char*   dirEspacioNodo;
-	char* 	ip;
 } nod;
 
 typedef struct nodBloq {
@@ -66,6 +65,7 @@ typedef struct fs {
 	int     espacioDisponible;
 	t_list* listaNodosConectados;
 	t_list* listaElementos;
+	char** ipNodos;	// Array de strings
 } fs;
 
 
@@ -78,6 +78,7 @@ void     crearFileSystem();
 void     inicializarFilesystem();
 
 // Funciones Destructoras
+void liberaMemoriaLista(t_list* lista, int* cantElementos, void (*funcionLiberaElemento)(void*));
 void liberaMemoriaBloque(bloq* bloque);
 void liberaMemoriaNodo(nod* nodo) ;
 void liberaNodoBloque(nodBloq* nodoBloque);

@@ -1,14 +1,7 @@
 #ifndef MARTA_H_
 #define MARTA_H_
-#define SI 1
-#define NO 0
-#define COMPLETADO 1
-#define EN_ESPERA 0
-#define NO_MAPEADO 0;
-#define MAPEADO 1;
 
-//------comienzan los include
-
+// +++++++++++++++++++++++++++++++++++++++ Includes +++++++++++++++++++++++++++++++++++++
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -21,9 +14,15 @@
 #include <src/commons/string.h>
 #include <src/commons/txt.h>
 
+// +++++++++++++++++++++++++++++++++++++++ Define +++++++++++++++++++++++++++++++++++++
+#define SI 1
+#define NO 0
+#define COMPLETADO 1
+#define EN_ESPERA 0
+#define NO_MAPEADO 0;
+#define MAPEADO 1;
 
-//-------comienza estructura-----
-
+// +++++++++++++++++++++++++++++++++++++++ Estructuras +++++++++++++++++++++++++++++++++++++
 typedef struct estructuraMarta {
 	t_list* listaSolicitudes;
 	t_list* listaInformacionDelArchivo;
@@ -37,7 +36,7 @@ typedef struct solicitud {
 	int estado; //1 completado 0 en espera
 } t_solicitud;
 
-typedef char * t_nombreFuncion;
+typedef char* t_nombreFuncion; // Es un sinonimo de tipo, no una estructura vacia
 
 typedef struct informacionDelArchivo {
 	char * nombreArchivo;
@@ -64,68 +63,46 @@ typedef struct archivoProcesado {
 	int estado;
 } t_archivoProcesado;
 
-//-----termina estructura-------
 
-//---------Variables globales-----------------
-
-t_estructuraMarta marta;
-
-
-//------terminan variables globales-----
-
-
-//--------funciones de creacion----
-
+// +++++++++++++++++++++++++++++++++++++++ Prototipos +++++++++++++++++++++++++++++++++++++
+// Funciones Constructoras
 t_archivoProcesado* crearArchivoProcesado() ;
 t_relacionNodoBloque* crearRelacionNodoBloque() ;
 t_ubicacionBloque* crearUbicacionBloque() ;
 t_informacionDelArchivo* crearInformacionArchivo();
 t_nombreFuncion* crearNombreFuncion();
+t_solicitud* crearSolicitud();
+t_estructuraMarta* crearMarta();
 
-//------terminan funciones de creacion
-
-
-//-----funciones de destruccion----
-
+// Funciones Destructoras
 void liberaMemoriaArchivoProcesado(t_archivoProcesado* ptrArchivoProcesado);
-
-void liberaMemoriaRelacionNodoBloque(
-		t_relacionNodoBloque* ptrRelacionNodoBloque);
+void liberaMemoriaRelacionNodoBloque(t_relacionNodoBloque* ptrRelacionNodoBloque);
 void liberaMemoriaUbicacionBloque(t_ubicacionBloque* ptrUbicacionBloque);
-
-void liberaMemoriaInformacionArchivo(
-		t_informacionDelArchivo* ptrInformacionArchivo);
-
-void liberaMemoriaNombreFuncion(t_nombreFuncion* ptrInformacionArchivo);
-
+void liberaMemoriaInformacionArchivo(t_informacionDelArchivo* ptrInformacionArchivo);
+void liberaMemoriaNombreFuncion(t_nombreFuncion ptrNombreFuncion); // Puntero a string
 void liberaMemoriaSolicitud(t_solicitud* ptrSolicitud);
-
 void liberaMemoriaMarta(t_estructuraMarta* ptrMarta) ;
 
-//---- terminan funciones de destruccion---
+
+// Funciones Auxiliares
+void liberaMemoriaLista(t_list* lista, int* cantElementos, void (*funcionLiberaElemento)(void*));
+// cuando se llama se escribe-> liberaMemoriaLista(lista,cantElementos,void (*funcionLiberaElemento)(void*);
+// (void*)funcionLiberaElemento)
 
 
-//---------funcionesAuxiliares----
-
-void liberaMemoriaLista(t_list* lista, int* cantElementos,
-		void (*funcionLiberaElemento)(void*));//cuando se llama se escribe-> liberaMemoriaLista(lista,cantElementos,
-void (*funcionLiberaElemento)(void*);   // (void*)funcionLiberaElemento)
-
-// -----terminan funcionesAuxiliares------
-
-// --------Funciones----
-
-void planificarTrabajos();
-void almacenarResultado(char * nombreDelArchivo);
-void solicitarMapper();
-void solicitarReducer(int soportaCombiner);
-
-// Genera el nombre del archivo temporal de la siguiente forma: "nombreAntiguo.nomreFuncion.fechaActual"
+// Marta
 char * generarNombreAlmacenado(char * nombreArchivo, char * nombreFuncion);
+void planificarTrabajos();							// Falta implementar
+void almacenarResultado(char * nombreDelArchivo);	// Falta implementar
+void solicitarMapper();								// Falta implementar
+void solicitarReducer(int soportaCombiner);			// Falta implementar
+int mandarNodoBloque(int numeroBloque);				// Falta implementar
+void noRepiteNodo();								// Falta implementar
 
-int mandarNodoBloque(int numeroBloque);
-void noRepiteNodo();
+//(char * nombreArchivoBuscado);	// Que es esto??
 
-//(char * nombreArchivoBuscado);
+// +++++++++++++++++++++++++++++++++++ Variables Globales +++++++++++++++++++++++++++++++++++
+t_estructuraMarta marta;
+
 
 #endif /* MARTA_H_ */

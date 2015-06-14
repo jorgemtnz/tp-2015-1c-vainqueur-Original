@@ -28,15 +28,18 @@
 								<option defaultValue="gnu.c.optimization.level.none" id="gnu.c.compiler.exe.debug.option.optimization.level.1982872595" name="Optimization Level" superClass="gnu.c.compiler.exe.debug.option.optimization.level" valueType="enumerated"/>
 								<option id="gnu.c.compiler.exe.debug.option.debugging.level.1698283465" name="Debug Level" superClass="gnu.c.compiler.exe.debug.option.debugging.level" value="gnu.c.debugging.level.max" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.include.paths.175099023" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/commons-library}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/delEquipo}&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1765400605" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.exe.debug.2080929491" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.exe.debug">
 								<option id="gnu.c.link.option.paths.628085978" name="Library search path (-L)" superClass="gnu.c.link.option.paths" valueType="libPaths">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/commons-library/Debug}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/delEquipo/Debug}&quot;"/>
 								</option>
 								<option id="gnu.c.link.option.libs.257374738" name="Libraries (-l)" superClass="gnu.c.link.option.libs" valueType="libs">
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="commons-library"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="delEquipo"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.linker.input.595176927" superClass="cdt.managedbuild.tool.gnu.c.linker.input">
@@ -48,6 +51,7 @@
 							<tool id="cdt.managedbuild.tool.gnu.assembler.exe.debug.949433939" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.exe.debug">
 								<option id="gnu.both.asm.option.include.paths.236434542" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/delEquipo}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/commons-library}&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1085076228" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 							</tool>
@@ -68,6 +72,13 @@
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/delEquipo/Debug"/>
 						<entry flags="RESOLVED" kind="libraryFile" name="Sockets" srcPrefixMapping="" srcRootPath=""/>
 						<entry flags="RESOLVED" kind="libraryFile" name="delEquipo" srcPrefixMapping="" srcRootPath=""/>
+					</externalSetting>
+				</externalSettings>
+				<externalSettings containerId="commons-library;" factoryId="org.eclipse.cdt.core.cfg.export.settings.sipplier">
+					<externalSetting>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/commons-library"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/commons-library/Debug"/>
+						<entry flags="RESOLVED" kind="libraryFile" name="commons-library" srcPrefixMapping="" srcRootPath=""/>
 					</externalSetting>
 				</externalSettings>
 			</storageModule>

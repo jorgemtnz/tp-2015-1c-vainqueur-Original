@@ -1,10 +1,7 @@
 #ifndef JOB_H_
 #define JOB_H_
-#define SI 1
-#define NO 0
 
-
-//----- include----
+// +++++++++++++++++++++++++++++++++++++++ Includes +++++++++++++++++++++++++++++++++++++
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -12,43 +9,18 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <commons/collections/list.h>
-#include <commons/temporal.h>
+#include <src/commons/collections/list.h>
+#include <src/commons/temporal.h>
 #include <src/commons/string.h>
 #include <src/commons/txt.h>
-#include <commons/config.h>
-#include <commons/collections/list.h>
+#include <src/commons/config.h>
+#include <src/commons/collections/list.h>
 
-//---funciones de creacion
+// +++++++++++++++++++++++++++++++++++++++ Define +++++++++++++++++++++++++++++++++++++
+#define SI 1
+#define NO 0
 
-
-//---fin funciones de creacion
-
-
-//--- funciones de destruccion
-
-
-
-//--- fin funciones de destruccion
-
-
-//----funciones auxiliares
-void liberaMemoriaLista(t_list* lista, int* cantElementos,
-		void (*funcionLiberaElemento)(void*));
-
-//---- fin funciones auxiliares
-
-
-
-//-----variables globales
-// no puedo tener una variable global de toda la estructura porque hay varias instancias
-
-//----fin variables globales
-
-
-//----estructura-------
-
-
+// +++++++++++++++++++++++++++++++++++++++ Estructuras +++++++++++++++++++++++++++++++++++++
 typedef struct SolicitudDeTrabajo{
 	char* archvATrabajar;
 	char* funcion;
@@ -66,7 +38,7 @@ typedef struct RealcionNodoArchTemp{
 	char* nombreArchvTemp;
 }t_relacionNodoArchTemp;
 
-typedef struct TareaMap{//cada tarea asemeja a un hilo (en este caso hiloMapper)
+typedef struct TareaMap{ //cada tarea asemeja a un hilo (en este caso hiloMapper)
 	int fdHilo;
 	t_list* listaRelacionNodoBloque;
 	char* dirMapExec;
@@ -83,9 +55,20 @@ typedef struct Job {
 	t_list* listasTareasReduce;
 	t_solicitudDeTrabajo* solicitud;
 	char* dirArchvConfig;
-};
+}t_job;
 
+// +++++++++++++++++++++++++++++++++++++++ Prototipos +++++++++++++++++++++++++++++++++++++
+// Funciones Constructoras
+t_solicitudDeTrabajo* crearSolicitudDeTrabajo();
+t_relacionNodoBloque* crearRelacionNodoBloque();
+t_relacionNodoArchTemp* crearRelacionNodoArchTemp(); // Falta implementar
 
-//-------fin estructura-----
+// Funciones Destructoras
+
+// Funciones Auxiliares
+void liberaMemoriaLista(t_list* lista, int* cantElementos, void (*funcionLiberaElemento)(void*));
+
+// +++++++++++++++++++++++++++++++++++ Variables Globales +++++++++++++++++++++++++++++++++++
+
 
 #endif /* JOB_H_ */

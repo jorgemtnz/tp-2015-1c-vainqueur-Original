@@ -35,8 +35,8 @@ void liberaMemoriaInformacionArchivo(
 	free(ptrInformacionArchivo);
 }
 
-void liberaMemoriaNombreFuncion(t_nombreFuncion* ptrInformacionArchivo) {
-	free(ptrInformacionArchivo);
+void liberaMemoriaNombreFuncion(t_nombreFuncion ptrNombreFuncion) {
+	free(ptrNombreFuncion);
 }
 
 void liberaMemoriaSolicitud(t_solicitud* ptrSolicitud) {
