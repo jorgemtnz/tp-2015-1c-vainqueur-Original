@@ -4,13 +4,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>  // read write
+#include <fcntl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <commons/collections/list.h>
 #include <commons/temporal.h>
+#include <src/commons/string.h>
+#include <src/commons/txt.h>
+
 
 #define SI 1
 #define NO 0
 #define COMPLETADO 1
 #define EN_ESPERA 0
+#define NO_MAPEADO 0;
+#define MAPEADO 1;
 
 typedef struct estructuraMarta {
 	t_list listaSolicitudes;
