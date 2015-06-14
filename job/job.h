@@ -4,6 +4,10 @@
  *  Created on: 14/6/2015
  *      Author: utnso
  */
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <commons/config.h>
 #include <commons/collections/list.h>
 
 typedef struct SolicitudDeTrabajo{
