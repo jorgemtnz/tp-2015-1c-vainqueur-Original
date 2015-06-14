@@ -217,14 +217,14 @@ void mostrarComandos()
 			"Descripcion de la funcion 17", "Descripcion de la funcion 18" };
 
 	int contador = 0;
-	do
+	while (contador <= NUMEROFUNCIONESCONSOLA-1)
 	{
-		contador += 1;
 		printf("*------------------------------------------*\n");
 		printf("COMANDO 	= %s\n", funcionesConsola[contador]);
 		printf("DESCRIPCION = %s\n", descripcionesConsola[contador]);
 		printf("*------------------------------------------*\n");
-	} while (contador <= NUMEROFUNCIONESCONSOLA);
+		contador += 1;
+	}
 }
 
 // ---------CONSOLA IMPLEMENTACION------
