@@ -1,16 +1,10 @@
 #include "marta.h"
-typedef struct archivoProcesado {
-	char * nombreArchProcesado;
-	int numeroNodo;
-	char * ubicacion;
-	int aplicoMapper; //Si = 1 / No = 0
-	int estado;
-} t_archivoProcesado;
+
 t_archivoProcesado* crearArchivoProcesado() {
 	t_archivoProcesado* ptrArchivoProcesado;
 	if (malloc(sizeof(t_archivoProcesado)) == NULL) {
 		perror(
-				"No se aloco memoria para RelacionNodoBloque pertenece a la estructura "
+				"No se aloco memoria para ArchivoProcesado pertenece a la estructura "
 						"Marta>..>ubicacionBloque>listaArchivoProcesado>ArchivoProcesado");
 		exit(-1);
 	}else{

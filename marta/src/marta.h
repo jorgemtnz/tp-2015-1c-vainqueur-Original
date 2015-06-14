@@ -61,10 +61,15 @@ typedef struct archivoProcesado {
 	int estado;
 } t_archivoProcesado;
 
-//Variables globales
+//---------Variables globales-----------------
 t_estructuraMarta marta;
 
-// Funciones
+//---------funcionesAuxiliares----
+void liberaMemoriaLista(t_list* lista, int* cantElementos,
+		void (*funcionLiberaElemento)(void*));//cuando se llama se escribe-> liberaMemoriaLista(lista,cantElementos,
+void (*funcionLiberaElemento)(void*)   // (void*)funcionLiberaElemento)
+
+// --------Funciones
 void planificarTrabajos();
 void almacenarResultado(char * nombreDelArchivo);
 void solicitarMapper();
