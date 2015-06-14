@@ -67,7 +67,7 @@ t_estructuraMarta marta;
 //---------funcionesAuxiliares----
 void liberaMemoriaLista(t_list* lista, int* cantElementos,
 		void (*funcionLiberaElemento)(void*));//cuando se llama se escribe-> liberaMemoriaLista(lista,cantElementos,
-void (*funcionLiberaElemento)(void*)   // (void*)funcionLiberaElemento)
+void (*funcionLiberaElemento)(void*);   // (void*)funcionLiberaElemento)
 
 // --------Funciones
 void planificarTrabajos();
