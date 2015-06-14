@@ -15,12 +15,14 @@
 #include <string.h>
 #include <src/commons/config.h>
 
-#define RUTACONFIG "/"
+#define RUTACONFIGNODO "/"
 #define RUTAMAP "blabl/blabla"
 #define EJECUCIONOK 1
 #define EJECUCIONFALLO -1
 #define NODO_NUEVO 1
 #define NODO_NO_NUEVO 0
+
+
 
 typedef struct nodo {
 	int idNodo;
@@ -30,9 +32,19 @@ typedef struct nodo {
 
 } nodo_t;
 
-//VariablesGlobales
-char * ipFS,* ipNodo,* archivoBin,*dirTemp;
-int puertoFS, puertoNodo,nodoNuevo;
+// Variables Globales
+
+// Archivo Config
+int *vg_puerto_FS,
+	*vg_nodo_Nuevo,
+	*vg_puerto_Nodo;
+
+char **vg_ip_FS,
+	 **vg_archivo_Bin,
+	 **vg_dirTemp,
+	 **vg_ip_Nodo; // ** puntero a string
+// Fin archivo config
+
 
 // Prototipos
 void* getBloque(int numeroBloque);

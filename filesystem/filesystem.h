@@ -13,6 +13,7 @@
 #include <src/commons/string.h>
 #include <src/commons/collections/list.h>
 #include <src/commons/txt.h>
+#include <src/commons/config.h>
 
 // +++++++++++++++++++++++++++++++++++++++ Define +++++++++++++++++++++++++++++++++++++
 #define ESDIRECTORIO 1
@@ -25,6 +26,8 @@
 #define NUMEROBLOQUES 102
 #define UBICACIONNODO "/tmp/nodo.txt"
 #define NUMEROFUNCIONESCONSOLA 18
+#define RUTACONFIGFS "/"
+#define LONGITUD_DE_IP 20
 
 
 // +++++++++++++++++++++++++++++++++++++++ Estructuras +++++++++++++++++++++++++++++++++++++
@@ -39,6 +42,7 @@ typedef struct nod {
 //	long    long tamanio; 2GB  consultar, posiblemente no sea necesario
 	t_list* listaBloques;   //del nodo
 	char*   dirEspacioNodo;
+	char* 	ip;
 } nod;
 
 typedef struct nodBloq {
@@ -81,7 +85,7 @@ void liberaMemoriaElement(element* elemento);
 void liberaMemoriaFS();
 
 // Funciones Auxiliares
-void leerArchivoDeConfiguracion();		// Falta implementar
+void leerArchivoDeConfiguracion();
 void cargarBloques(t_list *listaBloques);
 void leerRegistro(int arch);
 void guardarRegistro(int arch);
@@ -108,5 +112,8 @@ void levantarConsola();
 
 // +++++++++++++++++++++++++++++++++++ Variables Globales +++++++++++++++++++++++++++++++++++
 fs* FILESYSTEM;
+int* vg_puerto_listen;
+char*** vg_lista_nodos; // Puntero a array de strings
+
 
 #endif /* FILESYSTEM_H_ */

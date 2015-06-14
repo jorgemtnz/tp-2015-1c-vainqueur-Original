@@ -3,7 +3,6 @@
 /*------------------FUNCIONES CONSTRUCTORAS----------------------*/
 nod* crearNodo() {
 	nod* nodo = malloc(sizeof(nod));
-	nodo->numero = 0;
 	nodo->estado = OPERATIVO;
 	nodo->listaBloques = list_create();
 	strcpy(nodo->dirEspacioNodo, UBICACIONNODO);

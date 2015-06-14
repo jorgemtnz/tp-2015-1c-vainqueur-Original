@@ -2,25 +2,14 @@
 
 /*------------------------FUNCIONES AUXILIARES---------------------------*/
 void leerArchivoDeConfiguracion(char* nomArchivo){
-		/* Este codigo es del nodo, pero la implementacion es la misma, solo cambia contenido
-		 * del archivo de configuracion
-		char * temporal;
-		t_config * archivoConfig;
-		archivoConfig = config_create(RUTACONFIG);
-		puertoFS = config_get_int_value(archivoConfig, "PUERTO_FS");
-		puertoNodo = config_get_int_value(archivoConfig, "PUERTO_NODO");
-		ipFS = config_get_string_value(archivoConfig, "IP_FS");
-		ipNodo = config_get_string_value(archivoConfig, "IP_NODO");
-		archivoBin = config_get_string_value(archivoConfig, "ARCHIVO_BIN");
-		dirTemp = config_get_string_value(archivoConfig, "DIR_TEMP");
-		temporal = config_get_string_value(archivoConfig, "NODO_NUEVO");
-		if (strcmp(temporal, "SI") == 0) {
-			nodoNuevo = NODO_NUEVO;
-		}
-		if (strcmp(temporal, "NO") == 0) {
-			nodoNuevo = NODO_NO_NUEVO;
-		}
-		config_destroy(archivoConfig);*/
+	// El archivo config de FS tiene PUERTO_LISTEN Y LISTA_NODOS
+	t_config * archivoConfig;
+
+	archivoConfig = config_create(RUTACONFIGFS);
+	*vg_puerto_listen = config_get_int_value(archivoConfig, "PUERTO_LISTEN");
+	*vg_lista_nodos   = config_get_array_value(archivoConfig, "LISTA_NODOS");
+
+	config_destroy(archivoConfig);
 }
 
 void cargarBloques(t_list *listaBloques) {
