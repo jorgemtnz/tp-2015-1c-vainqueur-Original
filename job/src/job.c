@@ -1,29 +1,17 @@
-#include "funcionesJob.h"
+/*
+ * job.c
 
-int main() {
-	FILE* archConfig;
-	char nombreArchivo[100];
+ *
+ *  Created on: 14/6/2015
+ *      Author: utnso
+ */
 
-	printf("Ingrese el nombre del archivo de configuracion: ");
-	scanf("%s",nombreArchivo);
+#include "job.h"
 
-	// Abro el archivo
-	archConfig = fopen(nombreArchivo,"r");
-	if(archConfig == NULL){
-		perror("No se pudo abrir el archivo de configuracion\n");
-		exit(-1);
-	}
+//char* dirArchivoConfig = "tmp/jobConfig.config";
+int main(){
+	t_config* archConfig;
+	archConfig = config_create("/tmp/jobConfig.config");
 
-	char* ipMarta 			= buscar(archConfig,"IP Marta: ");
-	char* stringPuertoMarta = buscar(archConfig,"Puerto: ");
-	int numPMart = atoi(stringPuertoMarta); // Lo convierto a un int
-
-	printf("%s",ipMarta);
-	printf("%d",numPMart);
-
-	fclose(archConfig);
-
-	//conectarConMarta(ipMarta,numPMart); //Se conecta con marta y continua!!
-	return 0;
+return 0;
 }
-
