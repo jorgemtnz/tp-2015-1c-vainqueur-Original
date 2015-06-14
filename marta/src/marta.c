@@ -9,10 +9,12 @@ char * generarNombreAlmacenado(char * nombreArchivo, char * nombreFuncion) {
 	strcat(nombreArchivo, tiempoActual);
 	return nombreArchivo;
 }
-
+/*  aun no terminada
 void evaluarSolicitudMapper(char * nombreArchivo) {
+	t_informacionDelArchivo* ptrInformacionDelArchivo;
+
 	list_find(marta->listaInformacionDelArchivo,(nombreArchivo==));
 
-}
+}*/
 
 

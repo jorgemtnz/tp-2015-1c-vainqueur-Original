@@ -14,14 +14,14 @@ void liberaMemoriaRelacionNodoBloque(
 	free(&ptrRelacionNodoBloque->estado);
 	free(&ptrRelacionNodoBloque->numeroBloque);
 	free(&ptrRelacionNodoBloque->numeroNodo);
-	free(&ptrRelacionNodoBloque);
+	free(ptrRelacionNodoBloque);
 }
 
 void liberaMemoriaUbicacionBloque(t_ubicacionBloque* ptrUbicacionBloque) {
 	free(&ptrUbicacionBloque->numero);
 	liberaMemoriaLista(ptrUbicacionBloque->listaRelacionesNodoBloque,
 			ptrUbicacionBloque->listaRelacionesNodoBloque->elements_count,
-			(void*) liberaMemoriaRelacionNodoBloque);
+			(void*)liberaMemoriaRelacionNodoBloque);
 	free(ptrUbicacionBloque);
 }
 

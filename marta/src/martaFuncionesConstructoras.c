@@ -1,7 +1,8 @@
 #include "marta.h"
 
 t_archivoProcesado* crearArchivoProcesado() {
-	t_archivoProcesado* ptrArchivoProcesado;
+	t_archivoProcesado* ptrArchivoProcesado=NULL;
+
 	if (malloc(sizeof(t_archivoProcesado)) == NULL) {
 		perror(
 				"No se aloco memoria para ArchivoProcesado pertenece a la estructura "
@@ -18,7 +19,7 @@ t_archivoProcesado* crearArchivoProcesado() {
 }
 
 t_relacionNodoBloque* crearRelacionNodoBloque() {
-	t_relacionNodoBloque* ptrRelacionNodoBloque;
+	t_relacionNodoBloque* ptrRelacionNodoBloque=NULL;
 	if (malloc(sizeof(t_ubicacionBloque)) == NULL) {
 		perror(
 				"No se aloco memoria para RelacionNodoBloque pertenece a la estructura "
@@ -33,7 +34,7 @@ t_relacionNodoBloque* crearRelacionNodoBloque() {
 }
 
 t_ubicacionBloque* crearUbicacionBloque() {
-	t_ubicacionBloque* ptrUbicacionBloque;
+	t_ubicacionBloque* ptrUbicacionBloque=NULL;
 	if (malloc(sizeof(t_ubicacionBloque)) == NULL) {
 		perror(
 				"No se aloco memoria para ubicacionArchivo pertenece a la estructura "
@@ -47,7 +48,7 @@ t_ubicacionBloque* crearUbicacionBloque() {
 }
 
 t_informacionDelArchivo* crearInformacionArchivo() {
-	t_informacionDelArchivo* ptrInformacionArchivo;
+	t_informacionDelArchivo* ptrInformacionArchivo=NULL;
 	if (malloc(sizeof(t_informacionDelArchivo)) == NULL) {
 		perror(
 				"No se aloco memoria para informacionArchivo pertenece a la estructura "
@@ -64,7 +65,7 @@ t_informacionDelArchivo* crearInformacionArchivo() {
 
 t_nombreFuncion* crearNombreFuncion() {
 
-	t_nombreFuncion* ptrNombreFuncion;
+	t_nombreFuncion* ptrNombreFuncion=NULL;
 
 	if (malloc(sizeof(t_nombreFuncion)) == NULL) {
 		perror(
@@ -76,7 +77,7 @@ t_nombreFuncion* crearNombreFuncion() {
 }
 
 t_solicitud* crearSolicitud() {
-	t_solicitud* ptrSolicitud;
+	t_solicitud* ptrSolicitud=NULL;
 	if (malloc(sizeof(t_solicitud)) == NULL) {
 		perror(
 				"No se aloco memoria para estructura solicitud pertenece a la estructura "
@@ -93,7 +94,7 @@ t_solicitud* crearSolicitud() {
 }
 
 t_estructuraMarta* crearMarta() {
-	t_estructuraMarta* ptrMarta;
+	t_estructuraMarta* ptrMarta=NULL;
 	if (malloc(sizeof(t_estructuraMarta)) == NULL) {
 		perror("No se aloco memoria para estructura marta");
 		exit(-1);
@@ -102,7 +103,7 @@ t_estructuraMarta* crearMarta() {
 		ptrMarta->listaArchivosProcesados = list_create();
 		ptrMarta->listaInformacionDelArchivo = list_create();
 		ptrMarta->listaSolicitudes = list_create();
-		return marta;
+		return ptrMarta;
 	}
 
 	return ptrMarta;
