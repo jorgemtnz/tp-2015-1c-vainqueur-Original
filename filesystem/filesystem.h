@@ -85,13 +85,17 @@ void leerArchivoDeConfiguracion();		// Falta implementar
 void cargarBloques(t_list *listaBloques);
 void leerRegistro(int arch);
 void guardarRegistro(int arch);
+element* buscarElementoPor(char* nombre);
 
 // Funciones de Consola
 void formatearMDFS();
 void eliminarElemento(char* nombreElemento);
-void crearDirectorio();
 void eliminarArchivo();
+void renombrarArchivo();
+void moverArchivo();
+void crearDirectorio();
 void eliminarDirectorio();
+void copiarArchivoLocalAlMDFS();
 void agregarNodo(char* nombre);
 void eliminarNodo(char* nombre);
 void mostrarElementos();

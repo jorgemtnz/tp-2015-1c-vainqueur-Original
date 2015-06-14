@@ -10,14 +10,14 @@
 // S    eliminarDirectorio
 // n    renombrarDirectorio 	// Es muy similar a renombrarArchivo
 // n	moverDirectorio 		// Es muy similar a moverArchivo
-// n	copiarArchivoLocalAlMDFS
+// s	copiarArchivoLocalAlMDFS
 // n	copiarArchivoDelMDFSAlFSLocal
 // n	solicitarMD5deUnArchivoenMDFS
 // n	verBloque
 // n	borrarBloque
 // n	copiarBloque
 // s	agregarNodo  			// No debe recibir argumentos // Falta sockets
-// n	eliminarNodo			// No debe recibir argumentos
+// s	eliminarNodo			// No debe recibir argumentos
 // s	mostrarComandos
 // s 	mostrarElementos 		// Yapa
 
