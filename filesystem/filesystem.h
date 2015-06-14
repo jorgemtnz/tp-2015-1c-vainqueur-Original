@@ -1,5 +1,3 @@
-// WARNING !!! Falta manejar el archivo de configuracion
-
 #ifndef FILESYSTEM_H_
 #define FILESYSTEM_H_
 
@@ -82,6 +80,7 @@ void liberaMemoriaElement(element* elemento);
 void liberaMemoriaFS();
 
 // Funciones Auxiliares
+void leerArchivoDeConfiguracion();		// Falta implementar
 void cargarBloques(t_list *listaBloques);
 void leerRegistro(int arch);
 void guardarRegistro(int arch);
