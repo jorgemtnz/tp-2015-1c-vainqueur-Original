@@ -92,14 +92,16 @@ void liberaMemoriaLista(t_list* lista, int* cantElementos, void (*funcionLiberaE
 
 // Marta
 char * generarNombreAlmacenado(char * nombreArchivo, char * nombreFuncion);
+
+//!!!! Revisar bien los argumentos que reciben al codificarlas ya que estos fueron pensados medios rapido
+//y seguro hacen falta mas y puede que nisiquiera sean estos los que necesita!!!!
 void planificarTrabajos();							// Falta implementar
 void almacenarResultado(char * nombreDelArchivo);	// Falta implementar
 void solicitarMapper();								// Falta implementar
 void solicitarReducer(int soportaCombiner);			// Falta implementar
-int  mandarNodoBloque(int numeroBloque);				// Falta implementar
+int  mandarNodoBloque(int numeroBloque);			// Falta implementar
 void noRepiteNodo();								// Falta implementar
-
-//(char * nombreArchivoBuscado);	// Que es esto??
+void evaluarSolicitudMapper(char * nombreArchivo);  // Falta implementar
 
 // +++++++++++++++++++++++++++++++++++ Variables Globales +++++++++++++++++++++++++++++++++++
 t_estructuraMarta marta;
