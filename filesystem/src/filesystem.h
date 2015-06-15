@@ -79,7 +79,7 @@ void     crearFileSystem();
 void     inicializarFilesystem();
 
 // Funciones Destructoras
-void liberaMemoriaLista(t_list* lista, int* cantElementos, void (*funcionLiberaElemento)(void*));
+void liberaMemoriaLista(t_list* lista, int cantElementos, void (*funcionLiberaElemento)(void*));
 void liberaMemoriaBloque(bloq* bloque);
 void liberaMemoriaNodo(nod* nodo) ;
 void liberaNodoBloque(nodBloq* nodoBloque);
