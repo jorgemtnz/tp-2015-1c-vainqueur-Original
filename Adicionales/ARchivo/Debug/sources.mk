@@ -13,9 +13,5 @@ EXECUTABLES :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
-<<<<<<< HEAD
 src \
-=======
-. \
->>>>>>> bbfbbb2c2ce7fbba12c9caf73fa9ab4b9cc0d9f9
 
