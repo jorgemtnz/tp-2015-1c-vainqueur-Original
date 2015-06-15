@@ -9,6 +9,7 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sockets/sockets.h>
 #include <src/commons/collections/list.h>
 #include <src/commons/temporal.h>
 #include <src/commons/string.h>
@@ -21,6 +22,9 @@
 #define EN_ESPERA 0
 #define NO_MAPEADO 0;
 #define MAPEADO 1;
+#define PUERTO_MARTA 6546
+#define CONEXIONES_ACEPTA_MARTA 1
+#define TAMANIOBUFFER 150
 
 // +++++++++++++++++++++++++++++++++++++++ Estructuras +++++++++++++++++++++++++++++++++++++
 typedef struct estructuraMarta {

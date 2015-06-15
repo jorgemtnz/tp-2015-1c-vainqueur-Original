@@ -9,6 +9,7 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sockets/sockets.h>
 #include <src/commons/collections/list.h>
 #include <src/commons/temporal.h>
 #include <src/commons/string.h>
@@ -22,6 +23,9 @@
 #define RUTACONFIGJOB "/"
 #define ACEPTA_COMBINER 1
 #define NO_ACEPTA_COMBINER 0
+#define PUERTO_JOB 7898
+#define CONEXIONES_ACEPTA_JOB 1 // Marta
+#define TAMANIOBUFFER 130
 
 // +++++++++++++++++++++++++++++++++++++++ Estructuras +++++++++++++++++++++++++++++++++++++
 typedef struct SolicitudDeTrabajo{
