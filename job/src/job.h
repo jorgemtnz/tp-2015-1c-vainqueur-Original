@@ -19,6 +19,9 @@
 // +++++++++++++++++++++++++++++++++++++++ Define +++++++++++++++++++++++++++++++++++++
 #define SI 1
 #define NO 0
+#define RUTACONFIGJOB "/"
+#define ACEPTA_COMBINER 1
+#define NO_ACEPTA_COMBINER 0
 
 // +++++++++++++++++++++++++++++++++++++++ Estructuras +++++++++++++++++++++++++++++++++++++
 typedef struct SolicitudDeTrabajo{
@@ -66,9 +69,39 @@ t_relacionNodoArchTemp* crearRelacionNodoArchTemp(); // Falta implementar
 // Funciones Destructoras
 
 // Funciones Auxiliares
+void leerArchivoDeConfiguracion(char* nomArchivo);
 void liberaMemoriaLista(t_list* lista, int* cantElementos, void (*funcionLiberaElemento)(void*));
 
 // +++++++++++++++++++++++++++++++++++ Variables Globales +++++++++++++++++++++++++++++++++++
+// El archivo config de job tiene IP_MARTA PUERTO_MARTA MAPPER REDUCE COMBINER ARCHIVOS RESULTADO
+char* vg_ipMarta;
+int vg_puertoMarta;
+int vg_combiner;
+char** vg_archivos; 	// Array de strings
+char* vg_resultado; 	// String de ruta del archivo resultante
+char* vg_mapperPath; 	// Ruta del archivo mapper
+char* vg_reducerPath; 	// Ruta del reducer
 
 
 #endif /* JOB_H_ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

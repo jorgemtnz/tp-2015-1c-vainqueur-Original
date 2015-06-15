@@ -96,7 +96,7 @@ void planificarTrabajos();							// Falta implementar
 void almacenarResultado(char * nombreDelArchivo);	// Falta implementar
 void solicitarMapper();								// Falta implementar
 void solicitarReducer(int soportaCombiner);			// Falta implementar
-int mandarNodoBloque(int numeroBloque);				// Falta implementar
+int  mandarNodoBloque(int numeroBloque);				// Falta implementar
 void noRepiteNodo();								// Falta implementar
 
 //(char * nombreArchivoBuscado);	// Que es esto??
