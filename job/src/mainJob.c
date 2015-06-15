@@ -13,19 +13,13 @@ int main(int argc, char **argv)
 
 	conectarSocket(fdJob, vg_ipMarta, vg_puertoMarta);
 
-	recibirPorSocket(fdJob, buffer, TAMANIOBUFFER);
-	printf("%s\n", buffer);
-
 	while (1)
 	{
 		printf("\nEnviar mensaje: ");
-		scanf("%*c%[^\n]", enviarMsg);
-
+		fgets(enviarMsg,TAMANIOBUFFER,stdin);
 		enviarPorSocket(fdJob, enviarMsg, TAMANIOBUFFER);
 
 		recibirPorSocket(fdJob, buffer, TAMANIOBUFFER);
-
-
 		printf("Mensaje recibido: %s\n", buffer);
 	}
 	cerrarSocket(fdJob);

@@ -13,20 +13,16 @@ int main(int argc, char **argv)
 	escucharSocket(fdMarta, CONEXIONES_ACEPTA_MARTA);
 
 	fdJob = aceptarConexionSocket(fdMarta);
-	strcpy(enviarMsg, "\n------SESION INICIADA: SERVIDOR CONECTADO------");
-	enviarPorSocket(fdJob, enviarMsg, TAMANIOBUFFER); // Mandale el sesion iniciada
 
 	while (1)
 	{
 		// El servidor espera el primer mensaje
 		recibirPorSocket(fdJob, buffer, TAMANIOBUFFER);
-
 		printf("\nMensaje recibido: %s\n", buffer);
 
 		printf("Enviar mensaje: ");
-		scanf("%*c%[^\n]", enviarOtroMsg);
+		fgets(enviarOtroMsg,TAMANIOBUFFER,stdin);
 		enviarPorSocket(fdJob, enviarOtroMsg, 1024);
-
 	}
 
 	cerrarSocket(fdMarta);

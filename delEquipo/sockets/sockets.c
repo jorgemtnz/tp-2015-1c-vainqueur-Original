@@ -121,7 +121,7 @@ void enviarPorSocket(int fdCliente, const void *msg, int len)
 	}
 }
 
-int recibirPorSocket(int fdCliente, void *buf, int len)
+void recibirPorSocket(int fdCliente, void *buf, int len)
 {
 	// Usado por servidor y cliente
 	int bytes_recibidos = recv(fdCliente, buf, len, 0);
@@ -129,9 +129,8 @@ int recibirPorSocket(int fdCliente, void *buf, int len)
 	if (bytes_recibidos == -1)
 	{
 		perror("[ERROR] Funcion recv\n");
-		exit(1);
+		exit(-1);
 	}
-	return bytes_recibidos;
 }
 
 void cerrarSocket(int sockfd)
