@@ -1,5 +1,5 @@
-#ifndef NODO_H_
-#define NODO_H_
+#ifndef NODO2_SRC_NODO_H_
+#define NODO2_SRC_NODO_H_
 
 // +++++++++++++++++++++++++++++++++++++++ Includes +++++++++++++++++++++++++++++++++++++
 #include <stdio.h>
@@ -55,4 +55,4 @@ char *vg_ip_FS,
 	 *vg_dirTemp,
 	 *vg_ip_Nodo;
 
-#endif /* NODO_H_ */
+#endif /* NODO2_SRC_NODO_H_ */
