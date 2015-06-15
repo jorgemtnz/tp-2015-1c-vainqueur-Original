@@ -64,7 +64,7 @@ typedef struct archivoProcesado {
 	int numeroNodo;
 	char * ubicacion;
 	int aplicoMapper; //Si = 1 / No = 0
-	int aplicoReducer; // Si = 1 / No = 0
+	int estado; 
 	
 } t_archivoProcesado;
 
