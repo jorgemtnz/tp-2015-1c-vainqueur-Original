@@ -20,7 +20,7 @@ void liberaMemoriaRelacionNodoBloque(
 void liberaMemoriaUbicacionBloque(t_ubicacionBloque* ptrUbicacionBloque) {
 	free(&ptrUbicacionBloque->numero);
 	liberaMemoriaLista(ptrUbicacionBloque->listaRelacionesNodoBloque,
-			ptrUbicacionBloque->listaRelacionesNodoBloque->elements_count,
+			&(ptrUbicacionBloque->listaRelacionesNodoBloque->elements_count),
 			(void*)liberaMemoriaRelacionNodoBloque);
 	free(ptrUbicacionBloque);
 }
@@ -30,7 +30,7 @@ void liberaMemoriaInformacionArchivo(
 	free(&ptrInformacionArchivo->enUso);
 	free(&ptrInformacionArchivo->nombreArchivo);
 	liberaMemoriaLista(ptrInformacionArchivo->listaUbicacionBloques,
-			ptrInformacionArchivo->listaUbicacionBloques->elements_count,
+			&(ptrInformacionArchivo->listaUbicacionBloques->elements_count),
 			(void*) liberaMemoriaInformacionArchivo);
 	free(ptrInformacionArchivo);
 }
@@ -44,7 +44,7 @@ void liberaMemoriaSolicitud(t_solicitud* ptrSolicitud) {
 	free(&ptrSolicitud->nombreArchivoATrabajar);
 	free(&ptrSolicitud->soportaCombiner);
 	liberaMemoriaLista(ptrSolicitud->listaNombresFunciones,
-			ptrSolicitud->listaNombresFunciones->elements_count,
+			&(ptrSolicitud->listaNombresFunciones->elements_count),
 			(void*) liberaMemoriaSolicitud);
 
 	free(ptrSolicitud);
@@ -52,13 +52,13 @@ void liberaMemoriaSolicitud(t_solicitud* ptrSolicitud) {
 
 void liberaMemoriaMarta(t_estructuraMarta* ptrMarta) {
 	liberaMemoriaLista(ptrMarta->listaArchivosProcesados,
-			ptrMarta->listaArchivosProcesados->elements_count,
+			&(ptrMarta->listaArchivosProcesados->elements_count),
 			(void*) liberaMemoriaArchivoProcesado);
 	liberaMemoriaLista(ptrMarta->listaInformacionDelArchivo,
-			ptrMarta->listaInformacionDelArchivo->elements_count,
+			&(ptrMarta->listaInformacionDelArchivo->elements_count),
 			(void*) liberaMemoriaInformacionArchivo);
 	liberaMemoriaLista(ptrMarta->listaSolicitudes,
-			ptrMarta->listaSolicitudes->elements_count,
+			&(ptrMarta->listaSolicitudes->elements_count),
 			(void*) liberaMemoriaSolicitud);
 	free(ptrMarta);
 }

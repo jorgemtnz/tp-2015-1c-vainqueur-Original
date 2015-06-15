@@ -10,7 +10,7 @@
 // S    eliminarDirectorio
 // n    renombrarDirectorio 	// Es muy similar a renombrarArchivo
 // n	moverDirectorio 		// Es muy similar a moverArchivo
-// s	copiarArchivoLocalAlMDFS
+// n	copiarArchivoLocalAlMDFS //Falta implementar
 // n	copiarArchivoDelMDFSAlFSLocal
 // n	solicitarMD5deUnArchivoenMDFS
 // n	verBloque
@@ -63,9 +63,8 @@ void eliminarArchivo()
 
 void renombrarArchivo()
 {
-	char* nombre, *nuevoNombre;
+	char nombre[LONGITUD_STRINGS], nuevoNombre[LONGITUD_STRINGS];
 	element* ptrArchivo;
-
 	printf("Ingrese nombre de archivo a renombrar");
 	scanf("%s", nombre);
 	printf("Ingrese nuevo nombre para el archivo");
@@ -85,8 +84,8 @@ void renombrarArchivo()
 
 void moverArchivo()
 {
-	char* nombreArchivo;
-	char directorioDestino[100]; // Hacer un define
+	char nombreArchivo[LONGITUD_STRINGS];
+	char directorioDestino[LONGITUD_STRINGS]; // Hacer un define
 	element* archivo;
 	element* directorio;
 
@@ -155,16 +154,6 @@ void eliminarDirectorio()
 
 void copiarArchivoLocalAlMDFS()
 {
-
-	char* ruta;
-	int* ptrComienzoMemoriaMapeada;
-	int* ptrTamanioDePagina;
-
-	printf("Ingrese ruta de archivo");
-	scanf("%s", ruta);
-
-	mapeoAmemoria(ruta, ptrComienzoMemoriaMapeada, ptrTamanioDePagina);
-
 }
 
 void agregarNodo(char* nombre)

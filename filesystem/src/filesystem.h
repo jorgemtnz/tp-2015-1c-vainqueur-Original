@@ -28,6 +28,7 @@
 #define NUMEROFUNCIONESCONSOLA 18
 #define RUTACONFIGFS "/"
 #define LONGITUD_DE_IP 20
+#define LONGITUD_STRINGS 150 //UTILIZADO para inicializar strings
 
 
 // +++++++++++++++++++++++++++++++++++++++ Estructuras +++++++++++++++++++++++++++++++++++++
@@ -100,7 +101,7 @@ void renombrarArchivo();
 void moverArchivo();
 void crearDirectorio();
 void eliminarDirectorio();
-void copiarArchivoLocalAlMDFS();
+void copiarArchivoLocalAlMDFS();//Falta implementar
 void agregarNodo(char* nombre);
 void eliminarNodo(char* nombre);
 void mostrarElementos();

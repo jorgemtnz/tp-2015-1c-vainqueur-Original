@@ -2,9 +2,9 @@
 
 /*------------------------FUNCIONES DESTRUCTORAS-------------------------*/
 void liberaMemoriaLista(t_list* lista, int* cantElementos, void (*funcionLiberaElemento)(void*)) {
-	int i = 0;
-	for (; i <= *cantElementos; i++) {
-		list_destroy_and_destroy_elements(lista, (void*) funcionLiberaElemento);
+	int posicion;
+	for (posicion = 0;posicion <= *cantElementos; posicion++) {
+		list_remove_and_destroy_element(lista, posicion,funcionLiberaElemento);
 	}// Consultar el index i
 
 }
@@ -19,7 +19,7 @@ void liberaMemoriaNodo(nod* nodo) { //libera la memoria del nodo
 	free(&nodo->estado);
 	free(&nodo->numero);
 	free(&nodo->dirEspacioNodo);
-	liberaMemoriaLista(nodo->listaBloques,nodo->listaBloques->elements_count,(void*) liberaMemoriaBloque);
+	liberaMemoriaLista(nodo->listaBloques,&(nodo->listaBloques->elements_count),(void*) liberaMemoriaBloque);
 	free(nodo);
 }
 
@@ -37,15 +37,15 @@ void liberaMemoriaElement(element* elemento) {
 	free(&(elemento->index));
 	free(&(elemento->nombre));
 	free(&(elemento->tamanio));
-	liberaMemoriaLista(elemento->listaNodoBloque,elemento->listaNodoBloque->elements_count,(void*) liberaNodoBloque);
+	liberaMemoriaLista(elemento->listaNodoBloque,&(elemento->listaNodoBloque->elements_count),(void*) liberaNodoBloque);
 	free(elemento);
 }
 
 void liberaMemoriaFS() {
 	free(&FILESYSTEM->espacioDisponible);
 	free(&FILESYSTEM->estado);
-	liberaMemoriaLista(FILESYSTEM->listaNodosConectados,FILESYSTEM->listaNodosConectados->elements_count,(void*) liberaMemoriaNodo);
-	liberaMemoriaLista(FILESYSTEM->listaElementos,FILESYSTEM->listaElementos->elements_count,(void*) liberaMemoriaElement);
+	liberaMemoriaLista(FILESYSTEM->listaNodosConectados,&(FILESYSTEM->listaNodosConectados->elements_count),(void*) liberaMemoriaNodo);
+	liberaMemoriaLista(FILESYSTEM->listaElementos,&(FILESYSTEM->listaElementos->elements_count),(void*) liberaMemoriaElement);
 	free(&FILESYSTEM->ipNodos);
 	free(FILESYSTEM);
 }

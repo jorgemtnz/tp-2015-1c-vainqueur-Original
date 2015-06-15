@@ -17,9 +17,19 @@ void * clienteHilo();
 
 int main() {
 	// Inicializo semaforos en 0
-	int semaforo1 = sem_init(&semaforoCliente, 0, 0);
-	int semaforo2 = sem_init(&semaforoServidor, 0, 0);
-
+	int error;
+	error = sem_init(&semaforoCliente, 0, 0);
+	if (error<0)
+	{
+		perror("[ERROR]: Funcion sem_init : Error al inicializar el semaforo");
+		return -1;
+	}
+	error = sem_init(&semaforoServidor, 0, 0);
+	if (error<0)
+		{
+			perror("[ERROR]: Funcion sem_init : Error al inicializar el semaforo");
+			return -1;
+		}
 	pthread_t tidServidor, tidCliente;
 
 	pthread_attr_t atributos1, atributos2;

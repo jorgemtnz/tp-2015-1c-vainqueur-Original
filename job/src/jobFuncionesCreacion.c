@@ -31,8 +31,9 @@ t_relacionNodoBloque* crearRelacionNodoBloque() {
 	ptrRelacionNodoBloque->numeroNodo   = 0;
 	return ptrRelacionNodoBloque;
 	}
-
+/*
 t_relacionNodoArchTemp* crearRelacionNodoArchTemp() {
+
 	t_relacionNodoArchTemp* ptrRelacionNodoArchTemp;
 	ptrRelacionNodoArchTemp = malloc(sizeof(t_relacionNodoBloque));
 
@@ -42,4 +43,4 @@ t_relacionNodoArchTemp* crearRelacionNodoArchTemp() {
 		exit(-1);
 	}
 }
-
+*/
