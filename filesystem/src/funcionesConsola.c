@@ -61,25 +61,17 @@ void eliminarArchivo()
 
 }
 
-void renombrarArchivo()
-{
-	char nombre[LONGITUD_STRINGS], nuevoNombre[LONGITUD_STRINGS];
+void renombrarArchivo(){
+
+char nombreArchivo[LONGITUD_STRINGS], nuevoNombreArchivo[LONGITUD_STRINGS];
 	element* ptrArchivo;
 	printf("Ingrese nombre de archivo a renombrar");
-	scanf("%s", nombre);
+	scanf("%s", nombreArchivo);
 	printf("Ingrese nuevo nombre para el archivo");
-	scanf("%s", nuevoNombre);
-
-	ptrArchivo = buscarElementoPor(nombre);
-	if (ptrArchivo != NULL)
-	{
-		strcpy((ptrArchivo->nombre), nombre);
-	}
-	else
-	{
-		perror("No existe el archivo");
-		exit(-1);
-	}
+	scanf("%s", nuevoNombreArchivo);
+	
+	renombrarElemento(nombreArchivo, nuevoNombreArchivo);
+	
 }
 
 void moverArchivo()
@@ -151,6 +143,19 @@ void eliminarDirectorio()
 	scanf("%s", nombreDirectorio);
 	eliminarElemento(nombreDirectorio);
 }
+
+void renombrarDirectorio()
+{
+	char nombreDirectorio[LONGITUD_STRINGS], nuevoNombreDirectorio[LONGITUD_STRINGS];
+	element* ptrArchivo;
+	printf("Ingrese nombre de directorio a renombrar");
+	scanf("%s", nombreDirectorio);
+	printf("Ingrese nuevo nombre para el directorio");
+	scanf("%s", nuevoNombreDirectorio);
+
+	renombrarElemento(nombreDirectorio, nuevoNombreDirectorio);
+	
+	}
 
 void copiarArchivoLocalAlMDFS()
 {
