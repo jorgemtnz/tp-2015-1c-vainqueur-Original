@@ -15,5 +15,14 @@
 #define	SOLICITUD_ARCHIVO	8
 #define	RTA_SOLICITUD_ARCHIVO	9
 
+#define UN_BYTE 1
+
 #ENDIF
+
+// El separador del protocolo
+const char * SEPARADOR = "$"
+
+// Función polimórfica que retorna el buffer contenido en la estructura del protocolo dado
+void * obtenerEstructura(buffer);
+
 // fin protocolo.h

@@ -70,6 +70,9 @@ typedef struct fs {
 	char** ipNodos;	// Array de strings
 } fs;
 
+typedef struct t_archivo{
+	char* contenido;
+}t_archivo;
 
 // +++++++++++++++++++++++++++++++++++++++ Prototipos +++++++++++++++++++++++++++++++++++++
 // Funciones Constructoras
