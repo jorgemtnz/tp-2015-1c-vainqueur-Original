@@ -62,3 +62,33 @@ ptrArchivo = buscarElementoPor(nombreElemento);
 		exit(-1);
 	}
 }
+
+void moverElemento(nombreElementoOrigen, nombreElementoDestino){
+
+	char nombreDirectorio[LONGITUD_STRINGS];
+	char nombreDirectorio[LONGITUD_STRINGS]; 
+	element* elementoOrigen;
+	element* elementoDestino;
+	
+	//Busco el elemento destino para tomar su index
+	elementoDestino = buscarElementoPor(nombreElementoDestino);
+	
+	if (elementoDestino != NULL) {
+	
+	// Busco el elemento origen para actualizar su directorio padre
+	elementoOrigen = buscarElementoPor(nombreElementoOrigen);
+	
+		if(elementoOrigen!=NULL){
+		// Hago el cambio de directorio padre con el index del directorio padre
+		elementoOrigen->directorioPadre = elementoDestino->index;
+		}else{
+		perror("No se encontró  elemento origen");
+		exit(-1);
+		}
+	
+	}else{
+			perror("No se encontró Directorio destino");
+			exit(-1);
+	}
+	
+	}
