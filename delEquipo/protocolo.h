@@ -15,6 +15,9 @@
 #define	SOLICITUD_ARCHIVO	8
 #define	RTA_SOLICITUD_ARCHIVO	9
 
+#define UN_BYTE 1
+#define SEPARADOR '$'
+
 #ENDIF
 
 void * obtenerEstructura(buffer);
