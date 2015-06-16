@@ -18,6 +18,7 @@ void * clienteHilo();
 int main() {
 	// Inicializo semaforos en 0
 	levantarArchivoConfiguracion();
+	printf("IP Nodo : %s \n", vg_ip_Nodo);
 	int error;
 	error = sem_init(&semaforoCliente, 0, 0);
 	if (error < 0) {
@@ -36,8 +37,8 @@ int main() {
 	pthread_attr_init(&atributos1);
 	pthread_attr_init(&atributos2);
 
-	tidServidor = pthread_create(&tidServidor, &atributos1, servidorHilo, NULL);
-	tidCliente = pthread_create(&tidCliente, &atributos2, clienteHilo, NULL);
+	pthread_create(&tidServidor, &atributos1, servidorHilo, NULL);
+	pthread_create(&tidCliente, &atributos2, clienteHilo, NULL);
 
 	pthread_join(tidServidor, NULL);
 	pthread_join(tidCliente, NULL);
@@ -82,7 +83,7 @@ void * clienteHilo() {
 	fdCliente = crearSocket();
 
 	sem_wait(&semaforoCliente);
-	conectarSocket(fdCliente, vg_ip_Nodo, vg_puerto_Nodo);
+	conectarSocket(fdCliente,"127.0.0.1", vg_puerto_Nodo);
 
 	sem_post(&semaforoServidor);
 	sem_wait(&semaforoCliente);

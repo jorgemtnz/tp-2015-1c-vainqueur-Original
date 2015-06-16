@@ -37,8 +37,8 @@ int main() {
 	pthread_attr_init(&atributos1);
 	pthread_attr_init(&atributos2);
 
-	tidServidor = pthread_create(&tidServidor, &atributos1, servidorHilo, NULL);
-	tidCliente = pthread_create(&tidCliente, &atributos2, clienteHilo, NULL);
+	pthread_create(&tidServidor, &atributos1, servidorHilo, NULL);
+	pthread_create(&tidCliente , &atributos2, clienteHilo, NULL);
 
 	pthread_join(tidServidor, NULL);
 	pthread_join(tidCliente, NULL);
