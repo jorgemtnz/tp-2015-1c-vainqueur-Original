@@ -26,11 +26,17 @@
 #define PUERTO_JOB 7898
 #define CONEXIONES_ACEPTA_JOB 1 // Marta
 #define TAMANIOBUFFER 130
+#define DIR_REDUCE "/tmp/"
+#define DIR_MAPP "/tmp/"
+#define DIR_ARCH_CONFIG "/tmp"
 
 // +++++++++++++++++++++++++++++++++++++++ Estructuras +++++++++++++++++++++++++++++++++++++
+
+
 typedef struct SolicitudDeTrabajo{
 	char* archvATrabajar;
-	char* funcion;
+	char* t_mapper;  //el job le dice a marta que quiere hacer varios trabajos sobre un archivo
+	char* t_reduce;
 	int combiner; // SI 1 NO 0
 }t_solicitudDeTrabajo;
 
@@ -49,7 +55,7 @@ typedef struct TareaMap{ //cada tarea asemeja a un hilo (en este caso hiloMapper
 	int fdHilo;
 	t_list* listaRelacionNodoBloque;
 	char* dirMapExec;
-}r_tareaMap;
+}t_tareaMap;
 
 typedef struct TareaReduce{
 	int fdHilo;
@@ -60,7 +66,7 @@ typedef struct TareaReduce{
 typedef struct Job {
 	t_list* listasTareasMap;
 	t_list* listasTareasReduce;
-	t_solicitudDeTrabajo* solicitud;
+	t_list* listaSolicitudDeTrabajo;   //son solicitudes porque  job  pide a marta varias, sobre diferentes archivos
 	char* dirArchvConfig;
 }t_job;
 
@@ -68,9 +74,19 @@ typedef struct Job {
 // Funciones Constructoras
 t_solicitudDeTrabajo* crearSolicitudDeTrabajo();
 t_relacionNodoBloque* crearRelacionNodoBloque();
-t_relacionNodoArchTemp* crearRelacionNodoArchTemp(); // Falta implementar
+t_relacionNodoArchTemp* crearRelacionNodoArchTemp();
+t_tareaMap* crearTareaMap();
+t_tareaReduce* creaTareaReduce() ;
+t_job* crearJob();
+
 
 // Funciones Destructoras
+void liberaMemoriaSolicitudDeTrabajo() ;
+void liberaMemoriaRelacionNodoBloque();
+void liberaMemoriaRelacionNodoArchTemp() ;
+void liberaMemoriaTareaMap() ;
+void liberaMemoriaTareaReduce() ;
+void liberaMemoriaJob();
 
 // Funciones Auxiliares
 void leerArchivoDeConfiguracion(char* nomArchivo);
