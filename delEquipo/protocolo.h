@@ -16,4 +16,7 @@
 #define	RTA_SOLICITUD_ARCHIVO	9
 
 #ENDIF
+
+void * retornarEstructura(buffer);
+
 // fin protocolo.h
