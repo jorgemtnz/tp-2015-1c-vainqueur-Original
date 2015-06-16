@@ -69,6 +69,9 @@ typedef struct fs {
 	char** ipNodos;	// Array de strings
 } fs;
 
+typedef struct t_archivo{
+	char* contenido;
+}t_archivo;
 
 // +++++++++++++++++++++++++++++++++++++++ Prototipos +++++++++++++++++++++++++++++++++++++
 // Funciones Constructoras
@@ -116,6 +119,6 @@ void levantarConsola();
 fs* FILESYSTEM;
 int vg_puerto_listen;
 char** vg_lista_nodos; // array de strings
-char* archivo; // puntero a un archivo genérico
+
 
 #endif /* FILESYSTEM_H_ */
