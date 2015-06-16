@@ -1,7 +1,7 @@
 Archivo de configuracion
 
-IP Marta: 21312.31231.231
-Puerto: 1231
+IP Marta: 192.168.100.1
+Puerto: 9687
 
 void* mapper;
 void* reducer;
