@@ -77,14 +77,14 @@ char nombreArchivo[LONGITUD_STRINGS], nuevoNombreArchivo[LONGITUD_STRINGS];
 void moverArchivo()
 {
 	char nombreArchivo[LONGITUD_STRINGS];
-	char directorioDestino[LONGITUD_STRINGS]; // Hacer un define
+	char nombreDirectorioDestino[LONGITUD_STRINGS]; // Hacer un define
 	element* archivo;
 	element* directorio;
 
 	printf("Ingrese nombre de archivo");
 	scanf("%s", nombreArchivo);
 	printf("Ingrese el nombre del directorio destino");
-	scanf("%s", directorioDestino);
+	scanf("%s", nombreDirectorioDestino);
 
 	moverElemento(nombreArchivo, directorioDestino);
 
