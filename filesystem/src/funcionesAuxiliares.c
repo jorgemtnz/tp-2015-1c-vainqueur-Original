@@ -47,3 +47,18 @@ element* buscarElementoPor(char* nombre) {
 
 	return elementoBuscado;
 }
+
+void renombrarElemento (char* nombreElemento, char* nuevoNombreElemento){
+element* ptrElemento;
+ptrArchivo = buscarElementoPor(nombreElemento);
+
+	if (ptrArchivo != NULL)
+	{
+		strcpy((ptrElemento->nombreElemento), nuevoNombreElemento);
+	}
+	else
+	{
+		perror("No existe el archivo");
+		exit(-1);
+	}
+}
