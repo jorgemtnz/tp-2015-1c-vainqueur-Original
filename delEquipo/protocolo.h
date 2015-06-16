@@ -17,6 +17,6 @@
 
 #ENDIF
 
-void * retornarEstructura(buffer);
+void * obtenerEstructura(buffer);
 
 // fin protocolo.h
