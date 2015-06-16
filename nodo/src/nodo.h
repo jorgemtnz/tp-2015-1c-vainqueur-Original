@@ -10,7 +10,7 @@
 #include <src/commons/config.h>
 
 // +++++++++++++++++++++++++++++++++++++++ Define +++++++++++++++++++++++++++++++++++++
-#define RUTACONFIGNODO "/"
+#define RUTACONFIGNODO "/home/utnso/TPOperativos/nodo/Adicionales/CONFIGURACION.cfg"
 #define RUTAMAP "blabl/blabla"
 #define EJECUCIONOK 1
 #define EJECUCIONFALLO -1

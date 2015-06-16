@@ -4,8 +4,8 @@
 #include <sockets/sockets.h>
 #include <string.h>
 #include <semaphore.h>
+#include "nodo.h"
 
-#define PUERTO 7000
 #define CONECCIONES_ENTRANTES_PERMITIDAS 4
 
 sem_t semaforoServidor;
@@ -17,21 +17,20 @@ void * clienteHilo();
 
 int main() {
 	// Inicializo semaforos en 0
+	levantarArchivoConfiguracion();
 	int error;
 	error = sem_init(&semaforoCliente, 0, 0);
-	if (error<0)
-	{
+	if (error < 0) {
 		perror("[ERROR]: Funcion sem_init : Error al inicializar el semaforo");
 		return -1;
 	}
 	error = sem_init(&semaforoServidor, 0, 0);
-	if (error<0)
-		{
-			perror("[ERROR]: Funcion sem_init : Error al inicializar el semaforo");
-			return -1;
-		}
-	pthread_t tidServidor, tidCliente;
+	if (error < 0) {
+		perror("[ERROR]: Funcion sem_init : Error al inicializar el semaforo");
+		return -1;
+	}
 
+	pthread_t tidServidor, tidCliente;
 	pthread_attr_t atributos1, atributos2;
 
 	pthread_attr_init(&atributos1);
@@ -51,7 +50,7 @@ void * servidorHilo() {
 	char buffer[100];
 
 	fdSocketEscucha = crearSocket();
-	asociarSocket(fdSocketEscucha, PUERTO);
+	asociarSocket(fdSocketEscucha, vg_puerto_Nodo);
 	escucharSocket(fdSocketEscucha, CONECCIONES_ENTRANTES_PERMITIDAS);
 
 	sem_post(&semaforoCliente);
@@ -83,7 +82,7 @@ void * clienteHilo() {
 	fdCliente = crearSocket();
 
 	sem_wait(&semaforoCliente);
-	conectarSocket(fdCliente, "127.0.0.1", PUERTO);
+	conectarSocket(fdCliente, vg_ip_Nodo, vg_puerto_Nodo);
 
 	sem_post(&semaforoServidor);
 	sem_wait(&semaforoCliente);
