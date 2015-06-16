@@ -116,6 +116,6 @@ void levantarConsola();
 fs* FILESYSTEM;
 int vg_puerto_listen;
 char** vg_lista_nodos; // array de strings
-
+char* archivo; // puntero a un archivo genérico
 
 #endif /* FILESYSTEM_H_ */
