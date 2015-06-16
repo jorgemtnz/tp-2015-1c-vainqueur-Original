@@ -62,7 +62,7 @@ t_tareaMap* crearTareaMap() {
 	ptrTareaMap = malloc(sizeof(t_tareaMap));
 	if (ptrTareaMap == NULL) {
 		perror(
-				"[ERROR] No se aloco memoria para RelacionNodoArchTemp pertenece a la estructura "
+				"[ERROR] No se aloco memoria para TareaMap pertenece a la estructura "
 						"Job>..>TareaMap");
 		exit(-1);
 
@@ -79,8 +79,8 @@ t_tareaReduce* creaTareaReduce() {
 	ptrTareaReduce = malloc(sizeof(t_tareaReduce));
 	if (ptrTareaReduce == NULL) {
 		perror(
-				"[ERROR] No se aloco memoria para RelacionNodoArchTemp pertenece a la estructura "
-						"Job>..>TareaMap");
+				"[ERROR] No se aloco memoria para TareaReduce pertenece a la estructura "
+						"Job>..>TareaReduce");
 		exit(-1);
 	} else {
 		ptrTareaReduce->dirReduceExec = DIR_REDUCE;
@@ -95,8 +95,8 @@ t_job* crearJob() {
 	ptrJob = malloc(sizeof(t_job));
 	if (ptrJob == NULL) {
 		perror(
-				"[ERROR] No se aloco memoria para RelacionNodoArchTemp pertenece a la estructura "
-						"Job>..>TareaMap");
+				"[ERROR] No se aloco memoria para Job pertenece a la estructura "
+						"Job");
 		exit(-1);
 	} else {
 		ptrJob->dirArchvConfig = DIR_ARCH_CONFIG;

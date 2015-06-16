@@ -1,5 +1,6 @@
 #include "nodo.h"
 
+
 void levantarArchivoConfiguracion() {
 	char* temporal;
 	t_config* archivoConfig;
@@ -23,7 +24,7 @@ void levantarArchivoConfiguracion() {
 	config_destroy(archivoConfig);
 }
 
-int informarEjecucionAJob(nodo_t* datosDelNodo, char* ipJob, int puertoJob,
+int informarEjecucionAJob(t_nodo* datosDelNodo, char* ipJob, int puertoJob,
 		int comoTerminoLaEjecucion) {
 	int fdNodo = crearSocket();
 	conectarSocket(fdNodo, ipJob, puertoJob);
@@ -55,17 +56,11 @@ int ejecutarMap(char * nombreArchivoTemporal, char * ptrDireccionMapeo) {
 	return EJECUCIONOK;
 }
 
-void conectarNodo(nodo_t* datosDelNodo) {
+void conectarNodo(t_nodo* datosDelNodo) {
 	int fdNodo = crearSocket();
 	int numNodo = datosDelNodo->idNodo;
 	conectarSocket(fdNodo, vg_ip_FS, vg_puerto_FS);
 	printf("Nodo: %d conectado al FS con ip %s mediante el puerto %d \n",
 			numNodo, vg_ip_FS, vg_puerto_FS);
 }
-/*
-int main() {
-	nodo_t datosDelNodo;
-	datosDelNodo.idNodo = 1;
-	return 0;
-}
-*/
+
