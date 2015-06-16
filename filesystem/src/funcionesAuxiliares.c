@@ -47,3 +47,51 @@ element* buscarElementoPor(char* nombre) {
 
 	return elementoBuscado;
 }
+
+void renombrarElemento (char* nombreElemento, char* nuevoNombreElemento){
+element* ptrElemento;
+ptrArchivo = buscarElementoPor(nombreElemento);
+
+	if (ptrArchivo != NULL)
+	{
+		strcpy((ptrElemento->nombreElemento), nuevoNombreElemento);
+	}
+	else
+	{
+		perror("No existe el archivo");
+		exit(-1);
+	}
+}
+
+void moverElemento(nombreElementoOrigen, nombreDirectorioDestino){
+
+	char nombreElementoOrigen[LONGITUD_STRINGS];
+	char nombreDirectorioDestino[LONGITUD_STRINGS]; 
+	element* elementoOrigen;
+	element* directorioDestino;
+	
+	//Busco el directorio destino para tomar su index
+	directorioDestino = buscarElementoPor(nombreDirectorioDestino);
+	
+	if (directorioDestino != NULL) {
+		// Valido que no se quiera mover dentro de un archivo
+		if (directorioDestino.tipoElemento == 1){	
+			// Busco el elemento origen para actualizar su directorio padre
+			elementoOrigen = buscarElementoPor(nombreElementoOrigen);
+			if(elementoOrigen!=NULL){
+				// Hago el cambio de directorio padre con el index del directorio padre
+				elementoOrigen->directorioPadre = directorioDestino->index;
+			}else{
+				perror("No se encontró  archivo/directorio origen");
+				exit(-1);
+			}
+		}else{
+			perror("El directorio destino no es un tipo directorio");
+			exit(-1);
+		}
+	}else{
+			perror("No se encontró Directorio destino");
+			exit(-1);
+	}
+	
+}

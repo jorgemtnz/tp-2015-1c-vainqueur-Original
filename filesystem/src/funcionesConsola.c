@@ -7,9 +7,9 @@
 // s 	renombrarArchivo
 // s	moverArchivo
 // s	crearDirectorio 		// Terminada ????
-// S    eliminarDirectorio
-// n    renombrarDirectorio 	// Es muy similar a renombrarArchivo
-// n	moverDirectorio 		// Es muy similar a moverArchivo
+// s    eliminarDirectorio
+// s    renombrarDirectorio 	// Es muy similar a renombrarArchivo
+// s	moverDirectorio 		// Es muy similar a moverArchivo
 // n	copiarArchivoLocalAlMDFS //Falta implementar
 // n	copiarArchivoDelMDFSAlFSLocal
 // n	solicitarMD5deUnArchivoenMDFS
@@ -61,59 +61,32 @@ void eliminarArchivo()
 
 }
 
-void renombrarArchivo()
-{
-	char nombre[LONGITUD_STRINGS], nuevoNombre[LONGITUD_STRINGS];
+void renombrarArchivo(){
+
+char nombreArchivo[LONGITUD_STRINGS], nuevoNombreArchivo[LONGITUD_STRINGS];
 	element* ptrArchivo;
 	printf("Ingrese nombre de archivo a renombrar");
-	scanf("%s", nombre);
+	scanf("%s", nombreArchivo);
 	printf("Ingrese nuevo nombre para el archivo");
-	scanf("%s", nuevoNombre);
-
-	ptrArchivo = buscarElementoPor(nombre);
-	if (ptrArchivo != NULL)
-	{
-		strcpy((ptrArchivo->nombre), nombre);
-	}
-	else
-	{
-		perror("No existe el archivo");
-		exit(-1);
-	}
+	scanf("%s", nuevoNombreArchivo);
+	
+	renombrarElemento(nombreArchivo, nuevoNombreArchivo);
+	
 }
 
 void moverArchivo()
 {
 	char nombreArchivo[LONGITUD_STRINGS];
-	char directorioDestino[LONGITUD_STRINGS]; // Hacer un define
+	char nombreDirectorioDestino[LONGITUD_STRINGS]; // Hacer un define
 	element* archivo;
 	element* directorio;
 
 	printf("Ingrese nombre de archivo");
 	scanf("%s", nombreArchivo);
 	printf("Ingrese el nombre del directorio destino");
-	scanf("%s", directorioDestino);
+	scanf("%s", nombreDirectorioDestino);
 
-	directorio = buscarElementoPor(directorioDestino);
-	if (directorio != NULL)
-	{
-
-		archivo = buscarElementoPor(nombreArchivo);
-		if (archivo != NULL)
-		{
-			archivo->directorioPadre = directorio->index;
-		}
-		else
-		{
-			perror("No se encontró Archivo");
-			exit(-1);
-		}
-	}
-	else
-	{
-		perror("No se encontró directorio destino");
-		exit(-1);
-	}
+	moverElemento(nombreArchivo, directorioDestino);
 
 }
 
@@ -150,6 +123,35 @@ void eliminarDirectorio()
 	printf("Ingrese el nombre del Directorio: ");
 	scanf("%s", nombreDirectorio);
 	eliminarElemento(nombreDirectorio);
+}
+
+void renombrarDirectorio()
+{
+	char nombreDirectorio[LONGITUD_STRINGS], nuevoNombreDirectorio[LONGITUD_STRINGS];
+	element* ptrArchivo;
+	printf("Ingrese nombre de directorio a renombrar");
+	scanf("%s", nombreDirectorio);
+	printf("Ingrese nuevo nombre para el directorio");
+	scanf("%s", nuevoNombreDirectorio);
+
+	renombrarElemento(nombreDirectorio, nuevoNombreDirectorio);
+	
+	}
+
+void moverDirectorio()
+{
+	char nombreDirectorioOrigen[LONGITUD_STRINGS];
+	char nombreDirectorioDestino[LONGITUD_STRINGS]; // Hacer un define
+	element* directorioOrigen;
+	element* directorioDestino;
+
+	printf("Ingrese nombre de Directorio Origen");
+	scanf("%s", nombreDirectorioOrigen);
+	printf("Ingrese el nombre del directorio destino");
+	scanf("%s", NombreDirectorioDestino);
+	
+	moverElemento(nombreDirectorioOrigen, nombreDirectorioDestino);
+
 }
 
 void copiarArchivoLocalAlMDFS()
