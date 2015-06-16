@@ -63,32 +63,35 @@ ptrArchivo = buscarElementoPor(nombreElemento);
 	}
 }
 
-void moverElemento(nombreElementoOrigen, nombreElementoDestino){
+void moverElemento(nombreElementoOrigen, nombreDirectorioDestino){
 
-	char nombreDirectorio[LONGITUD_STRINGS];
-	char nombreDirectorio[LONGITUD_STRINGS]; 
+	char nombreElementoOrigen[LONGITUD_STRINGS];
+	char nombreDirectorioDestino[LONGITUD_STRINGS]; 
 	element* elementoOrigen;
-	element* elementoDestino;
+	element* directorioDestino;
 	
-	//Busco el elemento destino para tomar su index
-	elementoDestino = buscarElementoPor(nombreElementoDestino);
+	//Busco el directorio destino para tomar su index
+	directorioDestino = buscarElementoPor(nombreDirectorioDestino);
 	
-	if (elementoDestino != NULL) {
-	
-	// Busco el elemento origen para actualizar su directorio padre
-	elementoOrigen = buscarElementoPor(nombreElementoOrigen);
-	
-		if(elementoOrigen!=NULL){
-		// Hago el cambio de directorio padre con el index del directorio padre
-		elementoOrigen->directorioPadre = elementoDestino->index;
+	if (directorioDestino != NULL) {
+		// Valido que no se quiera mover dentro de un archivo
+		if (directorioDestino.tipoElemento == 1){	
+			// Busco el elemento origen para actualizar su directorio padre
+			elementoOrigen = buscarElementoPor(nombreElementoOrigen);
+			if(elementoOrigen!=NULL){
+				// Hago el cambio de directorio padre con el index del directorio padre
+				elementoOrigen->directorioPadre = directorioDestino->index;
+			}else{
+				perror("No se encontró  archivo/directorio origen");
+				exit(-1);
+			}
 		}else{
-		perror("No se encontró  elemento origen");
-		exit(-1);
+			perror("El directorio destino no es un tipo directorio");
+			exit(-1);
 		}
-	
 	}else{
 			perror("No se encontró Directorio destino");
 			exit(-1);
 	}
 	
-	}
+}
