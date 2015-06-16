@@ -65,3 +65,33 @@ void moverElemento(element* elementoOrigen, element* directorioDestino) {
 
 	}
 }
+void eliminarElemento(char* nombreElemento) {
+	int i;
+	int elementosEnLista = FILESYSTEM->listaElementos->elements_count;
+	int sonIguales;
+
+	for (i = 0; i <= elementosEnLista; i++) { // Recorremos la lista
+		element* elementoi;
+		elementoi = list_get(FILESYSTEM->listaElementos, i);
+		sonIguales = string_equals_ignore_case(elementoi->nombre,
+				nombreElemento);
+		// Si las cadenas son iguales => encontro string => lo elimino
+
+		if (sonIguales) {
+			list_remove(FILESYSTEM->listaElementos, i);
+		}//ojo no se libera memoria, corregir...
+
+		// Si las cadenas son distintas => Sigue el for
+	}
+} // Generica, sirve para archivos y directorios
+
+void mostrarElementos() {
+	int elementosEnLista = FILESYSTEM->listaElementos->elements_count;
+	int i;
+	for (i = 0; i <= elementosEnLista; i++) {
+		element* elementoi;
+		elementoi = list_get(FILESYSTEM->listaElementos, i);
+		printf("Index:%d   Elemento:%s\n", elementoi->index, elementoi->nombre);
+	}
+}
+

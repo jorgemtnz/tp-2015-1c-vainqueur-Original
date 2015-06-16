@@ -6,7 +6,7 @@
 // s    eliminarArchiv
 // s 	renombrarArchivo
 // s	moverArchivo
-// s	crearDirectorio 		// Terminada ????
+// s	crearDirectorio
 // s    eliminarDirectorio
 // s    renombrarDirectorio 	// Es muy similar a renombrarArchivo
 // s	moverDirectorio 		// Es muy similar a moverArchivo
@@ -25,25 +25,7 @@ void formatearMDFS() {
 	inicializarFilesystem();
 }
 
-void eliminarElemento(char* nombreElemento) {
-	int i;
-	int elementosEnLista = FILESYSTEM->listaElementos->elements_count;
-	int sonIguales;
 
-	for (i = 0; i <= elementosEnLista; i++) { // Recorremos la lista
-		element* elementoi;
-		elementoi = list_get(FILESYSTEM->listaElementos, i);
-		sonIguales = string_equals_ignore_case(elementoi->nombre,
-				nombreElemento);
-		// Si las cadenas son iguales => encontro string => lo elimino
-
-		if (sonIguales) {
-			list_remove(FILESYSTEM->listaElementos, i);
-		}
-
-		// Si las cadenas son distintas => Sigue el for
-	}
-} // Generica, sirve para archivos y directorios
 
 void eliminarArchivo() {
 	char nombreArchivo[50];
@@ -170,15 +152,7 @@ void eliminarNodo(char* nombre) { //faltaria la condicion pero nose como ponerla
 //list_remove_by_condition(FILESYSTEM->listaNodos), condicion(nombre) );//remueve de la lista el nodo que concuerda con el nombre ingresado eso creo
 }
 
-void mostrarElementos() {
-	int elementosEnLista = FILESYSTEM->listaElementos->elements_count;
-	int i;
-	for (i = 0; i <= elementosEnLista; i++) {
-		element* elementoi;
-		elementoi = list_get(FILESYSTEM->listaElementos, i);
-		printf("Index:%d   Elemento:%s\n", elementoi->index, elementoi->nombre);
-	}
-}
+
 
 void mostrarComandos() {
 	char* funcionesConsola[] = { "formatearMDFS", "eliminarArchivo",

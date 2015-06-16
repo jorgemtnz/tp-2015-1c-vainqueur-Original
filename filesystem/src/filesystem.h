@@ -98,10 +98,11 @@ void guardarRegistro(int arch);
 element* buscarElementoPor(char* nombre);
 void renombrarElemento(element* ptrElemento, char* nuevoNombreElemento);
 void moverElemento(element* elementoOrigen, element* directorioDestino);
+void eliminarElemento(char* nombreElemento);
+void mostrarElementos();
 
 // Funciones de Consola
 void formatearMDFS();
-void eliminarElemento(char* nombreElemento);
 void eliminarArchivo();
 void renombrarArchivo();
 void moverArchivo();
@@ -110,7 +111,7 @@ void eliminarDirectorio();
 void copiarArchivoLocalAlMDFS();//Falta implementar
 void agregarNodo(char* nombre);
 void eliminarNodo(char* nombre);
-void mostrarElementos();
+
 void mostrarComandos();
 
 // Consola implementacion
