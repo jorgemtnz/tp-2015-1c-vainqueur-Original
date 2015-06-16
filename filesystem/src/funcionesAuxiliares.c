@@ -1,13 +1,13 @@
 #include "filesystem.h"
 
 /*------------------------FUNCIONES AUXILIARES---------------------------*/
-void leerArchivoDeConfiguracion(char* nomArchivo){
+void leerArchivoDeConfiguracion(char* nomArchivo) {
 	// El archivo config de FS tiene PUERTO_LISTEN Y LISTA_NODOS
 	t_config * archivoConfig;
 
 	archivoConfig = config_create(RUTACONFIGFS);
 	vg_puerto_listen = config_get_int_value(archivoConfig, "PUERTO_LISTEN");
-	vg_lista_nodos   = config_get_array_value(archivoConfig, "LISTA_NODOS");
+	vg_lista_nodos = config_get_array_value(archivoConfig, "LISTA_NODOS");
 
 	config_destroy(archivoConfig);
 }
@@ -48,50 +48,20 @@ element* buscarElementoPor(char* nombre) {
 	return elementoBuscado;
 }
 
-void renombrarElemento (char* nombreElemento, char* nuevoNombreElemento){
-element* ptrElemento;
-ptrArchivo = buscarElementoPor(nombreElemento);
-
-	if (ptrArchivo != NULL)
-	{
-		strcpy((ptrElemento->nombreElemento), nuevoNombreElemento);
-	}
-	else
-	{
-		perror("No existe el archivo");
-		exit(-1);
-	}
+void renombrarElemento(element* ptrElemento, char* nuevoNombreElemento) {
+		strcpy(ptrElemento->nombre, nuevoNombreElemento);
 }
 
-void moverElemento(nombreElementoOrigen, nombreDirectorioDestino){
+void moverElemento(element* elementoOrigen, element* directorioDestino) {
 
-	char nombreElementoOrigen[LONGITUD_STRINGS];
-	char nombreDirectorioDestino[LONGITUD_STRINGS]; 
-	element* elementoOrigen;
-	element* directorioDestino;
-	
-	//Busco el directorio destino para tomar su index
-	directorioDestino = buscarElementoPor(nombreDirectorioDestino);
-	
-	if (directorioDestino != NULL) {
-		// Valido que no se quiera mover dentro de un archivo
-		if (directorioDestino.tipoElemento == 1){	
-			// Busco el elemento origen para actualizar su directorio padre
-			elementoOrigen = buscarElementoPor(nombreElementoOrigen);
-			if(elementoOrigen!=NULL){
-				// Hago el cambio de directorio padre con el index del directorio padre
-				elementoOrigen->directorioPadre = directorioDestino->index;
-			}else{
-				perror("No se encontró  archivo/directorio origen");
-				exit(-1);
-			}
-		}else{
-			perror("El directorio destino no es un tipo directorio");
-			exit(-1);
-		}
-	}else{
-			perror("No se encontró Directorio destino");
-			exit(-1);
+	// Valido que no se quiera mover dentro de un archivo
+	if (directorioDestino->tipoElemento == ESDIRECTORIO) {
+
+		// Hago el cambio de directorio padre con el index del directorio padre
+		elementoOrigen->directorioPadre = directorioDestino->index;
+	} else {
+		perror("[ERROR]no se puede mover. El directorio destino no es un tipo directorio");
+		exit(-1);
+
 	}
-	
 }

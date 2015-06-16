@@ -29,7 +29,8 @@
 #define RUTACONFIGFS "/"
 #define LONGITUD_DE_IP 20
 #define LONGITUD_STRINGS 150 //UTILIZADO para inicializar strings
-
+#define EXISTE 1
+#define NO_EXISTE 0
 
 // +++++++++++++++++++++++++++++++++++++++ Estructuras +++++++++++++++++++++++++++++++++++++
 typedef struct bloq {
@@ -92,6 +93,8 @@ void cargarBloques(t_list *listaBloques);
 void leerRegistro(int arch);
 void guardarRegistro(int arch);
 element* buscarElementoPor(char* nombre);
+void renombrarElemento(element* ptrElemento, char* nuevoNombreElemento);
+void moverElemento(element* elementoOrigen, element* directorioDestino);
 
 // Funciones de Consola
 void formatearMDFS();
