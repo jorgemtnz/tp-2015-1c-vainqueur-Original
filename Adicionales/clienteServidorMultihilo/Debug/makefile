@@ -26,7 +26,7 @@ endif
 all: clienteServidorMultihilo
 
 dependents:
-	-cd /home/utnso/TPOperativos/delEquipo/Debug && $(MAKE) all
+	-cd /home/utnso/TPOperativos/delEquipo/Debug && $(MAKE) clean all
 
 # Tool invocations
 clienteServidorMultihilo: $(OBJS) $(USER_OBJS) /home/utnso/TPOperativos/delEquipo/Debug/libdelEquipo.so

@@ -1,10 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <pthread.h>
-#include <sockets/sockets.h>
-#include <string.h>
-#include <semaphore.h>
-#include "nodo.h"
+#include "filesystem.h"
 
 #define CONECCIONES_ENTRANTES_PERMITIDAS 4
 
@@ -17,8 +11,8 @@ void * clienteHilo();
 
 int main() {
 	// Inicializo semaforos en 0
-	levantarArchivoConfiguracion();
-	printf("IP Nodo : %s \n", vg_dirTemp);
+	//levantarArchivoConfiguracion();
+	//printf("IP Nodo : %s \n", vg_dirTemp);
 	int error;
 	error = sem_init(&semaforoCliente, 0, 0);
 	if (error < 0) {
@@ -51,7 +45,7 @@ void * servidorHilo() {
 	char buffer[100];
 
 	fdSocketEscucha = crearSocket();
-	asociarSocket(fdSocketEscucha, vg_puerto_Nodo);
+	asociarSocket(fdSocketEscucha, 9002);
 	escucharSocket(fdSocketEscucha, CONECCIONES_ENTRANTES_PERMITIDAS);
 
 	sem_post(&semaforoCliente);
@@ -83,7 +77,7 @@ void * clienteHilo() {
 	fdCliente = crearSocket();
 
 	sem_wait(&semaforoCliente);
-	conectarSocket(fdCliente,"127.0.0.1", vg_puerto_Nodo);
+	conectarSocket(fdCliente,"127.0.0.1", 9002);
 
 	sem_post(&semaforoServidor);
 	sem_wait(&semaforoCliente);
@@ -102,3 +96,26 @@ void * clienteHilo() {
 	cerrarSocket(fdCliente);
 	pthread_exit(0);
 }
+
+/*
+int main(int argc, char **argv) {
+	int fdArchivo, fdEstructura, fdArchConfig;
+	fdArchivo = fdEstructura = fdArchConfig = 0;
+
+	char* dirArchivo 			= "/tmp/archivoProcesar.txt";
+	char* dirArchivoEstructura 	= "/tmp/archivoEstructura.txt";
+	char* dirArchivoConfig 		= "/tmp/archivoConfig.txt";
+
+
+    fdArchConfig = open(dirArchivoConfig, O_RDONLY);
+	fdArchivo 	 = open(dirArchivo, O_RDWR);
+	fdEstructura = open(dirArchivoEstructura, O_RDWR | O_CREAT);
+
+	crearFileSystem();
+	inicializarFilesystem();
+	levantarConsola();
+
+	return 0;
+
+}
+*/

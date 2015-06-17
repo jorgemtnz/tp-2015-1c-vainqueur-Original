@@ -73,9 +73,9 @@ int vg_puerto_FS,
 	vg_nodo_Nuevo,
 	vg_puerto_Nodo;
 
-char *vg_ip_FS,
-	 *vg_archivo_Bin,
-	 *vg_dirTemp,
-	 *vg_ip_Nodo;
+char *vg_ip_FS;
+char *vg_archivo_Bin;
+char	 *vg_dirTemp;
+char	 *vg_ip_Nodo;
 
 #endif /* NODO2_SRC_NODO_H_ */

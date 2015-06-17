@@ -14,6 +14,10 @@
 #include <src/commons/collections/list.h>
 #include <src/commons/txt.h>
 #include <src/commons/config.h>
+#include <pthread.h>
+#include <sockets/sockets.h>
+#include <string.h>
+#include <semaphore.h>
 
 // +++++++++++++++++++++++++++++++++++++++ Define +++++++++++++++++++++++++++++++++++++
 #define ESDIRECTORIO 1
