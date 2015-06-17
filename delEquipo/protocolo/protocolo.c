@@ -9,26 +9,30 @@
 #include <string.h>
 #include <protocolo.h>
 
-
-void * retornarEstructura(char * buffer) {
-
-	char* protocolo = NULL;
+// En desarrollo
+void * obtenerEstructura(char * buffer) {
+	
+	// Reservo espacio para el Header
+	char* header = malloc(1);
+	int* protocolo;
 	size_t tamano_buffer;
-
+	site_t un_byte;
+	
 	tamano_buffer = strlen(buffer);
-
+	tamano_header = strlen(header);
 //Tamaño máximo del array que se puede obtener.
 	char* bufferSerializado[tamano_buffer];
 
 	bufferSerializado = string_split(buffer, SEPARADOR);
 
 	// Obtengo el Header
-	protocolo = string_substring_from( buffer, UN_BYTE);
+	header = string_substring_from( buffer, UN_BYTE);
+	// Copio el Header al protocolo
+	(int)header;
+	memcpy(&protocolo, header, tamano_header);
+	
 
-	// convierto el protocolo a int
-	(int) (*(protocolo));
-
-	switch (protocolo)
+	switch ((*protocolo))
 	{
 
 		case ARCHIVO_CARGA_INICIAL:
