@@ -1,4 +1,4 @@
-#include "marta.h"
+#include "nodo.h"
 
 void liberaMemoriaLista(t_list* lista, int* cantElementos,
 		void (*funcionLiberaElemento)(void*)) {
@@ -8,4 +8,3 @@ void liberaMemoriaLista(t_list* lista, int* cantElementos,
 	}
 
 }
-

@@ -1,13 +1,13 @@
 #include "filesystem.h"
 
 /*------------------------FUNCIONES AUXILIARES---------------------------*/
-void leerArchivoDeConfiguracion(char* nomArchivo){
+void leerArchivoDeConfiguracion(char* nomArchivo) {
 	// El archivo config de FS tiene PUERTO_LISTEN Y LISTA_NODOS
 	t_config * archivoConfig;
 
 	archivoConfig = config_create(RUTACONFIGFS);
 	vg_puerto_listen = config_get_int_value(archivoConfig, "PUERTO_LISTEN");
-	vg_lista_nodos   = config_get_array_value(archivoConfig, "LISTA_NODOS");
+	vg_lista_nodos = config_get_array_value(archivoConfig, "LISTA_NODOS");
 
 	config_destroy(archivoConfig);
 }
@@ -47,3 +47,51 @@ element* buscarElementoPor(char* nombre) {
 
 	return elementoBuscado;
 }
+
+void renombrarElemento(element* ptrElemento, char* nuevoNombreElemento) {
+		strcpy(ptrElemento->nombre, nuevoNombreElemento);
+}
+
+void moverElemento(element* elementoOrigen, element* directorioDestino) {
+
+	// Valido que no se quiera mover dentro de un archivo
+	if (directorioDestino->tipoElemento == ESDIRECTORIO) {
+
+		// Hago el cambio de directorio padre con el index del directorio padre
+		elementoOrigen->directorioPadre = directorioDestino->index;
+	} else {
+		perror("[ERROR]no se puede mover. El directorio destino no es un tipo directorio");
+		exit(-1);
+
+	}
+}
+void eliminarElemento(char* nombreElemento) {
+	int i;
+	int elementosEnLista = FILESYSTEM->listaElementos->elements_count;
+	int sonIguales;
+
+	for (i = 0; i <= elementosEnLista; i++) { // Recorremos la lista
+		element* elementoi;
+		elementoi = list_get(FILESYSTEM->listaElementos, i);
+		sonIguales = string_equals_ignore_case(elementoi->nombre,
+				nombreElemento);
+		// Si las cadenas son iguales => encontro string => lo elimino
+
+		if (sonIguales) {
+			list_remove(FILESYSTEM->listaElementos, i);
+		}//ojo no se libera memoria, corregir...
+
+		// Si las cadenas son distintas => Sigue el for
+	}
+} // Generica, sirve para archivos y directorios
+
+void mostrarElementos() {
+	int elementosEnLista = FILESYSTEM->listaElementos->elements_count;
+	int i;
+	for (i = 0; i <= elementosEnLista; i++) {
+		element* elementoi;
+		elementoi = list_get(FILESYSTEM->listaElementos, i);
+		printf("Index:%d   Elemento:%s\n", elementoi->index, elementoi->nombre);
+	}
+}
+

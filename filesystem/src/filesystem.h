@@ -33,7 +33,8 @@
 #define RUTACONFIGFS "/"
 #define LONGITUD_DE_IP 20
 #define LONGITUD_STRINGS 150 //UTILIZADO para inicializar strings
-
+#define EXISTE 1
+#define NO_EXISTE 0
 
 // +++++++++++++++++++++++++++++++++++++++ Estructuras +++++++++++++++++++++++++++++++++++++
 typedef struct bloq {
@@ -73,6 +74,9 @@ typedef struct fs {
 	char** ipNodos;	// Array de strings
 } fs;
 
+typedef struct t_archivo{
+	char* contenido;
+}t_archivo;
 
 // +++++++++++++++++++++++++++++++++++++++ Prototipos +++++++++++++++++++++++++++++++++++++
 // Funciones Constructoras
@@ -96,10 +100,13 @@ void cargarBloques(t_list *listaBloques);
 void leerRegistro(int arch);
 void guardarRegistro(int arch);
 element* buscarElementoPor(char* nombre);
+void renombrarElemento(element* ptrElemento, char* nuevoNombreElemento);
+void moverElemento(element* elementoOrigen, element* directorioDestino);
+void eliminarElemento(char* nombreElemento);
+void mostrarElementos();
 
 // Funciones de Consola
 void formatearMDFS();
-void eliminarElemento(char* nombreElemento);
 void eliminarArchivo();
 void renombrarArchivo();
 void moverArchivo();
@@ -108,7 +115,7 @@ void eliminarDirectorio();
 void copiarArchivoLocalAlMDFS();//Falta implementar
 void agregarNodo(char* nombre);
 void eliminarNodo(char* nombre);
-void mostrarElementos();
+
 void mostrarComandos();
 
 // Consola implementacion
