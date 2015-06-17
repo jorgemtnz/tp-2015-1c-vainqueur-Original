@@ -74,9 +74,18 @@ typedef struct fs {
 	char** ipNodos;	// Array de strings
 } fs;
 
+// Estructura para el envío de archivos por socket
 typedef struct t_archivo{
 	char* contenido;
 }t_archivo;
+
+// Estructura para que el FS le mande un bloque al nodo por socket
+typedef struct t_escritura_bloque
+{
+  int numeroDeBloque;
+  char* archivo;
+}t_escritura_bloque;
+
 
 // +++++++++++++++++++++++++++++++++++++++ Prototipos +++++++++++++++++++++++++++++++++++++
 // Funciones Constructoras
