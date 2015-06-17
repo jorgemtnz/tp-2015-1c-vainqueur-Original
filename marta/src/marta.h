@@ -110,6 +110,6 @@ void evaluarSolicitudMapper(char * nombreArchivo);  // Falta implementar
 
 // +++++++++++++++++++++++++++++++++++ Variables Globales +++++++++++++++++++++++++++++++++++
 t_estructuraMarta marta;
-
+unsigned char resultado; // Esta variable recibe el valor de respuesta de exito o no del JOB
 
 #endif /* MARTA_H_ */
