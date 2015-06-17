@@ -91,6 +91,7 @@ void liberaMemoriaElement(element* elemento);
 void liberaMemoriaFS();
 
 // Funciones Auxiliares
+int comparaNumeroBloque(nodBloq* elemento);
 void leerArchivoDeConfiguracion();
 void cargarBloques(t_list *listaBloques);
 void leerRegistro(int arch);

@@ -1,4 +1,4 @@
-#include <stdio.h>
+/*#include <stdio.h>
 #include <string.h>
 #include <commons/commons.h>
 #include <filesystem.h>
@@ -72,4 +72,4 @@ char* bufferSerializado[tamano_buffer];
  
  }
  
- }
+ }*/

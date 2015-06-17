@@ -12,6 +12,14 @@ void leerArchivoDeConfiguracion(char* nomArchivo) {
 	config_destroy(archivoConfig);
 }
 
+int comparaNumeroBloque(nodBloq* elemento) {
+	int numeroBloque;
+	printf("Ingrese el nombre de bloque a borrar");
+	scanf("%d", &numeroBloque);
+
+	return (numeroBloque == elemento->numeroBloque);
+}
+
 void cargarBloques(t_list *listaBloques) {
 	int i = 0;
 	for (; i <= NUMEROBLOQUES; i++) { //ciclo de for para cargar los 102 bloques

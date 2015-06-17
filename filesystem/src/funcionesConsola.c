@@ -25,8 +25,6 @@ void formatearMDFS() {
 	inicializarFilesystem();
 }
 
-
-
 void eliminarArchivo() {
 	char nombreArchivo[50];
 	printf("Ingrese el nombre del archivo: ");
@@ -141,6 +139,29 @@ void moverDirectorio() {
 void copiarArchivoLocalAlMDFS() {
 }
 
+void borrarBloque() {
+	int numeroBloque;
+	char nombreArchivo[300];
+	nodBloq* ptrBloque;
+	element* ptrArchivo;
+	printf("Ingrese el nombre del archivo");
+	scanf("%c", nombreArchivo);
+
+		ptrArchivo = buscarElementoPor(nombreArchivo);
+	if (ptrArchivo == NULL) {
+		perror("[ERROR] No se puede borrar el bloque archivo invalido");
+		exit(-1);
+	} else {
+		ptrBloque = ptrArchivo->listaNodoBloque->head->data;
+		list_remove_and_destroy_by_condition(
+				ptrArchivo->listaNodoBloque,
+				comparaNumeroBloque, liberaNodoBloque);
+
+	}
+
+	//falta continuar
+
+}
 void agregarNodo(char* nombre) { //FALTA VER EL TEMA DE SOCKETS
 	nod* nodo;
 	nodo = crearNodo(nombre);
@@ -151,8 +172,6 @@ void agregarNodo(char* nombre) { //FALTA VER EL TEMA DE SOCKETS
 void eliminarNodo(char* nombre) { //faltaria la condicion pero nose como ponerla
 //list_remove_by_condition(FILESYSTEM->listaNodos), condicion(nombre) );//remueve de la lista el nodo que concuerda con el nombre ingresado eso creo
 }
-
-
 
 void mostrarComandos() {
 	char* funcionesConsola[] = { "formatearMDFS", "eliminarArchivo",
