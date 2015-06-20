@@ -2,39 +2,22 @@
 
 int main(int argc, char **argv)
 {
-	/*
-	 * Enuncuado pagina 5
-	 * Al iniciar, leerá su correspondiente archivo de configuración, se conectará al Proceso
-	 * MaRTA, le indicará los archivos sobre los que desea ejecutar su Job y quedará a la espera
-	 * de indicaciones de MaRTA, al que notificará los resultados de sus operaciones.
-	 */
-	int fdJob;
-	char buffer[TAMANIOBUFFER];
-	char enviarMsg[TAMANIOBUFFER];
-	char nomArchivo[200];
+	char nomArchivo[LONGPATH];
 
 	printf("Ingrese el nombre del archivo de configuracion del job: ");
-	fgets(nomArchivo,200,stdin);
+	fgets(nomArchivo,LONGPATH,stdin);
+	sinBarraEne(nomArchivo);
 
 	leerArchivoDeConfiguracion(nomArchivo);
 
-	vg_puertoMarta = 6546;
-	vg_ipMarta = "127.0.0.1";
+	printf("Puerto:          %d\n",vg_puertoMarta);
+	printf("IP marta:        %s\n",vg_ipMarta);
+	printf("Mapper:          %s\n",vg_mapperPath);
+	printf("Reducer:         %s\n",vg_reducerPath);
+	printf("Acepta Combiner: %d\n",vg_combiner);
+	printf("Resultado:       %s\n",vg_resultado);
+	// Los archivos por ahora no los leemos porque es un array de strings
 
-	// Job como cliente
-	fdJob = crearSocket();
-	conectarSocket(fdJob, vg_ipMarta, vg_puertoMarta);
-	while (1)
-	{
-		printf("\nEnviar mensaje: ");
-		fgets(enviarMsg,TAMANIOBUFFER,stdin);
-		enviarPorSocket(fdJob, enviarMsg, TAMANIOBUFFER);
-
-		recibirPorSocket(fdJob, buffer, TAMANIOBUFFER);
-		printf("Mensaje recibido: %s\n", buffer);
-	}
-
-	cerrarSocket(fdJob);
 	return 0;
 
 }
