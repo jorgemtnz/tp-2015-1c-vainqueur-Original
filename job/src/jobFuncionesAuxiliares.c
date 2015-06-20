@@ -33,7 +33,7 @@ void liberaMemoriaLista(t_list* lista, int* cantElementos,
 
 }
 
-void sinBarraEne(char* cadena){
+void borrarBarraEneAString(char* cadena){
 	char* p;
 	p = strchr(cadena,'\n');
 	if(p){

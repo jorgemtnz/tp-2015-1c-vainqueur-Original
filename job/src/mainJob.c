@@ -5,19 +5,16 @@ int main(int argc, char **argv){
 	char nomArchivo[LONGPATH];
 
 	printf("Ingrese el nombre del archivo de configuracion del job: ");
-	fgets(nomArchivo,LONGPATH,stdin);
-	// /home/utnso/TPOperativos/job/archivo.configuracion
-	sinBarraEne(nomArchivo);
+	fgets(nomArchivo,LONGPATH,stdin); // /home/utnso/TPOperativos/job/archivo.configuracion
+	borrarBarraEneAString(nomArchivo);
 
-	leerArchivoDeConfiguracion(nomArchivo);
+	leerArchivoDeConfiguracion(nomArchivo); // Falta el arrays de archivos
 
-	printf("Puerto:          %d\n",vg_puertoMarta);
-	printf("IP marta:        %s\n",vg_ipMarta);
-	printf("Mapper:          %s\n",vg_mapperPath);
-	printf("Reducer:         %s\n",vg_reducerPath);
-	printf("Acepta Combiner: %d\n",vg_combiner);
-	printf("Resultado:       %s\n",vg_resultado);
-//	printf("%s\n",vg_archivos);		Falta implementar
+	int fdJob = crearSocket();
+	conectarSocket(fdJob,vg_ipMarta,vg_puertoMarta);
+
+	char msg[]="3 Marta, indicame a que archivos les habo un job";
+	int bytes_enviados = enviarPorSocket(fdJob,msg,strlen(msg));
+
 	return 0;
-
 }

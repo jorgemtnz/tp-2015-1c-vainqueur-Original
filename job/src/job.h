@@ -92,7 +92,7 @@ void liberaMemoriaJob();
 // Funciones Auxiliares
 void leerArchivoDeConfiguracion(char* nomArchivo);
 void liberaMemoriaLista(t_list* lista, int* cantElementos, void (*funcionLiberaElemento)(void*));
-void sinBarraEne(char* cadena);
+void borrarBarraEneAString(char* cadena);
 
 // +++++++++++++++++++++++++++++++++++ Variables Globales +++++++++++++++++++++++++++++++++++
 // El archivo config de job tiene IP_MARTA PUERTO_MARTA MAPPER REDUCE COMBINER ARCHIVOS RESULTADO
