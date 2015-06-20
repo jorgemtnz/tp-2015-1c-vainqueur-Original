@@ -12,14 +12,6 @@ void leerArchivoDeConfiguracion(char* nomArchivo) {
 	config_destroy(archivoConfig);
 }
 
-int comparaNumeroBloque(nodBloq* elemento) {
-	int numeroBloque;
-	printf("Ingrese el nombre de bloque a borrar");
-	scanf("%d", &numeroBloque);
-
-	return (numeroBloque == elemento->numeroBloque);
-}
-
 void cargarBloques(t_list *listaBloques) {
 	int i = 0;
 	for (; i <= NUMEROBLOQUES; i++) { //ciclo de for para cargar los 102 bloques
@@ -56,19 +48,58 @@ element* buscarElementoPor(char* nombre) {
 	return elementoBuscado;
 }
 
+char* divideBloques(void* ptrAMemoriaMapeada) {
+	char* llenoCeros;
+	char* bloqueListo;
+	int contadorBloques = 0;
+	int tamanioAccumulado;
+	char** arregloPtrContenidoBloque; // me devuelve todos los contenidos de bloques del archivo.
+	arregloPtrContenidoBloque = string_split(ptrAMemoriaMapeada, "/n");
+	//memset(llenoCeros, 0, VEINTEMEGAS);
+	llenoCeros = string_repeat('0', VEINTEMEGAS);
+	while (arregloPtrContenidoBloque[contadorBloques] != NULL) {
+		contadorBloques++;
+		bloqueListo = arregloPtrContenidoBloque[contadorBloques];
+		while (sizeof(bloqueListo) < VEINTEMEGAS) {
+
+			strcopy(llenoCeros, arregloPtrContenidoBloque[contadorBloques]);
+			empaquetaASokect(arregloPtrContenidoBloque[contadorBloques]);
+		}
+	}
+}
+nodBloq* devuelveBloque(char* nombreArchivo, int* numeroBloque) {
+	element* ptrArchivo;
+	nodBloq* ptrNodoBloque;
+	bool compNumeroBloque(nodBloq* elemento) {
+		return (numeroBloque == elemento->numeroBloque);
+	}
+	ptrArchivo = buscarElementoPor(nombreArchivo);
+	if (ptrArchivo == NULL) {
+		perror("[ERROR]mostrarBloque: no se encuentra el archivo");
+		exit(-1);
+	}
+	ptrNodoBloque = list_find(ptrArchivo->listaNodoBloque,
+			(void*) compNumeroBloque);
+	if (ptrNodoBloque == NULL) {
+		perror("[ERROR]mostrarBloque: no se encuentra el bloque");
+		exit(-1);
+	}
+	return ptrNodoBloque;
+}
 void renombrarElemento(element* ptrElemento, char* nuevoNombreElemento) {
-		strcpy(ptrElemento->nombre, nuevoNombreElemento);
+	strcpy(ptrElemento->nombre, nuevoNombreElemento);
 }
 
 void moverElemento(element* elementoOrigen, element* directorioDestino) {
 
-	// Valido que no se quiera mover dentro de un archivo
+// Valido que no se quiera mover dentro de un archivo
 	if (directorioDestino->tipoElemento == ESDIRECTORIO) {
 
 		// Hago el cambio de directorio padre con el index del directorio padre
 		elementoOrigen->directorioPadre = directorioDestino->index;
 	} else {
-		perror("[ERROR]no se puede mover. El directorio destino no es un tipo directorio");
+		perror(
+				"[ERROR]no se puede mover. El directorio destino no es un tipo directorio");
 		exit(-1);
 
 	}
@@ -87,7 +118,7 @@ void eliminarElemento(char* nombreElemento) {
 
 		if (sonIguales) {
 			list_remove(FILESYSTEM->listaElementos, i);
-		}//ojo no se libera memoria, corregir...
+		} //ojo no se libera memoria, corregir...
 
 		// Si las cadenas son distintas => Sigue el for
 	}
