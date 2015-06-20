@@ -1,15 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <string.h>
-#include <errno.h>
+#include "mapeoAMemoria.h"
 
 // Manejo de Archivos
 
-// Retorna un file descriptor
 int abreArchivo(char* dirArchivo) {
 	int fd;
 	if ((fd = open(dirArchivo, O_RDONLY)) == -1) {
@@ -20,7 +12,6 @@ int abreArchivo(char* dirArchivo) {
 	return fd;
 }
 
-// Retorna el tamanio del archivo
 int tamanio_archivo(int fd) {
 	struct stat buf;
 	fstat(fd, &buf);

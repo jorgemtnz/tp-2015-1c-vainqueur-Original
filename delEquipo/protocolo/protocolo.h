@@ -1,4 +1,4 @@
-
+/* Comentado para que compile, porque falta terminar
 #ifndef PROTOCOLO_H_
 #define PROTOCOLO_H_
 

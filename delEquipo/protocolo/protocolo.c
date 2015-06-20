@@ -1,13 +1,5 @@
-/*
- * protocolo.c
- *
- *  Created on: 17/6/2015
- *      Author: utnso
- */
-
-#include <stdio.h>
-#include <string.h>
-#include <protocolo.h>
+/* Comentado para que compile, porque falta terminar
+#include "protocolo.h"
 
 // En desarrollo
 void * obtenerEstructura(char * buffer) {
@@ -85,3 +77,4 @@ void * obtenerEstructura(char * buffer) {
 	return bufferSerializado;
 
 }
+*/

@@ -1,12 +1,14 @@
-/*
- * mapeoAMemoria.h
- *
- *  Created on: 4/6/2015
- *      Author: utnso
- */
-
 #ifndef MAPEOAMEMORIA_H_
 #define MAPEOAMEMORIA_H_
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/mman.h>
+#include <sys/stat.h>
+#include <string.h>
+#include <errno.h>
 
 // ++++++ Manejo de Archivos ++++++
 int  abreArchivo(char* dirArchivo); // Retorna un file descriptor

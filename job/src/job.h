@@ -29,6 +29,7 @@
 #define DIR_REDUCE "/tmp/"
 #define DIR_MAPP "/tmp/"
 #define DIR_ARCH_CONFIG "/tmp"
+#define LONGPATH 200
 
 // +++++++++++++++++++++++++++++++++++++++ Estructuras +++++++++++++++++++++++++++++++++++++
 
@@ -91,37 +92,17 @@ void liberaMemoriaJob();
 // Funciones Auxiliares
 void leerArchivoDeConfiguracion(char* nomArchivo);
 void liberaMemoriaLista(t_list* lista, int* cantElementos, void (*funcionLiberaElemento)(void*));
+void sinBarraEne(char* cadena);
 
 // +++++++++++++++++++++++++++++++++++ Variables Globales +++++++++++++++++++++++++++++++++++
 // El archivo config de job tiene IP_MARTA PUERTO_MARTA MAPPER REDUCE COMBINER ARCHIVOS RESULTADO
 char* vg_ipMarta;
 int vg_puertoMarta;
 int vg_combiner;
-char** vg_archivos; 	// Array de strings
+char* vg_archivos; 	// Array de strings
 char* vg_resultado; 	// String de ruta del archivo resultante
 char* vg_mapperPath; 	// Ruta del archivo mapper
 char* vg_reducerPath; 	// Ruta del reducer
 
 
 #endif /* JOB_H_ */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
