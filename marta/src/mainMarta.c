@@ -2,9 +2,7 @@
 
 int main(int argc, char **argv)
 {
-
 	int fdJob, fdMarta;
-	char buffer[TAMANIOBUFFER];
 	char enviarMsg[TAMANIOBUFFER];
 	char enviarOtroMsg[TAMANIOBUFFER];
 
@@ -14,16 +12,17 @@ int main(int argc, char **argv)
 
 	fdJob = aceptarConexionSocket(fdMarta);
 
-	while (1)
-	{
-		// El servidor espera el primer mensaje
-		recibirPorSocket(fdJob, buffer, TAMANIOBUFFER);
-		printf("\nMensaje recibido: %s\n", buffer);
+	// Recibe Pedido
+	char buffer[TAMANIOBUFFER];
+	int bytes_recibidos = recibirPorSocket(fdJob,buffer,TAMANIOBUFFER);
+	comprobarDesconexion(bytes_recibidos);
+	printf("Mensaje recibido: %s\n", buffer);
 
-		printf("Enviar mensaje: ");
-		fgets(enviarOtroMsg,TAMANIOBUFFER,stdin);
-		enviarPorSocket(fdJob, enviarOtroMsg, 1024);
-	}
+	// Envia pedido
+	printf("Enviar mensaje: ");
+	fgets(enviarOtroMsg,TAMANIOBUFFER,stdin);
+	enviarPorSocket(fdJob, enviarOtroMsg, 1024);
+
 
 	cerrarSocket(fdMarta);
 	return 0;

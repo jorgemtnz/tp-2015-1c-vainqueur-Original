@@ -14,9 +14,12 @@ int main(int argc, char **argv){
 	conectarSocket(fdJob,vg_ipMarta,vg_puertoMarta);
 
 	char msg[]="3 Marta, indicame a que archivos les habo un job";
-	int bytes_enviados = enviarPorSocket(fdJob,msg,strlen(msg));
+	enviarPorSocket(fdJob,msg,strlen(msg));
+
+	// Recibir
 	char bufer[20];
 	int bytes_recibidos = recibirPorSocket(fdJob,bufer,sizeof(bufer));
+	comprobarDesconexion(bytes_recibidos);
 	printf("%s",bufer);
 
 	return 0;
