@@ -1,19 +1,10 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>     //memset
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <sys/time.h>
-#include <errno.h>      //perror
-#include <arpa/inet.h>  //INADDR_ANY
-#include <unistd.h>     //close
+#include "sockets.h"
 
 int crearSocket()
 {
-	// Usado por servidor y por cliente
 	int fileDescriptor = socket(AF_INET, SOCK_STREAM, 0);
 	if (fileDescriptor == -1)
-	{
+	{	// Compruebo error de mala creacion del fd
 		perror("[ERROR] Funcion socket\n");
 		exit(-1);
 	}
@@ -22,16 +13,14 @@ int crearSocket()
 }
 
 void asociarSocket(int sockfd, int puerto)
-{
-	// Usado por el Servidor
+{	// Seteamos los valores a la estructura miDireccion
 	struct sockaddr_in miDireccion;
-	// Seteamos los valores a la estructura miDireccion
-	miDireccion.sin_family = AF_INET;
-	miDireccion.sin_port = htons(puerto);
+	miDireccion.sin_family 		= AF_INET;
+	miDireccion.sin_port 		= htons(puerto);
 	miDireccion.sin_addr.s_addr = 0; // htonl(INADDR_ANY); // Usa mi direccion IP
 	memset(&(miDireccion.sin_zero), '\0', 8);
 
-	// Resolvemos el ADDRES already in use
+	// Si el puerto esta en uso, lanzamos error
 	int reuse = 1;
 	if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, (char*) &reuse,
 			sizeof(int)) == -1)
@@ -54,12 +43,10 @@ void asociarSocket(int sockfd, int puerto)
 }
 
 void conectarSocket(int sockfd, char* ip_Destino, int puerto)
-{
-	// Usado por el cliente
+{	// Seteo estructura datosServidor
 	struct sockaddr_in datosServidor;
-	// Seteo estructura dest_addr
-	datosServidor.sin_family = AF_INET;
-	datosServidor.sin_port = htons(puerto);
+	datosServidor.sin_family 	  = AF_INET;
+	datosServidor.sin_port 		  = htons(puerto);
 	datosServidor.sin_addr.s_addr = inet_addr(ip_Destino);
 	memset(&(datosServidor.sin_zero), '\0', 8);
 
@@ -75,7 +62,6 @@ void conectarSocket(int sockfd, char* ip_Destino, int puerto)
 
 void escucharSocket(int sockfd, int conexionesEntrantesPermitidas)
 {
-	// Usado por el Servidor
 	int posibleError = listen(sockfd, conexionesEntrantesPermitidas);
 	if (posibleError == -1)
 	{
@@ -88,7 +74,6 @@ void escucharSocket(int sockfd, int conexionesEntrantesPermitidas)
 
 int aceptarConexionSocket(int sockfd)
 {
-	// Usado por el servidor
 	struct sockaddr_storage cliente;
 	unsigned int addres_size = sizeof(cliente);
 
@@ -104,9 +89,8 @@ int aceptarConexionSocket(int sockfd)
 	return otroFD;
 }
 
-void enviarPorSocket(int fdCliente, const void *msg, int len)
+int enviarPorSocket(int fdCliente, const void *msg, int len)
 {
-	// Usado por servidor y cliente
 	int bytes_enviados = send(fdCliente, msg, len, 0);
 
 	if (bytes_enviados == -1)
@@ -119,11 +103,11 @@ void enviarPorSocket(int fdCliente, const void *msg, int len)
 	{
 		perror("[ERROR] No se envio la cadena entera\n");
 	}
+	return bytes_enviados;
 }
 
-void recibirPorSocket(int fdCliente, void *buf, int len)
+int recibirPorSocket(int fdCliente, void *buf, int len)
 {
-	// Usado por servidor y cliente
 	int bytes_recibidos = recv(fdCliente, buf, len, 0);
 
 	if (bytes_recibidos == -1)
@@ -131,28 +115,35 @@ void recibirPorSocket(int fdCliente, void *buf, int len)
 		perror("[ERROR] Funcion recv\n");
 		exit(-1);
 	}
+	return bytes_recibidos; // Si retorna 0 indica desconexion
 }
 
 void cerrarSocket(int sockfd)
-{
-	// Usado por servidor y cliente
-	// Esto impedirá más lecturas y escrituras al socket. Cualquiera que intente leer o
-	// escribir sobre el socket en el extremo remoto recibirá un error.
+{	// El unico fin de tener esta funcion espara ni hacer el include unistd.h
 	close(sockfd);
 }
 
-void seleccionarSocket(int maxNumDeFD, fd_set *fdListoLectura, fd_set *fdListoEscritura, fd_set *fdListoEjecucion, int segundos, int miliSegundos)
+void seleccionarSocket(int maxNumDeFD, fd_set *fdListoLectura, fd_set *fdListoEscritura,
+					   fd_set *fdListoEjecucion, int* segundos, int* milisegundos)
 {
 	struct timeval tv;
 	// Esta estructura de tiempo de permite establecer un período máximo de espera.
-	// Si segundos = 0 y miliSegundos = 0 => regresará inmediatamente después de interrogar
-	// a todos tus file descriptor
-	// Si segundos = NULL y miliSegundos = NULL => espera infinitamente
+	// ~ Si segundos = &0 y miliSegundos = &0 => regresará inmediatamente después de interrogar
+	//   a todos tus file descriptor
+	// ~ Si segundos = NULL y miliSegundos = NULL => espera infinitamente
 
-	int microsegundos = miliSegundos * 1000;
-	tv.tv_sec  = segundos;
-	tv.tv_usec = microsegundos;
-
+	if(segundos != NULL && milisegundos != NULL)
+	{	// Si los dos son distintos de NULL, seteo la estructura
+		int sec =  *segundos;
+		int mic = (*milisegundos) * 1000;
+		tv.tv_sec  = sec;
+		tv.tv_usec = mic;
+	}
+	else
+	{	// Si alguno de los dos es NULL, la estructura es NULL
+		tv.tv_sec  = NULL;
+		tv.tv_usec = NULL;
+	}
 
 	int posibleError = select((maxNumDeFD + 1), fdListoLectura, fdListoEscritura, fdListoEjecucion, &tv);
 
