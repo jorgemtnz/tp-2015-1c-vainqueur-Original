@@ -6,6 +6,7 @@ int main(int argc, char **argv)
 
 	printf("Ingrese el nombre del archivo de configuracion del job: ");
 	fgets(nomArchivo,LONGPATH,stdin);
+	// /home/utnso/TPOperativos/job/archivo.configuracion
 	sinBarraEne(nomArchivo);
 
 	leerArchivoDeConfiguracion(nomArchivo);

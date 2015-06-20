@@ -2,15 +2,19 @@
 
 void leerArchivoDeConfiguracion(char* nomArchivo) {
 	// El archivo config de job tiene IP_MARTA PUERTO_MARTA MAPPER REDUCE COMBINER ARCHIVOS RESULTADO
-	char* temporal = malloc(sizeof(char) * 5);
+//	char* temporal;
 	t_config* archivoConfig;
 
-	archivoConfig = config_create(nomArchivo);
+	vg_ipMarta = malloc(sizeof(char)*50);
 
-	vg_puertoMarta = config_get_int_value(archivoConfig, "PUERTO_MARTA");
-	(vg_ipMarta = config_get_string_value(archivoConfig, "IP_MARTA"));
-	(vg_mapperPath = config_get_string_value(archivoConfig, "MAPPER"));
-	(vg_reducerPath = config_get_string_value(archivoConfig, "REDUCER"));
+	archivoConfig = config_create(nomArchivo);
+	vg_puertoMarta 	= config_get_int_value(archivoConfig, "PUERTO_MARTA");
+	char* cadena = config_get_string_value(archivoConfig, "IP_MARTA");
+	memcpy(vg_ipMarta,cadena, strlen(cadena));
+	/*
+	vg_ipMarta 		= strdup(config_get_string_value(archivoConfig, "IP_MARTA"));
+	vg_mapperPath 	= strdup(config_get_string_value(archivoConfig, "MAPPER"));
+	vg_reducerPath	= strdup(config_get_string_value(archivoConfig, "REDUCER"));
 
 	// Usamos define para tratar al combiner con numeros
 	strcpy(temporal , config_get_string_value(archivoConfig, "COMBINER"));
@@ -20,10 +24,9 @@ void leerArchivoDeConfiguracion(char* nomArchivo) {
 	if (strcmp(temporal, "NO") == 0) {
 		vg_combiner = NO_ACEPTA_COMBINER;
 	}
-	free(temporal);
-
+	 */
 //	vg_archivos = config_get_array_value(archivoConfig, "ARCHIVOS");
-	(vg_resultado = config_get_string_value(archivoConfig, "RESULTADO"));
+//	(vg_resultado = config_get_string_value(archivoConfig, "RESULTADO"));
 
 	config_destroy(archivoConfig);
 }
