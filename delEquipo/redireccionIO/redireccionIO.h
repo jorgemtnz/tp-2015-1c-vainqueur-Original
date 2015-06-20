@@ -1,6 +1,13 @@
 #ifndef REDIRECCIONIO_H_
 #define REDIRECCIONIO_H_
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+
 #define NUMERO_PIPES    1
 #define NUMERO_CANALES  2
 #define LECTURA_PADRE   0

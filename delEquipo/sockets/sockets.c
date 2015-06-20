@@ -132,18 +132,11 @@ void seleccionarSocket(int maxNumDeFD, fd_set *fdListoLectura, fd_set *fdListoEs
 	//   a todos tus file descriptor
 	// ~ Si segundos = NULL y miliSegundos = NULL => espera infinitamente
 
-	if(segundos != NULL && milisegundos != NULL)
-	{	// Si los dos son distintos de NULL, seteo la estructura
-		int sec =  *segundos;
-		int mic = (*milisegundos) * 1000;
-		tv.tv_sec  = sec;
-		tv.tv_usec = mic;
-	}
-	else
-	{	// Si alguno de los dos es NULL, la estructura es NULL
-		tv.tv_sec  = NULL;
-		tv.tv_usec = NULL;
-	}
+	int sec =  *segundos;
+	int mic = (*milisegundos) * 1000;
+	tv.tv_sec  = sec;
+	tv.tv_usec = mic;
+
 
 	int posibleError = select((maxNumDeFD + 1), fdListoLectura, fdListoEscritura, fdListoEjecucion, &tv);
 
