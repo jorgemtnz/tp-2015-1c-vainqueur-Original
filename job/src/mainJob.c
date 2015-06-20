@@ -15,6 +15,9 @@ int main(int argc, char **argv){
 
 	char msg[]="3 Marta, indicame a que archivos les habo un job";
 	int bytes_enviados = enviarPorSocket(fdJob,msg,strlen(msg));
+	char bufer[20];
+	int bytes_recibidos = recibirPorSocket(fdJob,bufer,sizeof(bufer));
+	printf("%s",bufer);
 
 	return 0;
 }
