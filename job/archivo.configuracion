@@ -1,3 +1,14 @@
 #Datos de Marta
-IP Marta=192.168.100.1
+IP_MARTA=192.168.100.1
 PUERTO_MARTA= 9687
+
+# Paths
+MAPPER=/home/utnso/TPOperativos/job/mapper/mapper.sh
+REDUCER=/home/utnso/TPOperativos/job/reducer/reduce.pl
+
+RESULTADO=/home/utnso/TPOperativos/job/resultado.txt
+
+# Es un bool 
+COMBINER=SI
+
+#ARCHIVOS 

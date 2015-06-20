@@ -1,7 +1,7 @@
 #include "job.h"
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv){
+
 	char nomArchivo[LONGPATH];
 
 	printf("Ingrese el nombre del archivo de configuracion del job: ");
@@ -17,8 +17,7 @@ int main(int argc, char **argv)
 	printf("Reducer:         %s\n",vg_reducerPath);
 	printf("Acepta Combiner: %d\n",vg_combiner);
 	printf("Resultado:       %s\n",vg_resultado);
-	// Los archivos por ahora no los leemos porque es un array de strings
-
+//	printf("%s\n",vg_archivos);		Falta implementar
 	return 0;
 
 }
