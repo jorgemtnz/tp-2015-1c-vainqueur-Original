@@ -18,6 +18,7 @@
 #include <sockets/sockets.h>
 #include <string.h>
 #include <semaphore.h>
+#include <stdbool.h>
 
 // +++++++++++++++++++++++++++++++++++++++ Define +++++++++++++++++++++++++++++++++++++
 #define ESDIRECTORIO 1
@@ -104,7 +105,6 @@ void liberaMemoriaElement(element* elemento);
 void liberaMemoriaFS();
 
 // Funciones Auxiliares
-int comparaNumeroBloque(nodBloq* elemento);
 void leerArchivoDeConfiguracion();
 void cargarBloques(t_list *listaBloques);
 void leerRegistro(int arch);
@@ -114,6 +114,7 @@ void renombrarElemento(element* ptrElemento, char* nuevoNombreElemento);
 void moverElemento(element* elementoOrigen, element* directorioDestino);
 void eliminarElemento(char* nombreElemento);
 void mostrarElementos();
+nodBloq* devuelveBloque(char* nombreArchivo, int* numeroBloque);
 
 // Funciones de Consola
 void formatearMDFS();
@@ -122,9 +123,13 @@ void renombrarArchivo();
 void moverArchivo();
 void crearDirectorio();
 void eliminarDirectorio();
+void renombrarDirectorio() ;
+void moverDirectorio() ;
 void copiarArchivoLocalAlMDFS();//Falta implementar
 void agregarNodo(char* nombre);
 void eliminarNodo(char* nombre);
+void borrarBloque() ;
+void verBloque();
 
 void mostrarComandos();
 
