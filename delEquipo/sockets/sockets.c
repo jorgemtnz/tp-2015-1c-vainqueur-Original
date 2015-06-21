@@ -89,7 +89,7 @@ int aceptarConexionSocket(int sockfd)
 	return otroFD;
 }
 
-int enviarPorSocket(int fdCliente, const void *msg, int len)
+void enviarPorSocket(int fdCliente, const void *msg, int len)
 {
 	int bytes_enviados = send(fdCliente, msg, len, 0);
 
@@ -103,7 +103,6 @@ int enviarPorSocket(int fdCliente, const void *msg, int len)
 	{
 		perror("[ERROR] No se envio la cadena entera\n");
 	}
-	return bytes_enviados;
 }
 
 int recibirPorSocket(int fdCliente, void *buf, int len)
@@ -116,6 +115,12 @@ int recibirPorSocket(int fdCliente, void *buf, int len)
 		exit(-1);
 	}
 	return bytes_recibidos; // Si retorna 0 indica desconexion
+}
+
+void comprobarDesconexion(int bytes){
+	if(bytes == 0){
+		printf("File descriptor desconectado\n");
+	}
 }
 
 void cerrarSocket(int sockfd)
