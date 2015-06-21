@@ -114,9 +114,16 @@ void moverElemento(element* elementoOrigen, element* directorioDestino);
 void eliminarElemento(char* nombreElemento);
 void mostrarElementos();
 nodBloq* devuelveBloque(char* nombreArchivo, int* numeroBloque);
-void copiaDistribuyeYEmpaqueta( bloqueListo);
-void distribuyeBloque( bloqueListo);
-void empaquetarYMandarPorSocket( bloqueListo);
+void distribuyeBloque(char* bloqueListo) ; //sin implementar
+void empaquetarYMandarPorSocket(char* bloqueListo) ; //sin implementar
+int devuelveCantBloquesLista(void*lista, int elementosEnLista);  //sin implementar
+bool puedoHacerCopias();
+void actualizaEstructura();
+void copiaDistribuyeYEmpaqueta(char* bloqueListo, int totalBloquesOriginales) ;
+int devuelveCantidadElementosArreglo(char** arregloPtrContenidoBloque);
+void divideBloques(void* ptrAMemoriaMapeada) ;
+
+
 // Funciones de Consola
 void formatearMDFS();
 void eliminarArchivo();

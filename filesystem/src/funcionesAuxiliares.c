@@ -54,16 +54,28 @@ void distribuyeBloque(char* bloqueListo) {
 void empaquetarYMandarPorSocket(char* bloqueListo) {
 
 }
-bool puedoHacerCopias() { //algoritmo jBON OPTIMO
-	int cantBloquesLibres = 0;
+
+int devuelveCantBloquesLista(void*lista, int elementosEnLista) {
+	int cantBloques = 0;
+	nod* nodoi;
+	int i;
+	for (i = 0; i <= elementosEnLista; i++) {
+		nodoi = list_get(FILESYSTEM->listaNodosConectados, i);
+		cantBloques += nodoi->listaBloques->elements_count;
+	}
+	return cantBloques;
+}
+bool puedoHacerCopias() { //algoritmo jBON OPTIMO evita duplicados en nodos y solo se hace la operacion si se puede hacer
+
 	int cantMenorBloques = 60000;
 	int cantBloquesTot = 0; //bloques originales a alojar
 	nod* nodoi;
 	int elementosEnLista = FILESYSTEM->listaNodosConectados->elements_count;
-	int i, j, promedio;
+	int i, promedio;
 	int contMenorBloques = 0;
-	cantBloquesTot = devuelveCantidadElementosArreglo(); //sin copias
-///-----------------son iguales a 3--------------
+	cantBloquesTot = devuelveCantBloquesLista(FILESYSTEM->listaNodosConectados,
+			elementosEnLista); //sin copias
+///-----------------son iguales a 3 nodos--------------
 	if (FILESYSTEM->listaNodosConectados->elements_count == 3) {
 		for (i = 0; i <= elementosEnLista; i++) {
 			nodoi = list_get(FILESYSTEM->listaNodosConectados, i);
@@ -98,33 +110,21 @@ bool puedoHacerCopias() { //algoritmo jBON OPTIMO
 	}
 }
 
-//lista de nodos conectados
-//for (i = 0; i <= elementosEnLista; i++) {
-//nodoi = list_get(FILESYSTEM->listaNodosConectados, i);
-//cantBloquesLibres += nodoi->listaBloques->elements_count;
-//}
-//if (cantBloquesLibres > cantBloquesTot)
-//return true;
-//else
-//return false;
-//}
+void actualizaEstructura() {
 
-bool pongoCopiasSinRepetir() {
-
-	return true;
 }
 
-void copiaDistribuyeYEmpaqueta(char* bloqueListo) {
+void copiaDistribuyeYEmpaqueta(char* bloqueListo, int totalBloquesOriginales) {
 
 	if (puedoHacerCopias()) {
-		if (pongoCopiasSinRepetir()) {
-			distribuyeBloque(bloqueListo);
-			empaquetarYMandarPorSocket(bloqueListo);
+		distribuyeBloque(bloqueListo);
+		empaquetarYMandarPorSocket(bloqueListo);
 
-			actualizaEstructura();
-		}
+		actualizaEstructura();
+	}else{
+		perror("[ERROR] no se puede copiar el archivo al MDFS");
+				exit(-1); // abria que ver si conviene que solo lo diga y no hacer el exit(-1)
 	}
-
 }
 int devuelveCantidadElementosArreglo(char** arregloPtrContenidoBloque) {
 	int contadorBloques = 0;
@@ -134,13 +134,11 @@ int devuelveCantidadElementosArreglo(char** arregloPtrContenidoBloque) {
 	return contadorBloques;
 }
 
-char* divideBloques(void* ptrAMemoriaMapeada) {
+void divideBloques(void* ptrAMemoriaMapeada) {
 	char* llenoCeros;
 	char* bloqueListo;
 	int contadorBloques = 0;
-	int tamanioAccumulado;
 	int cantidadOracionesArreglo = 0;
-	element* ptrElement;
 	char** arregloPtrContenidoBloque; // me devuelve todos los contenidos de bloques del archivo.
 
 	arregloPtrContenidoBloque = string_split(ptrAMemoriaMapeada, "/n");
@@ -159,8 +157,8 @@ char* divideBloques(void* ptrAMemoriaMapeada) {
 					arregloPtrContenidoBloque[contadorBloques]);
 
 		}
-		strcopy(llenoCeros, bloqueListo);
-		copiaDistribuyeYEmpaqueta(bloqueListo);
+		strcpy(llenoCeros, bloqueListo);
+		copiaDistribuyeYEmpaqueta(llenoCeros, cantidadOracionesArreglo);
 
 	}
 }
@@ -169,7 +167,7 @@ nodBloq* devuelveBloque(char* nombreArchivo, int* numeroBloque) {
 	element* ptrArchivo;
 	nodBloq* ptrNodoBloque;
 	bool compNumeroBloque(nodBloq* elemento) {
-		return (numeroBloque == elemento->numeroBloque);
+		return (*numeroBloque == elemento->numeroBloque);
 	}
 	ptrArchivo = buscarElementoPor(nombreArchivo);
 	if (ptrArchivo == NULL) {
