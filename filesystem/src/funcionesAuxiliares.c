@@ -47,31 +47,127 @@ element* buscarElementoPor(char* nombre) {
 
 	return elementoBuscado;
 }
+void distribuyeBloque(char* bloqueListo) {
 
-char* divideBloques(void* ptrAMemoriaMapeada) {
-	char* llenoCeros;
-	char* bloqueListo;
-	int contadorBloques = 0;
-	int tamanioAccumulado;
-	char** arregloPtrContenidoBloque; // me devuelve todos los contenidos de bloques del archivo.
-	arregloPtrContenidoBloque = string_split(ptrAMemoriaMapeada, "/n");
-	//memset(llenoCeros, 0, VEINTEMEGAS);
-	llenoCeros = string_repeat('0', VEINTEMEGAS);
-	while (arregloPtrContenidoBloque[contadorBloques] != NULL) {
-		contadorBloques++;
-		bloqueListo = arregloPtrContenidoBloque[contadorBloques];
-		while (sizeof(bloqueListo) < VEINTEMEGAS) {
+}
 
-			strcopy(llenoCeros, arregloPtrContenidoBloque[contadorBloques]);
-			empaquetaASokect(arregloPtrContenidoBloque[contadorBloques]);
+void empaquetarYMandarPorSocket(char* bloqueListo) {
+
+}
+
+int devuelveCantBloquesLista(void*lista, int elementosEnLista) {
+	int cantBloques = 0;
+	nod* nodoi;
+	int i;
+	for (i = 0; i <= elementosEnLista; i++) {
+		nodoi = list_get(FILESYSTEM->listaNodosConectados, i);
+		cantBloques += nodoi->listaBloques->elements_count;
+	}
+	return cantBloques;
+}
+bool puedoHacerCopias() { //algoritmo jBON OPTIMO evita duplicados en nodos y solo se hace la operacion si se puede hacer
+
+	int cantMenorBloques = 60000;
+	int cantBloquesTot = 0; //bloques originales a alojar
+	nod* nodoi;
+	int elementosEnLista = FILESYSTEM->listaNodosConectados->elements_count;
+	int i, promedio;
+	int contMenorBloques = 0;
+	cantBloquesTot = devuelveCantBloquesLista(FILESYSTEM->listaNodosConectados,
+			elementosEnLista); //sin copias
+///-----------------son iguales a 3 nodos--------------
+	if (FILESYSTEM->listaNodosConectados->elements_count == 3) {
+		for (i = 0; i <= elementosEnLista; i++) {
+			nodoi = list_get(FILESYSTEM->listaNodosConectados, i);
+			if (nodoi->listaBloques->elements_count < cantMenorBloques)
+				cantMenorBloques = nodoi->listaBloques->elements_count;
+
+		}
+		if (cantMenorBloques > cantBloquesTot)
+			return true;
+		else
+			return false;
+		//-------- son mayor a 3 nodos conectados
+	} else {
+		for (i = 0; i <= elementosEnLista; i++) {
+			nodoi = list_get(FILESYSTEM->listaNodosConectados, i);
+			if (nodoi->listaBloques->elements_count < cantMenorBloques)
+				cantMenorBloques = nodoi->listaBloques->elements_count;
+
+			if (nodoi->listaBloques->elements_count > cantBloquesTot)
+				contMenorBloques++;
+		}
+		if (contMenorBloques >= 3)
+			return true;
+		else {
+			promedio = cantBloquesTot
+					% FILESYSTEM->listaNodosConectados->elements_count;
+			if (cantMenorBloques >= promedio)
+				return true;
+			else
+				return false;
 		}
 	}
 }
+
+void actualizaEstructura() {
+
+}
+
+void copiaDistribuyeYEmpaqueta(char* bloqueListo, int totalBloquesOriginales) {
+
+	if (puedoHacerCopias()) {
+		distribuyeBloque(bloqueListo);
+		empaquetarYMandarPorSocket(bloqueListo);
+
+		actualizaEstructura();
+	}else{
+		perror("[ERROR] no se puede copiar el archivo al MDFS");
+				exit(-1); // abria que ver si conviene que solo lo diga y no hacer el exit(-1)
+	}
+}
+int devuelveCantidadElementosArreglo(char** arregloPtrContenidoBloque) {
+	int contadorBloques = 0;
+	while (arregloPtrContenidoBloque[contadorBloques] != NULL) {
+		contadorBloques++;
+	}
+	return contadorBloques;
+}
+
+void divideBloques(void* ptrAMemoriaMapeada) {
+	char* llenoCeros;
+	char* bloqueListo;
+	int contadorBloques = 0;
+	int cantidadOracionesArreglo = 0;
+	char** arregloPtrContenidoBloque; // me devuelve todos los contenidos de bloques del archivo.
+
+	arregloPtrContenidoBloque = string_split(ptrAMemoriaMapeada, "/n");
+//memset(llenoCeros, 0, VEINTEMEGAS);
+	llenoCeros = string_repeat('0', VEINTEMEGAS);
+	cantidadOracionesArreglo = devuelveCantidadElementosArreglo(
+			arregloPtrContenidoBloque);
+	while (arregloPtrContenidoBloque[contadorBloques] != NULL) {
+
+		bloqueListo = arregloPtrContenidoBloque[contadorBloques];
+		while ((sizeof(bloqueListo)
+				+ sizeof(arregloPtrContenidoBloque[contadorBloques + 1]))
+				< VEINTEMEGAS) {
+			contadorBloques++;
+			bloqueListo = strcat(bloqueListo,
+					arregloPtrContenidoBloque[contadorBloques]);
+
+		}
+		strcpy(llenoCeros, bloqueListo);
+		copiaDistribuyeYEmpaqueta(llenoCeros, cantidadOracionesArreglo);
+
+	}
+}
+
 nodBloq* devuelveBloque(char* nombreArchivo, int* numeroBloque) {
 	element* ptrArchivo;
 	nodBloq* ptrNodoBloque;
 	bool compNumeroBloque(nodBloq* elemento) {
-		return (numeroBloque == elemento->numeroBloque);
+		return (*numeroBloque == elemento->numeroBloque);
 	}
 	ptrArchivo = buscarElementoPor(nombreArchivo);
 	if (ptrArchivo == NULL) {
@@ -95,7 +191,7 @@ void moverElemento(element* elementoOrigen, element* directorioDestino) {
 // Valido que no se quiera mover dentro de un archivo
 	if (directorioDestino->tipoElemento == ESDIRECTORIO) {
 
-		// Hago el cambio de directorio padre con el index del directorio padre
+// Hago el cambio de directorio padre con el index del directorio padre
 		elementoOrigen->directorioPadre = directorioDestino->index;
 	} else {
 		perror(
@@ -114,13 +210,13 @@ void eliminarElemento(char* nombreElemento) {
 		elementoi = list_get(FILESYSTEM->listaElementos, i);
 		sonIguales = string_equals_ignore_case(elementoi->nombre,
 				nombreElemento);
-		// Si las cadenas son iguales => encontro string => lo elimino
+// Si las cadenas son iguales => encontro string => lo elimino
 
 		if (sonIguales) {
 			list_remove(FILESYSTEM->listaElementos, i);
 		} //ojo no se libera memoria, corregir...
 
-		// Si las cadenas son distintas => Sigue el for
+// Si las cadenas son distintas => Sigue el for
 	}
 } // Generica, sirve para archivos y directorios
 

@@ -137,17 +137,18 @@ void moverDirectorio() {
 }
 
 void copiarArchivoLocalAlMDFS() {
-	char* dirArchivoLocal;
-	void* ptrComienzoMemoriaMapeada;
-	int* ptrTamanioDePagina;
-	char* ptrBloqueAEnviar;
+	char* dirArchivoLocal= "/";
+	void* ptrComienzoMemoriaMapeada= NULL;
+	int* ptrTamanioDePagina = NULL;
+
 
 	printf("Ingrese la ruta del nombre del archivo a copiar al MDFS");
 	scanf("%s", dirArchivoLocal);
 
 //mapea el archivo a memoria
 mapeoAmemoria(dirArchivoLocal, ptrComienzoMemoriaMapeada, ptrTamanioDePagina);
-ptrBloqueAEnviar = divideBloques(ptrComienzoMemoriaMapeada);
+divideBloques(ptrComienzoMemoriaMapeada);
+
 
 }
 

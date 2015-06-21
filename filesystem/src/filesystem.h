@@ -44,11 +44,11 @@ typedef struct bloq {
 } bloq;
 
 typedef struct nod {
-	int     numero;
-	int     estado;
+	int numero;
+	int estado;
 //	long    long tamanio; 2GB  consultar, posiblemente no sea necesario
 	t_list* listaBloques;   //del nodo
-	char*   dirEspacioNodo;
+	char* dirEspacioNodo;
 } nod;
 
 typedef struct nodBloq {
@@ -58,48 +58,47 @@ typedef struct nodBloq {
 } nodBloq;
 
 typedef struct element {
-	char*   nombre;
-	int     estado;
-	int     index;
-	int     tamanio;
-	int     directorioPadre;
-	int     tipoElemento;        // USAR DEFINE: ESDIRECTORIO (1) para directorio, ESARCHIVO (0) para archivo o documento.
+	char* nombre;
+	int estado;
+	int index;
+	int tamanio;
+	int directorioPadre;
+	int tipoElemento; // USAR DEFINE: ESDIRECTORIO (1) para directorio, ESARCHIVO (0) para archivo o documento.
 	t_list* listaNodoBloque;
 } element;
 
 typedef struct fs {
-	int     estado;
-	int     espacioDisponible;
+	int estado;
+	int espacioDisponible;
 	t_list* listaNodosConectados;
 	t_list* listaElementos;
 	char** ipNodos;	// Array de strings
 } fs;
 
 // Estructura para el envío de archivos por socket
-typedef struct t_archivo{
+typedef struct t_archivo {
 	char* contenido;
-}t_archivo;
+} t_archivo;
 
 // Estructura para que el FS le mande un bloque al nodo por socket
-typedef struct t_escritura_bloque
-{
-  int numeroDeBloque;
-  char* archivo;
-}t_escritura_bloque;
-
+typedef struct t_escritura_bloque {
+	int numeroDeBloque;
+	char* archivo;
+} t_escritura_bloque;
 
 // +++++++++++++++++++++++++++++++++++++++ Prototipos +++++++++++++++++++++++++++++++++++++
 // Funciones Constructoras
-nod*     crearNodo();
-bloq*    crearBloque() ;
+nod* crearNodo();
+bloq* crearBloque();
 element* crearElemento();
-void     crearFileSystem();
-void     inicializarFilesystem();
+void crearFileSystem();
+void inicializarFilesystem();
 
 // Funciones Destructoras
-void liberaMemoriaLista(t_list* lista, int cantElementos, void (*funcionLiberaElemento)(void*));
+void liberaMemoriaLista(t_list* lista, int cantElementos,
+		void (*funcionLiberaElemento)(void*));
 void liberaMemoriaBloque(bloq* bloque);
-void liberaMemoriaNodo(nod* nodo) ;
+void liberaMemoriaNodo(nod* nodo);
 void liberaNodoBloque(nodBloq* nodoBloque);
 void liberaMemoriaElement(element* elemento);
 void liberaMemoriaFS();
@@ -115,6 +114,15 @@ void moverElemento(element* elementoOrigen, element* directorioDestino);
 void eliminarElemento(char* nombreElemento);
 void mostrarElementos();
 nodBloq* devuelveBloque(char* nombreArchivo, int* numeroBloque);
+void distribuyeBloque(char* bloqueListo) ; //sin implementar
+void empaquetarYMandarPorSocket(char* bloqueListo) ; //sin implementar
+int devuelveCantBloquesLista(void*lista, int elementosEnLista);  //sin implementar
+bool puedoHacerCopias();
+void actualizaEstructura();
+void copiaDistribuyeYEmpaqueta(char* bloqueListo, int totalBloquesOriginales) ;
+int devuelveCantidadElementosArreglo(char** arregloPtrContenidoBloque);
+void divideBloques(void* ptrAMemoriaMapeada) ;
+
 
 // Funciones de Consola
 void formatearMDFS();
@@ -123,18 +131,18 @@ void renombrarArchivo();
 void moverArchivo();
 void crearDirectorio();
 void eliminarDirectorio();
-void renombrarDirectorio() ;
-void moverDirectorio() ;
-void copiarArchivoLocalAlMDFS();//Falta implementar
+void renombrarDirectorio();
+void moverDirectorio();
+void copiarArchivoLocalAlMDFS();	//Falta implementar
 void agregarNodo(char* nombre);
 void eliminarNodo(char* nombre);
-void borrarBloque() ;
+void borrarBloque();
 void verBloque();
 
 void mostrarComandos();
 
 // Consola implementacion
-int  idFuncion(char* funcion);
+int idFuncion(char* funcion);
 void aplicarFuncion(int idFuncion);
 void levantarConsola();
 
@@ -142,6 +150,5 @@ void levantarConsola();
 fs* FILESYSTEM;
 int vg_puerto_listen;
 char** vg_lista_nodos; // array de strings
-
 
 #endif /* FILESYSTEM_H_ */
