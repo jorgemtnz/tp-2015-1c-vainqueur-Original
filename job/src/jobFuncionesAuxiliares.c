@@ -1,15 +1,18 @@
 #include"job.h"
 
-void leerArchivoDeConfiguracion(char* nomArchivo) {
+void leerArchivoDeConfiguracion() {
 	// El archivo config de job tiene IP_MARTA PUERTO_MARTA MAPPER REDUCE COMBINER ARCHIVOS RESULTADO
+	char nomArchivo[LONGPATH];
+	printf("Ingrese la ruta del archivo de configuracion del job: ");
+	scanf("%s", nomArchivo);
 	t_config* archivoConfig = config_create(nomArchivo);
 
-	vg_puertoMarta 	= config_get_int_value(archivoConfig, "PUERTO_MARTA");
+	vg_puertoMarta = config_get_int_value(archivoConfig, "PUERTO_MARTA");
 
-	vg_ipMarta 		= strdup(config_get_string_value(archivoConfig, "IP_MARTA"));
-	vg_mapperPath 	= strdup(config_get_string_value(archivoConfig, "MAPPER"));
-	vg_reducerPath	= strdup(config_get_string_value(archivoConfig, "REDUCER"));
-	vg_resultado 	= strdup(config_get_string_value(archivoConfig, "RESULTADO"));
+	vg_ipMarta = strdup(config_get_string_value(archivoConfig, "IP_MARTA"));
+	vg_mapperPath = strdup(config_get_string_value(archivoConfig, "MAPPER"));
+	vg_reducerPath = strdup(config_get_string_value(archivoConfig, "REDUCER"));
+	vg_resultado = strdup(config_get_string_value(archivoConfig, "RESULTADO"));
 
 	// Usamos define para tratar al combiner con numeros
 	char* temporal = strdup(config_get_string_value(archivoConfig, "COMBINER"));
@@ -31,13 +34,5 @@ void liberaMemoriaLista(t_list* lista, int* cantElementos,
 		list_remove_and_destroy_element(lista, posicion, funcionLiberaElemento);
 	}
 
-}
-
-void borrarBarraEneAString(char* cadena){
-	char* p;
-	p = strchr(cadena,'\n');
-	if(p){
-		*p = '\0';
-	}
 }
 

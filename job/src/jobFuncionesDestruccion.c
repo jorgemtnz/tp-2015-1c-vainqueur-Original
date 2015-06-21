@@ -56,3 +56,12 @@ void liberaMemoriaJob() {
 	free(ptrJob);
 
 }
+
+void liberarMemoriaVG(){
+	free(vg_archivos);
+	free(vg_ipMarta);
+	free(vg_mapperPath);
+	free(vg_reducerPath);
+	free(vg_resultado);
+	// vg_combiner y vg_puertoMarta no lo libero porque son int
+}

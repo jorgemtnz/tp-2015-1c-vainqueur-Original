@@ -15,7 +15,7 @@
 // Funciones
 int  crearSocket();
 void  enviarPorSocket(int fdCliente,const void *msg, int len);
-int  recibirPorSocket(int fdCliente, void *buf, int len);		// Retorna la cantidad de bytes recibidos
+void  recibirPorSocket(int fdCliente, void *buf, int len);		// Retorna la cantidad de bytes recibidos
 void comprobarDesconexion(int bytes);
 void cerrarSocket(int sockfd);
 void seleccionarSocket(int maxNumDeFD, fd_set *fdListoLectura, fd_set *fdListoEscritura,

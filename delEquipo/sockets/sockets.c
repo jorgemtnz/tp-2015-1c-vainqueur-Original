@@ -105,7 +105,7 @@ void enviarPorSocket(int fdCliente, const void *msg, int len)
 	}
 }
 
-int recibirPorSocket(int fdCliente, void *buf, int len)
+void recibirPorSocket(int fdCliente, void *buf, int len)
 {
 	int bytes_recibidos = recv(fdCliente, buf, len, 0);
 
@@ -114,12 +114,9 @@ int recibirPorSocket(int fdCliente, void *buf, int len)
 		perror("[ERROR] Funcion recv\n");
 		exit(-1);
 	}
-	return bytes_recibidos; // Si retorna 0 indica desconexion
-}
 
-void comprobarDesconexion(int bytes){
-	if(bytes == 0){
-		printf("File descriptor desconectado\n");
+	if(bytes_recibidos == 0){
+			printf("File descriptor desconectado\n");
 	}
 }
 

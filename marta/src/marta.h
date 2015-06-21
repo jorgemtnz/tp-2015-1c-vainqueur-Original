@@ -24,7 +24,7 @@
 #define MAPEADO 1;
 #define PUERTO_MARTA 6546
 #define CONEXIONES_ACEPTA_MARTA 1
-#define TAMANIOBUFFER 150
+#define TAMANIOBUFFER 1050
 
 // +++++++++++++++++++++++++++++++++++++++ Estructuras +++++++++++++++++++++++++++++++++++++
 typedef struct estructuraMarta {

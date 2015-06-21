@@ -3,26 +3,28 @@
 int main(int argc, char **argv)
 {
 	int fdJob, fdMarta;
-	char enviarMsg[TAMANIOBUFFER];
-	char enviarOtroMsg[TAMANIOBUFFER];
 
+	// Conexion con Job
 	fdMarta = crearSocket();
 	asociarSocket(fdMarta, PUERTO_MARTA);
 	escucharSocket(fdMarta, CONEXIONES_ACEPTA_MARTA);
 
+	while(1){
 	fdJob = aceptarConexionSocket(fdMarta);
 
 	// Recibe Pedido
 	char buffer[TAMANIOBUFFER];
-	int bytes_recibidos = recibirPorSocket(fdJob,buffer,TAMANIOBUFFER);
-	comprobarDesconexion(bytes_recibidos);
+	recibirPorSocket(fdJob,buffer,TAMANIOBUFFER);
 	printf("Mensaje recibido: %s\n", buffer);
 
 	// Envia pedido
-	printf("Enviar mensaje: ");
-	fgets(enviarOtroMsg,TAMANIOBUFFER,stdin);
-	enviarPorSocket(fdJob, enviarOtroMsg, 1024);
+	char mensaje[] = "Aplica una rutina en\n"
+					 "Nodo 1, Bloque 2\n"
+					 "Nodo 2, Bloque 1\n"
+					 "Nodo 4, Bloque 3\n";
 
+	enviarPorSocket(fdJob, mensaje, sizeof(mensaje));
+	}
 
 	cerrarSocket(fdMarta);
 	return 0;

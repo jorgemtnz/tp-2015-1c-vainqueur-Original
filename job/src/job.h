@@ -16,6 +16,7 @@
 #include <src/commons/txt.h>
 #include <src/commons/config.h>
 #include <src/commons/collections/list.h>
+#include <pthread.h>
 
 // +++++++++++++++++++++++++++++++++++++++ Define +++++++++++++++++++++++++++++++++++++
 #define SI 1
@@ -30,10 +31,9 @@
 #define DIR_MAPP "/tmp/"
 #define DIR_ARCH_CONFIG "/tmp"
 #define LONGPATH 200
+#define HILOS_A_LANZAR 5
 
 // +++++++++++++++++++++++++++++++++++++++ Estructuras +++++++++++++++++++++++++++++++++++++
-
-
 typedef struct SolicitudDeTrabajo{
 	char* archvATrabajar;
 	char* t_mapper;  //el job le dice a marta que quiere hacer varios trabajos sobre un archivo
@@ -88,18 +88,20 @@ void liberaMemoriaRelacionNodoArchTemp() ;
 void liberaMemoriaTareaMap() ;
 void liberaMemoriaTareaReduce() ;
 void liberaMemoriaJob();
+void liberarMemoriaVG();
 
 // Funciones Auxiliares
-void leerArchivoDeConfiguracion(char* nomArchivo);
+void leerArchivoDeConfiguracion();
 void liberaMemoriaLista(t_list* lista, int* cantElementos, void (*funcionLiberaElemento)(void*));
 void borrarBarraEneAString(char* cadena);
 
 // +++++++++++++++++++++++++++++++++++ Variables Globales +++++++++++++++++++++++++++++++++++
+
 // El archivo config de job tiene IP_MARTA PUERTO_MARTA MAPPER REDUCE COMBINER ARCHIVOS RESULTADO
+int	  vg_puertoMarta;
+int	  vg_combiner;		// ACEPTA_COMBINER = 1 ; NO_ACEPTA_COMBINER = 0
 char* vg_ipMarta;
-int vg_puertoMarta;
-int vg_combiner;
-char* vg_archivos; 	// Array de strings
+char* vg_archivos; 		// Array de strings
 char* vg_resultado; 	// String de ruta del archivo resultante
 char* vg_mapperPath; 	// Ruta del archivo mapper
 char* vg_reducerPath; 	// Ruta del reducer
