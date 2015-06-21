@@ -149,6 +149,7 @@ void copiarArchivoLocalAlMDFS() {
 mapeoAmemoria(dirArchivoLocal, ptrComienzoMemoriaMapeada, ptrTamanioDePagina);
 ptrBloqueAEnviar = divideBloques(ptrComienzoMemoriaMapeada);
 
+
 }
 
 void verBloque() {
