@@ -11,6 +11,7 @@
 #include <sys/stat.h>
 #include <sockets/sockets.h>
 #include <src/commons/collections/list.h>
+#include <src/commons/config.h>
 #include <src/commons/temporal.h>
 #include <src/commons/string.h>
 #include <src/commons/txt.h>
@@ -68,6 +69,9 @@ typedef struct archivoProcesado {
 	
 } t_archivoProcesado;
 
+//Variables Globales
+int vg_puertoFilesystem;
+char * vg_ipFilesystem;
 
 // +++++++++++++++++++++++++++++++++++++++ Prototipos +++++++++++++++++++++++++++++++++++++
 // Funciones Constructoras
@@ -97,9 +101,11 @@ void liberaMemoriaLista(t_list* lista, int* cantElementos, void (*funcionLiberaE
 
 // Marta
 char * generarNombreAlmacenado(char * nombreArchivo, char * nombreFuncion);
+char rutaArchConfig[300];
 
 //!!!! Revisar bien los argumentos que reciben al codificarlas ya que estos fueron pensados medios rapido
 //y seguro hacen falta mas y puede que nisiquiera sean estos los que necesita!!!!
+void leerArchivoDeConfiguracion();
 void planificarTrabajos();							// Falta implementar
 void almacenarResultado(char * nombreDelArchivo);	// Falta implementar
 void solicitarMapper();								// Falta implementar
