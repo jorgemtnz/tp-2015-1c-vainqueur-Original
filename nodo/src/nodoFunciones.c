@@ -64,3 +64,47 @@ void conectarNodo(t_nodo* datosDelNodo) {
 			numNodo, vg_ip_FS, vg_puerto_FS);
 }
 
+bufferVeinteMegas getBloque(int nuemeroDeBloque) {
+	int fdDatosBin =  open(vg_archivo_Bin,O_RDONLY,0);
+	bufferVeinteMegas buffer;
+	long pos = (nuemeroDeBloque - 1) * VEINTEMEGAS;
+	if (lseek(fdDatosBin, pos, SEEK_SET) == 0) {
+		read(fdDatosBin, &buffer, sizeof(VEINTEMEGAS));
+
+	} else {
+		perror("[ERROR] error al leer un bloque\n");
+		exit(-1);
+	}
+	close(fdDatosBin);
+return buffer;
+}
+int setBloque(int nuemeroDeBloque, bufferVeinteMegas buffer) {
+	 int fdDatosBin = open(vg_archivo_Bin,O_RDWR,0);
+	long pos = (nuemeroDeBloque - 1) * VEINTEMEGAS;
+	if (lseek(fdDatosBin, pos, SEEK_SET) == 0) {
+		write(fdDatosBin, &buffer, sizeof(VEINTEMEGAS));
+
+	} else {
+		perror("[ERROR] error al escribir un bloque\n");
+		exit(-1);
+	}
+close(fdDatosBin);
+return EJECUCIONOK;
+}
+
+bufferTemp getFileContent(char* nombreDelArchivo){//devuelve archivo del tmp
+	char* dirArchiv = string_new();
+	string_append(&dirArchiv, vg_dirTemp);
+	string_append(&dirArchiv, nombreDelArchivo);
+	int fdArchvTmp = open (dirArchiv,O_RDONLY,0);
+	int tamanioArch = lseek(fdArchvTmp,0,SEEK_END);//cuenta tamanio del archivo
+	bufferTemp buffer [tamanioArch];
+	if (lseek(fdArchvTmp,0,SEEK_SET)==0){//se posiciona devuelta en el inicio del archivo
+		read(fdArchvTmp,buffer,sizeof(tamanioArch));
+	}else{
+		perror("[ERROR] no se puedo abrir el archivo\n");
+		exit (-1);
+	}
+close(fdArchvTmp);
+return buffer;
+}

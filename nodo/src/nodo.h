@@ -24,36 +24,30 @@
 #define EJECUCIONFALLO -1
 #define NODO_NUEVO 1
 #define NODO_NO_NUEVO 0
+#define VEINTEMEGAS 20971520
 
 // +++++++++++++++++++++++++++++++++++++++ Estructuras +++++++++++++++++++++++++++++++++++++
-typedef struct {
-	char* nombre;
-	char* direccion;
 
-}t_Resultado_Parcial;
 typedef struct nodo {
 	int idNodo;
 	int esNuevo; 	// 1 si es nuevo, 0  no;
-	short estado; 	//1 disponible, 0 ocupado; ->jorge:-> consulto:es disponible cuando?  yo no lo eh creado, ni liberado
-	void * bloques;
 	char* dirArchivoDiscoDuro;
-	t_list* listaResultadosParciales;
 
 } t_nodo;
 
+typedef char bufferTemp;
+typedef char bufferVeinteMegas [VEINTEMEGAS];//bufer de 20 megas que devolvera contenido del bloque
 // +++++++++++++++++++++++++++++++++++++++ Prototipos +++++++++++++++++++++++++++++++++++++
-void* getBloque(int numeroBloque);	// Falta implementar
-void* setBloque();					// Falta implementar
-void* getFileContent();				// Falta implementar
+bufferVeinteMegas getBloque( int nuemeroDeBloque);
+int setloque(int nuemeroDeBloque, bufferVeinteMegas buffer);
+bufferTemp getFileContent(char* nombreDelArchivo);
 
 //main
 
 // Funciones Constructoras
-t_Resultado_Parcial* crearResultado();
 t_nodo* crearNodo();
 
 // Funciones Destructoras
-void liberaMemoriaResultadoParcial();
 void liberaMemoriaNodo();
 
 // Funciones Auxiliares
