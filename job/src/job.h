@@ -29,7 +29,7 @@
 #define TAMANIOBUFFER 130
 #define DIR_REDUCE "/tmp/"
 #define DIR_MAPP "/tmp/"
-#define DIR_ARCH_CONFIG "/tmp"
+// #define DIR_ARCH_CONFIG "/tmp" Me parece mejor ingresar el nombre por consola
 #define LONGPATH 200
 #define HILOS_A_LANZAR 5
 
@@ -67,8 +67,8 @@ typedef struct TareaReduce{
 typedef struct Job {
 	t_list* listasTareasMap;
 	t_list* listasTareasReduce;
-	t_list* listaSolicitudDeTrabajo;   //son solicitudes porque  job  pide a marta varias, sobre diferentes archivos
-	char* dirArchvConfig;
+	t_list* listaSolicitudDeTrabajo;  	 //son solicitudes porque  job  pide a marta varias, sobre diferentes archivos
+	// char* dirArchvConfig; 			// Me parece al pedo (Lucas)
 }t_job;
 
 // +++++++++++++++++++++++++++++++++++++++ Prototipos +++++++++++++++++++++++++++++++++++++
@@ -92,17 +92,19 @@ void liberarMemoriaVG();
 
 // Funciones Auxiliares
 void leerArchivoDeConfiguracion();
+void* conectarConMarta();
 
 // +++++++++++++++++++++++++++++++++++ Variables Globales +++++++++++++++++++++++++++++++++++
 
 // El archivo config de job tiene IP_MARTA PUERTO_MARTA MAPPER REDUCE COMBINER ARCHIVOS RESULTADO
-int	  vg_puertoMarta;
-int	  vg_combiner;		// ACEPTA_COMBINER = 1 ; NO_ACEPTA_COMBINER = 0
-char* vg_ipMarta;
-char* vg_archivos; 		// Array de strings
-char* vg_resultado; 	// String de ruta del archivo resultante
-char* vg_mapperPath; 	// Ruta del archivo mapper
-char* vg_reducerPath; 	// Ruta del reducer
+int	   vg_puertoMarta;
+int	   vg_combiner;		// ACEPTA_COMBINER = 1 ; NO_ACEPTA_COMBINER = 0
+char*  vg_ipMarta;
+char** vg_archivos; 		// Array de strings
+char*  vg_resultado; 	// String de ruta del archivo resultante
+char*  vg_mapperPath; 	// Ruta del archivo mapper
+char*  vg_reducerPath; 	// Ruta del reducer
 
+char vg_nombreArchivoConfigJob[LONGPATH];
 
 #endif /* JOB_H_ */

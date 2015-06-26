@@ -28,7 +28,7 @@ void liberaMemoriaTareaMap(t_tareaMap* ptrTareaMap) {
 	// free(&ptrTareaMap->fdHilo); Es un int
 	free(&ptrTareaMap->dirMapExec);
 	list_destroy_and_destroy_elements(ptrTareaMap->listaRelacionNodoBloque,
-									  liberaMemoriaRelacionNodoBloque);
+									  (void*) liberaMemoriaRelacionNodoBloque);
 	free(ptrTareaMap);
 }
 
@@ -36,18 +36,18 @@ void liberaMemoriaTareaReduce(t_tareaReduce* ptrTareaReduce) {
 	// free(&ptrTareaReduce->fdHilo); Es un int
 	free(&ptrTareaReduce->dirReduceExec);
 	list_destroy_and_destroy_elements(ptrTareaReduce->listaRelacionNodoArchTemp,
-									  liberaMemoriaRelacionNodoArchTemp);
+									  (void*) liberaMemoriaRelacionNodoArchTemp);
 	free(ptrTareaReduce);
 }
 
 void liberaMemoriaJob(t_job* ptrJob) {
-	free(ptrJob->dirArchvConfig);
+	// free(ptrJob->dirArchvConfig); Me parece la pedo
 	list_destroy_and_destroy_elements(ptrJob->listaSolicitudDeTrabajo,
-									  liberaMemoriaSolicitudDeTrabajo);
+									  (void*) liberaMemoriaSolicitudDeTrabajo);
 	list_destroy_and_destroy_elements(ptrJob->listasTareasMap,
-									  liberaMemoriaTareaMap);
+								      (void*) liberaMemoriaTareaMap);
 	list_destroy_and_destroy_elements(ptrJob->listasTareasReduce,
-									  liberaMemoriaTareaReduce);
+									  (void*) liberaMemoriaTareaReduce);
 	free(ptrJob);
 }
 
