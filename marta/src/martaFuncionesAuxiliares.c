@@ -1,5 +1,6 @@
 #include "marta.h"
 
+/* Lucas lo eliminaria, de echo, lo borro de todos lados
 void liberaMemoriaLista(t_list* lista, int* cantElementos,
 		void (*funcionLiberaElemento)(void*)) {
 	int posicion;
@@ -8,4 +9,4 @@ void liberaMemoriaLista(t_list* lista, int* cantElementos,
 	}
 
 }
-
+*/

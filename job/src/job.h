@@ -92,8 +92,6 @@ void liberarMemoriaVG();
 
 // Funciones Auxiliares
 void leerArchivoDeConfiguracion();
-void liberaMemoriaLista(t_list* lista, int* cantElementos, void (*funcionLiberaElemento)(void*));
-void borrarBarraEneAString(char* cadena);
 
 // +++++++++++++++++++++++++++++++++++ Variables Globales +++++++++++++++++++++++++++++++++++
 

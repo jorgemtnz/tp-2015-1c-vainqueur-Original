@@ -1,51 +1,48 @@
 #include "filesystem.h"
 
 /*------------------------FUNCIONES DESTRUCTORAS-------------------------*/
-void liberaMemoriaLista(t_list* lista, int cantElementos, void (*funcionLiberaElemento)(void*)) {
-	int posicion;
-	for (posicion = 0;posicion <= cantElementos; posicion++) {
-		list_remove_and_destroy_element(lista, posicion,funcionLiberaElemento);
-	}// Consultar el index i
-
-}
-
 void liberaMemoriaBloque(bloq* bloque) { //libera memoria del tipo bloque
-	free(&bloque->numero);
-	free(&bloque->tamanio);
+	// free(&bloque->numero);	Es un int
+	// free(&bloque->tamanio);	Es un int
 	free(bloque);
 }
 
 void liberaMemoriaNodo(nod* nodo) { //libera la memoria del nodo
-	free(&nodo->estado);
-	free(&nodo->numero);
-	free(&nodo->dirEspacioNodo);
-	liberaMemoriaLista(nodo->listaBloques,nodo->listaBloques->elements_count,(void*) liberaMemoriaBloque);
+	// free(&nodo->estado);		Es un int
+	// free(&nodo->numero);		Es un int
+	free(nodo->dirEspacioNodo);
+	list_destroy_and_destroy_elements(nodo->listaBloques,
+									  liberaMemoriaBloque);
 	free(nodo);
 }
 
 void liberaNodoBloque(nodBloq* nodoBloque) {
-	free(&(nodoBloque->numeroBloque));
-	free(&(nodoBloque->numeroCopia));
-	free(&(nodoBloque->numeroNodo));
-	free(nodoBloque);
+	// free(nodoBloque->numeroBloque);	Es un int
+	// free(nodoBloque->numeroCopia);	Es un int
+	// free(nodoBloque->numeroNodo);	Es un int
+	free(nodoBloque);					// Liberad es un struct
 }
 
 void liberaMemoriaElement(element* elemento) {
-	free(&(elemento->directorioPadre));
-	free(&(elemento->tipoElemento));
-	free(&(elemento->estado));
-	free(&(elemento->index));
-	free(&(elemento->nombre));
-	free(&(elemento->tamanio));
-	liberaMemoriaLista(elemento->listaNodoBloque,elemento->listaNodoBloque->elements_count,(void*) liberaNodoBloque);
+	// free(&(elemento->directorioPadre));	Es un int
+	// free(&(elemento->tipoElemento));		Es un int
+	// free(&(elemento->estado));			Es un int
+	// free(&(elemento->index));			Es un int
+	// free(&(elemento->tamanio));			Es un int
+	free(elemento->nombre);
+	list_destroy_and_destroy_elements(elemento->listaNodoBloque,
+									  liberaNodoBloque);
 	free(elemento);
 }
 
 void liberaMemoriaFS() {
-	free(&FILESYSTEM->espacioDisponible);
-	free(&FILESYSTEM->estado);
-	liberaMemoriaLista(FILESYSTEM->listaNodosConectados,FILESYSTEM->listaNodosConectados->elements_count,(void*) liberaMemoriaNodo);
-	liberaMemoriaLista(FILESYSTEM->listaElementos,FILESYSTEM->listaElementos->elements_count,(void*) liberaMemoriaElement);
-	free(&FILESYSTEM->ipNodos);
+	// free(&FILESYSTEM->espacioDisponible);	Es un int
+	// free(&FILESYSTEM->estado);				Es un int
+	free(FILESYSTEM->ipNodos);
+
+	list_destroy_and_destroy_elements(FILESYSTEM->listaNodosConectados,
+									  liberaMemoriaNodo);
+	list_destroy_and_destroy_elements(FILESYSTEM->listaElementos,
+									  liberaMemoriaElement);
 	free(FILESYSTEM);
 }

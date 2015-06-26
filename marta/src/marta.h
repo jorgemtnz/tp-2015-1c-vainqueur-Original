@@ -94,10 +94,12 @@ void liberaMemoriaMarta(t_estructuraMarta* ptrMarta) ;
 void liberaVG();
 
 // Funciones Auxiliares
-void liberaMemoriaLista(t_list* lista, int* cantElementos, void (*funcionLiberaElemento)(void*));
-// cuando se llama se escribe-> liberaMemoriaLista(lista,cantElementos,void (*funcionLiberaElemento)(void*);
-// (void*)funcionLiberaElemento)
-
+/* Lucas lo eliminaria
+ ** void liberaMemoriaLista(t_list* lista, int* cantElementos, void (*funcionLiberaElemento)(void*));
+ ** cuando se llama se escribe-> liberaMemoriaLista(lista,cantElementos,void (*funcionLiberaElemento)(void*);
+ ** (void*)funcionLiberaElemento)
+ ** Todo lo que comento aca lucas lo borraria
+ */
 
 // Marta
 char * generarNombreAlmacenado(char * nombreArchivo, char * nombreFuncion);
