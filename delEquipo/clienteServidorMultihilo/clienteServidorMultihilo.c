@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
-#include <sockets/sockets.h>
 #include <string.h>
 #include <semaphore.h>
+#include "../sockets/sockets.h"
 
 #define PUERTO 7000
 #define CONECCIONES_ENTRANTES_PERMITIDAS 4
@@ -15,7 +15,7 @@ sem_t semaforoCliente;
 void * servidorHilo();
 void * clienteHilo();
 
-int main() {
+int demo() { // Cambiar el nombre de demo por main y ejecutar en caso de prueba
 	// Inicializo semaforos en 0
 	int error;
 	error = sem_init(&semaforoCliente, 0, 0);
