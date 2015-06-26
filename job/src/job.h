@@ -81,13 +81,13 @@ t_tareaReduce* creaTareaReduce() ;
 t_job* crearJob();
 
 
-// Funciones Destructoras
-void liberaMemoriaSolicitudDeTrabajo() ;
-void liberaMemoriaRelacionNodoBloque();
-void liberaMemoriaRelacionNodoArchTemp() ;
-void liberaMemoriaTareaMap() ;
-void liberaMemoriaTareaReduce() ;
-void liberaMemoriaJob();
+// Funciones Destructoras  <<<----------- Ver Observaciones en .c
+void liberaMemoriaSolicitudDeTrabajo(t_solicitudDeTrabajo* ptrSolicitudDeTrabajo) ;
+void liberaMemoriaRelacionNodoBloque(t_relacionNodoBloque* ptrRelacionNodoBloque) ;
+void liberaMemoriaRelacionNodoArchTemp(t_relacionNodoArchTemp* ptrRelacionNodoArchTemp) ;
+void liberaMemoriaTareaMap(t_tareaMap* ptrTareaMap) ;
+void liberaMemoriaTareaReduce(t_tareaReduce* ptrTareaReduce) ;
+void liberaMemoriaJob(t_job* ptrJob) ;
 void liberarMemoriaVG();
 
 // Funciones Auxiliares
