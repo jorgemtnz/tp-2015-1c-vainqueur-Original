@@ -1,7 +1,7 @@
 #include"job.h"
 
-void liberaMemoriaSolicitudDeTrabajo() {
-	t_solicitudDeTrabajo* ptrSolicitudDeTrabajo;
+void liberaMemoriaSolicitudDeTrabajo(t_solicitudDeTrabajo* ptrSolicitudDeTrabajo) {
+
 	free(&ptrSolicitudDeTrabajo->archvATrabajar);
 	free(&ptrSolicitudDeTrabajo->combiner);
 	free(&ptrSolicitudDeTrabajo->t_mapper);
@@ -9,22 +9,22 @@ void liberaMemoriaSolicitudDeTrabajo() {
 	free(ptrSolicitudDeTrabajo);
 }
 
-void liberaMemoriaRelacionNodoBloque() {
-	t_relacionNodoBloque* ptrRelacionNodoBloque;
+void liberaMemoriaRelacionNodoBloque(t_relacionNodoBloque* ptrRelacionNodoBloque) {
+
 	free(&ptrRelacionNodoBloque->numeroBloque);
 	free(&ptrRelacionNodoBloque->numeroNodo);
 	free(ptrRelacionNodoBloque);
 }
 
-void liberaMemoriaRelacionNodoArchTemp() {
-	t_relacionNodoArchTemp* ptrRelacionNodoArchTemp;
+void liberaMemoriaRelacionNodoArchTemp(t_relacionNodoArchTemp* ptrRelacionNodoArchTemp) {
+
 	free(&ptrRelacionNodoArchTemp->nombreArchvTemp);
 	free(&ptrRelacionNodoArchTemp->numeroNodo);
 	free(ptrRelacionNodoArchTemp);
 }
 
-void liberaMemoriaTareaMap() {
-	t_tareaMap* ptrTareaMap;
+void liberaMemoriaTareaMap(t_tareaMap* ptrTareaMap) {
+
 	free(&ptrTareaMap->dirMapExec);
 	free(&ptrTareaMap->fdHilo);
 	liberaMemoriaLista(ptrTareaMap->listaRelacionNodoBloque,
@@ -33,8 +33,8 @@ void liberaMemoriaTareaMap() {
 	free(ptrTareaMap);
 }
 
-void liberaMemoriaTareaReduce() {
-	t_tareaReduce* ptrTareaReduce;
+void liberaMemoriaTareaReduce(t_tareaReduce* ptrTareaReduce) {
+
 	free(&ptrTareaReduce->dirReduceExec);
 	free(&ptrTareaReduce->fdHilo);
 	liberaMemoriaLista(ptrTareaReduce->listaRelacionNodoArchTemp,
@@ -43,8 +43,8 @@ void liberaMemoriaTareaReduce() {
 	free(ptrTareaReduce);
 }
 
-void liberaMemoriaJob() {
-	t_job* ptrJob;
+void liberaMemoriaJob(t_job* ptrJob) {
+
 	liberaMemoriaLista(ptrJob->listaSolicitudDeTrabajo,
 			&(ptrJob->listaSolicitudDeTrabajo->elements_count),
 			liberaMemoriaSolicitudDeTrabajo);
