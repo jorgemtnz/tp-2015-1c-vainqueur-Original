@@ -1,37 +1,33 @@
 #include "marta.h"
 
 void liberaMemoriaArchivoProcesado(t_archivoProcesado* ptrArchivoProcesado) {
-	free(&ptrArchivoProcesado->aplicoMapper);
-	free(&ptrArchivoProcesado->estado);
-	free(&ptrArchivoProcesado->nombreArchProcesado);
-	free(&ptrArchivoProcesado->numeroNodo);
-	free(&ptrArchivoProcesado->ubicacion);
+	// free(&ptrArchivoProcesado->aplicoMapper);	Es un int
+	// free(&ptrArchivoProcesado->estado);			Es un int
+	// free(&ptrArchivoProcesado->numeroNodo);		Es un int
+	free(ptrArchivoProcesado->ubicacion);
+	free(ptrArchivoProcesado->nombreArchProcesado);
 	free(ptrArchivoProcesado);
 }
 
-void liberaMemoriaRelacionNodoBloque(
-		t_relacionNodoBloque* ptrRelacionNodoBloque) {
-	free(&ptrRelacionNodoBloque->estado);
-	free(&ptrRelacionNodoBloque->numeroBloque);
-	free(&ptrRelacionNodoBloque->numeroNodo);
+void liberaMemoriaRelacionNodoBloque(t_relacionNodoBloque* ptrRelacionNodoBloque) {
+	// free(&ptrRelacionNodoBloque->estado);		Es un int
+	// free(&ptrRelacionNodoBloque->numeroBloque);	Es un int
+	// free(&ptrRelacionNodoBloque->numeroNodo);	Es un int
 	free(ptrRelacionNodoBloque);
 }
 
 void liberaMemoriaUbicacionBloque(t_ubicacionBloque* ptrUbicacionBloque) {
-	free(&ptrUbicacionBloque->numero);
-	liberaMemoriaLista(ptrUbicacionBloque->listaRelacionesNodoBloque,
-			&(ptrUbicacionBloque->listaRelacionesNodoBloque->elements_count),
-			(void*) liberaMemoriaRelacionNodoBloque);
+	// free(&ptrUbicacionBloque->numero);			Es un int
+	list_destroy_and_destroy_elements(ptrUbicacionBloque->listaRelacionesNodoBloque,
+									  liberaMemoriaRelacionNodoBloque);
 	free(ptrUbicacionBloque);
 }
 
-void liberaMemoriaInformacionArchivo(
-		t_informacionDelArchivo* ptrInformacionArchivo) {
-	free(&ptrInformacionArchivo->enUso);
-	free(&ptrInformacionArchivo->nombreArchivo);
-	liberaMemoriaLista(ptrInformacionArchivo->listaUbicacionBloques,
-			&(ptrInformacionArchivo->listaUbicacionBloques->elements_count),
-			(void*) liberaMemoriaInformacionArchivo);
+void liberaMemoriaInformacionArchivo(t_informacionDelArchivo* ptrInformacionArchivo) {
+	// free(&ptrInformacionArchivo->enUso);		Es un int
+	free(ptrInformacionArchivo->nombreArchivo);
+	list_destroy_and_destroy_elements(ptrInformacionArchivo->listaUbicacionBloques,
+									  liberaMemoriaInformacionArchivo);
 	free(ptrInformacionArchivo);
 }
 
@@ -40,25 +36,24 @@ void liberaMemoriaNombreFuncion(t_nombreFuncion ptrNombreFuncion) {
 }
 
 void liberaMemoriaSolicitud(t_solicitud* ptrSolicitud) {
-	free(&ptrSolicitud->estado);
-	free(&ptrSolicitud->nombreArchivoATrabajar);
-	free(&ptrSolicitud->soportaCombiner);
-	liberaMemoriaLista(ptrSolicitud->listaNombresFunciones,
-			&(ptrSolicitud->listaNombresFunciones->elements_count),
-			(void*) liberaMemoriaSolicitud);
-
+	// free(&ptrSolicitud->estado);				Es un int
+	// free(&ptrSolicitud->soportaCombiner);	Es un int
+	free(ptrSolicitud->nombreArchivoATrabajar);
+	list_destroy_and_destroy_elements(ptrSolicitud->listaNombresFunciones,
+									  liberaMemoriaSolicitud);
 	free(ptrSolicitud);
 }
 
 void liberaMemoriaMarta(t_estructuraMarta* ptrMarta) {
-	liberaMemoriaLista(ptrMarta->listaArchivosProcesados,
-			&(ptrMarta->listaArchivosProcesados->elements_count),
-			(void*) liberaMemoriaArchivoProcesado);
-	liberaMemoriaLista(ptrMarta->listaInformacionDelArchivo,
-			&(ptrMarta->listaInformacionDelArchivo->elements_count),
-			(void*) liberaMemoriaInformacionArchivo);
-	liberaMemoriaLista(ptrMarta->listaSolicitudes,
-			&(ptrMarta->listaSolicitudes->elements_count),
-			(void*) liberaMemoriaSolicitud);
+	list_destroy_and_destroy_elements(ptrMarta->listaArchivosProcesados,
+									  liberaMemoriaArchivoProcesado);
+	list_destroy_and_destroy_elements(ptrMarta->listaInformacionDelArchivo,
+									  liberaMemoriaInformacionArchivo);
+	list_destroy_and_destroy_elements(ptrMarta->listaSolicitudes,
+									  liberaMemoriaSolicitud);
 	free(ptrMarta);
+}
+
+void liberaVG(){
+	free(vg_ipFilesystem);
 }

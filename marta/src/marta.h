@@ -91,7 +91,7 @@ void liberaMemoriaInformacionArchivo(t_informacionDelArchivo* ptrInformacionArch
 void liberaMemoriaNombreFuncion(t_nombreFuncion ptrNombreFuncion); // Puntero a string
 void liberaMemoriaSolicitud(t_solicitud* ptrSolicitud);
 void liberaMemoriaMarta(t_estructuraMarta* ptrMarta) ;
-
+void liberaVG();
 
 // Funciones Auxiliares
 void liberaMemoriaLista(t_list* lista, int* cantElementos, void (*funcionLiberaElemento)(void*));
