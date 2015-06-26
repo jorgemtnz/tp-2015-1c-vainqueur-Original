@@ -12,7 +12,6 @@ void liberaMemoriaSolicitudDeTrabajo(t_solicitudDeTrabajo* ptrSolicitudDeTrabajo
 	free(ptrSolicitudDeTrabajo);
 }
 
-
 void liberaMemoriaRelacionNodoBloque(t_relacionNodoBloque* ptrRelacionNodoBloque) {
 //	free(&ptrRelacionNodoBloque->numeroBloque); Es un int
 //	free(&ptrRelacionNodoBloque->numeroNodo);	Es un int
@@ -42,6 +41,7 @@ void liberaMemoriaTareaReduce(t_tareaReduce* ptrTareaReduce) {
 }
 
 void liberaMemoriaJob(t_job* ptrJob) {
+	free(ptrJob->dirArchvConfig);
 	list_destroy_and_destroy_elements(ptrJob->listaSolicitudDeTrabajo,
 									  liberaMemoriaSolicitudDeTrabajo);
 	list_destroy_and_destroy_elements(ptrJob->listasTareasMap,
