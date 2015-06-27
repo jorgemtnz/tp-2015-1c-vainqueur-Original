@@ -8,74 +8,130 @@
 // s	moverArchivo
 // s	crearDirectorio
 // s    eliminarDirectorio
-// s    renombrarDirectorio 	// Es muy similar a renombrarArchivo
-// s	moverDirectorio 		// Es muy similar a moverArchivo
-// n	copiarArchivoLocalAlMDFS //Falta implementar
+// s    renombrarDirectorio
+// s	moverDirectorio
+// s	copiarArchivoLocalAlMDFS
 // n	copiarArchivoDelMDFSAlFSLocal
 // n	solicitarMD5deUnArchivoenMDFS
-// s	verBloque
+// s	verUbicacionBloque
 // s	borrarBloque
-// n	copiarBloque
+// s	copiarBloque
 // s	agregarNodo  			// No debe recibir argumentos // Falta sockets
-// s	eliminarNodo			// No debe recibir argumentos
+// n	eliminarNodo
 // s	mostrarComandos
 // s 	mostrarElementos 		// Yapa
+
+void renombrarElemento(element* ptrElemento, char* nuevoNombreElemento)
+{
+	strcpy(ptrElemento->nombre, nuevoNombreElemento);
+}
+void moverElemento(element* elementoOrigen, element* directorioDestino)
+{ // Valido que no se quiera mover dentro de un archivo
+	if (directorioDestino->tipoElemento == ESDIRECTORIO)
+	{ // Hago el cambio de directorio padre con el index del directorio padre
+		elementoOrigen->directorioPadre = directorioDestino->index;
+	}
+	else
+	{
+		perror("[ERROR]no se puede mover. El directorio destino no es un tipo directorio");
+		exit(-1);
+	}
+}
+void eliminarElemento(char* nombreElemento)
+{
+	int i;
+	int elementosEnLista = FILESYSTEM->listaElementos->elements_count;
+	int sonIguales;
+
+	for (i = 0; i <= elementosEnLista; i++)
+	{
+		element* elementoi;
+		elementoi = list_get(FILESYSTEM->listaElementos, i);
+		sonIguales = string_equals_ignore_case(elementoi->nombre,
+				nombreElemento);
+// Si las cadenas son iguales => encontro string => lo elimino
+
+		if (sonIguales)
+		{
+			list_remove(FILESYSTEM->listaElementos, i);
+		} //ojo no se libera memoria, corregir...
+
+		// Si las cadenas son distintas => Sigue el for
+	}
+} // Sirve para archivos y directorios
+
 void formatearMDFS() {
 	liberaMemoriaFS();
 	inicializarFilesystem();
 }
 
 void eliminarArchivo() {
-	char nombreArchivo[50];
-	printf("Ingrese el nombre del archivo: ");
+	char nombreArchivo[LONGITUD_STRINGS];
+	printf("Ingrese el nombre del archivo que desea eliminar: ");
+	fflush(stdin);
 	scanf("%s", nombreArchivo);
 	eliminarElemento(nombreArchivo);
 }
 
 void renombrarArchivo() {
-	char nombreArchivo[LONGITUD_STRINGS], nuevoNombreArchivo[LONGITUD_STRINGS];
+	char nombreArchivo[LONGITUD_STRINGS],
+		 nuevoNombreArchivo[LONGITUD_STRINGS];
 	element* ptrArchivo;
+
 	printf("Ingrese nombre de archivo a renombrar");
+	fflush(stdin);
 	scanf("%s", nombreArchivo);
+
 	printf("Ingrese nuevo nombre para el archivo");
+	fflush(stdin);
 	scanf("%s", nuevoNombreArchivo);
-	ptrArchivo = buscarElementoPor(nombreArchivo);
+
+	ptrArchivo = buscarElementoPorNombre(nombreArchivo);
 	if (ptrArchivo == NULL) {
 		perror("[ERROR] No existe el archivo");
 		exit(-1);
 	}
 	renombrarElemento(ptrArchivo, nuevoNombreArchivo);
-
 }
 
 void moverArchivo() {
 	char nombreArchivo[LONGITUD_STRINGS];
-	char nombreDirectorioDestino[LONGITUD_STRINGS]; // Hacer un define
+	char nombreDirectorioDestino[LONGITUD_STRINGS];
 	element* ptrArchivo;
 	element* directorioDestino;
 
-	printf("Ingrese nombre de archivo");
+	printf("Ingrese nombre de archivo que desea mover:");
+	fflush(stdin);
 	scanf("%s", nombreArchivo);
+
 	printf("Ingrese el nombre del directorio destino");
+	fflush(stdin);
 	scanf("%s", nombreDirectorioDestino);
 
-	directorioDestino = buscarElementoPor(nombreDirectorioDestino);
-	ptrArchivo = buscarElementoPor(nombreArchivo);
+	directorioDestino = buscarElementoPorNombre(nombreDirectorioDestino);
+	ptrArchivo = buscarElementoPorNombre(nombreArchivo);
 	if ((directorioDestino == NULL) || (ptrArchivo == NULL)) {
 		perror("[ERROR] No se puede mover el archivo");
 		exit(-1);
-	} else
+	}
+	else
+	{
 		moverElemento(ptrArchivo, directorioDestino);
+	}
 }
 
 void crearDirectorio() {
 	element* carpeta;
 	int dirPadre;
-	char nombre[50];
+	char nombre[LONGITUD_STRINGS];
 
-	printf("Ingrese el nombre de la carpeta: ");
+	printf("Ingrese el nombre de la carpeta a crear: ");
+	fflush(stdin);
 	scanf("%s", nombre);
 
+	// Observacion
+	// Estaria bueno que en vez de un numero, el usuario ingrese
+	// la ruta donde quiere crear una carpeta
 	printf("Ingrese directorio del padre: ");
 	scanf("%d", &dirPadre);
 
@@ -83,17 +139,19 @@ void crearDirectorio() {
 		perror("Numero invalido de directorio padre\n");
 		exit(-1);
 	}
+	// Fin de Observacion
 
 	carpeta = crearElemento();
 	strcpy(carpeta->nombre, nombre);
-	carpeta->directorioPadre = dirPadre;
+	carpeta->directorioPadre = dirPadre;  // Contemplar observacion
 	list_add(FILESYSTEM->listaElementos, carpeta);
 }
 
 void eliminarDirectorio() {
-	char nombreDirectorio[50];
+	char nombreDirectorio[LONGITUD_STRINGS];
 
 	printf("Ingrese el nombre del Directorio: ");
+	fflush(stdin);
 	scanf("%s", nombreDirectorio);
 	eliminarElemento(nombreDirectorio);
 }
@@ -101,39 +159,47 @@ void eliminarDirectorio() {
 void renombrarDirectorio() {
 	element* ptrDirectorio;
 	char nombreDirectorio[LONGITUD_STRINGS],
-			nuevoNombreDirectorio[LONGITUD_STRINGS];
+		 nuevoNombreDirectorio[LONGITUD_STRINGS];
 
 	printf("Ingrese nombre de directorio a renombrar");
+	fflush(stdin);
 	scanf("%s", nombreDirectorio);
+
 	printf("Ingrese nuevo nombre para el directorio");
+	fflush(stdin);
 	scanf("%s", nuevoNombreDirectorio);
-	ptrDirectorio = buscarElementoPor(nombreDirectorio);
+
+	ptrDirectorio = buscarElementoPorNombre(nombreDirectorio);
 	if (ptrDirectorio == NULL) {
 		perror("[ERROR] No existe el directorio");
 		exit(-1);
 	}
 	renombrarElemento(ptrDirectorio, nuevoNombreDirectorio);
-
 }
 
 void moverDirectorio() {
 	char nombreDirectorioOrigen[LONGITUD_STRINGS];
-	char nombreDirectorioDestino[LONGITUD_STRINGS]; // Hacer un define
+	char nombreDirectorioDestino[LONGITUD_STRINGS];
 	element* directorioOrigen;
 	element* directorioDestino;
 
 	printf("Ingrese nombre de Directorio Origen");
+	fflush(stdin);
 	scanf("%s", nombreDirectorioOrigen);
+
 	printf("Ingrese el nombre del directorio destino");
+	fflush(stdin);
 	scanf("%s", nombreDirectorioDestino);
-	directorioDestino = buscarElementoPor(nombreDirectorioDestino);
-	directorioOrigen = buscarElementoPor(nombreDirectorioOrigen);
+
+	directorioDestino = buscarElementoPorNombre(nombreDirectorioDestino);
+	directorioOrigen  = buscarElementoPorNombre(nombreDirectorioOrigen);
+
 	if ((directorioDestino == NULL) || (directorioOrigen == NULL)) {
 		perror("[ERROR] No se puede mover el directorio");
-		exit(-1);
-	} else
-		moverElemento(directorioOrigen, directorioDestino);
+		exit(EXIT_FAILURE);
+	}
 
+	moverElemento(directorioOrigen, directorioDestino);
 }
 
 void copiarArchivoLocalAlMDFS() {
@@ -146,40 +212,52 @@ void copiarArchivoLocalAlMDFS() {
 	ptrAMemoriaModificado = &ptrComienzoMemoriaMapeada; //se usa para poder hacer el paso por referencia y modificar a lo que apunta ptrComienzoMemoriaMapeada.
 
 	printf("Ingrese la ruta del nombre del archivo a copiar al MDFS \n");
+	fflush(stdin);
 	scanf("%s", dirArchivoLocal);
 
 	dirArchivo = malloc(strlen(dirArchivoLocal));
-		strcpy(dirArchivo, dirArchivoLocal);
+	strcpy(dirArchivo, dirArchivoLocal);
 
 	mapeoAmemoria(dirArchivo, ptrAMemoriaModificado, ptrTamanioDePagina);
 	buffer = string_split(ptrComienzoMemoriaMapeada, "\n");
 	desMapea(*ptrTamanioDePagina, ptrComienzoMemoriaMapeada);
 
 	divideBloques(&buffer[0]); //le mando el buffer con cada elemento es una oracion que debe formar el bloque
-
 }
 
-void verBloque() {
+void copiarArchivoDelMDFSAlFSLocal(){
+	// Falta iplementar
+}
+void solicitarMD5deUnArchivoenMDFS(){
+	// falta implementar
+}
 
-	int numeroBloque = 0;
-	char nombreArchivo[300];
+void verUbicacionBloque() {
+	int numeroBloque;
+	char nombreArchivo[LONGITUD_STRINGS];
+
 	element* ptrArchivo;
-	nodBloq* ptrNodoBloque;
+	ubicacionDelBloqueEnNodo* ptrNodoBloque;
 
 	printf("Ingrese el nombre del archivo");
-	scanf("%c", nombreArchivo);
+	scanf("%s", nombreArchivo);
+
 	printf("Ingrese el numero de bloque a mostrar");
 	scanf("%d", &numeroBloque);
 
 	ptrNodoBloque = devuelveBloque(nombreArchivo, numeroBloque);
-	printf("EL bloque es  numero,%d,copia,%d,nodo,%d",
-			ptrNodoBloque->numeroBloque, ptrNodoBloque->numeroCopia,
-			ptrNodoBloque->numeroNodo);
+	printf("El bloque %d del archivo %s se encuentra en:\n"
+		   "Nodo: %d  -  BloqueDelNodo: %d",
+		   	numeroBloque,
+			nombreArchivo,
+			ptrNodoBloque->numeroNodo,
+			ptrNodoBloque->numeroDeBloqueDelNodo);
 }
+
 void copiarBloque() {
 	int numeroBloque = 0;
 	char nombreArchivo[300];
-	nodBloq* ptrNodoBloque;
+	ubicacionDelBloqueEnNodo* ptrNodoBloque;
 
 	printf("Ingrese el nombre del archivo");
 	scanf("%c", nombreArchivo);
@@ -190,6 +268,7 @@ void copiarBloque() {
 // se implementa segun lo que diga el ayudante.
 }
 
+/*
 void borrarBloque() {
 	int numeroBloque = 0;
 	char nombreArchivo[300];
@@ -203,7 +282,7 @@ void borrarBloque() {
 	printf("Ingrese el nombre de bloque a borrar");
 	scanf("%d", &numeroBloque);
 
-	ptrArchivo = buscarElementoPor(nombreArchivo);
+	ptrArchivo = buscarElementoPorNombre(nombreArchivo);
 
 	if (ptrArchivo == NULL) {
 		perror("[ERROR] No se puede borrar el bloque archivo invalido");
@@ -213,6 +292,7 @@ void borrarBloque() {
 				(void*) compNumeroBloque, (void*) liberaNodoBloque);
 	}
 }
+*/
 void agregarNodo(char* nombre) { //FALTA VER EL TEMA DE SOCKETS
 	nod* nodo;
 	nodo = crearNodo(nombre);
@@ -220,7 +300,7 @@ void agregarNodo(char* nombre) { //FALTA VER EL TEMA DE SOCKETS
 // Agrega al nodo a la lista de nodos del FS
 }
 
-void eliminarNodo(char* nombre) { //faltaria la condicion pero nose como ponerla
+void eliminarNodo(char* nombre) {
 //list_remove_by_condition(FILESYSTEM->listaNodos), condicion(nombre) );//remueve de la lista el nodo que concuerda con el nombre ingresado eso creo
 }
 
@@ -267,7 +347,7 @@ int idFuncion(char* funcion) {
 			"crearDirectorio", "eliminarDirectorio", "renombrarDirectorio",
 			"moverDirectorio",  // Directorios
 			"copiarArchivoLocalAlMDFS", "copiarArchivoDelMDFSAlFSLocal",
-			"solicitarMD5deUnArchivoenMDFS", "verBloque", "borrarBloque",
+			"solicitarMD5deUnArchivoenMDFS", "verUbicacionBloque", "borrarBloque",
 			"copiarBloque",	// Bloques
 			"agregarNodo", "eliminarNodo", // Nodos
 			"mostrarComandos", "mostrarElementos" };
