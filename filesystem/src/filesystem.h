@@ -107,6 +107,7 @@ void liberaMemoriaFS();
 void leerArchivoDeConfiguracion();
 void inicializarMatriz();
 element* buscarElementoPorNombre(char* nombre);
+// Lucas - Creo que las primeras tres ya andan bien
 void crearYAgregarBloquesALista(t_list *listaBloques, int cantidadBloquesACrear);
 void leerRegistro(int arch);
 void guardarRegistro(int arch);
