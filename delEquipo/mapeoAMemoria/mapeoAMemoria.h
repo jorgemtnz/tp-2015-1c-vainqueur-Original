@@ -17,7 +17,7 @@ void cierraArchivo(int fdArchivo);
 
 // +++++++++++++++++++++++++ Funciones mapeo +++++++++++++++++++++++++
 void* mapeaAMemoria(int tamanioPagina, int fdArchivo, char* ptrDirArchivo);
-void  mapeoAmemoria(char* dirArchivo, char* ptrComienzoMemoriaMapeada, int* ptrTamanioDePagina); // Abre un archivo lo mapea a memoria y cierra el archivo
+void mapeoAmemoria(char* dirArchivo, char** ptrComienzoMemoriaMapeada, int* ptrTamanioDePagina); // Abre un archivo lo mapea a memoria y cierra el archivo
 void  imprimeMapeo(int tamanioDelArchivo, char* ptrAMapeo);
 void  desMapea(int tamanio, char* ptrAMapeo);
 

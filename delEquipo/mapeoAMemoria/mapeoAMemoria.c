@@ -38,7 +38,7 @@ void* mapeaAMemoria(int tamanioPagina, int fdArchivo, char* ptrDirArchivo) {
 	return ptrMapeo;
 }
 
-void mapeoAmemoria(char* dirArchivo, char* ptrComienzoMemoriaMapeada, int* ptrTamanioDePagina) {
+void mapeoAmemoria(char* dirArchivo, char** ptrComienzoMemoriaMapeada, int* ptrTamanioDePagina) {
 	int archivo;
 	int tamanio;
 	char* ptrAMapeo;
@@ -48,7 +48,8 @@ void mapeoAmemoria(char* dirArchivo, char* ptrComienzoMemoriaMapeada, int* ptrTa
 	ptrAMapeo = mapeaAMemoria(tamanio, archivo, dirArchivo);
 	cierraArchivo(archivo);
 	ptrTamanioDePagina = &tamanio;
-	ptrComienzoMemoriaMapeada = ptrAMapeo;
+	*ptrComienzoMemoriaMapeada = ptrAMapeo;
+	//ptrComienzoMemoriaMapeada = strdup( *ptrAMapeo);
 }
 
 void imprimeMapeo(int tamanioDelArchivo, char* ptrAMapeo) {

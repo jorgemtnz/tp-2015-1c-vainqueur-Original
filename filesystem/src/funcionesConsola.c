@@ -137,78 +137,86 @@ void moverDirectorio() {
 }
 
 void copiarArchivoLocalAlMDFS() {
-	char* dirArchivoLocal= "/";
-	void* ptrComienzoMemoriaMapeada= NULL;
+	char* dirArchivoLocal = "/";
+	char** buffer = NULL;
+	char* dirArchivo;
+	char* ptrComienzoMemoriaMapeada = NULL;
 	int* ptrTamanioDePagina = NULL;
+	char** ptrAMemoriaModificado = NULL; //pendiente modificar nombre, es la que modifica la direccion del ptrAMemoria
+	ptrAMemoriaModificado = &ptrComienzoMemoriaMapeada; //se usa para poder hacer el paso por referencia y modificar a lo que apunta ptrComienzoMemoriaMapeada.
 
-
-	printf("Ingrese la ruta del nombre del archivo a copiar al MDFS");
+	printf("Ingrese la ruta del nombre del archivo a copiar al MDFS \n");
 	scanf("%s", dirArchivoLocal);
 
-//mapea el archivo a memoria
-mapeoAmemoria(dirArchivoLocal, ptrComienzoMemoriaMapeada, ptrTamanioDePagina);
-divideBloques(ptrComienzoMemoriaMapeada);
+	dirArchivo = malloc(strlen(dirArchivoLocal));
+		strcpy(dirArchivo, dirArchivoLocal);
 
+	mapeoAmemoria(dirArchivo, ptrAMemoriaModificado, ptrTamanioDePagina);
+	buffer = string_split(ptrComienzoMemoriaMapeada, "\n");
+	desMapea(*ptrTamanioDePagina, ptrComienzoMemoriaMapeada);
+
+	divideBloques(&buffer[0]); //le mando el buffer con cada elemento es una oracion que debe formar el bloque
 
 }
 
 void verBloque() {
 
-int numeroBloque = 0;
-char nombreArchivo[300];
-element* ptrArchivo;
-nodBloq* ptrNodoBloque;
+	int numeroBloque = 0;
+	char nombreArchivo[300];
+	element* ptrArchivo;
+	nodBloq* ptrNodoBloque;
 
-printf("Ingrese el nombre del archivo");
-scanf("%c", nombreArchivo);
-printf("Ingrese el numero de bloque a mostrar");
-scanf("%d", &numeroBloque);
+	printf("Ingrese el nombre del archivo");
+	scanf("%c", nombreArchivo);
+	printf("Ingrese el numero de bloque a mostrar");
+	scanf("%d", &numeroBloque);
 
-ptrNodoBloque = devuelveBloque(nombreArchivo, numeroBloque);
-printf("EL bloque es  numero,%d,copia,%d,nodo,%d", ptrNodoBloque->numeroBloque,
-		ptrNodoBloque->numeroCopia, ptrNodoBloque->numeroNodo);
+	ptrNodoBloque = devuelveBloque(nombreArchivo, numeroBloque);
+	printf("EL bloque es  numero,%d,copia,%d,nodo,%d",
+			ptrNodoBloque->numeroBloque, ptrNodoBloque->numeroCopia,
+			ptrNodoBloque->numeroNodo);
 }
 void copiarBloque() {
-int numeroBloque = 0;
-char nombreArchivo[300];
-nodBloq* ptrNodoBloque;
+	int numeroBloque = 0;
+	char nombreArchivo[300];
+	nodBloq* ptrNodoBloque;
 
-printf("Ingrese el nombre del archivo");
-scanf("%c", nombreArchivo);
-printf("Ingrese el numero de bloque a mostrar");
-scanf("%d", &numeroBloque);
+	printf("Ingrese el nombre del archivo");
+	scanf("%c", nombreArchivo);
+	printf("Ingrese el numero de bloque a mostrar");
+	scanf("%d", &numeroBloque);
 
-ptrNodoBloque = devuelveBloque(nombreArchivo, numeroBloque);
+	ptrNodoBloque = devuelveBloque(nombreArchivo, numeroBloque);
 // se implementa segun lo que diga el ayudante.
 }
 
 void borrarBloque() {
-int numeroBloque = 0;
-char nombreArchivo[300];
-element* ptrArchivo;
+	int numeroBloque = 0;
+	char nombreArchivo[300];
+	element* ptrArchivo;
 //defino aqui para que numeroBloque pueda ser usada y pueda comparar
-bool compNumeroBloque(nodBloq* elemento) {
-	return (numeroBloque == elemento->numeroBloque);
-}
-printf("Ingrese el nombre del archivo");
-scanf("%c", nombreArchivo);
-printf("Ingrese el nombre de bloque a borrar");
-scanf("%d", &numeroBloque);
+	bool compNumeroBloque(nodBloq* elemento) {
+		return (numeroBloque == elemento->numeroBloque);
+	}
+	printf("Ingrese el nombre del archivo");
+	scanf("%c", nombreArchivo);
+	printf("Ingrese el nombre de bloque a borrar");
+	scanf("%d", &numeroBloque);
 
-ptrArchivo = buscarElementoPor(nombreArchivo);
+	ptrArchivo = buscarElementoPor(nombreArchivo);
 
-if (ptrArchivo == NULL) {
-	perror("[ERROR] No se puede borrar el bloque archivo invalido");
-	exit(-1);
-} else { //se castea con (void*) cuandole paso las funciones
-	list_remove_and_destroy_by_condition(ptrArchivo->listaNodoBloque,
-			(void*) compNumeroBloque, (void*) liberaNodoBloque);
-}
+	if (ptrArchivo == NULL) {
+		perror("[ERROR] No se puede borrar el bloque archivo invalido");
+		exit(-1);
+	} else { //se castea con (void*) cuandole paso las funciones
+		list_remove_and_destroy_by_condition(ptrArchivo->listaNodoBloque,
+				(void*) compNumeroBloque, (void*) liberaNodoBloque);
+	}
 }
 void agregarNodo(char* nombre) { //FALTA VER EL TEMA DE SOCKETS
-nod* nodo;
-nodo = crearNodo(nombre);
-list_add(FILESYSTEM->listaNodosConectados, nodo);
+	nod* nodo;
+	nodo = crearNodo(nombre);
+	list_add(FILESYSTEM->listaNodosConectados, nodo);
 // Agrega al nodo a la lista de nodos del FS
 }
 
@@ -217,164 +225,164 @@ void eliminarNodo(char* nombre) { //faltaria la condicion pero nose como ponerla
 }
 
 void mostrarComandos() {
-char* funcionesConsola[] = { "formatearMDFS", "eliminarArchivo",
-		"renombrarArchivo",
-		"moverArchivos",	 // Archivos
-		"crearDirectorio", "eliminarDirectorio", "renombrarDirectorio",
-		"moverDirectorio",  // Directorios
-		"copiarArchivoLocalAlMDFS", "copiarArchivoDelMDFSAlFSLocal",
-		"solicitarMD5deUnArchivoenMDFS", "verBloque", "borrarBloque",
-		"copiarBloque",	// Bloques
-		"agregarNodo", "eliminarNodo", // Nodos
-		"mostrarComandos", "mostrarElementos" };
+	char* funcionesConsola[] = { "formatearMDFS", "eliminarArchivo",
+			"renombrarArchivo",
+			"moverArchivos",	 // Archivos
+			"crearDirectorio", "eliminarDirectorio", "renombrarDirectorio",
+			"moverDirectorio",  // Directorios
+			"copiarArchivoLocalAlMDFS", "copiarArchivoDelMDFSAlFSLocal",
+			"solicitarMD5deUnArchivoenMDFS", "verBloque", "borrarBloque",
+			"copiarBloque",	// Bloques
+			"agregarNodo", "eliminarNodo", // Nodos
+			"mostrarComandos", "mostrarElementos" };
 
-char* descripcionesConsola[] = { "Descrpcion de la funcion 1",
-		"Descripcion de la funcion 2", "Descripcion de la funcion 3",
-		"Descripcion de la funcion 4", "Descripcion de la funcion 5",
-		"Descripcion de la funcion 6", "Descripcion de la funcion 7",
-		"Descripcion de la funcion 8", "Descripcion de la funcion 9",
-		"Descripcion de la funcion 10", "Descripcion de la funcion 11",
-		"Descripcion de la funcion 12", "Descripcion de la funcion 13",
-		"Descripcion de la funcion 14", "Descripcion de la funcion 15",
-		"Descripcion de la funcion 16", "Descripcion de la funcion 17",
-		"Descripcion de la funcion 18" };
+	char* descripcionesConsola[] = { "Descrpcion de la funcion 1",
+			"Descripcion de la funcion 2", "Descripcion de la funcion 3",
+			"Descripcion de la funcion 4", "Descripcion de la funcion 5",
+			"Descripcion de la funcion 6", "Descripcion de la funcion 7",
+			"Descripcion de la funcion 8", "Descripcion de la funcion 9",
+			"Descripcion de la funcion 10", "Descripcion de la funcion 11",
+			"Descripcion de la funcion 12", "Descripcion de la funcion 13",
+			"Descripcion de la funcion 14", "Descripcion de la funcion 15",
+			"Descripcion de la funcion 16", "Descripcion de la funcion 17",
+			"Descripcion de la funcion 18" };
 
-int contador = 0;
-while (contador <= NUMEROFUNCIONESCONSOLA - 1) {
-	printf("*------------------------------------------*\n");
-	printf("COMANDO 	= %s\n", funcionesConsola[contador]);
-	printf("DESCRIPCION = %s\n", descripcionesConsola[contador]);
-	printf("*------------------------------------------*\n");
-	contador += 1;
-}
+	int contador = 0;
+	while (contador <= NUMEROFUNCIONESCONSOLA - 1) {
+		printf("*------------------------------------------*\n");
+		printf("COMANDO 	= %s\n", funcionesConsola[contador]);
+		printf("DESCRIPCION = %s\n", descripcionesConsola[contador]);
+		printf("*------------------------------------------*\n");
+		contador += 1;
+	}
 }
 
 // ---------CONSOLA IMPLEMENTACION------
 int idFuncion(char* funcion) {
-int i;
+	int i;
 
-char* funcionesConsola[] = { "formatearMDFS", "eliminarArchivo",
-		"renombrarArchivo",
-		"moverArchivos",	 // Archivos
-		"crearDirectorio", "eliminarDirectorio", "renombrarDirectorio",
-		"moverDirectorio",  // Directorios
-		"copiarArchivoLocalAlMDFS", "copiarArchivoDelMDFSAlFSLocal",
-		"solicitarMD5deUnArchivoenMDFS", "verBloque", "borrarBloque",
-		"copiarBloque",	// Bloques
-		"agregarNodo", "eliminarNodo", // Nodos
-		"mostrarComandos", "mostrarElementos" };
+	char* funcionesConsola[] = { "formatearMDFS", "eliminarArchivo",
+			"renombrarArchivo",
+			"moverArchivos",	 // Archivos
+			"crearDirectorio", "eliminarDirectorio", "renombrarDirectorio",
+			"moverDirectorio",  // Directorios
+			"copiarArchivoLocalAlMDFS", "copiarArchivoDelMDFSAlFSLocal",
+			"solicitarMD5deUnArchivoenMDFS", "verBloque", "borrarBloque",
+			"copiarBloque",	// Bloques
+			"agregarNodo", "eliminarNodo", // Nodos
+			"mostrarComandos", "mostrarElementos" };
 
-for (i = 0;
-		(i < NUMEROFUNCIONESCONSOLA)
-				&& (strcmp(funcion, funcionesConsola[i]) != 0); i++)
-	;
-return (i <= NUMEROFUNCIONESCONSOLA - 1) ? (i + 1) : -1;
+	for (i = 0;
+			(i < NUMEROFUNCIONESCONSOLA)
+					&& (strcmp(funcion, funcionesConsola[i]) != 0); i++)
+		;
+	return (i <= NUMEROFUNCIONESCONSOLA - 1) ? (i + 1) : -1;
 }
 
 void aplicarFuncion(int idFuncion) { //selecciona un case en base al numero que llevaba el contador y aplica la funcion recibe el dir
-switch (idFuncion) {
+	switch (idFuncion) {
 
-enum nomFun {
-	FORMATEAR_MDFS = 1,
-	ELIMINAR_ARCHIVO,
-	RENOMBRAR_ARCHIVO,
-	MOVER_ARCHIVOS,
-	CREAR_DIRECTORIO,
-	ELIMINAR_DIRECTORIO,
-	RENOMBRAR_DIRECTORIO,
-	MOVER_DIRECTORIO,
-	COPIAR_ARCHIVO_LOCAL_AL_MDFS,
-	COPIAR_ARCHIVO_DEL_MDFS_AL_FS_LOCAL,
-	SOLICITAR_MD5_DE_UN_ARCHIVO_EN_MDFS,
-	VER_BLOQUE,
-	BORRAR_BLOQUE,
-	COPIAR_BLOQUE,
-	AGREGAR_NODO,
-	ELIMINAR_NODO,
-	MOSTRAR_COMANDOS,
-	MOSTRAR_ELEMENTOS
-};
+	enum nomFun {
+		FORMATEAR_MDFS = 1,
+		ELIMINAR_ARCHIVO,
+		RENOMBRAR_ARCHIVO,
+		MOVER_ARCHIVOS,
+		CREAR_DIRECTORIO,
+		ELIMINAR_DIRECTORIO,
+		RENOMBRAR_DIRECTORIO,
+		MOVER_DIRECTORIO,
+		COPIAR_ARCHIVO_LOCAL_AL_MDFS,
+		COPIAR_ARCHIVO_DEL_MDFS_AL_FS_LOCAL,
+		SOLICITAR_MD5_DE_UN_ARCHIVO_EN_MDFS,
+		VER_BLOQUE,
+		BORRAR_BLOQUE,
+		COPIAR_BLOQUE,
+		AGREGAR_NODO,
+		ELIMINAR_NODO,
+		MOSTRAR_COMANDOS,
+		MOSTRAR_ELEMENTOS
+	};
 // Lo que hace el enum es convertirme lo que dice en enteros
 
 case FORMATEAR_MDFS:
-formatearMDFS();
-break;
+	formatearMDFS();
+	break;
 
 case ELIMINAR_ARCHIVO:
-eliminarArchivo();
-break;
+	eliminarArchivo();
+	break;
 
 case RENOMBRAR_ARCHIVO:
-break;
+	break;
 
 case MOVER_ARCHIVOS:
-break;
+	break;
 
 case CREAR_DIRECTORIO:
-crearDirectorio();
-break;
+	crearDirectorio();
+	break;
 
 case ELIMINAR_DIRECTORIO:
-eliminarDirectorio();
-break;
+	eliminarDirectorio();
+	break;
 
 case RENOMBRAR_DIRECTORIO:
-break;
+	break;
 
 case MOVER_DIRECTORIO:
-break;
+	break;
 
 case COPIAR_ARCHIVO_LOCAL_AL_MDFS:
-break;
+	break;
 
 case COPIAR_ARCHIVO_DEL_MDFS_AL_FS_LOCAL:
-break;
+	break;
 
 case SOLICITAR_MD5_DE_UN_ARCHIVO_EN_MDFS:
-break;
+	break;
 
 case VER_BLOQUE:
-break;
+	break;
 
 case BORRAR_BLOQUE:
-break;
+	break;
 
 case COPIAR_BLOQUE:
-break;
+	break;
 
 case AGREGAR_NODO:
-break;
+	break;
 
 case ELIMINAR_NODO:
-break;
+	break;
 
 case MOSTRAR_COMANDOS:
-mostrarComandos();
-break;
+	mostrarComandos();
+	break;
 
 case MOSTRAR_ELEMENTOS:
-mostrarElementos();
-break;
+	mostrarElementos();
+	break;
 
 case -1:
-printf("--Ojo ese comando no existe!! proba con mostrarComandos\n");
-break;
+	printf("--Ojo ese comando no existe!! proba con mostrarComandos\n");
+	break;
 
-}
+	}
 }
 
 void levantarConsola() {
-char comando[50];
-int idFunc;
+	char comando[50];
+	int idFunc;
 
-mostrarComandos();
+	mostrarComandos();
 
-while (1) {
+	while (1) {
 
-	printf("Ingrese un comando >> ");
-	fgets(comando, 50, stdin);
+		printf("Ingrese un comando >> ");
+		fgets(comando, 50, stdin);
 
-	idFunc = idFuncion(comando);
-	aplicarFuncion(idFunc);
-}
+		idFunc = idFuncion(comando);
+		aplicarFuncion(idFunc);
+	}
 }

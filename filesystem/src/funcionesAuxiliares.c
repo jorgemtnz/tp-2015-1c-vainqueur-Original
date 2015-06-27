@@ -121,9 +121,9 @@ void copiaDistribuyeYEmpaqueta(char* bloqueListo, int totalBloquesOriginales) {
 		empaquetarYMandarPorSocket(bloqueListo);
 
 		actualizaEstructura();
-	}else{
+	} else {
 		perror("[ERROR] no se puede copiar el archivo al MDFS");
-				exit(-1); // abria que ver si conviene que solo lo diga y no hacer el exit(-1)
+		exit(-1); // abria que ver si conviene que solo lo diga y no hacer el exit(-1)
 	}
 }
 int devuelveCantidadElementosArreglo(char** arregloPtrContenidoBloque) {
@@ -134,31 +134,25 @@ int devuelveCantidadElementosArreglo(char** arregloPtrContenidoBloque) {
 	return contadorBloques;
 }
 
-void divideBloques(void* ptrAMemoriaMapeada) {
-	char* llenoCeros;
-	char* bloqueListo;
+void divideBloques(char** ptrArregloConOracionesParaBloque) {
+	char* bloqueFinal;
+	char* bloqueTemporal = '\0';
 	int contadorBloques = 0;
-	int cantidadOracionesArreglo = 0;
-	char** arregloPtrContenidoBloque; // me devuelve todos los contenidos de bloques del archivo.
 
-	arregloPtrContenidoBloque = string_split(ptrAMemoriaMapeada, "/n");
-//memset(llenoCeros, 0, VEINTEMEGAS);
-	llenoCeros = string_repeat('0', VEINTEMEGAS);
-	cantidadOracionesArreglo = devuelveCantidadElementosArreglo(
-			arregloPtrContenidoBloque);
-	while (arregloPtrContenidoBloque[contadorBloques] != NULL) {
+	bloqueFinal = string_repeat('0', VEINTEMEGAS);
 
-		bloqueListo = arregloPtrContenidoBloque[contadorBloques];
-		while ((sizeof(bloqueListo)
-				+ sizeof(arregloPtrContenidoBloque[contadorBloques + 1]))
+	while (ptrArregloConOracionesParaBloque[contadorBloques] != NULL) {
+
+		while ((sizeof(bloqueTemporal)
+				+ sizeof(ptrArregloConOracionesParaBloque[contadorBloques + 1]))
 				< VEINTEMEGAS) {
 			contadorBloques++;
-			bloqueListo = strcat(bloqueListo,
-					arregloPtrContenidoBloque[contadorBloques]);
+			strcat(bloqueTemporal,
+					ptrArregloConOracionesParaBloque[contadorBloques]);
 
 		}
-		strcpy(llenoCeros, bloqueListo);
-		copiaDistribuyeYEmpaqueta(llenoCeros, cantidadOracionesArreglo);
+		strcpy(bloqueFinal, bloqueTemporal);
+		copiaDistribuyeYEmpaqueta(bloqueFinal);// en esta se debe planificar a que nodo se hace el envio.
 
 	}
 }
@@ -182,6 +176,7 @@ nodBloq* devuelveBloque(char* nombreArchivo, int* numeroBloque) {
 	}
 	return ptrNodoBloque;
 }
+
 void renombrarElemento(element* ptrElemento, char* nuevoNombreElemento) {
 	strcpy(ptrElemento->nombre, nuevoNombreElemento);
 }
