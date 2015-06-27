@@ -215,6 +215,17 @@ void divideBloques(char** ptrArregloConOracionesParaBloque)
 
 	}
 }
+void mostrarElementos()
+{
+	int elementosEnLista = FILESYSTEM->listaElementos->elements_count;
+	int i;
+	for (i = 0; i <= elementosEnLista; i++)
+	{
+		element* elementoi;
+		elementoi = list_get(FILESYSTEM->listaElementos, i);
+		printf("Index:%d   Elemento:%s\n", elementoi->index, elementoi->nombre);
+	}
+}
 
 ubicacionDelBloqueEnNodo* devuelveBloque(char* nombreArchivo, int* numeroBloque)
 {
