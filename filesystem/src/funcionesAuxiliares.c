@@ -47,7 +47,16 @@ element* buscarElementoPor(char* nombre) {
 
 	return elementoBuscado;
 }
-void distribuyeBloque(char* bloqueListo) {
+void distribuyeBloque(t_list* listaNodosConectados,char* bloqueListo,) {
+	int cantidadCopias;
+	for (cantidadCopias = 3; cantidadCopias >= 0; cantidadCopias--) {
+		empaquetarYMandarPorSocket(bloqueListo, listaNodosConectados->head);
+		void * aux = listaNodosConectados->head;
+
+		list_remove(listaNodosConectados, 0); //Descolo el primer nodo de la lista
+		list_add(listaNodosConectados, aux);//Encolo el primer nodo de la lista
+	}
+	actualizaEstructura();
 
 }
 
@@ -114,114 +123,109 @@ void actualizaEstructura() {
 
 }
 
-void copiaDistribuyeYEmpaqueta(char* bloqueListo, int totalBloquesOriginales) {
+void copiaDistribuyeYEmpaqueta(char* bloqueListo) {
 
-	if (puedoHacerCopias()) {
-		distribuyeBloque(bloqueListo);
-		empaquetarYMandarPorSocket(bloqueListo);
-
-		actualizaEstructura();
-	} else {
-		perror("[ERROR] no se puede copiar el archivo al MDFS");
-		exit(-1); // abria que ver si conviene que solo lo diga y no hacer el exit(-1)
-	}
+if (puedoHacerCopias()) { // hay que pasar bien los parametros
+	distribuyeBloque(bloqueListo);
+} else {
+	perror("[ERROR] no se puede copiar el archivo al MDFS");
+	exit(-1); // abria que ver si conviene que solo lo diga y no hacer el exit(-1)
+}
 }
 int devuelveCantidadElementosArreglo(char** arregloPtrContenidoBloque) {
-	int contadorBloques = 0;
-	while (arregloPtrContenidoBloque[contadorBloques] != NULL) {
-		contadorBloques++;
-	}
-	return contadorBloques;
+int contadorBloques = 0;
+while (arregloPtrContenidoBloque[contadorBloques] != NULL) {
+	contadorBloques++;
+}
+return contadorBloques;
 }
 
 void divideBloques(char** ptrArregloConOracionesParaBloque) {
-	char* bloqueFinal;
-	char* bloqueTemporal = '\0';
-	int contadorBloques = 0;
+char* bloqueFinal;
+char* bloqueTemporal = '\0';
+int contadorBloques = 0;
 
-	bloqueFinal = string_repeat('0', VEINTEMEGAS);
+bloqueFinal = string_repeat('0', VEINTEMEGAS);
 
-	while (ptrArregloConOracionesParaBloque[contadorBloques] != NULL) {
+while (ptrArregloConOracionesParaBloque[contadorBloques] != NULL) {
 
-		while ((sizeof(bloqueTemporal)
-				+ sizeof(ptrArregloConOracionesParaBloque[contadorBloques + 1]))
-				< VEINTEMEGAS) {
-			contadorBloques++;
-			strcat(bloqueTemporal,
-					ptrArregloConOracionesParaBloque[contadorBloques]);
-
-		}
-		strcpy(bloqueFinal, bloqueTemporal);
-		copiaDistribuyeYEmpaqueta(bloqueFinal);// en esta se debe planificar a que nodo se hace el envio.
+	while ((sizeof(bloqueTemporal)
+			+ sizeof(ptrArregloConOracionesParaBloque[contadorBloques + 1]))
+			< VEINTEMEGAS) {
+		contadorBloques++;
+		strcat(bloqueTemporal,
+				ptrArregloConOracionesParaBloque[contadorBloques]);
 
 	}
+	strcpy(bloqueFinal, bloqueTemporal);
+	copiaDistribuyeYEmpaqueta(bloqueFinal); // en esta se debe planificar a que nodo se hace el envio.
+
+}
 }
 
-nodBloq* devuelveBloque(char* nombreArchivo, int* numeroBloque) {
-	element* ptrArchivo;
-	nodBloq* ptrNodoBloque;
-	bool compNumeroBloque(nodBloq* elemento) {
-		return (*numeroBloque == elemento->numeroBloque);
-	}
-	ptrArchivo = buscarElementoPor(nombreArchivo);
-	if (ptrArchivo == NULL) {
-		perror("[ERROR]mostrarBloque: no se encuentra el archivo");
-		exit(-1);
-	}
-	ptrNodoBloque = list_find(ptrArchivo->listaNodoBloque,
-			(void*) compNumeroBloque);
-	if (ptrNodoBloque == NULL) {
-		perror("[ERROR]mostrarBloque: no se encuentra el bloque");
-		exit(-1);
-	}
-	return ptrNodoBloque;
+ubicacionDelBloqueEnNodo* devuelveBloque(char* nombreArchivo, int* numeroBloque) {
+element* ptrArchivo;
+ubicacionDelBloqueEnNodo* ptrNodoBloque;
+
+
+ptrArchivo = buscarElementoPor(nombreArchivo);
+if (ptrArchivo == NULL) {
+	perror("[ERROR]mostrarBloque: no se encuentra el archivo");
+	exit(-1);
+}
+ptrNodoBloque = list_find(ptrArchivo->matrizUbicacionDelBloqueEnNodo,
+		(void*) compNumeroBloque);
+if (ptrNodoBloque == NULL) {
+	perror("[ERROR]mostrarBloque: no se encuentra el bloque");
+	exit(-1);
+}
+return ptrNodoBloque;
 }
 
 void renombrarElemento(element* ptrElemento, char* nuevoNombreElemento) {
-	strcpy(ptrElemento->nombre, nuevoNombreElemento);
+strcpy(ptrElemento->nombre, nuevoNombreElemento);
 }
 
 void moverElemento(element* elementoOrigen, element* directorioDestino) {
 
 // Valido que no se quiera mover dentro de un archivo
-	if (directorioDestino->tipoElemento == ESDIRECTORIO) {
+if (directorioDestino->tipoElemento == ESDIRECTORIO) {
 
 // Hago el cambio de directorio padre con el index del directorio padre
-		elementoOrigen->directorioPadre = directorioDestino->index;
-	} else {
-		perror(
-				"[ERROR]no se puede mover. El directorio destino no es un tipo directorio");
-		exit(-1);
+	elementoOrigen->directorioPadre = directorioDestino->index;
+} else {
+	perror(
+			"[ERROR]no se puede mover. El directorio destino no es un tipo directorio");
+	exit(-1);
 
-	}
+}
 }
 void eliminarElemento(char* nombreElemento) {
-	int i;
-	int elementosEnLista = FILESYSTEM->listaElementos->elements_count;
-	int sonIguales;
+int i;
+int elementosEnLista = FILESYSTEM->listaElementos->elements_count;
+int sonIguales;
 
-	for (i = 0; i <= elementosEnLista; i++) { // Recorremos la lista
-		element* elementoi;
-		elementoi = list_get(FILESYSTEM->listaElementos, i);
-		sonIguales = string_equals_ignore_case(elementoi->nombre,
-				nombreElemento);
+for (i = 0; i <= elementosEnLista; i++) { // Recorremos la lista
+	element* elementoi;
+	elementoi = list_get(FILESYSTEM->listaElementos, i);
+	sonIguales = string_equals_ignore_case(elementoi->nombre, nombreElemento);
 // Si las cadenas son iguales => encontro string => lo elimino
 
-		if (sonIguales) {
-			list_remove(FILESYSTEM->listaElementos, i);
-		} //ojo no se libera memoria, corregir...
+	if (sonIguales) {
+		list_remove(FILESYSTEM->listaElementos, i);
+	} //ojo no se libera memoria, corregir...
 
 // Si las cadenas son distintas => Sigue el for
-	}
+}
 } // Generica, sirve para archivos y directorios
 
 void mostrarElementos() {
-	int elementosEnLista = FILESYSTEM->listaElementos->elements_count;
-	int i;
-	for (i = 0; i <= elementosEnLista; i++) {
-		element* elementoi;
-		elementoi = list_get(FILESYSTEM->listaElementos, i);
-		printf("Index:%d   Elemento:%s\n", elementoi->index, elementoi->nombre);
-	}
+int elementosEnLista = FILESYSTEM->listaElementos->elements_count;
+int i;
+for (i = 0; i <= elementosEnLista; i++) {
+	element* elementoi;
+	elementoi = list_get(FILESYSTEM->listaElementos, i);
+	printf("Index:%d   Elemento:%s\n", elementoi->index, elementoi->nombre);
+}
 }
 

@@ -51,11 +51,11 @@ typedef struct nod {
 	char* dirEspacioNodo;
 } nod;
 
-typedef struct nodBloq {
-	int numeroCopia; // 0 original, 1 copia 1, n copia n.
+typedef struct ubicacionDelBloqueEnNodo {
+	//int numeroCopia; // 0 original, 1 copia 1, n copia n.
 	int numeroNodo;
-	int numeroBloque;
-} nodBloq;
+	int numeroDeBloqueDelNodo;
+} ubicacionDelBloqueEnNodo;
 
 typedef struct element {
 	char* nombre;
@@ -64,7 +64,7 @@ typedef struct element {
 	int tamanio;
 	int directorioPadre;
 	int tipoElemento; // USAR DEFINE: ESDIRECTORIO (1) para directorio, ESARCHIVO (0) para archivo o documento.
-	t_list* listaNodoBloque;
+	ubicacionDelBloqueEnNodo ** matrizUbicacionDelBloqueEnNodo;
 } element;
 
 typedef struct fs {
@@ -111,7 +111,7 @@ void renombrarElemento(element* ptrElemento, char* nuevoNombreElemento);
 void moverElemento(element* elementoOrigen, element* directorioDestino);
 void eliminarElemento(char* nombreElemento);
 void mostrarElementos();
-nodBloq* devuelveBloque(char* nombreArchivo, int* numeroBloque);
+ubicacionDelBloqueEnNodo* devuelveBloque(char* nombreArchivo, int* numeroBloque);
 void distribuyeBloque(char* bloqueListo) ; //sin implementar
 void empaquetarYMandarPorSocket(char* bloqueListo) ; //sin implementar
 int devuelveCantBloquesLista(void*lista, int elementosEnLista);  //sin implementar
@@ -119,7 +119,7 @@ bool puedoHacerCopias();
 void actualizaEstructura();
 void copiaDistribuyeYEmpaqueta(char* bloqueListo, int totalBloquesOriginales) ;
 int devuelveCantidadElementosArreglo(char** arregloPtrContenidoBloque);
-void divideBloques(void* ptrAMemoriaMapeada) ;
+void divideBloques(char** ptrArregloConOracionesParaBloque);
 
 
 // Funciones de Consola
