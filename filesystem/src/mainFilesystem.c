@@ -2,14 +2,6 @@
 
 #define CONECCIONES_ENTRANTES_PERMITIDAS 4
 
-int main(int argc, char **argv) {
-	char* cadena = "/home/utso/TPOperativos/lucasCapo";
-	char* cad2 = sacarUltimaParte(cadena);
-	printf("%s",cad2);
-	return 0;
-}
-
-/*
 sem_t semaforoServidor;
 sem_t semaforoCliente;
 

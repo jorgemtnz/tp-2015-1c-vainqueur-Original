@@ -244,10 +244,10 @@ char* sacarUltimaParte(char* dirArchivoLocal)
 void copiarArchivoLocalAlMDFS()
 {
 	// La copia la crea en la raiz
-	char* dirArchivoLocal;
+	char dirArchivoLocal[LONGITUD_STRINGS];
 	char* nombreArchivo;
 	char* dirArchivo;
-	element* archivoEntrante;
+	element* archivoEntrante = malloc(sizeof(element));
 	// Variables que odia Lucas
 	char** buffer = NULL;
 	char* ptrComienzoMemoriaMapeada = NULL;
@@ -279,6 +279,7 @@ void copiarArchivoLocalAlMDFS()
 	archivoEntrante->tamanio = *ptrTamanioDePagina;
 
 	divideBloques(&buffer[0], nombreArchivo);
+	free(archivoEntrante);
 }
 
 void copiarArchivoDelMDFSAlFSLocal()
