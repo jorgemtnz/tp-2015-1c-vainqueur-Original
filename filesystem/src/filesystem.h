@@ -109,22 +109,22 @@ void liberaMemoriaElement(element* elemento);
 void liberaMemoriaFS();
 
 // Funciones Auxiliares
-void leerArchivoDeConfiguracion();
-element* buscarElementoPorNombre(char* nombre) ;
-void crearYAgregarBloquesALista(t_list *listaBloques, int cantidadBloquesACrear) ;
-void leerRegistro(int arch) ;
-void guardarRegistro(int arch);
+void leerArchivoDeConfiguracion();//lee el archivo configuracion
+element* buscarElementoPorNombre(char* nombre);//recibe un nombre y devuelve un tipo element*
+void crearYAgregarBloquesALista(t_list *listaBloques, int cantidadBloquesACrear) ;//recibe una lista de blqoues y un cantidad de bloques a cargar en esa lista
+void leerRegistro(int arch) ;//lee un registro guardado en un txt
+void guardarRegistro(int arch);//guarda un registro en un txt
 void empaquetarYMandarPorSocket(char* bloqueListo, ubicacionDelBloqueEnNodo* unNodoBloque); 	// Falta implementar
 int devuelveCantBloquesLista(void*lista, int elementosEnLista);	// Falta implementar
-int devuelveMenorNodoConBloques();
-bool puedoHacerCopias(int cantBloquesOriginales) ;
-bloq* buscaBloqueDisponible(nod* unNodo);
-void distribucionInicial(char* bloqueListo, element* unElemento);
-void copiaDistribuyeYEmpaqueta(char* bloqueListo, int cantBloques, element*  elemento) ;
-int devuelveCantidadElementosArreglo(char** arregloPtrContenidoBloque);
-void divideBloques(char** ptrArregloConOracionesParaBloque,element* unElemento);
-ubicacionDelBloqueEnNodo* devuelveBloque(char* nombreArchivo, int numeroBloque) ;
-
+int devuelveMenorNodoConBloques();//devuelve el nodoID con menor cantidad de bloques
+bool puedoHacerCopias(int cantBloquesOriginales) ;//algoritmo que calcula si se puede realizar el copiado
+bloq* buscaBloqueDisponible(nod* unNodo);//devuelve el primer blqoue disponible para almacenar informacion
+void distribucionInicial(char* bloqueListo, element* unElemento);//recibe un blqoue listo y un elemento (Archivo) para distribuirlo en los nodos equitativamente
+void copiaDistribuyeYEmpaqueta(char* bloqueListo, int cantBloques, element*  elemento) ;//recibe un bloque listo y inicia la copia del bloque a los nodos
+int devuelveCantidadElementosArreglo(char** arregloPtrContenidoBloque);//devuelve la cantidad de venctores en un arreglo (se usa par ala canto de blques originales ya que es un vector muy grande y no todos estas llenos)
+void divideBloques(char** ptrArregloConOracionesParaBloque,element* unElemento);//guarda en un vector donde se almacenan las ultimas posiciones de las oraciones al poner en un bloque listo
+ubicacionDelBloqueEnNodo* devuelveBloque(char* nombreArchivo, int numeroBloque) ;//recibe un nombre de archivo y un numero de blqoue y devuelve un tipo de datoubicaionNodoBlqoue
+void verUbicacionBloque();
 
 // Funciones de Consola
 void renombrarElemento(element* ptrElemento, char* nuevoNombreElemento);
@@ -144,7 +144,7 @@ void moverDirectorio();
 void copiarArchivoLocalAlMDFS();      // RECORDAR: CAMBIARLE LOS NULL
 void copiarArchivoDelMDFSAlFSLocal(); // Falta implementar
 void solicitarMD5deUnArchivoenMDFS(); // Falta implementar
-void verUbicacionBloque();
+
 void copiarBloque() ;				// Falta implementar
 void actualizarListaDeArchivos(ubicacionDelBloqueEnNodo* unaUbicacion,element* unArchivo); // Usada para borrarBloque // Usa doble lista VER
 void borrarBloque() ;
