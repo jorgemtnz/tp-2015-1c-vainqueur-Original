@@ -313,10 +313,11 @@ void verUbicacionBloque()
 
 void copiarBloque()
 {
-	int numeroBloque = 0;
+
+	int numeroBloque = 0, numeroNodoDest, numeroBloqDest;
 	char nombreArchivo[LONGITUD_STRINGS];
 	ubicacionDelBloqueEnNodo* ptrNodoBloque= malloc(sizeof(ubicacionDelBloqueEnNodo));
-
+	ubicacionDelBloqueEnNodo* ubicacionDestino = malloc(sizeof(ubicacionDelBloqueEnNodo));
 	printf("Ingrese el nombre del archivo");
 	scanf("%s", nombreArchivo);
 
@@ -324,6 +325,22 @@ void copiarBloque()
 	scanf("%d", &numeroBloque);
 
 	ptrNodoBloque = devuelveBloque(nombreArchivo, numeroBloque);
+
+	printf("Ingrese el numero del nodo ");
+	scanf("%d", numeroNodoDest);
+
+	printf("Ingrese el numero del bloque a ubicar");
+	scanf("%d", numeroBloqDest);
+	ubicacionDestino->numeroDeBloqueDelNodo = numeroBloqDest;
+	ubicacionDestino->numeroNodo = numeroNodoDest;
+	ubicacionDestino->numeroCopia = ptrNodoBloque->numeroCopia + 1;
+
+	solicitudCopiaDeBloque()
+
+
+
+
+
 	free(ptrNodoBloque);
 	// se implementa segun lo que diga el ayudante.
 }
