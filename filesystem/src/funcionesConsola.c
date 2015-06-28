@@ -166,7 +166,7 @@ void crearDirectorio()
 	{ // Primera vez
 		carpetaNueva->index = 1;
 	}
-	carpetaNueva->directorioPadre = dirPadre;  // Contemplar observacion
+	carpetaNueva->directorioPadre = indexPadre;
 	carpetaNueva->tamanio = TAMANIO_DIRECTORIO;
 	// Fin: carpetaNueva seteada
 
@@ -296,8 +296,7 @@ void verUbicacionBloque()
 	int numeroBloque;
 	char nombreArchivo[LONGITUD_STRINGS];
 
-	element* ptrArchivo;
-	ubicacionDelBloqueEnNodo* ptrNodoBloque;
+	ubicacionDelBloqueEnNodo* ptrNodoBloque = malloc(sizeof(ubicacionDelBloqueEnNodo));
 
 	printf("Ingrese el nombre del archivo");
 	scanf("%s", nombreArchivo);
@@ -309,13 +308,14 @@ void verUbicacionBloque()
 	printf("El bloque %d del archivo %s se encuentra en:\n"
 			"Nodo: %d  -  BloqueDelNodo: %d", numeroBloque, nombreArchivo,
 			ptrNodoBloque->numeroNodo, ptrNodoBloque->numeroDeBloqueDelNodo);
+	free(ptrNodoBloque);
 }
 
 void copiarBloque()
 {
 	int numeroBloque = 0;
 	char nombreArchivo[LONGITUD_STRINGS];
-	ubicacionDelBloqueEnNodo* ptrNodoBloque;
+	ubicacionDelBloqueEnNodo* ptrNodoBloque= malloc(sizeof(ubicacionDelBloqueEnNodo));
 
 	printf("Ingrese el nombre del archivo");
 	scanf("%s", nombreArchivo);
@@ -324,34 +324,80 @@ void copiarBloque()
 	scanf("%d", &numeroBloque);
 
 	ptrNodoBloque = devuelveBloque(nombreArchivo, numeroBloque);
+	free(ptrNodoBloque);
 	// se implementa segun lo que diga el ayudante.
 }
 
-/*
+void actualizarListaDeArchivos(ubicacionDelBloqueEnNodo* unaUbicacion,element* unArchivo){
+	int nodoABuscar 	= unaUbicacion-> numeroNodo;
+	int bloqueABuscar  	= unaUbicacion-> numeroDeBloqueDelNodo;
+	// nodoABuscar && bloqueABuscar
+	bool condicion(ubicacionDelBloqueEnNodo* ubicacionDeLista)
+	{
+		if(ubicacionDeLista->numeroNodo 	       == nodoABuscar &&
+		   ubicacionDeLista->numeroDeBloqueDelNodo == bloqueABuscar)
+		{
+			return true;
+		}
+		return false;
+	}
+	list_remove_by_condition(unArchivo->dobleListaUbicacionDelBloqueEnNodo, condicion);	// Es una lista doble!!
+}
+
  void borrarBloque() {
- int numeroBloque = 0;
- char nombreArchivo[300];
- element* ptrArchivo;
- //defino aqui para que numeroBloque pueda ser usada y pueda comparar
- bool compNumeroBloque(nodBloq* elemento) {
- return (numeroBloque == elemento->numeroBloque);
- }
- printf("Ingrese el nombre del archivo");
- scanf("%c", nombreArchivo);
- printf("Ingrese el nombre de bloque a borrar");
- scanf("%d", &numeroBloque);
+	int numBloque, numeroNodo;
+	char nombreArchivo[LONGITUD_STRINGS];
+	element* ptrArchivo;
+	ubicacionDelBloqueEnNodo* miUbicacion = malloc(sizeof(ubicacionDelBloqueEnNodo));
 
- ptrArchivo = buscarElementoPorNombre(nombreArchivo);
+	printf("Ingrese el nombre del archivo: ");
+	fflush(stdin);
+	scanf("%s", nombreArchivo);
 
- if (ptrArchivo == NULL) {
- perror("[ERROR] No se puede borrar el bloque archivo invalido");
- exit(-1);
- } else { //se castea con (void*) cuandole paso las funciones
- list_remove_and_destroy_by_condition(ptrArchivo->listaNodoBloque,
- (void*) compNumeroBloque, (void*) liberaNodoBloque);
- }
- }
- */
+	printf("Ingrese el numero de nodo a borrar: ");
+	fflush(stdin);
+	scanf("%d", &numeroNodo);
+
+	printf("Ingrese el numero de bloque a borrar: ");
+	fflush(stdin);
+	scanf("%d", &numBloque);
+
+	// Seteo miUbicacion
+	miUbicacion->numeroNodo 		   = numeroNodo;
+	miUbicacion->numeroDeBloqueDelNodo = numBloque;
+	// Fin seteo
+
+	ptrArchivo = buscarElementoPorNombre(nombreArchivo);
+
+	if (ptrArchivo == NULL) {
+		perror("[ERROR] No se puede borrar el bloque archivo invalido");
+		exit(-1);
+	}
+	else
+	{
+		bool condicion(nod* nodo)
+		{
+			return (nodo->numero == numeroNodo);
+		}
+		nod* nodo = list_find(FILESYSTEM->listaNodosConectados, (void*) condicion) ;
+
+		bool condicion2(bloq* unBloque)
+		{
+			return (numBloque == unBloque->numero);
+		}
+		bloq* bloque = list_find(nodo->listaBloques, (void*) condicion2);
+
+		bloque->estaOcupado = ESTA_DISPONIBLE;
+		free(nodo);
+		free(bloque);
+	}
+	actualizarListaDeArchivos(miUbicacion, ptrArchivo);
+	free(ptrArchivo);
+	free(miUbicacion);
+
+}
+
+
 void agregarNodo(char* nombre)
 { //FALTA VER EL TEMA DE SOCKETS
 	nod* nodo;

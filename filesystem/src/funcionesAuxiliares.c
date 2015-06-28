@@ -218,7 +218,7 @@ void divideBloques(char** ptrArregloConOracionesParaBloque,element* unElemento) 
 	}
 }
 
-ubicacionDelBloqueEnNodo* devuelveBloque(char* nombreArchivo, int* numeroBloque) {
+ubicacionDelBloqueEnNodo* devuelveBloque(char* nombreArchivo, int numeroBloque) {
 	element* ptrArchivo;
 	ubicacionDelBloqueEnNodo* ptrNodoBloque;
 

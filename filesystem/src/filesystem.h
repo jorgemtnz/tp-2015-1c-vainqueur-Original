@@ -123,8 +123,7 @@ void distribucionInicial(char* bloqueListo, element* unElemento);
 void copiaDistribuyeYEmpaqueta(char* bloqueListo, int cantBloques, element*  elemento) ;
 int devuelveCantidadElementosArreglo(char** arregloPtrContenidoBloque);
 void divideBloques(char** ptrArregloConOracionesParaBloque,element* unElemento);
-
-ubicacionDelBloqueEnNodo* devuelveBloque(char* nombreArchivo, int* numeroBloque);
+ubicacionDelBloqueEnNodo* devuelveBloque(char* nombreArchivo, int numeroBloque) ;
 
 
 // Funciones de Consola
@@ -146,8 +145,9 @@ void copiarArchivoLocalAlMDFS();      // RECORDAR: CAMBIARLE LOS NULL
 void copiarArchivoDelMDFSAlFSLocal(); // Falta implementar
 void solicitarMD5deUnArchivoenMDFS(); // Falta implementar
 void verUbicacionBloque();
-void copiarBloque() ;				// Lucas - Ya esta terminada?
-void borrarBloque() ;				// Falta implementar
+void copiarBloque() ;				// Falta implementar
+void actualizarListaDeArchivos(ubicacionDelBloqueEnNodo* unaUbicacion,element* unArchivo); // Usada para borrarBloque // Usa doble lista VER
+void borrarBloque() ;
 void agregarNodo(char* nombre);		// Necesita Sockets?
 void eliminarNodo(char* nombre);	// Falta implementar
 void mostrarComandos();
