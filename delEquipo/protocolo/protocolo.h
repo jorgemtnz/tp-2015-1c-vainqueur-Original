@@ -1,11 +1,11 @@
-/* Comentado para que compile, porque falta terminar
+
 #ifndef PROTOCOLO_H_
 #define PROTOCOLO_H_
 
 #include <stdio.h>
 #include <string.h>
 #include <src/commons/string.h>
-#include <src/filesystem.h>
+
 
 #define	ARCHIVO_CARGA_INICIAL 0
 #define	ESCRITURA_BLOQUE 1
@@ -25,13 +25,19 @@
 const char * SEPARADOR = "$";
 
 // Función polimórfica que retorna el buffer contenido en la estructura del protocolo dado.
-void * obtenerEstructura(char *);
+void * obtenerEstructura(void *);
 
 // Función polimórfica que recibe como primer parametro los datos que se van a enviar por socket
 //con una estructura específica.
 // El segundo parametro que recibe es el protocolo que se ubicará delante del string devuelto.
 // devuelve un string con cada valor de esa estructura separado por un separador. El primer byte del
 // string devuelto es el protocolo
-char * prepararParaEnviar(void *, int);
+//void * prepararParaEnviar(void *, int);
 
-#endif /* PROTOCOLO_H_ */
+
+int obtenerHeader(void *);
+
+char * obtenerPayload(void *);
+
+
+#endif

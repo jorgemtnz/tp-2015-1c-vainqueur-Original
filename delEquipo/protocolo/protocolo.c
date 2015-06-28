@@ -1,42 +1,47 @@
-/* Comentado para que compile, porque falta terminar
+#include <stdio.h>
+#include <string.h>
+#include <src/commons/string.h>
 #include "protocolo.h"
-
+#include <stdlib.h>
 // En desarrollo
-void * obtenerEstructura(char * buffer) {
-	
-	// Reservo espacio para el Header
-	char* header = malloc(1);
-	int* protocolo;
-	size_t tamano_buffer;
-	site_t un_byte;
-	
-	tamano_buffer = strlen(buffer);
-	tamano_header = strlen(header);
-//Tamaño máximo del array que se puede obtener.
-	char* bufferSerializado[tamano_buffer];
 
-	bufferSerializado = string_split(buffer, SEPARADOR);
+int obtenerHeader(void* buffer){
+	char* primerChar = malloc(sizeof(char));
+	int header = 0;
+	(char*)buffer;
+	primerChar = string_substring_until( buffer, UN_BYTE);
+	header = (*(primerChar))-'0';//Lo paso a int
+	close(primerChar);
+	return header;
+}
 
-	// Obtengo el Header
-	header = string_substring_from( buffer, UN_BYTE);
-	// Copio el Header al protocolo
-	(int)header;
-	memcpy(&protocolo, header, tamano_header);
+char * obtenerPayload(void* buffer){
+	char* payload = malloc(sizeof(char*));
+	payload = string_substring_from(buffer, UN_BYTE);
+
+	return payload;
+}
+
+
+void * obtenerEstructura(void * buffer) {
+	
+int header;
+char* payload;
+void* bufferSerializado;
+
+header = obtenerHeader(buffer);
+
+payload = obtenerPayload(buffer);
+
+
 	
 
-	switch ((*protocolo))
+	switch (header)
 	{
 
 		case ARCHIVO_CARGA_INICIAL:
 
-
-		// Es un archivo, por lo tanto la estructura que contiene el payload es t_archivo
-
-		bufferSerializado[1] = string_substring_from( buffer, 2);
-
-	    //Cargo la estructura serializada
-
-		(void*)bufferSerializado;
+			bufferSerializado = payload;
 
 		break;
 
@@ -77,4 +82,4 @@ void * obtenerEstructura(char * buffer) {
 	return bufferSerializado;
 
 }
-*/
+
