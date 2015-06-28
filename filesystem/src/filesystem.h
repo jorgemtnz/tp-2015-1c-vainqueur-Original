@@ -36,7 +36,7 @@
 #define LONGITUD_STRINGS 150 //UTILIZADO para inicializar strings
 #define EXISTE 1
 #define NO_EXISTE 0
-#define CANT_COLUMNAS 3
+#define CANT_COLUMNAS 3  // cantidad de copias
 #define CANT_FILAS 308 // MaximoArchivo = 6144 miB (6 GB) Bloque = 20 miB  => 2144/20 = 307,2 ~= 308
 
 // +++++++++++++++++++++++++++++++++++++++ Estructuras +++++++++++++++++++++++++++++++++++++
@@ -105,18 +105,20 @@ void liberaMemoriaFS();
 
 // Funciones Auxiliares
 void leerArchivoDeConfiguracion();
-void inicializarMatriz();
+//void inicializarMatriz();
 element* buscarElementoPorNombre(char* nombre);
 // Lucas - Creo que las primeras tres ya andan bien
+int devuelveMenorNodoConBloques();
 void crearYAgregarBloquesALista(t_list *listaBloques, int cantidadBloquesACrear);
 void leerRegistro(int arch);
 void guardarRegistro(int arch);
-void distribuyeBloque(char* bloqueListo) ; //sin implementar
+
+void distribuyeBloque(t_list* listaNodosConectados, char* bloqueListo) ; //sin implementar
 void empaquetarYMandarPorSocket(char* bloqueListo) ; //sin implementar
 int devuelveCantBloquesLista(void*lista, int elementosEnLista);  //sin implementar
 bool puedoHacerCopias();
 void actualizaEstructura();
-void copiaDistribuyeYEmpaqueta(char* bloqueListo, int totalBloquesOriginales) ;
+void copiaDistribuyeYEmpaqueta(char* bloqueListo, int cantBloques) ;
 int devuelveCantidadElementosArreglo(char** arregloPtrContenidoBloque);
 void divideBloques(char** ptrArregloConOracionesParaBloque);
 void mostrarElementos();
