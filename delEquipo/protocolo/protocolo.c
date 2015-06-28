@@ -10,49 +10,38 @@ int obtenerHeader(void* buffer){
 	int header = 0;
 	(char*)buffer;
 	primerChar = string_substring_until( buffer, UN_BYTE);
-	header = (*(primerChar))-'0';
+	header = (*(primerChar))-'0';//Lo paso a int
 	close(primerChar);
 	return header;
 }
 
+char * obtenerPayload(void* buffer){
+	char* payload = malloc(sizeof(char*));
+	payload = string_substring_from(buffer, UN_BYTE);
 
-/*
-void * obtenerEstructura(char * buffer) {
+	return payload;
+}
+
+
+void * obtenerEstructura(void * buffer) {
 	
-	// Reservo espacio para el Header
-	char* header = malloc(1);
-	int* protocolo;
-	size_t tamano_buffer;
-	size_t tamano_header;
-	size_t un_byte;
-	
-	tamano_buffer = strlen(buffer);
-	tamano_header = strlen(header);
-//Tamaño máximo del array que se puede obtener.
-	char* bufferSerializado[tamano_buffer];
+int header;
+char* payload;
+void* bufferSerializado;
 
-	bufferSerializado = string_split(buffer, SEPARADOR);
+header = obtenerHeader(buffer);
 
-	// Obtengo el Header
-	header = string_substring_from( buffer, UN_BYTE);
-	// Copio el Header al protocolo
-	(int)header;
-	memcpy(&protocolo, header, tamano_header);
+payload = obtenerPayload(buffer);
+
+
 	
 
-	switch ((*protocolo))
+	switch (header)
 	{
 
 		case ARCHIVO_CARGA_INICIAL:
 
-
-		// Es un archivo, por lo tanto la estructura que contiene el payload es t_archivo
-
-		bufferSerializado[1] = string_substring_from( buffer, 2);
-
-	    //Cargo la estructura serializada
-
-		(void*)bufferSerializado;
+			bufferSerializado = payload;
 
 		break;
 
@@ -93,4 +82,4 @@ void * obtenerEstructura(char * buffer) {
 	return bufferSerializado;
 
 }
-*/
+

@@ -22,16 +22,22 @@
 
 
 // El separador del protocolo
-//const char * SEPARADOR = "$";
+const char * SEPARADOR = "$";
 
 // Función polimórfica que retorna el buffer contenido en la estructura del protocolo dado.
-//void * obtenerEstructura(char *);
-int obtenerHeader(void *);
+void * obtenerEstructura(void *);
+
 // Función polimórfica que recibe como primer parametro los datos que se van a enviar por socket
 //con una estructura específica.
 // El segundo parametro que recibe es el protocolo que se ubicará delante del string devuelto.
 // devuelve un string con cada valor de esa estructura separado por un separador. El primer byte del
 // string devuelto es el protocolo
 //void * prepararParaEnviar(void *, int);
+
+
+int obtenerHeader(void *);
+
+char * obtenerPayload(void *);
+
 
 #endif
