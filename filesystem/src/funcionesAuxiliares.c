@@ -18,20 +18,6 @@ void leerArchivoDeConfiguracion() {	// El archivo config de FS tiene PUERTO_LIST
 	config_destroy(archivoConfig);
 }
 
-void inicializarMatriz() {
-	int incrementadorFilas;
-	int incrementadorColumnas;
-
-	for (incrementadorFilas = 0; incrementadorFilas < CANT_FILAS;
-			incrementadorFilas++) {
-		for (incrementadorColumnas = 0; incrementadorColumnas < CANT_COLUMNAS;
-				incrementadorColumnas++) {
-//			vg_matrizUbicacion[incrementadorFilas][incrementadorColumnas] = NULL;
-		}
-
-	}
-}
-
 element* buscarElementoPorNombre(char* nombre) {
 	int i;
 	int elementosEnLista = FILESYSTEM->listaElementos->elements_count;
@@ -65,22 +51,8 @@ void guardarRegistro(int arch) { //esto mientras este el archivo abierto sino lo
 
 	write(arch, FILESYSTEM, sizeof(fs)); //le paso el registro fileSystem,y el archivo y lo escribe
 }
-/*
- void distribuyeBloque(t_list* listaNodosConectados, char* bloqueListo) {
- int cantidadCopias; // cant_columnas se refiere a las copias
- for (cantidadCopias = CANT_COLUMNAS; cantidadCopias >= 0;
- cantidadCopias--) {
- empaquetarYMandarPorSocket(bloqueListo, listaNodosConectados->head);
- void * aux = listaNodosConectados->head;
 
- list_remove(listaNodosConectados, 0); //Descolo el primer nodo de la lista
- list_add(listaNodosConectados, aux); //Encolo el primer nodo de la lista
- }
- actualizaEstructura();
-
- }*/
-
-void empaquetarYMandarPorSocket(char* bloqueListo) {
+void empaquetarYMandarPorSocket(char* bloqueListo, ubicacionDelBloqueEnNodo* unNodoBloque) {
 
 }
 
@@ -107,8 +79,10 @@ int devuelveMenorNodoConBloques() {
 	}
 	return cantMenorBloques;
 }
+// Desde aca
 
-bool puedoHacerCopias(int cantBloquesOriginales) { //algoritmo jBON OPTIMO evita duplicados en nodos y solo se hace la operacion si se puede hacer
+bool puedoHacerCopias(int cantBloquesOriginales) {
+	//algoritmo jBON OPTIMO evita duplicados en nodos y solo se hace la operacion si se puede hacer
 
 	int cantMenorBloques = 0;
 	nod* nodoi;
@@ -145,18 +119,51 @@ bool puedoHacerCopias(int cantBloquesOriginales) { //algoritmo jBON OPTIMO evita
 	}
 }
 
-void actualizaEstructura() {
 
+bloq* buscaBloqueDisponible(nod* unNodo){
+	bloq* primerBloqueDisponible;
+
+	bool condicion(bloq* unBloque){
+		return (unBloque->estaOcupado != ESTA_OCUPADO);
+	}
+
+	primerBloqueDisponible = list_find(unNodo->listaBloques, (void*) condicion);
+	primerBloqueDisponible->estaOcupado = ESTA_OCUPADO;	// Obligo a que el bloque pase a estar ocupado
+
+	return primerBloqueDisponible;
 }
 
-void copiaDistribuyeYEmpaqueta(char* bloqueListo, int cantBloques) {
+void distribucionInicial(char* bloqueListo, element* unElemento)
+{
+	ubicacionDelBloqueEnNodo* unNodoBloque;
+	nod* primerNodo;
 
-	if (puedoHacerCopias(cantBloques)) { // hay que pasar bien los parametros
-		//distribuyeBloque(bloqueListo);
+	int cantidadCopias; 
+	for (cantidadCopias = COPIAS_BLOQUE; cantidadCopias >= 0; cantidadCopias--)
+	{
+		primerNodo = list_remove(FILESYSTEM->listaNodosConectados, 0); 		// Descolo el primer nodo de la listaNodosConectados
+		// Seteo unNodoBloque
+		unNodoBloque->numeroCopia 			= cantidadCopias;
+		unNodoBloque->numeroNodo 			= primerNodo-> numero ;
+		unNodoBloque->numeroDeBloqueDelNodo = (buscaBloqueDisponible(primerNodo))->numero;
+		// Fin seteo unNodoBloque
+
+		list_add(FILESYSTEM->listaNodosConectados, primerNodo); 				// Encolo el primer nodo de la lista
+
+		list_add(unElemento->dobleListaUbicacionDelBloqueEnNodo,unNodoBloque);	// Actualizo la estructura
+
+		empaquetarYMandarPorSocket(bloqueListo, unNodoBloque);
+	}
+}
+
+void copiaDistribuyeYEmpaqueta(char* bloqueListo, int cantBloques, element*  elemento) {
+		if (puedoHacerCopias(cantBloques)) {	// Esta hace la simulacion para ver si
+											// se pueden hacer las copias del archivo
+		distribucionInicial(bloqueListo,elemento);
 
 	} else {
 		perror("[ERROR] no se puede copiar el archivo al MDFS");
-		exit(-1); // abria que ver si conviene que solo lo diga y no hacer el exit(-1)
+		exit(-1);
 	}
 }
 
@@ -168,7 +175,7 @@ int devuelveCantidadElementosArreglo(char** arregloPtrContenidoBloque) {
 	return contadorBloques;
 }
 
-void divideBloques(char** ptrArregloConOracionesParaBloque) {
+void divideBloques(char** ptrArregloConOracionesParaBloque,element* unElemento) {
 	char* bloqueFinal;
 	char* bloqueTemporal = string_new();
 	int posicionOracion = 0;
@@ -206,7 +213,7 @@ void divideBloques(char** ptrArregloConOracionesParaBloque) {
 				strcat(bloqueTemporal, ptrArregloConOracionesParaBloque[j]);
 			}
 			strcpy(bloqueFinal, bloqueTemporal);
-			copiaDistribuyeYEmpaqueta(bloqueFinal, cantBloque);
+			copiaDistribuyeYEmpaqueta(bloqueFinal, cantBloque, unElemento);
 		}
 	}
 }
