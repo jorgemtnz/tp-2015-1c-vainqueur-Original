@@ -1,0 +1,1 @@
+logger.d: ../logger.c

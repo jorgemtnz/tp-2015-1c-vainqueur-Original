@@ -22,23 +22,23 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: mapeoYDivido
+all: testeos
 
 dependents:
 	-cd /home/utnso/TPOperativos/commons-library/Debug && $(MAKE) all
 	-cd /home/utnso/TPOperativos/delEquipo/Debug && $(MAKE) all
 
 # Tool invocations
-mapeoYDivido: $(OBJS) $(USER_OBJS) /home/utnso/TPOperativos/commons-library/Debug/libcommons-library.so /home/utnso/TPOperativos/delEquipo/Debug/libdelEquipo.so
+testeos: $(OBJS) $(USER_OBJS) /home/utnso/TPOperativos/commons-library/Debug/libcommons-library.so /home/utnso/TPOperativos/delEquipo/Debug/libdelEquipo.so
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C Linker'
-	gcc -L"/home/utnso/TPOperativos/delEquipo/Debug" -L"/home/utnso/TPOperativos/commons-library/Debug" -o "mapeoYDivido" $(OBJS) $(USER_OBJS) $(LIBS)
+	gcc -L"/home/utnso/TPOperativos/delEquipo/Debug" -L"/home/utnso/TPOperativos/commons-library/Debug" -o "testeos" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(OBJS)$(C_DEPS)$(EXECUTABLES) mapeoYDivido
+	-$(RM) $(OBJS)$(C_DEPS)$(EXECUTABLES) testeos
 	-@echo ' '
 
 .PHONY: all clean dependents

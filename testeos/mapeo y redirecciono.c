@@ -4,12 +4,12 @@
 //seleccionar el comentario  y ctrl + shift + 7 para quitar el comentario automaticamente.
 //esta ok, pero si te da errores , reviza las configuraciones del run configuracion, para pthread, y las LD_LIBRARY_PATH
 
-#include<stdlib.h>
-#include<stdio.h>
-#include<commons/txt.h>
-#include<commons/string.h>
-#include <mapeoAMemoria/mapeoAMemoria.h>
-
+//#include<stdlib.h>
+//#include<stdio.h>
+//#include<commons/txt.h>
+//#include<commons/string.h>
+//#include <mapeoAMemoria/mapeoAMemoria.h>
+//
 //int main(int argc, char **argv) {
 //	char** buffer = NULL;
 //	char* dirArchivo;
