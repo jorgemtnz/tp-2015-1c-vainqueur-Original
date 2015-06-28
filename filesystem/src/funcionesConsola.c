@@ -20,6 +20,7 @@
 // n	eliminarNodo
 // s	mostrarComandos
 // s 	mostrarElementos 		// Yapa
+
 void renombrarElemento(element* ptrElemento, char* nuevoNombreElemento)
 {
 	strcpy(ptrElemento->nombre, nuevoNombreElemento);
@@ -54,7 +55,7 @@ void eliminarElemento(char* nombreElemento)
 		if (sonIguales)
 		{
 			list_remove(FILESYSTEM->listaElementos, i);
-		} //ojo no se libera memoria, corregir...
+		}
 
 		// Si las cadenas son distintas => Sigue el for
 	}
@@ -236,6 +237,7 @@ char* sacarUltimaParte(char* dirArchivoLocal)
 {
 	char* nombreArchivo;
 	nombreArchivo = strdup(strrchr(dirArchivoLocal, '/'));
+	sscanf(nombreArchivo,"/%s",nombreArchivo); // Le borro el primer char
 	return nombreArchivo;
 }
 
@@ -311,16 +313,17 @@ void verUbicacionBloque()
 void copiarBloque()
 {
 	int numeroBloque = 0;
-	char nombreArchivo[300];
+	char nombreArchivo[LONGITUD_STRINGS];
 	ubicacionDelBloqueEnNodo* ptrNodoBloque;
 
 	printf("Ingrese el nombre del archivo");
-	scanf("%c", nombreArchivo);
+	scanf("%s", nombreArchivo);
+
 	printf("Ingrese el numero de bloque a mostrar");
 	scanf("%d", &numeroBloque);
 
 	ptrNodoBloque = devuelveBloque(nombreArchivo, numeroBloque);
-// se implementa segun lo que diga el ayudante.
+	// se implementa segun lo que diga el ayudante.
 }
 
 /*
@@ -397,6 +400,16 @@ void mostrarComandos()
 }
 
 // ---------CONSOLA IMPLEMENTACION------
+void mostrarElementos() {
+	int elementosEnLista = FILESYSTEM->listaElementos->elements_count;
+	int i;
+	for (i = 0; i <= elementosEnLista; i++) {
+		element* elementoi;
+		elementoi = list_get(FILESYSTEM->listaElementos, i);
+		printf("Index:%d   Elemento:%s\n", elementoi->index, elementoi->nombre);
+	}
+}
+
 int idFuncion(char* funcion)
 {
 	int i;

@@ -123,14 +123,16 @@ void distribucionInicial(char* bloqueListo, element* unElemento);
 void copiaDistribuyeYEmpaqueta(char* bloqueListo, int cantBloques, element*  elemento) ;
 int devuelveCantidadElementosArreglo(char** arregloPtrContenidoBloque);
 void divideBloques(char** ptrArregloConOracionesParaBloque,element* unElemento);
-void mostrarElementos() ;
+
 ubicacionDelBloqueEnNodo* devuelveBloque(char* nombreArchivo, int* numeroBloque);
 
 
 // Funciones de Consola
 void renombrarElemento(element* ptrElemento, char* nuevoNombreElemento);
 void moverElemento(element* elementoOrigen, element* directorioDestino);
-void eliminarElemento(char* nombreElemento);	//Corregir
+void eliminarElemento(char* nombreElemento);
+void mostrarElementos() ;
+char* sacarUltimaParte(char* dirArchivoLocal);
 
 void formatearMDFS();
 void eliminarArchivo();
@@ -140,7 +142,6 @@ void crearDirectorio();
 void eliminarDirectorio();
 void renombrarDirectorio();
 void moverDirectorio();
-char* sacarUltimaParte(char* dirArchivoLocal);
 void copiarArchivoLocalAlMDFS();      // RECORDAR: CAMBIARLE LOS NULL
 void copiarArchivoDelMDFSAlFSLocal(); // Falta implementar
 void solicitarMD5deUnArchivoenMDFS(); // Falta implementar
