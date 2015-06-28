@@ -74,7 +74,7 @@ int vg_puertoFilesystem;
 char * vg_ipFilesystem;
 
 // +++++++++++++++++++++++++++++++++++++++ Prototipos +++++++++++++++++++++++++++++++++++++
-// Funciones Constructoras
+// Funciones Constructoras hace el malloc de la estructura e inicializa los campos
 t_archivoProcesado* crearArchivoProcesado() ;
 t_relacionNodoBloque* crearRelacionNodoBloque() ;
 t_ubicacionBloque* crearUbicacionBloque() ;
@@ -83,7 +83,7 @@ t_nombreFuncion* crearNombreFuncion();
 t_solicitud* crearSolicitud();
 t_estructuraMarta* crearMarta();
 
-// Funciones Destructoras
+// Funciones Destructoras hace el free de la estructura y libera las listas segun sea necesario
 void liberaMemoriaArchivoProcesado(t_archivoProcesado* ptrArchivoProcesado);
 void liberaMemoriaRelacionNodoBloque(t_relacionNodoBloque* ptrRelacionNodoBloque);
 void liberaMemoriaUbicacionBloque(t_ubicacionBloque* ptrUbicacionBloque);
@@ -102,8 +102,8 @@ void liberaVG();
  */
 
 // Marta
-char * generarNombreAlmacenado(char * nombreArchivo, char * nombreFuncion);
-char rutaArchConfig[300];
+char * generarNombreAlmacenado(char * nombreArchivo, char * nombreFuncion); //genera el nombre del archivo que se almacena en el temporal
+
 
 //!!!! Revisar bien los argumentos que reciben al codificarlas ya que estos fueron pensados medios rapido
 //y seguro hacen falta mas y puede que nisiquiera sean estos los que necesita!!!!
@@ -119,5 +119,5 @@ void evaluarSolicitudMapper(char * nombreArchivo);  // Falta implementar
 // +++++++++++++++++++++++++++++++++++ Variables Globales +++++++++++++++++++++++++++++++++++
 t_estructuraMarta marta;
 unsigned char resultado; // Esta variable recibe el valor de respuesta de exito o no del JOB
-
+char rutaArchConfig[300];
 #endif /* MARTA_H_ */

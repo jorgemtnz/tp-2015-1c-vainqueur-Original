@@ -70,7 +70,7 @@ typedef struct element {
 	int tamanio;
 	int directorioPadre;
 	int tipoElemento; // USAR DEFINE: ESDIRECTORIO (1) para directorio, ESARCHIVO (0) para archivo o documento.
-	ubicacionDelBloqueEnNodo ** dobleListaUbicacionDelBloqueEnNodo;
+	t_list* dobleListaUbicacionDelBloqueEnNodo;
 	// Agregar ubicacionDelBloqueEnNodo en constructora y destructora
 } element;
 
@@ -94,17 +94,17 @@ typedef struct t_escritura_bloque {
 } t_escritura_bloque;
 
 // +++++++++++++++++++++++++++++++++++++++ Prototipos +++++++++++++++++++++++++++++++++++++
-// Funciones Constructoras
+// Funciones Constructoras crea los malloc de las estructuras e inicializa
 nod* crearNodo();
 bloq* crearBloque();
 element* crearElemento();
 void crearFileSystem();
 void inicializarFilesystem();
 
-// Funciones Destructoras
+// Funciones Destructoras hace el free de las estructuras para las que se hizo un malloc
 void liberaMemoriaBloque(bloq* bloque);
 void liberaMemoriaNodo(nod* nodo);
-// void liberaNodoBloque(nodBloq* nodoBloque);
+void liberaNodoBloque(ubicacionDelBloqueEnNodo* nodoBloque);// se debe dejar porque se hace un malloc cuando se construye
 void liberaMemoriaElement(element* elemento);
 void liberaMemoriaFS();
 
@@ -124,7 +124,8 @@ void copiaDistribuyeYEmpaqueta(char* bloqueListo, int cantBloques, element*  ele
 int devuelveCantidadElementosArreglo(char** arregloPtrContenidoBloque);//devuelve la cantidad de venctores en un arreglo (se usa par ala canto de blques originales ya que es un vector muy grande y no todos estas llenos)
 void divideBloques(char** ptrArregloConOracionesParaBloque,element* unElemento);//guarda en un vector donde se almacenan las ultimas posiciones de las oraciones al poner en un bloque listo
 ubicacionDelBloqueEnNodo* devuelveBloque(char* nombreArchivo, int numeroBloque) ;//recibe un nombre de archivo y un numero de blqoue y devuelve un tipo de datoubicaionNodoBlqoue
-void verUbicacionBloque();
+void verUbicacionBloque(); //se debe modificar , porque solapo la de mostrar bloque
+void solicitudCopiaDeBloque();// se esta implementando
 
 // Funciones de Consola
 void renombrarElemento(element* ptrElemento, char* nuevoNombreElemento);

@@ -249,6 +249,7 @@ void copiarArchivoLocalAlMDFS()
 	char* dirArchivo;
 	element* archivoEntrante = malloc(sizeof(element));
 	// Variables que odia Lucas
+
 	char** buffer = NULL;
 	char* ptrComienzoMemoriaMapeada = NULL;
 	int* ptrTamanioDePagina = NULL;
@@ -264,7 +265,7 @@ void copiarArchivoLocalAlMDFS()
 
 	nombreArchivo = sacarUltimaParte(dirArchivoLocal);
 
-	dirArchivo = strdup(dirArchivoLocal);
+	dirArchivo = strdup(dirArchivoLocal);// ya probado, es simil a usar malloc y luego strcpy. Excelente aporte
 
 	mapeoAmemoria(dirArchivo, ptrAMemoriaModificado, ptrTamanioDePagina);
 	buffer = string_split(ptrComienzoMemoriaMapeada, "\n");
@@ -278,7 +279,7 @@ void copiarArchivoLocalAlMDFS()
 	archivoEntrante->tipoElemento = ESARCHIVO;
 	archivoEntrante->tamanio = *ptrTamanioDePagina;
 
-	divideBloques(&buffer[0], nombreArchivo);
+	divideBloques(&buffer[0], archivoEntrante);
 	free(archivoEntrante);
 }
 
@@ -311,6 +312,11 @@ void verUbicacionBloque()
 	free(ptrNodoBloque);
 }
 
+void solicitudCopiaDeBloque(){
+	//se esta desarrollando, debe solicitar un bloque a un nodo
+	//usando parte de la funcion de demostar bloque
+}
+
 void copiarBloque()
 {
 
@@ -327,20 +333,20 @@ void copiarBloque()
 	ptrNodoBloque = devuelveBloque(nombreArchivo, numeroBloque);
 
 	printf("Ingrese el numero del nodo ");
-	scanf("%d", numeroNodoDest);
+	scanf("%d", &numeroNodoDest);
 
 	printf("Ingrese el numero del bloque a ubicar");
-	scanf("%d", numeroBloqDest);
+	scanf("%d", &numeroBloqDest);
 	ubicacionDestino->numeroDeBloqueDelNodo = numeroBloqDest;
 	ubicacionDestino->numeroNodo = numeroNodoDest;
 	ubicacionDestino->numeroCopia = ptrNodoBloque->numeroCopia + 1;
-
-	solicitudCopiaDeBloque()
-
-
+ solicitudCopiaDeBloque();
+	 //se encuentra en desarrollo, no terminado
 
 
 
+
+  free(ubicacionDestino);
 	free(ptrNodoBloque);
 	// se implementa segun lo que diga el ayudante.
 }
@@ -358,7 +364,7 @@ void actualizarListaDeArchivos(ubicacionDelBloqueEnNodo* unaUbicacion,element* u
 		}
 		return false;
 	}
-	list_remove_by_condition(unArchivo->dobleListaUbicacionDelBloqueEnNodo, condicion);	// Es una lista doble!!
+	list_remove_by_condition(unArchivo->dobleListaUbicacionDelBloqueEnNodo, (void*)condicion);	// Es una lista doble!!
 }
 
  void borrarBloque() {

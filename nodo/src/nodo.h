@@ -57,9 +57,9 @@ int informarEjecucionAJob(t_nodo* datosDelNodo,
 int ejecutarReduce(int soportaCombiner); // Falta implementar
 int ejecutarMap(char * nombreArchivoTemporal, char * ptrDireccionMapeo);// esta función ejecuta el map sobre un <<--ver observacion en .c
 void conectarNodo(t_nodo* datosDelNodo); //se conecta el nodo al filesystem
-bufferVeinteMegas getBloque(int numeroDeBloque); // devuelve un bloque determinado
+bufferVeinteMegas* getBloque(int numeroDeBloque); // devuelve un bloque determinado devuelve un puntero al buffer echo con malloc, se debe hacer luego el free
 int setBloque(int numeroDeBloque, bufferVeinteMegas buffer) ;//pone un la info de un bloque en el archivo
-bufferTemp getFileContent(char* nombreDelArchivo) ; //devuelve archivo del tmp
+char* getFileContent(char* nombreDelArchivo) ; //devuelve archivo del tmp
 
 // +++++++++++++++++++++++++++++++++++ Variables Globales +++++++++++++++++++++++++++++++++++
 int vg_puerto_FS,

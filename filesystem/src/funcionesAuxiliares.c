@@ -135,8 +135,8 @@ bloq* buscaBloqueDisponible(nod* unNodo){
 
 void distribucionInicial(char* bloqueListo, element* unElemento)
 {
-	ubicacionDelBloqueEnNodo* unNodoBloque;
-	nod* primerNodo;
+	ubicacionDelBloqueEnNodo* unNodoBloque =NULL;
+	nod* primerNodo=NULL;
 
 	int cantidadCopias; 
 	for (cantidadCopias = COPIAS_BLOQUE; cantidadCopias >= 0; cantidadCopias--)

@@ -25,7 +25,7 @@ bloq* crearBloque() { //constructor del bloque
 }
 
 element* crearElemento() { //crea un elemento generico para despues configurarlo como archivo o carpeta
-	element* elemento = malloc(sizeof(element)); //liberamos espacio para el elemnto
+	element* elemento = malloc(sizeof(element)); //creamos espacio para el elemnto
 	if(elemento==NULL){
 		perror("[ERROR] No se reservo memoria para el Filesystem>..>elemento directorio o archivo ");
 				exit(-1);
@@ -37,7 +37,7 @@ element* crearElemento() { //crea un elemento generico para despues configurarlo
 		elemento->index += 1;
 	}
 	elemento->estado = DISPONIBLE;
-	//elemento->listaNodoBloque = '\0';
+	elemento->dobleListaUbicacionDelBloqueEnNodo = list_create();
 	elemento->nombre[25] = '\0';
 	elemento->tamanio = 0; // Si es directorio siempre pesa 0. Si es archivo va a engordar
 	return elemento;
