@@ -37,7 +37,7 @@ element* crearElemento() { //crea un elemento generico para despues configurarlo
 		elemento->index += 1;
 	}
 	elemento->estado = DISPONIBLE;
-	elemento->listaNodoBloque = '\0';
+	//elemento->listaNodoBloque = '\0';
 	elemento->nombre[25] = '\0';
 	elemento->tamanio = 0; // Si es directorio siempre pesa 0. Si es archivo va a engordar
 	return elemento;

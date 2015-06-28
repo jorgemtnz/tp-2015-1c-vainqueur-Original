@@ -15,14 +15,14 @@ void liberaMemoriaNodo(nod* nodo) { //libera la memoria del nodo
 									  liberaMemoriaBloque);
 	free(nodo);
 }
-
+/*
 void liberaNodoBloque(nodBloq* nodoBloque) {
 	// free(nodoBloque->numeroBloque);	Es un int
 	// free(nodoBloque->numeroCopia);	Es un int
 	// free(nodoBloque->numeroNodo);	Es un int
 	free(nodoBloque);					// Liberad es un struct
 }
-
+*/
 void liberaMemoriaElement(element* elemento) {
 	// free(&(elemento->directorioPadre));	Es un int
 	// free(&(elemento->tipoElemento));		Es un int
@@ -30,8 +30,8 @@ void liberaMemoriaElement(element* elemento) {
 	// free(&(elemento->index));			Es un int
 	// free(&(elemento->tamanio));			Es un int
 	free(elemento->nombre);
-	list_destroy_and_destroy_elements(elemento->listaNodoBloque,
-									  liberaNodoBloque);
+//	list_destroy_and_destroy_elements(elemento->listaNodoBloque,
+//									  liberaNodoBloque);
 	free(elemento);
 }
 

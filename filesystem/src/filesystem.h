@@ -31,16 +31,22 @@
 #define NUMEROBLOQUES 102
 #define UBICACIONNODO "/tmp/nodo.txt"
 #define NUMEROFUNCIONESCONSOLA 18
-#define RUTACONFIGFS "/"
+#define TAMANIO_DIRECTORIO 0
+// #define RUTACONFIGFS "/" Mejor si lo ingresamos por consola
 #define LONGITUD_DE_IP 20
 #define LONGITUD_STRINGS 150 //UTILIZADO para inicializar strings
 #define EXISTE 1
 #define NO_EXISTE 0
+#define COPIAS_BLOQUE 3  // cantidad de copias
+#define CANT_FILAS 308 // MaximoArchivo = 6144 miB (6 GB) Bloque = 20 miB  => 2144/20 = 307,2 ~= 308
+#define ESTA_OCUPADO 1
+#define ESTA_DISPONIBLE 0
 
 // +++++++++++++++++++++++++++++++++++++++ Estructuras +++++++++++++++++++++++++++++++++++++
 typedef struct bloq {
 	int numero;
 	int tamanio;
+	int estaOcupado;
 } bloq;
 
 typedef struct nod {
@@ -52,7 +58,7 @@ typedef struct nod {
 } nod;
 
 typedef struct ubicacionDelBloqueEnNodo {
-	//int numeroCopia; // 0 original, 1 copia 1, n copia n.
+	int numeroCopia; // 0 original, 1 copia 1, n copia n.
 	int numeroNodo;
 	int numeroDeBloqueDelNodo;
 } ubicacionDelBloqueEnNodo;
@@ -64,7 +70,8 @@ typedef struct element {
 	int tamanio;
 	int directorioPadre;
 	int tipoElemento; // USAR DEFINE: ESDIRECTORIO (1) para directorio, ESARCHIVO (0) para archivo o documento.
-	ubicacionDelBloqueEnNodo ** matrizUbicacionDelBloqueEnNodo;
+	ubicacionDelBloqueEnNodo ** dobleListaUbicacionDelBloqueEnNodo;
+	// Agregar ubicacionDelBloqueEnNodo en constructora y destructora
 } element;
 
 typedef struct fs {
@@ -97,32 +104,34 @@ void inicializarFilesystem();
 // Funciones Destructoras
 void liberaMemoriaBloque(bloq* bloque);
 void liberaMemoriaNodo(nod* nodo);
-void liberaNodoBloque(nodBloq* nodoBloque);
+// void liberaNodoBloque(nodBloq* nodoBloque);
 void liberaMemoriaElement(element* elemento);
 void liberaMemoriaFS();
 
 // Funciones Auxiliares
 void leerArchivoDeConfiguracion();
-void cargarBloques(t_list *listaBloques);
-void leerRegistro(int arch);
+element* buscarElementoPorNombre(char* nombre) ;
+void crearYAgregarBloquesALista(t_list *listaBloques, int cantidadBloquesACrear) ;
+void leerRegistro(int arch) ;
 void guardarRegistro(int arch);
-element* buscarElementoPor(char* nombre);
-void renombrarElemento(element* ptrElemento, char* nuevoNombreElemento);
-void moverElemento(element* elementoOrigen, element* directorioDestino);
-void eliminarElemento(char* nombreElemento);
-void mostrarElementos();
-ubicacionDelBloqueEnNodo* devuelveBloque(char* nombreArchivo, int* numeroBloque);
-void distribuyeBloque(char* bloqueListo) ; //sin implementar
-void empaquetarYMandarPorSocket(char* bloqueListo) ; //sin implementar
-int devuelveCantBloquesLista(void*lista, int elementosEnLista);  //sin implementar
-bool puedoHacerCopias();
-void actualizaEstructura();
-void copiaDistribuyeYEmpaqueta(char* bloqueListo, int totalBloquesOriginales) ;
+void empaquetarYMandarPorSocket(char* bloqueListo, ubicacionDelBloqueEnNodo* unNodoBloque); 	// Falta implementar
+int devuelveCantBloquesLista(void*lista, int elementosEnLista);	// Falta implementar
+int devuelveMenorNodoConBloques();
+bool puedoHacerCopias(int cantBloquesOriginales) ;
+bloq* buscaBloqueDisponible(nod* unNodo);
+void distribucionInicial(char* bloqueListo, element* unElemento);
+void copiaDistribuyeYEmpaqueta(char* bloqueListo, int cantBloques, element*  elemento) ;
 int devuelveCantidadElementosArreglo(char** arregloPtrContenidoBloque);
-void divideBloques(char** ptrArregloConOracionesParaBloque);
+void divideBloques(char** ptrArregloConOracionesParaBloque,element* unElemento);
+void mostrarElementos() ;
+ubicacionDelBloqueEnNodo* devuelveBloque(char* nombreArchivo, int* numeroBloque);
 
 
 // Funciones de Consola
+void renombrarElemento(element* ptrElemento, char* nuevoNombreElemento);
+void moverElemento(element* elementoOrigen, element* directorioDestino);
+void eliminarElemento(char* nombreElemento);	//Corregir
+
 void formatearMDFS();
 void eliminarArchivo();
 void renombrarArchivo();
@@ -131,12 +140,15 @@ void crearDirectorio();
 void eliminarDirectorio();
 void renombrarDirectorio();
 void moverDirectorio();
-void copiarArchivoLocalAlMDFS();	//Falta implementar
-void agregarNodo(char* nombre);
-void eliminarNodo(char* nombre);
-void borrarBloque();
-void verBloque();
-
+char* sacarUltimaParte(char* dirArchivoLocal);
+void copiarArchivoLocalAlMDFS();      // RECORDAR: CAMBIARLE LOS NULL
+void copiarArchivoDelMDFSAlFSLocal(); // Falta implementar
+void solicitarMD5deUnArchivoenMDFS(); // Falta implementar
+void verUbicacionBloque();
+void copiarBloque() ;				// Lucas - Ya esta terminada?
+void borrarBloque() ;				// Falta implementar
+void agregarNodo(char* nombre);		// Necesita Sockets?
+void eliminarNodo(char* nombre);	// Falta implementar
 void mostrarComandos();
 
 // Consola implementacion
@@ -148,5 +160,7 @@ void levantarConsola();
 fs* FILESYSTEM;
 int vg_puerto_listen;
 char** vg_lista_nodos; // array de strings
+// ubicacionDelBloqueEnNodo vg_matrizUbicacion[CANT_FILAS][CANT_COLUMNAS]; // Ver funcion auxiliar void inicializarMatriz()
+ubicacionDelBloqueEnNodo** vg_listaDeUbicacion;
 
 #endif /* FILESYSTEM_H_ */

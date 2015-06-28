@@ -10,6 +10,7 @@ void * servidorHilo();
 void * clienteHilo();
 
 int main() {
+
 	// Inicializo semaforos en 0
 	//levantarArchivoConfiguracion();
 	//printf("IP Nodo : %s \n", vg_dirTemp);
