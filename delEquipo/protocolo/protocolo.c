@@ -1,14 +1,30 @@
-/* Comentado para que compile, porque falta terminar
+#include <stdio.h>
+#include <string.h>
+#include <src/commons/string.h>
 #include "protocolo.h"
-
+#include <stdlib.h>
 // En desarrollo
+
+int obtenerHeader(void* buffer){
+	char* primerChar = malloc(sizeof(char));
+	int header = 0;
+	(char*)buffer;
+	primerChar = string_substring_until( buffer, UN_BYTE);
+	header = (*(primerChar))-'0';
+	close(primerChar);
+	return header;
+}
+
+
+/*
 void * obtenerEstructura(char * buffer) {
 	
 	// Reservo espacio para el Header
 	char* header = malloc(1);
 	int* protocolo;
 	size_t tamano_buffer;
-	site_t un_byte;
+	size_t tamano_header;
+	size_t un_byte;
 	
 	tamano_buffer = strlen(buffer);
 	tamano_header = strlen(header);
