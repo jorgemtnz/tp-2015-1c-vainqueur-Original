@@ -1,6 +1,5 @@
 #include "nodo.h"
 
-
 void levantarArchivoConfiguracion() {
 	char* temporal;
 	t_config* archivoConfig;
@@ -42,7 +41,7 @@ int ejecutarReduce(int soportaCombiner) {
 	}
 	return 0;
 }
-
+//revisar el funcionamiento de esta funcion porque el map solo se hace sobre un bloque
 int ejecutarMap(char * nombreArchivoTemporal, char * ptrDireccionMapeo) {
 	char *ruta;
 	ruta = RUTAMAP;
@@ -63,11 +62,11 @@ void conectarNodo(t_nodo* datosDelNodo) {
 	printf("Nodo: %d conectado al FS con ip %s mediante el puerto %d \n",
 			numNodo, vg_ip_FS, vg_puerto_FS);
 }
-
-bufferVeinteMegas getBloque(int nuemeroDeBloque) {
-	int fdDatosBin =  open(vg_archivo_Bin,O_RDONLY,0);
+//no se puede devolver un array, da error, por eso mejor seria que devuelva un ptr al array
+bufferVeinteMegas getBloque(int numeroDeBloque) {
+	int fdDatosBin = open(vg_archivo_Bin, O_RDONLY, 0);
 	bufferVeinteMegas buffer;
-	long pos = (nuemeroDeBloque - 1) * VEINTEMEGAS;
+	long pos = (numeroDeBloque - 1) * VEINTEMEGAS;
 	if (lseek(fdDatosBin, pos, SEEK_SET) == 0) {
 		read(fdDatosBin, &buffer, sizeof(VEINTEMEGAS));
 
@@ -76,11 +75,11 @@ bufferVeinteMegas getBloque(int nuemeroDeBloque) {
 		exit(-1);
 	}
 	close(fdDatosBin);
-return buffer;
+	return buffer;
 }
-int setBloque(int nuemeroDeBloque, bufferVeinteMegas buffer) {
-	 int fdDatosBin = open(vg_archivo_Bin,O_RDWR,0);
-	long pos = (nuemeroDeBloque - 1) * VEINTEMEGAS;
+int setBloque(int numeroDeBloque, bufferVeinteMegas buffer) {
+	int fdDatosBin = open(vg_archivo_Bin, O_RDWR, 0);
+	long pos = (numeroDeBloque - 1) * VEINTEMEGAS;
 	if (lseek(fdDatosBin, pos, SEEK_SET) == 0) {
 		write(fdDatosBin, &buffer, sizeof(VEINTEMEGAS));
 
@@ -88,23 +87,23 @@ int setBloque(int nuemeroDeBloque, bufferVeinteMegas buffer) {
 		perror("[ERROR] error al escribir un bloque\n");
 		exit(-1);
 	}
-close(fdDatosBin);
-return EJECUCIONOK;
+	close(fdDatosBin);
+	return EJECUCIONOK;
 }
 
-bufferTemp getFileContent(char* nombreDelArchivo){//devuelve archivo del tmp
+bufferTemp getFileContent(char* nombreDelArchivo) { //devuelve archivo del tmp
 	char* dirArchiv = string_new();
 	string_append(&dirArchiv, vg_dirTemp);
 	string_append(&dirArchiv, nombreDelArchivo);
-	int fdArchvTmp = open (dirArchiv,O_RDONLY,0);
-	int tamanioArch = lseek(fdArchvTmp,0,SEEK_END);//cuenta tamanio del archivo
-	bufferTemp buffer [tamanioArch];
-	if (lseek(fdArchvTmp,0,SEEK_SET)==0){//se posiciona devuelta en el inicio del archivo
-		read(fdArchvTmp,buffer,sizeof(tamanioArch));
-	}else{
-		perror("[ERROR] no se puedo abrir el archivo\n");
-		exit (-1);
+	int fdArchvTmp = open(dirArchiv, O_RDONLY, 0);
+	int tamanioArch = lseek(fdArchvTmp, 0, SEEK_END); //cuenta tamanio del archivo
+	bufferTemp buffer[tamanioArch];
+	if (lseek(fdArchvTmp, 0, SEEK_SET) == 0) { //se posiciona devuelta en el inicio del archivo
+		read(fdArchvTmp, buffer, sizeof(tamanioArch));
+	} else {
+		perror("[ERROR] no se pudo abrir el archivo temporal del nodo\n");
+		exit(-1);
 	}
-close(fdArchvTmp);
-return buffer;
+	close(fdArchvTmp);
+	return buffer;
 }

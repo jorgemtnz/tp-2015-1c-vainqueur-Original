@@ -1,9 +1,5 @@
 #include"job.h"
 
-// Observacion General: Para todas las funciones que hay aca, no entiendo porque
-// liberan memoria de elementos que no son dinamicos (por ejemplo un int).
-// Con cariño Lucas
-
 void liberaMemoriaSolicitudDeTrabajo(t_solicitudDeTrabajo* ptrSolicitudDeTrabajo) {
 	//free(&ptrSolicitudDeTrabajo->combiner); Es un int
 	free(&ptrSolicitudDeTrabajo->archvATrabajar);
@@ -13,19 +9,15 @@ void liberaMemoriaSolicitudDeTrabajo(t_solicitudDeTrabajo* ptrSolicitudDeTrabajo
 }
 
 void liberaMemoriaRelacionNodoBloque(t_relacionNodoBloque* ptrRelacionNodoBloque) {
-//	free(&ptrRelacionNodoBloque->numeroBloque); Es un int
-//	free(&ptrRelacionNodoBloque->numeroNodo);	Es un int
 	free(ptrRelacionNodoBloque);				// Libero, es un struct
 }
 
 void liberaMemoriaRelacionNodoArchTemp(t_relacionNodoArchTemp* ptrRelacionNodoArchTemp) {
-	// free(&ptrRelacionNodoArchTemp->numeroNodo); Es un int
 	free(&ptrRelacionNodoArchTemp->nombreArchvTemp);
 	free(ptrRelacionNodoArchTemp);
 }
 
 void liberaMemoriaTareaMap(t_tareaMap* ptrTareaMap) {
-	// free(&ptrTareaMap->fdHilo); Es un int
 	free(&ptrTareaMap->dirMapExec);
 	list_destroy_and_destroy_elements(ptrTareaMap->listaRelacionNodoBloque,
 									  (void*) liberaMemoriaRelacionNodoBloque);
@@ -33,7 +25,6 @@ void liberaMemoriaTareaMap(t_tareaMap* ptrTareaMap) {
 }
 
 void liberaMemoriaTareaReduce(t_tareaReduce* ptrTareaReduce) {
-	// free(&ptrTareaReduce->fdHilo); Es un int
 	free(&ptrTareaReduce->dirReduceExec);
 	list_destroy_and_destroy_elements(ptrTareaReduce->listaRelacionNodoArchTemp,
 									  (void*) liberaMemoriaRelacionNodoArchTemp);
@@ -41,7 +32,7 @@ void liberaMemoriaTareaReduce(t_tareaReduce* ptrTareaReduce) {
 }
 
 void liberaMemoriaJob(t_job* ptrJob) {
-	// free(ptrJob->dirArchvConfig); Me parece la pedo
+
 	list_destroy_and_destroy_elements(ptrJob->listaSolicitudDeTrabajo,
 									  (void*) liberaMemoriaSolicitudDeTrabajo);
 	list_destroy_and_destroy_elements(ptrJob->listasTareasMap,
@@ -58,4 +49,4 @@ void liberarMemoriaVG(){
 	free(vg_mapperPath);
 	free(vg_reducerPath);
 	free(vg_resultado);
-}
+}//  <<---- consulta, porque se hace un free si no se hizo antes un malloc

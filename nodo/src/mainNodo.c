@@ -1,9 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <pthread.h>
-#include <sockets/sockets.h>
-#include <string.h>
-#include <semaphore.h>
+
 #include "nodo.h"
 
 #define CONECCIONES_ENTRANTES_PERMITIDAS 4

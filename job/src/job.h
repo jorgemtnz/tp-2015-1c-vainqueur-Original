@@ -68,11 +68,11 @@ typedef struct Job {
 	t_list* listasTareasMap;
 	t_list* listasTareasReduce;
 	t_list* listaSolicitudDeTrabajo;  	 //son solicitudes porque  job  pide a marta varias, sobre diferentes archivos
-	// char* dirArchvConfig; 			// Me parece al pedo (Lucas)
+
 }t_job;
 
 // +++++++++++++++++++++++++++++++++++++++ Prototipos +++++++++++++++++++++++++++++++++++++
-// Funciones Constructoras
+// Funciones Constructoras    todas ellas crean con malloc la estructura y la inicializan con valores
 t_solicitudDeTrabajo* crearSolicitudDeTrabajo();
 t_relacionNodoBloque* crearRelacionNodoBloque();
 t_relacionNodoArchTemp* crearRelacionNodoArchTemp();
@@ -81,7 +81,7 @@ t_tareaReduce* creaTareaReduce() ;
 t_job* crearJob();
 
 
-// Funciones Destructoras  <<<----------- Ver Observaciones en .c
+// Funciones Destructoras  se hace el free de los que ya se hizo el malloc
 void liberaMemoriaSolicitudDeTrabajo(t_solicitudDeTrabajo* ptrSolicitudDeTrabajo) ;
 void liberaMemoriaRelacionNodoBloque(t_relacionNodoBloque* ptrRelacionNodoBloque) ;
 void liberaMemoriaRelacionNodoArchTemp(t_relacionNodoArchTemp* ptrRelacionNodoArchTemp) ;
@@ -91,8 +91,8 @@ void liberaMemoriaJob(t_job* ptrJob) ;
 void liberarMemoriaVG();
 
 // Funciones Auxiliares
-void leerArchivoDeConfiguracion();
-void* conectarConMarta();
+void leerArchivoDeConfiguracion(); // carga en variables globales el archivo de configuracion
+void* conectarConMarta();  // falta implementar
 
 // +++++++++++++++++++++++++++++++++++ Variables Globales +++++++++++++++++++++++++++++++++++
 
