@@ -1,20 +1,18 @@
-#include <stdio.h>
-#include <string.h>
-#include <src/commons/string.h>
 #include "protocolo.h"
-#include <stdlib.h>
 
-// En desarrollo
+int obtenerHeader(char* buffer) {
+	int pesoDeEntero = sizeof(int32_t);
+	int header =
 
-int obtenerHeader(void* buffer) {
-char* primerChar = malloc(sizeof(char));
 
-	int header = 0;
-	(char*) buffer;
-	primerChar = string_substring_until(buffer, UN_BYTE);
-	header = (*(primerChar)) - '0'; //Lo paso a int
-//	close(primerChar);
-	return header;
+//char* primerChar = malloc(sizeof(char));
+//
+//	int header = 0;
+//	(char*) buffer;
+//	primerChar = string_substring_until(buffer, UN_BYTE);
+//	header = (*(primerChar)) - '0'; //Lo paso a int
+////	close(primerChar);
+//	return header;
 }
 
 char * obtenerPayload(void* buffer) {

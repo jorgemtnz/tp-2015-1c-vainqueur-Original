@@ -35,13 +35,11 @@ typedef struct estructuraMarta {
 } t_estructuraMarta;
 
 typedef struct solicitud {
+	char *	nombreArchivoATrabajar;
 	t_list* listaNombresFunciones;
-	int soportaCombiner; //1 si soporta 0 si no soporta
-	char * nombreArchivoATrabajar;
-	int estado; //1 completado 0 en espera
+	int 	soportaCombiner; //1 si soporta 0 si no soporta
+	int 	estado; //1 completado 0 en espera
 } t_solicitud;
-
-typedef char* t_nombreFuncion; // Es un sinonimo de tipo, no una estructura vacia
 
 typedef struct informacionDelArchivo {
 	char * nombreArchivo;
@@ -118,6 +116,7 @@ void evaluarSolicitudMapper(char * nombreArchivo);  // Falta implementar
 
 // +++++++++++++++++++++++++++++++++++ Variables Globales +++++++++++++++++++++++++++++++++++
 t_estructuraMarta marta;
+int vg_martaPuerto;
 unsigned char resultado; // Esta variable recibe el valor de respuesta de exito o no del JOB
 char rutaArchConfig[300];
 #endif /* MARTA_H_ */
