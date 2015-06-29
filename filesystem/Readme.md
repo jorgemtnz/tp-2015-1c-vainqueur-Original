@@ -8,12 +8,41 @@ http://www.utn.so/weather/201302hourly.txt.gz
 http://www.utn.so/weather/201303hourly.txt.gz
 
 ----------------------------------------------------------
-no me reconoce el .h cuando esta en otra carpeta. 
-Creo que se debe hacer un proyecto de una libreria compartida,
- y ahi pondriamos todos los .h de todas las carpetas, tengo dudas sobre 
-como hacerlo.
-
-por lo que copie los archivos de consola.h y consola.c  directamente
- a la carpeta del filesystem.
-
+arbol de funciones
+formatearMDFS()
+>>liberaMemoriaFS(); inicializarFilesystem();
+eliminarArchivo()
+>>	eliminarElemento(nombreArchivo);
+renombrarArchivo()
+>>renombrarElemento(ptrArchivo, nuevoNombreArchivo);
+moverArchivo()
+>>buscarElementoPorNombre(nombreDirectorioDestino);
+>>moverElemento(ptrArchivo, directorioDestino);
+crearDirectorio()
+>>crearElemento();
+ eliminarDirectorio()
+ >>eliminarElemento()
+ renombrarDirectorio()
+ >> buscarElementoPorNombre(nombreDirectorio);
+ >>renombrarElemento(ptrDirectorio, nuevoNombreDirectorio);
+  moverDirectorio()
+  >>buscarElementoPorNombre(nombreDirectorioDestino);
+  moverElemento(directorioOrigen, directorioDestino);
+  copiarArchivoLocalAlMDFS()
+  >>sacarUltimaParte(dirArchivoLocal);
+  >>mapeoAmemoria(dirArchivo, ptrAMemoriaModificado, ptrTamanioDePagina);
+  >>desMapea(*ptrTamanioDePagina, ptrComienzoMemoriaMapeada);
+  >>divideBloques(&buffer[0], archivoEntrante);
+  >>>>
+  void verUbicacionBloque() 
+  actualizarListaDeArchivos(ubicacionDelBloqueEnNodo* unaUbicacion,
+		element* unArchivo)
+  void copiarBloque() 
+  >>devuelveBloque(nombreArchivo, numeroBloque);
+  >>solicitudCopiaDeBloque(); --> falta hacer
+   borrarBloque() 
+   >>buscarElementoPorNombre(nombreArchivo);
+   >>actualizarListaDeArchivos(miUbicacion, ptrArchivo);
+   >>>>
+  
 saludos

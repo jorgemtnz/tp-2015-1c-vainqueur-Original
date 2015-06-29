@@ -235,3 +235,11 @@ ubicacionDelBloqueEnNodo* devuelveBloque(char* nombreArchivo, int numeroBloque) 
 	}
 	return ptrNodoBloque;
 }
+
+char* sacarUltimaParte(char* dirArchivoLocal)
+{
+	char* nombreArchivo;
+	nombreArchivo = strdup(strrchr(dirArchivoLocal, '/'));
+	sscanf(nombreArchivo,"/%s",nombreArchivo); // Le borro el primer char
+	return nombreArchivo;
+}

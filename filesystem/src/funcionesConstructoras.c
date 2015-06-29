@@ -23,6 +23,19 @@ bloq* crearBloque() { //constructor del bloque
 	bloque->tamanio = VEINTEMEGAS; //20 mb
 	return bloque;
 }
+//no borrar esta funcion
+ubicacionDelBloqueEnNodo* crearUbicacionDelBloqueEnNodo(){
+	ubicacionDelBloqueEnNodo* unaUbicacion = malloc(sizeof(ubicacionDelBloqueEnNodo));
+	if(unaUbicacion==NULL){
+			perror("[ERROR] No se reservo memoria para el Filesystem>..>ubicacionDelBloqueEnNodo");
+					exit(-1);
+		}
+	unaUbicacion->numeroCopia=0; //este valor se setea posteriormente
+	unaUbicacion->numeroDeBloqueDelNodo=0;
+	unaUbicacion->numeroNodo=0;
+	unaUbicacion->bloqueArchivo=0;
+	return unaUbicacion;
+}
 
 element* crearElemento() { //crea un elemento generico para despues configurarlo como archivo o carpeta
 	element* elemento = malloc(sizeof(element)); //creamos espacio para el elemnto
