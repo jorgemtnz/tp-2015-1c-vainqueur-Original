@@ -314,7 +314,7 @@ void actualizarListaDeArchivos(ubicacionDelBloqueEnNodo* unaUbicacion,
 		element* unArchivo) {
 	int nodoABuscar = unaUbicacion->numeroNodo;
 	int bloqueABuscar = unaUbicacion->numeroDeBloqueDelNodo;
-	// nodoABuscar && bloqueABuscar
+	nod* unNodo = NULL;
 	bool condicion(ubicacionDelBloqueEnNodo* ubicacionDeLista) {
 		if (ubicacionDeLista->numeroNodo == nodoABuscar
 				&& ubicacionDeLista->numeroDeBloqueDelNodo == bloqueABuscar) {
@@ -324,6 +324,8 @@ void actualizarListaDeArchivos(ubicacionDelBloqueEnNodo* unaUbicacion,
 	}
 	list_remove_by_condition(unArchivo->dobleListaUbicacionDelBloqueEnNodo,
 			(void*) condicion);	// Es una lista doble!!
+	unNodo = list_find(FILESYSTEM->listaNodosConectados, (void*) condicion);
+	unNodo->estado = ESTA_DISPONIBLE;
 }
 
 void borrarBloque() {
