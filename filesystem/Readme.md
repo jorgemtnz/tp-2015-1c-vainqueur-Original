@@ -28,18 +28,23 @@ crearDirectorio()
   moverDirectorio()
   >>buscarElementoPorNombre(nombreDirectorioDestino);
   moverElemento(directorioOrigen, directorioDestino);
+  
   copiarArchivoLocalAlMDFS()
   >>sacarUltimaParte(dirArchivoLocal);
   >>mapeoAmemoria(dirArchivo, ptrAMemoriaModificado, ptrTamanioDePagina);
   >>desMapea(*ptrTamanioDePagina, ptrComienzoMemoriaMapeada);
   >>divideBloques(&buffer[0], archivoEntrante);
-  >>>>
+  >>>>copiaDistribuyeYEmpaqueta(bloqueFinal, cantBloque, unElemento);
+  >>>>>>puedoHacerCopias(cantBloques)
+  >>>>>>distribucionInicial(bloqueListo,elemento);
+  >>>>>>>>empaquetarYMandarPorSocket(bloqueListo, unNodoBloque); <--santiago
   void verUbicacionBloque() 
   actualizarListaDeArchivos(ubicacionDelBloqueEnNodo* unaUbicacion,
 		element* unArchivo)
   void copiarBloque() 
   >>devuelveBloque(nombreArchivo, numeroBloque);
   >>solicitudCopiaDeBloque(); --> falta hacer
+   
    borrarBloque() 
    >>buscarElementoPorNombre(nombreArchivo);
    >>actualizarListaDeArchivos(miUbicacion, ptrArchivo);

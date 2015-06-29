@@ -52,8 +52,11 @@ void guardarRegistro(int arch) { //esto mientras este el archivo abierto sino lo
 	write(arch, FILESYSTEM, sizeof(fs)); //le paso el registro fileSystem,y el archivo y lo escribe
 }
 
-void empaquetarYMandarPorSocket(char* bloqueListo, ubicacionDelBloqueEnNodo* unNodoBloque) {
-
+void empaquetarYMandarPorSocket(char* bloqueListo,
+		ubicacionDelBloqueEnNodo* unNodoBloque) {
+	//implementame Santiago, bloqueListo es lo que se debe pasar, al
+//unNodoBloque->numeroDeBloqueDelNodo;
+//unNodoBloque->numeroNodo;
 }
 
 int devuelveCantBloquesLista(void*lista, int elementosEnLista) {
@@ -119,11 +122,10 @@ bool puedoHacerCopias(int cantBloquesOriginales) {
 	}
 }
 
-
-bloq* buscaBloqueDisponible(nod* unNodo){
+bloq* buscaBloqueDisponible(nod* unNodo) {
 	bloq* primerBloqueDisponible;
 
-	bool condicion(bloq* unBloque){
+	bool condicion(bloq* unBloque) {
 		return (unBloque->estaOcupado != ESTA_OCUPADO);
 	}
 
@@ -133,34 +135,37 @@ bloq* buscaBloqueDisponible(nod* unNodo){
 	return primerBloqueDisponible;
 }
 
-void distribucionInicial(char* bloqueListo, element* unElemento)
-{
-	ubicacionDelBloqueEnNodo* unNodoBloque =NULL;
-	nod* primerNodo=NULL;
+void distribucionInicial(char* bloqueListo, element* unElemento) {
+	ubicacionDelBloqueEnNodo* unNodoBloque = malloc(
+			sizeof(ubicacionDelBloqueEnNodo));
+	unNodoBloque = NULL;
+	nod* primerNodo = NULL;
 
-	int cantidadCopias; 
-	for (cantidadCopias = COPIAS_BLOQUE; cantidadCopias >= 0; cantidadCopias--)
-	{
-		primerNodo = list_remove(FILESYSTEM->listaNodosConectados, 0); 		// Descolo el primer nodo de la listaNodosConectados
+	int cantidadCopias;
+	for (cantidadCopias = COPIAS_BLOQUE; cantidadCopias >= 0;
+			cantidadCopias--) {
+		primerNodo = list_remove(FILESYSTEM->listaNodosConectados, 0); // Descolo el primer nodo de la listaNodosConectados
 		// Seteo unNodoBloque
-		unNodoBloque->numeroCopia 			= cantidadCopias;
-		unNodoBloque->numeroNodo 			= primerNodo-> numero ;
-		unNodoBloque->numeroDeBloqueDelNodo = (buscaBloqueDisponible(primerNodo))->numero;
+		unNodoBloque->numeroCopia = cantidadCopias;
+		unNodoBloque->numeroNodo = primerNodo->numero;
+		unNodoBloque->numeroDeBloqueDelNodo =
+				(buscaBloqueDisponible(primerNodo))->numero;
 		// Fin seteo unNodoBloque
 
-		list_add(FILESYSTEM->listaNodosConectados, primerNodo); 				// Encolo el primer nodo de la lista
+		list_add(FILESYSTEM->listaNodosConectados, primerNodo); // Encolo el primer nodo de la lista
 
-		list_add(unElemento->dobleListaUbicacionDelBloqueEnNodo,unNodoBloque);	// Actualizo la estructura
+		list_add(unElemento->dobleListaUbicacionDelBloqueEnNodo, unNodoBloque);	// Actualizo la estructura
 
 		empaquetarYMandarPorSocket(bloqueListo, unNodoBloque);
 	}
+	free(unNodoBloque);
 }
 
-void copiaDistribuyeYEmpaqueta(char* bloqueListo, int cantBloques, element*  elemento) {
-		if (puedoHacerCopias(cantBloques)) {	// Esta hace la simulacion para ver si
-											// se pueden hacer las copias del archivo
-		distribucionInicial(bloqueListo,elemento);
-
+void copiaDistribuyeYEmpaqueta(char* bloqueListo, int cantBloques,
+		element* elemento) {
+	if (puedoHacerCopias(cantBloques)) {// Esta hace la simulacion para ver si
+		// se pueden hacer las copias del archivo
+		distribucionInicial(bloqueListo, elemento);
 	} else {
 		perror("[ERROR] no se puede copiar el archivo al MDFS");
 		exit(-1);
@@ -175,18 +180,17 @@ int devuelveCantidadElementosArreglo(char** arregloPtrContenidoBloque) {
 	return contadorBloques;
 }
 
-void divideBloques(char** ptrArregloConOracionesParaBloque,element* unElemento) {
-	char* bloqueFinal;
+void divideBloques(char** ptrArregloConOracionesParaBloque, element* unElemento) {
+	char* bloqueFinal = malloc(sizeof(char*));
 	char* bloqueTemporal = string_new();
 	int posicionOracion = 0;
-	int posicionesParaBloque[308];
-	int contadorBloque = 0;
+	int posicionesParaBloque[308]; //tomado del maximo de bloques que puede haber para un archivo de 6Gb
 	int cantBloque = 0;
 	int i, j;
 	int tamanioTemporal;
 	j = 0;
-	while (ptrArregloConOracionesParaBloque[posicionOracion] != NULL) { // lo hacemos porque queremos saber la cantidad de bloques que se deben planificar
-		//	   para luego mandarselos a
+	while (ptrArregloConOracionesParaBloque[posicionOracion] != NULL) { // lo hacemos porque queremos saber
+		//la cantidad de bloques que se deben planificar  para luego mandarselos a la funcion que verifica si se puede hacer la copia
 		tamanioTemporal =
 				sizeof(ptrArregloConOracionesParaBloque[posicionOracion]);
 		if (tamanioTemporal != VEINTEMEGAS) {
@@ -203,7 +207,7 @@ void divideBloques(char** ptrArregloConOracionesParaBloque,element* unElemento) 
 			posicionesParaBloque[cantBloque] = posicionOracion;
 			cantBloque++;
 		}
-		for (i = 0; i < cantBloque; i++) {	//para que arme todos los bloques , ya tenemos las posiciones de las oraciones
+		for (i = 0; i < cantBloque; i++) {//para que arme todos los bloques , ya tenemos las posiciones de las oraciones
 			bloqueFinal = string_repeat('0', VEINTEMEGAS);
 
 			strcpy(bloqueTemporal, ptrArregloConOracionesParaBloque[j]);
@@ -216,19 +220,22 @@ void divideBloques(char** ptrArregloConOracionesParaBloque,element* unElemento) 
 			copiaDistribuyeYEmpaqueta(bloqueFinal, cantBloque, unElemento);
 		}
 	}
+	free(bloqueFinal);
 }
 
 ubicacionDelBloqueEnNodo* devuelveBloque(char* nombreArchivo, int numeroBloque) {
 	element* ptrArchivo;
-	ubicacionDelBloqueEnNodo* ptrNodoBloque;
-
+	ubicacionDelBloqueEnNodo* ptrNodoBloque = NULL;
+	bool compNumeroBloque(ubicacionDelBloqueEnNodo* unaUbicacion) {
+return (unaUbicacion->numeroDeBloqueDelNodo == numeroBloque);
+	}
 	ptrArchivo = buscarElementoPorNombre(nombreArchivo);
 	if (ptrArchivo == NULL) {
 		perror("[ERROR]mostrarBloque: no se encuentra el archivo");
 		exit(-1);
 	}
-//	ptrNodoBloque = list_find(ptrArchivo->matrizUbicacionDelBloqueEnNodo,
-//		(void*) compNumeroBloque);
+	ptrNodoBloque = list_find(ptrArchivo->dobleListaUbicacionDelBloqueEnNodo,
+			(void*) compNumeroBloque);
 	if (ptrNodoBloque == NULL) {
 		perror("[ERROR]mostrarBloque: no se encuentra el bloque");
 		exit(-1);
@@ -236,10 +243,9 @@ ubicacionDelBloqueEnNodo* devuelveBloque(char* nombreArchivo, int numeroBloque) 
 	return ptrNodoBloque;
 }
 
-char* sacarUltimaParte(char* dirArchivoLocal)
-{
+char* sacarUltimaParte(char* dirArchivoLocal) {
 	char* nombreArchivo;
 	nombreArchivo = strdup(strrchr(dirArchivoLocal, '/'));
-	sscanf(nombreArchivo,"/%s",nombreArchivo); // Le borro el primer char
+	sscanf(nombreArchivo, "/%s", nombreArchivo); // Le borro el primer char
 	return nombreArchivo;
 }

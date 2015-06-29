@@ -213,7 +213,6 @@ void copiarArchivoLocalAlMDFS() {
 	char* dirArchivo;
 	element* archivoEntrante = malloc(sizeof(element));
 	// Variables que odia Lucas
-
 	char** buffer = NULL;
 	char* ptrComienzoMemoriaMapeada = NULL;
 	int* ptrTamanioDePagina = NULL;
@@ -228,14 +227,13 @@ void copiarArchivoLocalAlMDFS() {
 	scanf("%s", dirArchivoLocal);
 
 	nombreArchivo = sacarUltimaParte(dirArchivoLocal);
-
 	dirArchivo = strdup(dirArchivoLocal);// ya probado, es simil a usar malloc y luego strcpy. Excelente aporte
 
 	mapeoAmemoria(dirArchivo, ptrAMemoriaModificado, ptrTamanioDePagina);
 	buffer = string_split(ptrComienzoMemoriaMapeada, "\n");
 	desMapea(*ptrTamanioDePagina, ptrComienzoMemoriaMapeada);
 	archivoEntrante = crearElemento();
-	// Lo alojamos en la raiz, index de la raiz = 0. Cualquier cosa lo movemos
+	// Lo alojamos en la raiz, index de la raiz = 0. Cualquier cosa lo movemos desde consola
 	// Seteo archivoEntrante
 	archivoEntrante->directorioPadre = 0;
 	archivoEntrante->nombre = strdup(nombreArchivo);
@@ -245,6 +243,7 @@ void copiarArchivoLocalAlMDFS() {
 
 	divideBloques(&buffer[0], archivoEntrante);
 	free(archivoEntrante);
+	free(dirArchivo);
 }
 
 void copiarArchivoDelMDFSAlFSLocal() {
