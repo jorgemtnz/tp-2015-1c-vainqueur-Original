@@ -1,4 +1,5 @@
 #include "filesystem.h"
+#include <protocolo/protocolo.h>
 
 /*------------------------FUNCIONES AUXILIARES---------------------------*/
 void leerArchivoDeConfiguracion() {	// El archivo config de FS tiene PUERTO_LISTEN Y LISTA_NODOS
@@ -54,9 +55,22 @@ void guardarRegistro(int arch) { //esto mientras este el archivo abierto sino lo
 
 void empaquetarYMandarPorSocket(char* bloqueListo,
 		ubicacionDelBloqueEnNodo* unNodoBloque) {
-	//implementame Santiago, bloqueListo es lo que se debe pasar, al
-//unNodoBloque->numeroDeBloqueDelNodo;
-//unNodoBloque->numeroNodo;
+
+		t_escrituraBloque* envio_bloque;
+
+		void * mensajeBloqueParaNodo;
+
+		envio_bloque->bloqueListo = bloqueListo;
+		envio_bloque->unNodoBloque.numeroCopia = unNodoBloque->numeroCopia;
+		envio_bloque->unNodoBloque.numeroDeBloqueDelNodo = unNodoBloque->numeroDeBloqueDelNodo;
+		envio_bloque->unNodoBloque.numeroNodo = unNodoBloque->numeroNodo;
+
+		(void*)envio_bloque;
+
+		//La variable mensajeBloqueParaNodo ya está lista para mandarse por socket
+		mensajeBloqueParaNodo = prepararParaEnviar(ESCRITURA_BLOQUE,envio_bloque);
+
+
 }
 
 int devuelveCantBloquesLista(void*lista, int elementosEnLista) {
