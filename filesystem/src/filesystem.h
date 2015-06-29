@@ -59,6 +59,7 @@ typedef struct nod {
 
 typedef struct ubicacionDelBloqueEnNodo {
 	int numeroCopia; // 0 original, 1 copia 1, n copia n.
+	int bloqueArchivo;
 	int numeroNodo;
 	int numeroDeBloqueDelNodo;
 } ubicacionDelBloqueEnNodo;
@@ -126,13 +127,14 @@ void divideBloques(char** ptrArregloConOracionesParaBloque,element* unElemento);
 ubicacionDelBloqueEnNodo* devuelveBloque(char* nombreArchivo, int numeroBloque) ;//recibe un nombre de archivo y un numero de blqoue y devuelve un tipo de datoubicaionNodoBlqoue
 void verUbicacionBloque(); //se debe modificar , porque solapo la de mostrar bloque
 void solicitudCopiaDeBloque();// se esta implementando
+char* sacarUltimaParte(char* dirArchivoLocal);
 
 // Funciones de Consola
 void renombrarElemento(element* ptrElemento, char* nuevoNombreElemento);
 void moverElemento(element* elementoOrigen, element* directorioDestino);
 void eliminarElemento(char* nombreElemento);
 void mostrarElementos() ;
-char* sacarUltimaParte(char* dirArchivoLocal);
+
 
 void formatearMDFS();
 void eliminarArchivo();
@@ -149,8 +151,8 @@ void solicitarMD5deUnArchivoenMDFS(); // Falta implementar
 void copiarBloque() ;				// Falta implementar
 void actualizarListaDeArchivos(ubicacionDelBloqueEnNodo* unaUbicacion,element* unArchivo); // Usada para borrarBloque // Usa doble lista VER
 void borrarBloque() ;
-void agregarNodo(char* nombre);		// Necesita Sockets?
-void eliminarNodo(char* nombre);	// Falta implementar
+void agregarNodo();		// Necesita Sockets?
+void eliminarNodo();	// Falta implementar
 void mostrarComandos();
 
 // Consola implementacion
