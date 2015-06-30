@@ -53,7 +53,7 @@ void eliminarElemento(char* nombreElemento) {
 } // Sirve para archivos y directorios
 
 void formatearMDFS() {
-	liberaMemoriaFS();
+
 	inicializarFilesystem();
 }
 
@@ -390,15 +390,22 @@ void borrarBloque() {
 }
 
 void agregarNodo() { //FALTA VER EL TEMA DE SOCKETS
-	char* nombre;
 	nod* nodo;
-	nodo = crearNodo(nombre); // la funcion constructora no recibe ningun parametro
+	nodo = crearNodo(); // la funcion constructora no recibe ningun parametro
+
+	// conectaNodo();
+	// identificaNodo(nodo->numero);
+	//---Santiago implementa paso de mensaje y conexion
+	//
 	list_add(FILESYSTEM->listaNodosConectados, nodo);
 // Agrega al nodo a la lista de nodos del FS
 }
 
 void eliminarNodo() { //falta implementar
-	char* nombre;
+  int numero =0;
+	printf("Ingrese el numero del nodo a eliminar");
+		scanf("%d", numero);
+
 	//list_remove_by_condition(FILESYSTEM->listaNodos), condicion(nombre) );//remueve de la lista el nodo que concuerda con el nombre ingresado eso creo
 }
 
@@ -439,7 +446,7 @@ void mostrarComandos() {
 void mostrarElementos() {
 	int elementosEnLista = FILESYSTEM->listaElementos->elements_count;
 	int i;
-	for (i = 0; i <= elementosEnLista; i++) {
+	for (i = 0; i < elementosEnLista; i++) {
 		element* elementoi;
 		elementoi = list_get(FILESYSTEM->listaElementos, i);
 		printf("Index:%d   Elemento:%s\n", elementoi->index, elementoi->nombre);

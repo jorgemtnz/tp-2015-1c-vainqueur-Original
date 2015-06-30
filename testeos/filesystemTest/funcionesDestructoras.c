@@ -6,9 +6,8 @@ void liberaMemoriaBloque(bloq* bloque) { //libera memoria del tipo bloque
 }
 
 void liberaMemoriaNodo(nod* nodo) { //libera la memoria del nodo
-	free(nodo->dirEspacioNodo);
-	list_destroy_and_destroy_elements(nodo->listaBloques,
-									  liberaMemoriaBloque);
+		list_destroy_and_destroy_elements(nodo->listaBloques,
+				(void*) liberaMemoriaBloque);
 	free(nodo);
 }
 
@@ -19,7 +18,7 @@ void liberaNodoBloque(ubicacionDelBloqueEnNodo* nodoBloque) {
 void liberaMemoriaElement(element* elemento) {
 	free(elemento->nombre);
 list_destroy_and_destroy_elements(elemento->dobleListaUbicacionDelBloqueEnNodo,
-								  liberaNodoBloque);
+								  (void*)liberaNodoBloque);
 	free(elemento);
 }
 
@@ -28,8 +27,8 @@ void liberaMemoriaFS() {
 	free(FILESYSTEM->ipNodos);
 
 	list_destroy_and_destroy_elements(FILESYSTEM->listaNodosConectados,
-									  liberaMemoriaNodo);
+			(void*) liberaMemoriaNodo);
 	list_destroy_and_destroy_elements(FILESYSTEM->listaElementos,
-									  liberaMemoriaElement);
+			(void*)liberaMemoriaElement);
 	free(FILESYSTEM);
 }

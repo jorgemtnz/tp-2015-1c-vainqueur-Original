@@ -8,21 +8,27 @@ C_SRCS += \
 ../mapeo\ y\ redirecciono.c \
 ../servidor.c \
 ../testBuscaBloqueYMarcaOcupado.c \
-../testCliente.c 
+../testCliente.c \
+../testCrearFilesystem.c \
+../testeoModificaElemento.c 
 
 OBJS += \
 ./logger.o \
 ./mapeo\ y\ redirecciono.o \
 ./servidor.o \
 ./testBuscaBloqueYMarcaOcupado.o \
-./testCliente.o 
+./testCliente.o \
+./testCrearFilesystem.o \
+./testeoModificaElemento.o 
 
 C_DEPS += \
 ./logger.d \
 ./mapeo\ y\ redirecciono.d \
 ./servidor.d \
 ./testBuscaBloqueYMarcaOcupado.d \
-./testCliente.d 
+./testCliente.d \
+./testCrearFilesystem.d \
+./testeoModificaElemento.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

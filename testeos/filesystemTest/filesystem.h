@@ -52,15 +52,15 @@ typedef struct bloq {
 typedef struct nod {
 	int numero;
 	int estado;
+
 //	long    long tamanio; 2GB  consultar, posiblemente no sea necesario
 	t_list* listaBloques;   //del nodo
-	char* dirEspacioNodo;
 } nod;
 
 typedef struct ubicacionDelBloqueEnNodo {
 	int numeroCopia; // 0 original, 1 copia 1, n copia n.
-	int bloqueArchivo;
-	int numeroNodo;
+	int bloqueArchivo; // este es el numero que representa que bloque del archivo es
+	int numeroNodo;     //identifica al nodo
 	int numeroDeBloqueDelNodo;
 } ubicacionDelBloqueEnNodo;
 
@@ -70,14 +70,17 @@ typedef struct element {
 	int index;
 	int tamanio;
 	int directorioPadre;
+	int idUbicacionDelBloqueEnNodo;
 	int tipoElemento; // USAR DEFINE: ESDIRECTORIO (1) para directorio, ESARCHIVO (0) para archivo o documento.
 	t_list* dobleListaUbicacionDelBloqueEnNodo;
-	// Agregar ubicacionDelBloqueEnNodo en constructora y destructora
+// Agregar ubicacionDelBloqueEnNodo en constructora y destructora
 } element;
 
 typedef struct fs {
 	int estado;
 	int espacioDisponible;
+	int idElemento; //valor incremental que no se repite
+	int idNodo;  //valor incremental que no se repite
 	t_list* listaNodosConectados;
 	t_list* listaElementos;
 	char** ipNodos;	// Array de strings
@@ -96,11 +99,13 @@ typedef struct t_escritura_bloque {
 
 // +++++++++++++++++++++++++++++++++++++++ Prototipos +++++++++++++++++++++++++++++++++++++
 // Funciones Constructoras crea los malloc de las estructuras e inicializa
-nod* crearNodo();
 bloq* crearBloque();
+nod* crearNodo();
+ubicacionDelBloqueEnNodo* crearUbicacionDelBloqueEnNodo();
 element* crearElemento();
 void crearFileSystem();
 void inicializarFilesystem();
+
 
 // Funciones Destructoras hace el free de las estructuras para las que se hizo un malloc
 void liberaMemoriaBloque(bloq* bloque);
@@ -110,31 +115,32 @@ void liberaMemoriaElement(element* elemento);
 void liberaMemoriaFS();
 
 // Funciones Auxiliares
-void leerArchivoDeConfiguracion();//lee el archivo configuracion
-element* buscarElementoPorNombre(char* nombre);//recibe un nombre y devuelve un tipo element*
-void crearYAgregarBloquesALista(t_list *listaBloques, int cantidadBloquesACrear) ;//recibe una lista de blqoues y un cantidad de bloques a cargar en esa lista
-void leerRegistro(int arch) ;//lee un registro guardado en un txt
-void guardarRegistro(int arch);//guarda un registro en un txt
-void empaquetarYMandarPorSocket(char* bloqueListo, ubicacionDelBloqueEnNodo* unNodoBloque); 	// Falta implementar
+void leerArchivoDeConfiguracion();	//lee el archivo configuracion
+element* buscarElementoPorNombre(char* nombre);	//recibe un nombre y devuelve un tipo element*
+void crearYAgregarBloquesALista(t_list *listaBloques, int cantidadBloquesACrear);//recibe una lista de blqoues y un cantidad de bloques a cargar en esa lista
+void leerRegistro(int arch);	//lee un registro guardado en un txt
+void guardarRegistro(int arch);	//guarda un registro en un txt
+void empaquetarYMandarPorSocket(char* bloqueListo,
+		ubicacionDelBloqueEnNodo* unNodoBloque); 	// Falta implementar
 int devuelveCantBloquesLista(void*lista, int elementosEnLista);	// Falta implementar
 int devuelveMenorNodoConBloques();//devuelve el nodoID con menor cantidad de bloques
-bool puedoHacerCopias(int cantBloquesOriginales) ;//algoritmo que calcula si se puede realizar el copiado
+bool puedoHacerCopias(int cantBloquesOriginales);//algoritmo que calcula si se puede realizar el copiado
 bloq* buscaBloqueDisponible(nod* unNodo);//devuelve el primer blqoue disponible para almacenar informacion
 void distribucionInicial(char* bloqueListo, element* unElemento);//recibe un blqoue listo y un elemento (Archivo) para distribuirlo en los nodos equitativamente
-void copiaDistribuyeYEmpaqueta(char* bloqueListo, int cantBloques, element*  elemento) ;//recibe un bloque listo y inicia la copia del bloque a los nodos
-int devuelveCantidadElementosArreglo(char** arregloPtrContenidoBloque);//devuelve la cantidad de venctores en un arreglo (se usa par ala canto de blques originales ya que es un vector muy grande y no todos estas llenos)
-void divideBloques(char** ptrArregloConOracionesParaBloque,element* unElemento);//guarda en un vector donde se almacenan las ultimas posiciones de las oraciones al poner en un bloque listo
-ubicacionDelBloqueEnNodo* devuelveBloque(char* nombreArchivo, int numeroBloque) ;//recibe un nombre de archivo y un numero de blqoue y devuelve un tipo de datoubicaionNodoBlqoue
+void copiaDistribuyeYEmpaqueta(char* bloqueListo, int cantBloques,
+		element* elemento);	//recibe un bloque listo y inicia la copia del bloque a los nodos
+int devuelveCantidadElementosArreglo(char** arregloPtrContenidoBloque);	//devuelve la cantidad de venctores en un arreglo (se usa par ala canto de blques originales ya que es un vector muy grande y no todos estas llenos)
+void divideBloques(char** ptrArregloConOracionesParaBloque, element* unElemento);//guarda en un vector donde se almacenan las ultimas posiciones de las oraciones al poner en un bloque listo
+ubicacionDelBloqueEnNodo* devuelveBloque(char* nombreArchivo, int numeroBloque);//recibe un nombre de archivo y un numero de blqoue y devuelve un tipo de datoubicaionNodoBlqoue
 void verUbicacionBloque(); //se debe modificar , porque solapo la de mostrar bloque
-void solicitudCopiaDeBloque();// se esta implementando
+void solicitudCopiaDeBloque(); // se esta implementando
 char* sacarUltimaParte(char* dirArchivoLocal);
 
 // Funciones de Consola
 void renombrarElemento(element* ptrElemento, char* nuevoNombreElemento);
 void moverElemento(element* elementoOrigen, element* directorioDestino);
 void eliminarElemento(char* nombreElemento);
-void mostrarElementos() ;
-
+void mostrarElementos();
 
 void formatearMDFS();
 void eliminarArchivo();
@@ -148,9 +154,10 @@ void copiarArchivoLocalAlMDFS();      // RECORDAR: CAMBIARLE LOS NULL
 void copiarArchivoDelMDFSAlFSLocal(); // Falta implementar
 void solicitarMD5deUnArchivoenMDFS(); // Falta implementar
 
-void copiarBloque() ;				// Falta implementar
-void actualizarListaDeArchivos(ubicacionDelBloqueEnNodo* unaUbicacion,element* unArchivo); // Usada para borrarBloque // Usa doble lista VER
-void borrarBloque() ;
+void copiarBloque();				// Falta implementar
+void actualizarListaDeArchivos(ubicacionDelBloqueEnNodo* unaUbicacion,
+		element* unArchivo); // Usada para borrarBloque // Usa doble lista VER
+void borrarBloque();
 void agregarNodo();		// Necesita Sockets?
 void eliminarNodo();	// Falta implementar
 void mostrarComandos();
