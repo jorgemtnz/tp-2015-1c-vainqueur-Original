@@ -1,18 +1,15 @@
 #include "protocolo.h"
 
 int obtenerHeader(char* buffer) {
-	int pesoDeEntero = sizeof(int32_t);
-	int header =
 
+char* primerChar = malloc(sizeof(char));
 
-//char* primerChar = malloc(sizeof(char));
-//
-//	int header = 0;
-//	(char*) buffer;
-//	primerChar = string_substring_until(buffer, UN_BYTE);
-//	header = (*(primerChar)) - '0'; //Lo paso a int
-////	close(primerChar);
-//	return header;
+	int header = 0;
+	(char*) buffer;
+	primerChar = string_substring_until(buffer, UN_BYTE);
+	header = (*(primerChar)) - '0'; //Lo paso a int
+	close(primerChar);
+	return header;
 }
 
 char * obtenerPayload(void* buffer) {
@@ -42,14 +39,14 @@ void * obtenerEstructura(void * buffer) {
 		break;
 
 	case ESCRITURA_BLOQUE:
-		/*
+		
 		 t_escrituraBloque escribir_en_bloque;
 
 		 escribir_en_bloque.numeroDeBloque = string_substring_until( payload, UN_BYTE);
 		 escribir_en_bloque.archivo = string_substring_from( payload, UN_BYTE);
 
 		 bufferConEstructura = (void *)escribir_en_bloque;
-		 */
+		 
 		break;
 
 	case INFORMAR_UBICACION_ARCHIVOS:
