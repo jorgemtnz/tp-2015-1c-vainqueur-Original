@@ -5,15 +5,24 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../logger.c \
-../mapeo\ y\ redirecciono.c 
+../mapeo\ y\ redirecciono.c \
+../servidor.c \
+../testBuscaBloqueYMarcaOcupado.c \
+../testCliente.c 
 
 OBJS += \
 ./logger.o \
-./mapeo\ y\ redirecciono.o 
+./mapeo\ y\ redirecciono.o \
+./servidor.o \
+./testBuscaBloqueYMarcaOcupado.o \
+./testCliente.o 
 
 C_DEPS += \
 ./logger.d \
-./mapeo\ y\ redirecciono.d 
+./mapeo\ y\ redirecciono.d \
+./servidor.d \
+./testBuscaBloqueYMarcaOcupado.d \
+./testCliente.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
