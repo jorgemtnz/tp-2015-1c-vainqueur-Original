@@ -1,5 +1,6 @@
-testeoModificaElemento.d: ../testeoModificaElemento.c \
- ../filesystemTest/filesystem.h \
+src/filesystemTest/funcionesAuxiliares.d: \
+ ../src/filesystemTest/funcionesAuxiliares.c \
+ ../src/filesystemTest/filesystem.h \
  /home/utnso/TPOperativos/delEquipo/mapeoAMemoria/mapeoAMemoria.h \
  /home/utnso/TPOperativos/commons-library/src/commons/string.h \
  /home/utnso/TPOperativos/commons-library/src/commons/collections/list.h \
@@ -7,9 +8,10 @@ testeoModificaElemento.d: ../testeoModificaElemento.c \
  /home/utnso/TPOperativos/commons-library/src/commons/txt.h \
  /home/utnso/TPOperativos/commons-library/src/commons/config.h \
  /home/utnso/TPOperativos/commons-library/src/commons/collections/dictionary.h \
- /home/utnso/TPOperativos/delEquipo/sockets/sockets.h
+ /home/utnso/TPOperativos/delEquipo/sockets/sockets.h \
+ /home/utnso/TPOperativos/delEquipo/protocolo/protocolo.h
 
-../filesystemTest/filesystem.h:
+../src/filesystemTest/filesystem.h:
 
 /home/utnso/TPOperativos/delEquipo/mapeoAMemoria/mapeoAMemoria.h:
 
@@ -26,3 +28,5 @@ testeoModificaElemento.d: ../testeoModificaElemento.c \
 /home/utnso/TPOperativos/commons-library/src/commons/collections/dictionary.h:
 
 /home/utnso/TPOperativos/delEquipo/sockets/sockets.h:
+
+/home/utnso/TPOperativos/delEquipo/protocolo/protocolo.h:

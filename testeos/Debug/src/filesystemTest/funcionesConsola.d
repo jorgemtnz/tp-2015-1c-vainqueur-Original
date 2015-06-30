@@ -1,5 +1,6 @@
-filesystemTest/funcionesConsola.d: ../filesystemTest/funcionesConsola.c \
- ../filesystemTest/filesystem.h \
+src/filesystemTest/funcionesConsola.d: \
+ ../src/filesystemTest/funcionesConsola.c \
+ ../src/filesystemTest/filesystem.h \
  /home/utnso/TPOperativos/delEquipo/mapeoAMemoria/mapeoAMemoria.h \
  /home/utnso/TPOperativos/commons-library/src/commons/string.h \
  /home/utnso/TPOperativos/commons-library/src/commons/collections/list.h \
@@ -9,7 +10,7 @@ filesystemTest/funcionesConsola.d: ../filesystemTest/funcionesConsola.c \
  /home/utnso/TPOperativos/commons-library/src/commons/collections/dictionary.h \
  /home/utnso/TPOperativos/delEquipo/sockets/sockets.h
 
-../filesystemTest/filesystem.h:
+../src/filesystemTest/filesystem.h:
 
 /home/utnso/TPOperativos/delEquipo/mapeoAMemoria/mapeoAMemoria.h:
 
