@@ -3,12 +3,13 @@
 // lo subo comentado porque voy a ir haciendo varios testeos. para ponerlo a funcionar quita el comentario, y correlo.
 //seleccionar el comentario  y ctrl + shift + 7 para quitar el comentario automaticamente.
 //esta ok, pero si te da errores , reviza las configuraciones del run configuracion, para pthread, y las LD_LIBRARY_PATH
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <commons/log.h>
-#include <commons/string.h>
-#include <pthread.h>
+//
+//#include <stdio.h>
+//#include <stdlib.h>
+//#include <commons/log.h>
+//#include <commons/string.h>
+//
+//#include <pthread.h>
 
 //static void log_in_disk(char* temp_file) {
 //    t_log* logger = log_create(temp_file, "TEST",true, LOG_LEVEL_INFO);

@@ -1,11 +1,11 @@
-#include <sockets/sockets.h>
-#include <stdio.h>
-#include<stdlib.h>
-
-typedef struct persona {
-	char* nombre;
-	int edad;
-} persona;
+//#include <sockets/sockets.h>
+//#include <stdio.h>
+//#include<stdlib.h>
+//
+//typedef struct persona {
+//	char* nombre;
+//	int edad;
+//} persona;
 
 //int mainSOLO() {
 //
