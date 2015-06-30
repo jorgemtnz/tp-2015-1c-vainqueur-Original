@@ -54,7 +54,6 @@ typedef struct nod {
 	int estado;
 //	long    long tamanio; 2GB  consultar, posiblemente no sea necesario
 	t_list* listaBloques;   //del nodo
-	char* dirEspacioNodo;
 } nod;
 
 typedef struct ubicacionDelBloqueEnNodo {

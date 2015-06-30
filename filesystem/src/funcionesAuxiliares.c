@@ -69,8 +69,6 @@ void empaquetarYMandarPorSocket(char* bloqueListo,
 
 		//La variable mensajeBloqueParaNodo ya está lista para mandarse por socket
 		mensajeBloqueParaNodo = prepararParaEnviar(ESCRITURA_BLOQUE,envio_bloque);
-
-
 }
 
 int devuelveCantBloquesLista(void*lista, int elementosEnLista) {

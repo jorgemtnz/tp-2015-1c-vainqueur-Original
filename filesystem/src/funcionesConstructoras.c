@@ -9,7 +9,6 @@ nod* crearNodo() {
 	}
 	nodo->estado = OPERATIVO;
 	nodo->listaBloques = list_create();
-	strcpy(nodo->dirEspacioNodo, UBICACIONNODO);
 	return nodo;
 }
 
