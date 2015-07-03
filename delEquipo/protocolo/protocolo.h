@@ -3,9 +3,9 @@
 #define PROTOCOLO_H_
 
 #include <stdio.h>
-#include <string.h>
 #include <src/commons/string.h>
-
+#include <stdlib.h>
+#include <memory.h>
 //++++++++++++++++++++++++++++ Constantes ++++++++++++++++++++++++++++++++++
 #define	ARCHIVO_CARGA_INICIAL 0
 #define	ESCRITURA_BLOQUE 1

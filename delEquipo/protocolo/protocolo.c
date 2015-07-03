@@ -1,8 +1,5 @@
-#include <stdio.h>
-#include <string.h>
-#include <src/commons/string.h>
 #include "protocolo.h"
-#include <stdlib.h>
+
 
 // En desarrollo
 
@@ -13,7 +10,7 @@ char* primerChar = malloc(sizeof(char));
 	(char*) buffer;
 	primerChar = string_substring_until(buffer, UN_BYTE);
 	header = (*(primerChar)) - '0'; //Lo paso a int
-//	close(primerChar);
+   free(primerChar);
 	return header;
 }
 
@@ -29,7 +26,7 @@ void * obtenerEstructura(void * buffer) {
 
 	int header;
 	char* payload;
-	void* bufferConEstructura;
+	char* bufferConEstructura;
 
 	header = obtenerHeader(buffer);
 
@@ -44,6 +41,22 @@ void * obtenerEstructura(void * buffer) {
 		break;
 
 	case ESCRITURA_BLOQUE:
+		(char*)buffer;
+
+
+		char * prueba = "hola$chau$si";
+		char * copia = malloc(sizeof(prueba));
+		char** contenido = malloc(40);
+
+		*(contenido) = malloc(20);
+		copia = strdup(prueba);
+		contenido = string_split(prueba, "$");
+
+		strcpy(contenido, *(contenido));
+
+		printf("%s", contenido);
+
+		strcpy(bufferConEstructura, *(contenido));
 		/*
 		 t_escrituraBloque escribir_en_bloque;
 
@@ -132,19 +145,18 @@ void * prepararParaEnviar(int protocolo, void * buffer) {
 		printf("%s\n", bloqueListo);
 		printf("%s\n",numeroCopiaStr);
 */
-		size_t tamanioBuffer = 5+sizeof(bloqueListo)+sizeof(numeroCopiaStr) + sizeof(protocoloStr) + sizeof(nroBloqueStr);
+//		int tamanioBuffer = 5+sizeof(bloqueListo)+sizeof(numeroCopiaStr) + sizeof(protocoloStr) + sizeof(nroBloqueStr);
 
-		bufferSerializado = (char *) malloc(tamanioBuffer);
+//		bufferSerializado = (char *) malloc(tamanioBuffer);
 
 		strcpy(bufferSerializado, protocoloStr);
-		strcat(bufferSerializado, SEPARADOR);
 		strcat(bufferSerializado, bloqueListo);
 		strcat(bufferSerializado, SEPARADOR);
 		strcat(bufferSerializado,numeroCopiaStr);
 		strcat(bufferSerializado, SEPARADOR);
 		strcat(bufferSerializado,nroBloqueStr);
 		strcat(bufferSerializado, SEPARADOR);
-		strcat(bufferSerializado,nroNodo);
+		strcat(bufferSerializado,nroNodoStr);
 
 		(void*)bufferSerializado;
 		break;
