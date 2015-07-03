@@ -53,25 +53,23 @@ void guardarRegistro(int arch) { //esto mientras este el archivo abierto sino lo
 	write(arch, FILESYSTEM, sizeof(fs)); //le paso el registro fileSystem,y el archivo y lo escribe
 }
 
-void empaquetarYMandarPorSocket(char* bloqueListo,
-		ubicacionDelBloqueEnNodo* unNodoBloque) {
-
-		t_escrituraBloque* envio_bloque;
-
-		void * mensajeBloqueParaNodo;
-
-		envio_bloque->bloqueListo = bloqueListo;
-		envio_bloque->unNodoBloque.numeroCopia = unNodoBloque->numeroCopia;
-		envio_bloque->unNodoBloque.numeroDeBloqueDelNodo = unNodoBloque->numeroDeBloqueDelNodo;
-		envio_bloque->unNodoBloque.numeroNodo = unNodoBloque->numeroNodo;
-
-		(void*)envio_bloque;
-
-		//La variable mensajeBloqueParaNodo ya está lista para mandarse por socket
-		mensajeBloqueParaNodo = prepararParaEnviar(ESCRITURA_BLOQUE,envio_bloque);
-
-
-}
+//void empaquetarYMandarPorSocket(char* bloqueListo,
+//		ubicacionDelBloqueEnNodo* unNodoBloque) {
+//
+//		t_escrituraBloque* envio_bloque;
+//
+//		void * mensajeBloqueParaNodo;
+//
+//		envio_bloque->bloqueListo = bloqueListo;
+//		envio_bloque->unNodoBloque.numeroCopia = unNodoBloque->numeroCopia;
+//		envio_bloque->unNodoBloque.numeroDeBloqueDelNodo = unNodoBloque->numeroDeBloqueDelNodo;
+//		envio_bloque->unNodoBloque.numeroNodo = unNodoBloque->numeroNodo;
+//
+//		(void*)envio_bloque;
+//
+//		//La variable mensajeBloqueParaNodo ya está lista para mandarse por socket
+//		mensajeBloqueParaNodo = prepararParaEnviar(ESCRITURA_BLOQUE,envio_bloque);
+//}
 
 int devuelveCantBloquesLista(void*lista, int elementosEnLista) {
 	int cantBloques = 0;
@@ -148,7 +146,7 @@ bloq* buscaBloqueDisponible(nod* unNodo) {
 
 	return primerBloqueDisponible;
 }
-
+//esta se utiliza cuando se recibe el archivo en el filesystem y se deben hacer las copias
 void distribucionInicial(char* bloqueListo, element* unElemento) {
 	ubicacionDelBloqueEnNodo* unNodoBloque = malloc(
 			sizeof(ubicacionDelBloqueEnNodo));
@@ -164,13 +162,15 @@ void distribucionInicial(char* bloqueListo, element* unElemento) {
 		unNodoBloque->numeroNodo = primerNodo->numero;
 		unNodoBloque->numeroDeBloqueDelNodo =
 				(buscaBloqueDisponible(primerNodo))->numero;
+		unNodoBloque->bloqueArchivo=0; //este valor no es el que lleva, MODIFICARLO
+
 		// Fin seteo unNodoBloque
 
 		list_add(FILESYSTEM->listaNodosConectados, primerNodo); // Encolo el primer nodo de la lista
 
 		list_add(unElemento->dobleListaUbicacionDelBloqueEnNodo, unNodoBloque);	// Actualizo la estructura
-
-		empaquetarYMandarPorSocket(bloqueListo, unNodoBloque);
+//se debe descomentar una vez que ya funcionen bien  el protocolo.c
+//		empaquetarYMandarPorSocket(bloqueListo, unNodoBloque);
 	}
 	free(unNodoBloque);
 }

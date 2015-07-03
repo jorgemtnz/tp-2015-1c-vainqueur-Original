@@ -17,7 +17,7 @@
 // s	borrarBloque
 // s	copiarBloque
 // s	agregarNodo  			// No debe recibir argumentos // Falta sockets
-// n	eliminarNodo
+// s	eliminarNodo
 // s	mostrarComandos
 // s 	mostrarElementos 		// Yapa
 void renombrarElemento(element* ptrElemento, char* nuevoNombreElemento) {
@@ -390,16 +390,30 @@ void borrarBloque() {
 }
 
 void agregarNodo() { //FALTA VER EL TEMA DE SOCKETS
-	char* nombre;
+
 	nod* nodo;
-	nodo = crearNodo(nombre); // la funcion constructora no recibe ningun parametro
+
+	nodo = crearNodo(); // la funcion constructora no recibe ningun parametro
+
+//	buscarPorsocketNodo(nodo->numero);// se le manda el numero identificatorio de ese nodo, que el nodo debe guardar
+//  implementame Santiago
+	// por lo que aca debe haber otra funcion que envie ese numero al nodo.
+
 	list_add(FILESYSTEM->listaNodosConectados, nodo);
 // Agrega al nodo a la lista de nodos del FS
 }
 
 void eliminarNodo() { //falta implementar
-	char* nombre;
-	//list_remove_by_condition(FILESYSTEM->listaNodos), condicion(nombre) );//remueve de la lista el nodo que concuerda con el nombre ingresado eso creo
+	int numero;
+
+	bool condicion(nod* unNodo) { //esta es una inner function, declarada dentro de una funcion.
+				return (numero == unNodo->numero); // quiero el bloque del nodo que contiene al bloque del archivo
+			}
+
+printf("ingrese el numero de nodo a eliminar \n");
+scanf("%d", &numero);
+
+list_remove_and_destroy_by_condition(FILESYSTEM->listaNodosConectados, (void*)condicion, (void*)liberaMemoriaNodo);
 }
 
 void mostrarComandos() {
@@ -439,7 +453,7 @@ void mostrarComandos() {
 void mostrarElementos() {
 	int elementosEnLista = FILESYSTEM->listaElementos->elements_count;
 	int i;
-	for (i = 0; i <= elementosEnLista; i++) {
+	for (i = 0; i < elementosEnLista; i++) {
 		element* elementoi;
 		elementoi = list_get(FILESYSTEM->listaElementos, i);
 		printf("Index:%d   Elemento:%s\n", elementoi->index, elementoi->nombre);
