@@ -115,9 +115,10 @@ void recibirPorSocket(int fdCliente, void *buf, int len)
 		exit(-1);
 	}
 
-	if(bytes_recibidos == 0){
-			printf("File descriptor desconectado\n");
-	}
+	/*if(bytes_recibidos == 0){
+	**		printf("File descriptor desconectado\n");
+	**}
+	*/
 }
 
 void cerrarSocket(int sockfd)
