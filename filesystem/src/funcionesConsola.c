@@ -14,6 +14,7 @@
 // n	copiarArchivoDelMDFSAlFSLocal
 // n	solicitarMD5deUnArchivoenMDFS
 // s	verUbicacionBloque
+// n    verBloque
 // s	borrarBloque
 // s	copiarBloque
 // s	agregarNodo  			// No debe recibir argumentos // Falta sockets
@@ -248,9 +249,41 @@ void copiarArchivoLocalAlMDFS() {
 
 void copiarArchivoDelMDFSAlFSLocal() {
 	// Falta iplementar
+	char nombreArchivo[LONGITUD_STRINGS];
+	element* archivoMDFS;
+	t_list* listaNodoBloque; // ya filtrada.
+	int i, numeroCopia = 0;
+	ubicacionDelBloqueEnNodo* nodoBLoque = NULL;
+	FILE* archivoLocal ;// este es el archivo que se debe crear en el Local
+
+	bool condicion(ubicacionDelBloqueEnNodo* unaUbic) { //esta es una inner function, declarada dentro de una funcion.
+		return (numeroCopia == unaUbic->numeroCopia); //quiero filtrar la lista por el numeroCopia
+	}
+
+	printf(
+			"Ingrese el nombre del archivo que quiere copiar del MDFS al FSlocal");
+	scanf("%s", nombreArchivo);
+
+	archivoMDFS = buscarElementoPorNombre(nombreArchivo);
+	if (archivoMDFS->estado == ESTA_DISPONIBLE) {
+
+		listaNodoBloque = list_filter(
+				archivoMDFS->dobleListaUbicacionDelBloqueEnNodo,
+				(void*) condicion);
+		//enviamos las solicitudes de bloques
+
+		for (i = 0; i < listaNodoBloque->elements_count;) {
+			nodoBLoque = list_get(listaNodoBloque, i);
+		//	solicitarBloque(nodoBLoque); //aca podria usar la que muestra el bloque, solo que no quiero que se muestre sino que me lo de.
+		}
+	} else {
+		perror("[ERROR] No disponible archivo");
+		exit(-1);
+	}
+
 }
 void solicitarMD5deUnArchivoenMDFS() {
-	// falta implementar
+// falta implementar
 }
 
 void verUbicacionBloque() {
@@ -274,8 +307,8 @@ void verUbicacionBloque() {
 }
 
 void solicitudCopiaDeBloque() {
-	//se esta desarrollando, debe solicitar un bloque a un nodo
-	//usando parte de la funcion de demostar bloque
+//se esta desarrollando, debe solicitar un bloque a un nodo
+//usando parte de la funcion de demostar bloque
 }
 
 void copiarBloque() {
@@ -302,12 +335,12 @@ void copiarBloque() {
 	ubicacionDestino->numeroDeBloqueDelNodo = numeroBloqDest;
 	ubicacionDestino->numeroNodo = numeroNodoDest;
 	ubicacionDestino->numeroCopia = ptrNodoBloque->numeroCopia + 1;
-	solicitudCopiaDeBloque();// se quiere pedir al nodo que tiene el bloque, dicho bloque
-	//se encuentra en desarrollo, no terminado
+	solicitudCopiaDeBloque(); // se quiere pedir al nodo que tiene el bloque, dicho bloque
+//se encuentra en desarrollo, no terminado
 
 	free(ubicacionDestino);
 	free(ptrNodoBloque);
-	// se implementa segun lo que diga el ayudante.
+// se implementa segun lo que diga el ayudante.
 }
 
 void actualizarListaDeArchivos(ubicacionDelBloqueEnNodo* unaUbicacion,
@@ -336,7 +369,7 @@ void borrarBloque() {
 			sizeof(ubicacionDelBloqueEnNodo));
 	ubicacionDelBloqueEnNodo* ubicacionNodoBloqueTemp = malloc(
 			sizeof(ubicacionDelBloqueEnNodo));
-	//se declaran las inner function
+//se declaran las inner function
 
 	printf("Ingrese el nombre del archivo: ");
 	fflush(stdin);
@@ -378,10 +411,10 @@ void borrarBloque() {
 		free(bloque);
 	}
 
-	// Seteo miUbicacion
+// Seteo miUbicacion
 	miUbicacion->numeroNodo = numeroNodo;
 	miUbicacion->numeroDeBloqueDelNodo = numBloque;
-	// Fin seteo
+// Fin seteo
 
 	actualizarListaDeArchivos(miUbicacion, ptrArchivo);
 	free(ptrArchivo);
@@ -397,7 +430,7 @@ void agregarNodo() { //FALTA VER EL TEMA DE SOCKETS
 
 //	buscarPorsocketNodo(nodo->numero);// se le manda el numero identificatorio de ese nodo, que el nodo debe guardar
 //  implementame Santiago
-	// por lo que aca debe haber otra funcion que envie ese numero al nodo.
+// por lo que aca debe haber otra funcion que envie ese numero al nodo.
 
 	list_add(FILESYSTEM->listaNodosConectados, nodo);
 // Agrega al nodo a la lista de nodos del FS
@@ -407,13 +440,14 @@ void eliminarNodo() { //falta implementar
 	int numero;
 
 	bool condicion(nod* unNodo) { //esta es una inner function, declarada dentro de una funcion.
-				return (numero == unNodo->numero); // quiero el bloque del nodo que contiene al bloque del archivo
-			}
+		return (numero == unNodo->numero); // quiero el bloque del nodo que contiene al bloque del archivo
+	}
 
-printf("ingrese el numero de nodo a eliminar \n");
-scanf("%d", &numero);
+	printf("ingrese el numero de nodo a eliminar \n");
+	scanf("%d", &numero);
 
-list_remove_and_destroy_by_condition(FILESYSTEM->listaNodosConectados, (void*)condicion, (void*)liberaMemoriaNodo);
+	list_remove_and_destroy_by_condition(FILESYSTEM->listaNodosConectados,
+			(void*) condicion, (void*) liberaMemoriaNodo);
 }
 
 void mostrarComandos() {
