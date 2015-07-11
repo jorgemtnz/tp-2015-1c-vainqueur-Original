@@ -1,7 +1,6 @@
 #include"job.h"
 
 void liberaMemoriaSolicitudDeTrabajo(t_solicitudDeTrabajo* ptrSolicitudDeTrabajo) {
-	//free(&ptrSolicitudDeTrabajo->combiner); Es un int
 	free(&ptrSolicitudDeTrabajo->archvATrabajar);
 	free(&ptrSolicitudDeTrabajo->t_mapper);
 	free(&ptrSolicitudDeTrabajo->t_reduce);
@@ -9,7 +8,7 @@ void liberaMemoriaSolicitudDeTrabajo(t_solicitudDeTrabajo* ptrSolicitudDeTrabajo
 }
 
 void liberaMemoriaRelacionNodoBloque(t_relacionNodoBloque* ptrRelacionNodoBloque) {
-	free(ptrRelacionNodoBloque);				// Libero, es un struct
+	free(ptrRelacionNodoBloque);
 }
 
 void liberaMemoriaRelacionNodoArchTemp(t_relacionNodoArchTemp* ptrRelacionNodoArchTemp) {
@@ -43,10 +42,14 @@ void liberaMemoriaJob(t_job* ptrJob) {
 }
 
 void liberarMemoriaVG(){
-	// vg_combiner y vg_puertoMarta no lo libero porque son int
+	int i;
+	for(i=0; vg_archivos[i] != '\0' ; i++){
+		free(vg_archivos[i]);
+	}
 	free(vg_archivos);
 	free(vg_ipMarta);
 	free(vg_mapperPath);
 	free(vg_reducerPath);
 	free(vg_resultado);
-}//  <<---- consulta, porque se hace un free si no se hizo antes un malloc
+}
+

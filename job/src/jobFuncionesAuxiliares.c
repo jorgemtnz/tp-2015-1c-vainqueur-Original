@@ -24,25 +24,51 @@ void leerArchivoDeConfiguracion() {
 	if (strcmp(temporal, "NO") == 0) {
 		vg_combiner = NO_ACEPTA_COMBINER;
 	}
-
-	//vg_archivos = config_get_array_value(archivoConfig, "ARCHIVOS");
+	free(temporal);
+	vg_archivos = config_get_array_value(archivoConfig, "ARCHIVOS");
 	config_destroy(archivoConfig);
 }
 
-void* indicarArchivosAMarta(){
-	int fdJob = crearSocket();
-	conectarSocket(fdJob,vg_ipMarta,vg_puertoMarta);
+void testleerArchivoDeConfiguracion(){
+	int i;
+	printf("*********************** Valores Seteados ***********************\n");
+	printf("Path del Config de Jog:\t[%s]\n",vg_nombreArchivoConfigJob);
+	printf("Puerto de Marta:\t[%d]\n",vg_puertoMarta);
+	printf("Acepta combiner:\t[%d]\n",vg_combiner);
+	printf("IP marta:\t\t[%s]\n",vg_ipMarta);
+	printf("Mapper path:\t\t[%s]\n",vg_mapperPath);
+	printf("Reducer path:\t\t[%s]\n",vg_reducerPath);
+	printf("Resultado:\t\t[%s]\n",vg_resultado);
+	for(i = 0; vg_archivos[i] != '\0' ; i ++){
+		printf("Lista de archivos elemento [%d] Contenido: [%s]\n",i,vg_archivos[i]);
+	}
+	printf("****************************** FIN ******************************\n");
+}
 
+void conectarConMarta(){
+	vg_fdJob = crearSocket();
+	conectarSocket(vg_fdJob,vg_ipMarta,vg_puertoMarta);
+}
+
+void sendTamanioDe(char* cadena){
+	int msgSize = strlen(cadena);
+	char* cadenaMsgSize = malloc(sizeof(int));
+	sprintf(cadenaMsgSize,"%d",msgSize);
+	enviarPorSocket(vg_fdJob, cadenaMsgSize, sizeof(int));
+	free(cadenaMsgSize);
+}
+
+void* indicarArchivosAMarta(){
 	char msg[]="3 Marta, tengo este archivo [ARCHIVO], que hago";
-	int msgSize = strlen(msg);
-	printf("Mensaje: [%s] \nSize: %d \n",msg,strlen(msg));
-	enviarPorSocket(fdJob,msg,msgSize);
+
+	conectarConMarta();
+	sendTamanioDe(msg);
 
 //	char bufer[200];
 //	recibirPorSocket(fdJob,bufer,sizeof(bufer)); // Recibe los bloques a operar sus rutinas
 //	printf("%s",bufer);
 
-	cerrarSocket(fdJob);
+	cerrarSocket(vg_fdJob);
 
 	return NULL;
 }
