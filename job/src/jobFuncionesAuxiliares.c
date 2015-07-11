@@ -1,10 +1,12 @@
-#include"job.h"
+#include "job.h"
 
 void leerArchivoDeConfiguracion() {
 	// El archivo config de job tiene IP_MARTA PUERTO_MARTA MAPPER REDUCE COMBINER ARCHIVOS RESULTADO
+
 	printf("Ingrese la ruta del archivo de configuracion del job: ");
 	fflush(stdin);
 	scanf("%s", vg_nombreArchivoConfigJob);
+	// /home/utnso/TPOperativos/job/a.cfg
 	t_config* archivoConfig = config_create(vg_nombreArchivoConfigJob);
 
 	vg_puertoMarta = config_get_int_value(archivoConfig, "PUERTO_MARTA");
@@ -23,7 +25,7 @@ void leerArchivoDeConfiguracion() {
 		vg_combiner = NO_ACEPTA_COMBINER;
 	}
 
-	vg_archivos = config_get_array_value(archivoConfig, "ARCHIVOS");
+	//vg_archivos = config_get_array_value(archivoConfig, "ARCHIVOS");
 	config_destroy(archivoConfig);
 }
 
@@ -33,11 +35,12 @@ void* indicarArchivosAMarta(){
 
 	char msg[]="3 Marta, tengo este archivo [ARCHIVO], que hago";
 	int msgSize = strlen(msg);
+	printf("Mensaje: [%s] \nSize: %d \n",msg,strlen(msg));
 	enviarPorSocket(fdJob,msg,msgSize);
 
-	char bufer[200];
-	recibirPorSocket(fdJob,bufer,sizeof(bufer)); // Recibe los bloques a operar sus rutinas
-	printf("%s",bufer);
+//	char bufer[200];
+//	recibirPorSocket(fdJob,bufer,sizeof(bufer)); // Recibe los bloques a operar sus rutinas
+//	printf("%s",bufer);
 
 	cerrarSocket(fdJob);
 

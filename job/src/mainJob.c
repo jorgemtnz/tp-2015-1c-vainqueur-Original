@@ -3,6 +3,7 @@
 int main(int argc, char **argv) {
 
 	leerArchivoDeConfiguracion();
+	indicarArchivosAMarta();
 	/*int incrementador;
 
 	for(incrementador = 0; incrementador < HILOS_A_LANZAR; incrementador ++){

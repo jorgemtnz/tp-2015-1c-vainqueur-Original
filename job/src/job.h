@@ -25,11 +25,10 @@
 #define ACEPTA_COMBINER 1
 #define NO_ACEPTA_COMBINER 0
 #define PUERTO_JOB 7898
-#define CONEXIONES_ACEPTA_JOB 1 // Marta
+#define CANTIDAD_JOBS_ACEPTADOS 2
 #define TAMANIOBUFFER 130
 #define DIR_REDUCE "/tmp/"
 #define DIR_MAPP "/tmp/"
-// #define DIR_ARCH_CONFIG "/tmp" Me parece mejor ingresar el nombre por consola
 #define LONGPATH 200
 #define HILOS_A_LANZAR 5
 
@@ -44,7 +43,6 @@ typedef struct SolicitudDeTrabajo{
 typedef struct RelacionNodoBloque{
 	int numeroNodo;
 	int numeroBloque;
-
 }t_relacionNodoBloque;
 
 typedef struct RealcionNodoArchTemp{
@@ -67,12 +65,13 @@ typedef struct TareaReduce{
 typedef struct Job {
 	t_list* listasTareasMap;
 	t_list* listasTareasReduce;
-	t_list* listaSolicitudDeTrabajo;  	 //son solicitudes porque  job  pide a marta varias, sobre diferentes archivos
-
+	t_list* listaSolicitudDeTrabajo;
+	// son solicitudes porque  job  pide a marta varias,
+	// sobre diferentes archivos
 }t_job;
 
 // +++++++++++++++++++++++++++++++++++++++ Prototipos +++++++++++++++++++++++++++++++++++++
-// Funciones Constructoras    todas ellas crean con malloc la estructura y la inicializan con valores
+// Funciones Creacion    todas ellas crean con malloc la estructura y la inicializan con valores
 t_solicitudDeTrabajo* crearSolicitudDeTrabajo();
 t_relacionNodoBloque* crearRelacionNodoBloque();
 t_relacionNodoArchTemp* crearRelacionNodoArchTemp();
@@ -81,7 +80,7 @@ t_tareaReduce* creaTareaReduce() ;
 t_job* crearJob();
 
 
-// Funciones Destructoras  se hace el free de los que ya se hizo el malloc
+// Funciones Destruccion  se hace el free de los que ya se hizo el malloc
 void liberaMemoriaSolicitudDeTrabajo(t_solicitudDeTrabajo* ptrSolicitudDeTrabajo) ;
 void liberaMemoriaRelacionNodoBloque(t_relacionNodoBloque* ptrRelacionNodoBloque) ;
 void liberaMemoriaRelacionNodoArchTemp(t_relacionNodoArchTemp* ptrRelacionNodoArchTemp) ;
@@ -91,8 +90,8 @@ void liberaMemoriaJob(t_job* ptrJob) ;
 void liberarMemoriaVG();
 
 // Funciones Auxiliares
-void leerArchivoDeConfiguracion(); // carga en variables globales el archivo de configuracion
-void* conectarConMarta();  // falta implementar
+void leerArchivoDeConfiguracion(); // Falta leer lista de nombre de archivos
+void* indicarArchivosAMarta();
 
 // +++++++++++++++++++++++++++++++++++ Variables Globales +++++++++++++++++++++++++++++++++++
 

@@ -21,11 +21,13 @@
 #define NO 0
 #define COMPLETADO 1
 #define EN_ESPERA 0
-#define NO_MAPEADO 0;
 #define MAPEADO 1;
-#define PUERTO_MARTA 6546
-#define CONEXIONES_ACEPTA_MARTA 1
+#define NO_MAPEADO 0;
 #define TAMANIOBUFFER 1050
+#define TAMANIO_SOLICITUD 200
+#define ACEPTA_COMBINER 1
+#define NO_ACEPTA_COMBINER 0
+#define LONGPATH 200
 
 // +++++++++++++++++++++++++++++++++++++++ Estructuras +++++++++++++++++++++++++++++++++++++
 typedef struct estructuraMarta {
@@ -67,9 +69,6 @@ typedef struct archivoProcesado {
 	
 } t_archivoProcesado;
 
-//Variables Globales
-int vg_puertoFilesystem;
-char * vg_ipFilesystem;
 
 // +++++++++++++++++++++++++++++++++++++++ Prototipos +++++++++++++++++++++++++++++++++++++
 // Funciones Constructoras hace el malloc de la estructura e inicializa los campos
@@ -77,7 +76,6 @@ t_archivoProcesado* crearArchivoProcesado() ;
 t_relacionNodoBloque* crearRelacionNodoBloque() ;
 t_ubicacionBloque* crearUbicacionBloque() ;
 t_informacionDelArchivo* crearInformacionArchivo();
-t_nombreFuncion* crearNombreFuncion();
 t_solicitud* crearSolicitud();
 t_estructuraMarta* crearMarta();
 
@@ -86,37 +84,28 @@ void liberaMemoriaArchivoProcesado(t_archivoProcesado* ptrArchivoProcesado);
 void liberaMemoriaRelacionNodoBloque(t_relacionNodoBloque* ptrRelacionNodoBloque);
 void liberaMemoriaUbicacionBloque(t_ubicacionBloque* ptrUbicacionBloque);
 void liberaMemoriaInformacionArchivo(t_informacionDelArchivo* ptrInformacionArchivo);
-void liberaMemoriaNombreFuncion(t_nombreFuncion ptrNombreFuncion); // Puntero a string
+void liberaMemoriaNombreFuncion(char* ptrNombreFuncion); // Puntero a string
 void liberaMemoriaSolicitud(t_solicitud* ptrSolicitud);
 void liberaMemoriaMarta(t_estructuraMarta* ptrMarta) ;
 void liberaVG();
 
-// Funciones Auxiliares
-/* Lucas lo eliminaria
- ** void liberaMemoriaLista(t_list* lista, int* cantElementos, void (*funcionLiberaElemento)(void*));
- ** cuando se llama se escribe-> liberaMemoriaLista(lista,cantElementos,void (*funcionLiberaElemento)(void*);
- ** (void*)funcionLiberaElemento)
- ** Todo lo que comento aca lucas lo borraria
- */
-
 // Marta
-char * generarNombreAlmacenado(char * nombreArchivo, char * nombreFuncion); //genera el nombre del archivo que se almacena en el temporal
-
-
-//!!!! Revisar bien los argumentos que reciben al codificarlas ya que estos fueron pensados medios rapido
-//y seguro hacen falta mas y puede que nisiquiera sean estos los que necesita!!!!
+char* recibirSolicitudDeJob();
+char * generarNombreAlmacenado(char * nombreArchivo, char * nombreFuncion);
+// [generarNombreAlmacenado] genera el nombre del archivo que se almacena en el temporal
+void solicitarBloquesAFilesystem(char * archivoAProcesar);
 void leerArchivoDeConfiguracion();
-void planificarTrabajos();							// Falta implementar
-void almacenarResultado(char * nombreDelArchivo);	// Falta implementar
-void solicitarMapper();								// Falta implementar
-void solicitarReducer(int soportaCombiner);			// Falta implementar
-int  mandarNodoBloque(int numeroBloque);			// Falta implementar
-void noRepiteNodo();								// Falta implementar
-void evaluarSolicitudMapper(char * nombreArchivo);  // Falta implementar
 
 // +++++++++++++++++++++++++++++++++++ Variables Globales +++++++++++++++++++++++++++++++++++
 t_estructuraMarta marta;
 int vg_martaPuerto;
+int vg_puertoFilesystem;
+int vg_conexionesPermitidas;
+int vg_fdMarta;
+int vg_fdJob;
+char rutaArchConfig[LONGPATH];
+char * vg_ipFilesystem;
 unsigned char resultado; // Esta variable recibe el valor de respuesta de exito o no del JOB
-char rutaArchConfig[300];
+
+
 #endif /* MARTA_H_ */

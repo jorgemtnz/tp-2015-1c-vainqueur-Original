@@ -110,8 +110,6 @@ t_job* crearJob()
 				"[ERROR] No se aloco memoria para Job pertenece a la estructura Job");
 		exit(-1);
 	}
-	// No entro en el if, sigue ejecutando
-	// strcpy(ptrJob->dirArchvConfig, vg_nombreArchivoConfigJob);  Me parece al pedo
 	ptrJob->listasTareasMap = list_create();
 	ptrJob->listasTareasReduce = list_create();
 	ptrJob->listaSolicitudDeTrabajo = list_create();
