@@ -41,6 +41,8 @@
 #define CANT_FILAS 308 // MaximoArchivo = 6144 miB (6 GB) Bloque = 20 miB  => 2144/20 = 307,2 ~= 308
 #define ESTA_OCUPADO 1
 #define ESTA_DISPONIBLE 0
+#define CONECTADO 1
+#define DESCONECTADO 0
 
 // +++++++++++++++++++++++++++++++++++++++ Estructuras +++++++++++++++++++++++++++++++++++++
 typedef struct bloq {
@@ -51,8 +53,7 @@ typedef struct bloq {
 
 typedef struct nod {
 	int numero;
-	int estado;
-
+	int estado; //conectado 1  o desconectado 0
 //	long    long tamanio; 2GB  consultar, posiblemente no sea necesario
 	t_list* listaBloques;   //del nodo
 } nod;
@@ -81,7 +82,7 @@ typedef struct fs {
 	int espacioDisponible;
 	int idElemento; //valor incremental que no se repite
 	int idNodo;  //valor incremental que no se repite
-	t_list* listaNodosConectados;
+	t_list* listaNodos;
 	t_list* listaElementos;
 	char** ipNodos;	// Array de strings
 } fs;
@@ -132,16 +133,19 @@ void copiaDistribuyeYEmpaqueta(char* bloqueListo, int cantBloques,
 int devuelveCantidadElementosArreglo(char** arregloPtrContenidoBloque);	//devuelve la cantidad de venctores en un arreglo (se usa par ala canto de blques originales ya que es un vector muy grande y no todos estas llenos)
 void divideBloques(char** ptrArregloConOracionesParaBloque, element* unElemento);//guarda en un vector donde se almacenan las ultimas posiciones de las oraciones al poner en un bloque listo
 ubicacionDelBloqueEnNodo* devuelveBloque(char* nombreArchivo, int numeroBloque);//recibe un nombre de archivo y un numero de blqoue y devuelve un tipo de datoubicaionNodoBlqoue
-void verUbicacionBloque(); //se debe modificar , porque solapo la de mostrar bloque
+ubicacionDelBloqueEnNodo* verUbicacionBloque(); //se debe modificar , porque solapo la de mostrar bloque
 void solicitudCopiaDeBloque(); // se esta implementando
 char* sacarUltimaParte(char* dirArchivoLocal);
+void marcaNodoDesconectado(int numeroNodo);
+bool verificaNodoConectado(t_list*listaBloquesArchivo);
+
+t_list* buscaListaArchivo(element* ptrArchivo);
 
 // Funciones de Consola
 void renombrarElemento(element* ptrElemento, char* nuevoNombreElemento);
 void moverElemento(element* elementoOrigen, element* directorioDestino);
 void eliminarElemento(char* nombreElemento);
 void mostrarElementos();
-
 void formatearMDFS();
 void eliminarArchivo();
 void renombrarArchivo();
@@ -153,7 +157,6 @@ void moverDirectorio();
 void copiarArchivoLocalAlMDFS();      // RECORDAR: CAMBIARLE LOS NULL ?? por que?
 void copiarArchivoDelMDFSAlFSLocal(); // Falta implementar
 void solicitarMD5deUnArchivoenMDFS(); // Falta implementar
-
 void copiarBloque();				// Falta implementar
 void actualizarListaDeArchivos(ubicacionDelBloqueEnNodo* unaUbicacion,
 		element* unArchivo); // Usada para borrarBloque // Usa doble lista VER
@@ -170,8 +173,7 @@ void levantarConsola();
 // +++++++++++++++++++++++++++++++++++ Variables Globales +++++++++++++++++++++++++++++++++++
 fs* FILESYSTEM;
 int vg_puerto_listen;
-char** vg_lista_nodos; // array de strings
-// ubicacionDelBloqueEnNodo vg_matrizUbicacion[CANT_FILAS][CANT_COLUMNAS]; // Ver funcion auxiliar void inicializarMatriz()
-ubicacionDelBloqueEnNodo** vg_listaDeUbicacion;
+char** vg_lista_nodos; // array de strings para guardar las IP de los nodos.
+
 
 #endif /* FILESYSTEM_H_ */
