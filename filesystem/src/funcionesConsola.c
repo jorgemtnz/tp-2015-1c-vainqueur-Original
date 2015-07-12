@@ -2,23 +2,23 @@
 
 /*------------------- CONSOLA------------------------*/
 
-// s	formatearMDFS
+// s	formatearMDFS                prueba minima
 // s    eliminarArchiv
 // s 	renombrarArchivo
 // s	moverArchivo
-// s	crearDirectorio
+// s	crearDirectorio               prueba minima
 // s    eliminarDirectorio
 // s    renombrarDirectorio
 // s	moverDirectorio
-// s	copiarArchivoLocalAlMDFS
-// n	copiarArchivoDelMDFSAlFSLocal
-// n	solicitarMD5deUnArchivoenMDFS
-// s	verUbicacionBloque
-// n    verBloque
+// s	copiarArchivoLocalAlMDFS      prueba minima
+// n	copiarArchivoDelMDFSAlFSLocal , esta no se encuentra en las condiciones mínimas
+// n	solicitarMD5deUnArchivoenMDFS   prueba minima
+// s	verUbicacionBloque              prueba minima
+// n    verBloque                       prueba minima
 // s	borrarBloque
-// s	copiarBloque
-// s	agregarNodo  			// No debe recibir argumentos // Falta sockets
-// s	eliminarNodo
+// s	copiarBloque                    prueba minima
+// s	agregarNodo  			        prueba minima    // No debe recibir argumentos // Falta sockets
+// s	eliminarNodo                    prueba minima
 // s	mostrarComandos
 // s 	mostrarElementos 		// Yapa
 void renombrarElemento(element* ptrElemento, char* nuevoNombreElemento) {
@@ -248,7 +248,7 @@ void copiarArchivoLocalAlMDFS() {
 }
 
 void copiarArchivoDelMDFSAlFSLocal() {
-	// Falta iplementar
+	// Falta iplementar, no esta en las condiciones mínimas
 	char nombreArchivo[LONGITUD_STRINGS];
 	element* archivoMDFS;
 	t_list* listaNodoBloque; // ya filtrada.
