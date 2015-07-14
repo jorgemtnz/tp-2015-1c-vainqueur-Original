@@ -263,26 +263,27 @@ char* sacarUltimaParte(char* dirArchivoLocal) {
 	sscanf(nombreArchivo, "/%s", nombreArchivo); // Le borro el primer char
 	return nombreArchivo;
 }
-<<<<<<< HEAD
-void guardarFS(fs* filesystem){
-	int i = 0;
-	int finDeLista = 0;
-	size_t tamanioBuffer = sizeof(fs);
-	void* bufferAGuardar = malloc(tamanioBuffer);
-	memcpy(bufferAGuardar,&(filesystem->espacioDisponible),sizeof(filesystem->espacioDisponible));//empiezo a guardar en el buffer los primeros datos del fs
-	size_t desplazamiento = sizeof(filesystem->espacioDisponible);
-	memcpy(bufferAGuardar+desplazamiento,&(filesystem->estado),sizeof(filesystem->estado));
-	desplazamiento += sizeof(filesystem->estado);
-	memcpy(bufferAGuardar+desplazamiento,&(filesystem->idElemento),sizeof(filesystem->idElemento));
-	desplazamiento += sizeof(filesystem->idElemento);
-//	memcpy(bufferAGuardar+desplazamiento,&(filesystem->))
-	//falta seguir completando cosas (problemas con las listas de listas)
-	//	while(filesystem->ipNodos[i]!= NULL){
 
+// Falta terminar
+//void guardarFS(fs* filesystem){
+//	int i = 0;
+//	int finDeLista = 0;
+//	size_t tamanioBuffer = sizeof(fs);
+//	void* bufferAGuardar = malloc(tamanioBuffer);
+//	memcpy(bufferAGuardar,&(filesystem->espacioDisponible),sizeof(filesystem->espacioDisponible));//empiezo a guardar en el buffer los primeros datos del fs
+//	size_t desplazamiento = sizeof(filesystem->espacioDisponible);
+//	memcpy(bufferAGuardar+desplazamiento,&(filesystem->estado),sizeof(filesystem->estado));
+//	desplazamiento += sizeof(filesystem->estado);
+//	memcpy(bufferAGuardar+desplazamiento,&(filesystem->idElemento),sizeof(filesystem->idElemento));
+//	desplazamiento += sizeof(filesystem->idElemento);
+////	memcpy(bufferAGuardar+desplazamiento,&(filesystem->))
+//	//falta seguir completando cosas (problemas con las listas de listas)
+//	//	while(filesystem->ipNodos[i]!= NULL){
+//
+//
+//
+//}
 
-
-}
-=======
 
 void marcaNodoDesconectado(int numeroNodo) {
 	nod* ptrNodo;
@@ -306,12 +307,10 @@ t_list* buscaListaArchivo(element* ptrArchivo) {
 	listaBloquesArchivo = list_filter(
 			ptrArchivo->dobleListaUbicacionDelBloqueEnNodo, (void*) condicion);
 
-	if (verificaNodoConectado(listaBloquesArchivo)) { //verifica si esta todos los nodos
+	if(1){
+	//if (verificaNodoConectado(listaBloquesArchivo)) { //verifica si esta todos los nodos
 
-		for (i = 0;
-				i
-						< (ptrArchivo->dobleListaUbicacionDelBloqueEnNodo->elements_count);
-				i++) {
+		for (i = 0;	i < (ptrArchivo->dobleListaUbicacionDelBloqueEnNodo->elements_count); i++) {
 			//solicitarBloque
 			//ubicarBloque en memoria con memset()
 		}
@@ -323,4 +322,3 @@ t_list* buscaListaArchivo(element* ptrArchivo) {
 
 	return listaBloquesArchivo;
 }
->>>>>>> a19962427955b8969794e447a37090d9a04926fd
