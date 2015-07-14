@@ -263,3 +263,21 @@ char* sacarUltimaParte(char* dirArchivoLocal) {
 	sscanf(nombreArchivo, "/%s", nombreArchivo); // Le borro el primer char
 	return nombreArchivo;
 }
+void guardarFS(fs* filesystem){
+	int i = 0;
+	int finDeLista = 0;
+	size_t tamanioBuffer = sizeof(fs);
+	void* bufferAGuardar = malloc(tamanioBuffer);
+	memcpy(bufferAGuardar,&(filesystem->espacioDisponible),sizeof(filesystem->espacioDisponible));//empiezo a guardar en el buffer los primeros datos del fs
+	size_t desplazamiento = sizeof(filesystem->espacioDisponible);
+	memcpy(bufferAGuardar+desplazamiento,&(filesystem->estado),sizeof(filesystem->estado));
+	desplazamiento += sizeof(filesystem->estado);
+	memcpy(bufferAGuardar+desplazamiento,&(filesystem->idElemento),sizeof(filesystem->idElemento));
+	desplazamiento += sizeof(filesystem->idElemento);
+//	memcpy(bufferAGuardar+desplazamiento,&(filesystem->))
+	//falta seguir completando cosas (problemas con las listas de listas)
+	//	while(filesystem->ipNodos[i]!= NULL){
+
+
+
+}
