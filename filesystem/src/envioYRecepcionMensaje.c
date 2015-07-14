@@ -4,18 +4,19 @@
  *  Created on: 5/7/2015
  *      Author: utnso
  */
-#include <filesystem.h>
-#include "protocolo.h"
-#include "protocolo.c"
+#include "filesystem.h"
 
 
-enviar(int tipoDeMensaje, void* t_estructura,int fdDestinatario){
+
+
+PaqueteEnvio* enviar(int tipoDeMensaje, void* t_estructura,int fdDestinatario){
 
 	switch(tipoDeMensaje){
-		case(1):{//en vez de 1 iria el nombre del protocolo
+		case(0):{//en vez de 1 iria el nombre del protocolo
+			PaqueteEnvio* paqueteAEnviar = malloc(PaqueteEnvio);
 			t_escritura_bloque* bloqueAEscribir = (t_escritura_bloque*) t_estructura;
 			size_t tamanioMensaje = sizeof(int)+VEINTEMEGAS;
-			void* buffer = malloc(tamanioMensaje);
+			paqueteAEnviar->tamanioMensaje = malloc(tamanioMensaje);
 			memcpy(buffer,&(bloqueAEscribir->numeroDeBloque),sizeof(bloqueAEscribir->numeroDeBloque));
 			size_t desplazamietno = sizeof(bloqueAEscribir->numeroDeBloque);
 			memcpy(buffer+desplazamietno,&(bloqueAEscribir->archivo),VEINTEMEGAS);

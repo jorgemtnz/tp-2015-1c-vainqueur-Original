@@ -19,7 +19,7 @@
 #include <string.h>
 #include <semaphore.h>
 #include <stdbool.h>
-
+#include <protocolo/protocolo.h>
 // +++++++++++++++++++++++++++++++++++++++ Define +++++++++++++++++++++++++++++++++++++
 #define ESDIRECTORIO 1
 #define ESARCHIVO 0
@@ -169,6 +169,7 @@ void mostrarComandos();
 int idFuncion(char* funcion);
 void aplicarFuncion(int idFuncion);
 void levantarConsola();
+//++++++++++++++++++++++++++++++++++++funciones envio +++++++++++++++++++++++++++++++++++++++
 
 // +++++++++++++++++++++++++++++++++++ Variables Globales +++++++++++++++++++++++++++++++++++
 fs* FILESYSTEM;
