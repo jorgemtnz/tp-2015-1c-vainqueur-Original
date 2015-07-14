@@ -63,19 +63,6 @@ t_informacionDelArchivo* crearInformacionArchivo() {
 	}
 }
 
-t_nombreFuncion* crearNombreFuncion() {
-
-	t_nombreFuncion* ptrNombreFuncion=NULL;
-
-	if (malloc(sizeof(t_nombreFuncion)) == NULL) {
-		perror(
-				"No se aloco memoria para nombreFuncion pertenece a la estructura "
-						"Marta>listaSolicitudes>Solicitud>NombreFuncion");
-		exit(-1);
-	} else
-		return ptrNombreFuncion;
-}
-
 t_solicitud* crearSolicitud() {
 	t_solicitud* ptrSolicitud=NULL;
 	if (malloc(sizeof(t_solicitud)) == NULL) {

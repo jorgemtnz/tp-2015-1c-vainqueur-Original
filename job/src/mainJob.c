@@ -1,8 +1,28 @@
 #include "job.h"
 
-int main(int argc, char **argv) {
+/*
+ **					DOCUMENTACION - mainJob.c
+ **
+ **		Funcion leerArchivoDeConfiguracion();
+ **	[ Test OK ] - leerArchivoDeConfiguracion();
+ **	[ Test OK ] - testleerArchivoDeConfiguracion();
+ **	NOTA: Cuando se haga el archivo de configuracion, NO poner espacio antes y despues del =
+ **
+ **		Funcion indicarArchivosAMarta();
+ **		incluye
+ **			Funcion [void sendTamanioDe(char* cadena);]
+ **			Funcion [void conectarConMarta();]
+ **	[ Test OK ] - sendTamanioDe(char* cadena);
+ **	[ Test OK ] - conectarConMarta();
+ **
+ */
 
-	leerArchivoDeConfiguracion();
+int main() {
+
+	leerArchivoDeConfiguracion(); // /home/utnso/TPOperativos/job/a.cfg
+
+	indicarArchivosAMarta();
+
 	/*int incrementador;
 
 	for(incrementador = 0; incrementador < HILOS_A_LANZAR; incrementador ++){

@@ -24,7 +24,7 @@ void liberaMemoriaInformacionArchivo(t_informacionDelArchivo* ptrInformacionArch
 	free(ptrInformacionArchivo);
 }
 
-void liberaMemoriaNombreFuncion(t_nombreFuncion ptrNombreFuncion) {
+void liberaMemoriaNombreFuncion(char* ptrNombreFuncion) {
 	free(ptrNombreFuncion);
 }
 

@@ -1,5 +1,20 @@
 #include "marta.h"
 
+// Terminadas
+char* recibirSolicitudDeJob(){
+	t_solicitud* solicitudTrabajo = malloc(sizeof(t_solicitud));
+	char buffer[TAMANIO_SOLICITUD];
+	vg_fdMarta = crearSocket();
+	asociarSocket(vg_fdMarta,vg_martaPuerto);
+	escucharSocket(vg_fdMarta,vg_conexionesPermitidas);
+	vg_fdJob = aceptarConexionSocket(vg_fdMarta);
+
+	recibirPorSocket(vg_fdJob,buffer,TAMANIO_SOLICITUD);
+	// Deserealizar buffer recibido que representa solicitudTrabajo
+
+	return buffer;
+}
+
 char * generarNombreAlmacenado(char * nombreArchivo, char * nombreFuncion) {
 	char * tiempoActual;
 	tiempoActual = temporal_get_string_time();
@@ -19,86 +34,75 @@ void solicitarBloquesAFilesystem(char * archivoAProcesar)
 	strcat(mensaje, archivoAProcesar);
 	enviarPorSocket(fdMarta,mensaje,sizeof(mensaje));
 }
+
 void leerArchivoDeConfiguracion() {
-	printf("Ingrese la ruta del archivo de configuracion");
+	printf("Ingrese la ruta del archivo de configuracion: ");
+	fflush(stdin);
 	scanf("%s", rutaArchConfig);
-	t_config* archivoConfig;
-	archivoConfig = config_create(rutaArchConfig);
+	// /home/utnso/TPOperativos/marta/configMarta.cfg
+
+	t_config* archivoConfig = config_create(rutaArchConfig);
+
 	vg_puertoFilesystem = config_get_int_value(archivoConfig, "PUERTO_FILESYSTEM");
-	vg_martaPuerto = config_get_int_value(archivoConfig, "PUERTO_MARTA");
-	vg_ipFilesystem = strdup(config_get_string_value(archivoConfig, "IP_FILESYSTEM"));
+	vg_martaPuerto 		= config_get_int_value(archivoConfig, "PUERTO_MARTA");
+	vg_conexionesPermitidas = config_get_int_value(archivoConfig, "CONEXIONES_PERMITIDAS");
+	vg_ipFilesystem 	= strdup(config_get_string_value(archivoConfig, "IP_FILESYSTEM"));
 
 	config_destroy(archivoConfig);
 }
 
-/*  aun no terminada
- void evaluarSolicitudMapper(char * nombreArchivo) {
- t_informacionDelArchivo* ptrInformacionDelArchivo;
 
- list_find(marta->listaInformacionDelArchivo,(nombreArchivo==));
+// Sin terminar
 
- }*/
-
-
-#define ACEPTA_COMBINER 1
-#define NO_ACEPTA_COMBINER 0
-
-
-void crearTrabajo(char* solicitud){
-
-}
-
-void recibirUnaPeticionDeJob(){
-	// Funcion pendiente a que se termine el protocolo
-	/*
-	int fdMarta = crearSocket();
-	asociarSocket(fdMarta,vg_martaPuerto);
-	escucharSocket(fdMarta,);
-
-	desEncriptarMensaje();
-	*/
-}
-
-typedef struct solicitud {
-	t_list* listaNombresFunciones;
-	int 	soportaCombiner; 			//1 si soporta 0 si no soporta
-	char * 	nombreArchivoATrabajar;
-	int 	estado; 					//1 completado 0 en espera
-} t_solicitud;
-
-void buscarUbicacionDelArchivo(t_solicitud solTarea){
-
-}
-
-void crearTarea(t_solicitud solTarea){
-
-	buscarUbicacionDelArchivo(solTarea);{
-		comprobarCargaDeHilosEnNodos();
-		verificarTablaDeBLoquesDelArchivo();
-	}
-
-	demandarHilosPorBloques();	// Un bloque = un hilo
-
-	armarTareaParaJob();
+//void planificarTrabajos();							// Falta implementar
+//void almacenarResultado(char * nombreDelArchivo);	// Falta implementar
+//void solicitarMapper();								// Falta implementar
+//void solicitarReducer(int soportaCombiner);			// Falta implementar
+//int  mandarNodoBloque(int numeroBloque);			// Falta implementar
+//void noRepiteNodo();								// Falta implementar
+//void evaluarSolicitudMapper(char * nombreArchivo);  // Falta implementar
 
 
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// void evaluarSolicitudMapper(char * nombreArchivo) {
+// t_informacionDelArchivo* ptrInformacionDelArchivo;
+//
+// list_find(marta->listaInformacionDelArchivo,(nombreArchivo==));
+//
+// }
+//
+//
+//
+//
+//void crearTrabajo(char* solicitud){
+//
+//}
+//
+//void recibirUnaPeticionDeJob(){
+//	// Funcion pendiente a que se termine el protocolo
+//
+//	int fdMarta = crearSocket();
+//	asociarSocket(fdMarta,vg_martaPuerto);
+//	escucharSocket(fdMarta,);
+//
+//	desEncriptarMensaje();
+//
+//}
+//
+//
+//void buscarUbicacionDelArchivo(t_solicitud solTarea){
+//
+//}
+//
+//void crearTarea(t_solicitud solTarea){
+//
+//	buscarUbicacionDelArchivo(solTarea);{
+//		comprobarCargaDeHilosEnNodos();
+//		verificarTablaDeBLoquesDelArchivo();
+//	}
+//
+//	demandarHilosPorBloques();	// Un bloque = un hilo
+//
+//	armarTareaParaJob();
+//
+//
+//}

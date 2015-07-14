@@ -1,10 +1,12 @@
-#include"job.h"
+#include "job.h"
 
 void leerArchivoDeConfiguracion() {
 	// El archivo config de job tiene IP_MARTA PUERTO_MARTA MAPPER REDUCE COMBINER ARCHIVOS RESULTADO
+
 	printf("Ingrese la ruta del archivo de configuracion del job: ");
 	fflush(stdin);
 	scanf("%s", vg_nombreArchivoConfigJob);
+	// /home/utnso/TPOperativos/job/a.cfg
 	t_config* archivoConfig = config_create(vg_nombreArchivoConfigJob);
 
 	vg_puertoMarta = config_get_int_value(archivoConfig, "PUERTO_MARTA");
@@ -22,24 +24,51 @@ void leerArchivoDeConfiguracion() {
 	if (strcmp(temporal, "NO") == 0) {
 		vg_combiner = NO_ACEPTA_COMBINER;
 	}
-
+	free(temporal);
 	vg_archivos = config_get_array_value(archivoConfig, "ARCHIVOS");
 	config_destroy(archivoConfig);
 }
 
+void testleerArchivoDeConfiguracion(){
+	int i;
+	printf("*********************** Valores Seteados ***********************\n");
+	printf("Path del Config de Jog:\t[%s]\n",vg_nombreArchivoConfigJob);
+	printf("Puerto de Marta:\t[%d]\n",vg_puertoMarta);
+	printf("Acepta combiner:\t[%d]\n",vg_combiner);
+	printf("IP marta:\t\t[%s]\n",vg_ipMarta);
+	printf("Mapper path:\t\t[%s]\n",vg_mapperPath);
+	printf("Reducer path:\t\t[%s]\n",vg_reducerPath);
+	printf("Resultado:\t\t[%s]\n",vg_resultado);
+	for(i = 0; vg_archivos[i] != '\0' ; i ++){
+		printf("Lista de archivos elemento [%d] Contenido: [%s]\n",i,vg_archivos[i]);
+	}
+	printf("****************************** FIN ******************************\n");
+}
+
+void conectarConMarta(){
+	vg_fdJob = crearSocket();
+	conectarSocket(vg_fdJob,vg_ipMarta,vg_puertoMarta);
+}
+
+void sendTamanioDe(char* cadena){
+	int msgSize = strlen(cadena);
+	char* cadenaMsgSize = malloc(sizeof(int));
+	sprintf(cadenaMsgSize,"%d",msgSize);
+	enviarPorSocket(vg_fdJob, cadenaMsgSize, sizeof(int));
+	free(cadenaMsgSize);
+}
+
 void* indicarArchivosAMarta(){
-	int fdJob = crearSocket();
-	conectarSocket(fdJob,vg_ipMarta,vg_puertoMarta);
-
 	char msg[]="3 Marta, tengo este archivo [ARCHIVO], que hago";
-	int msgSize = strlen(msg);
-	enviarPorSocket(fdJob,msg,msgSize);
 
-	char bufer[200];
-	recibirPorSocket(fdJob,bufer,sizeof(bufer)); // Recibe los bloques a operar sus rutinas
-	printf("%s",bufer);
+	conectarConMarta();
+	sendTamanioDe(msg);
 
-	cerrarSocket(fdJob);
+//	char bufer[200];
+//	recibirPorSocket(fdJob,bufer,sizeof(bufer)); // Recibe los bloques a operar sus rutinas
+//	printf("%s",bufer);
+
+	cerrarSocket(vg_fdJob);
 
 	return NULL;
 }

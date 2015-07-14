@@ -76,7 +76,7 @@ int devuelveCantBloquesLista(void*lista, int elementosEnLista) {
 	nod* nodoi;
 	int i;
 	for (i = 0; i <= elementosEnLista; i++) {
-		nodoi = list_get(FILESYSTEM->listaNodosConectados, i);
+		nodoi = list_get(FILESYSTEM->listaNodos, i);
 		cantBloques += nodoi->listaBloques->elements_count;
 	}
 	return cantBloques;
@@ -84,11 +84,11 @@ int devuelveCantBloquesLista(void*lista, int elementosEnLista) {
 
 int devuelveMenorNodoConBloques() {
 	int cantMenorBloques = 60000; // se le puso porque estoy buscando un valor minimo.
-	int elementosEnLista = FILESYSTEM->listaNodosConectados->elements_count;
+	int elementosEnLista = FILESYSTEM->listaNodos->elements_count;
 	int i;
 	nod* nodoi;
 	for (i = 0; i <= elementosEnLista; i++) {
-		nodoi = list_get(FILESYSTEM->listaNodosConectados, i);
+		nodoi = list_get(FILESYSTEM->listaNodos, i);
 		if (nodoi->listaBloques->elements_count < cantMenorBloques)
 			cantMenorBloques = nodoi->listaBloques->elements_count;
 	}
@@ -101,12 +101,12 @@ bool puedoHacerCopias(int cantBloquesOriginales) {
 
 	int cantMenorBloques = 0;
 	nod* nodoi;
-	int elementosEnLista = FILESYSTEM->listaNodosConectados->elements_count;
+	int elementosEnLista = FILESYSTEM->listaNodos->elements_count;
 	int i, promedio;
 	int cantNodosSuperaBloques = 0;
 
 ///-----------------son iguales a 3 nodos--------------
-	if (FILESYSTEM->listaNodosConectados->elements_count == 3) {
+	if (FILESYSTEM->listaNodos->elements_count == 3) {
 		cantMenorBloques = devuelveMenorNodoConBloques();
 		if (cantMenorBloques > cantBloquesOriginales)
 			return true;
@@ -115,7 +115,7 @@ bool puedoHacerCopias(int cantBloquesOriginales) {
 		//-------- son mayor a 3 nodos conectados
 	} else {
 		for (i = 0; i <= elementosEnLista; i++) {
-			nodoi = list_get(FILESYSTEM->listaNodosConectados, i);
+			nodoi = list_get(FILESYSTEM->listaNodos, i);
 			if (nodoi->listaBloques->elements_count > cantBloquesOriginales)
 				cantNodosSuperaBloques++; //son los nodos cuyos bloques son mayores a la cantidad de bloques totales
 		}
@@ -125,7 +125,7 @@ bool puedoHacerCopias(int cantBloquesOriginales) {
 			return true;
 		else {
 			promedio = (cantBloquesOriginales * 3)
-					% FILESYSTEM->listaNodosConectados->elements_count;
+					% FILESYSTEM->listaNodos->elements_count;
 			if (cantMenorBloques >= promedio)
 				return true;
 			else
@@ -156,17 +156,17 @@ void distribucionInicial(char* bloqueListo, element* unElemento) {
 	int cantidadCopias;
 	for (cantidadCopias = COPIAS_BLOQUE; cantidadCopias >= 0;
 			cantidadCopias--) {
-		primerNodo = list_remove(FILESYSTEM->listaNodosConectados, 0); // Descolo el primer nodo de la listaNodosConectados
+		primerNodo = list_remove(FILESYSTEM->listaNodos, 0); // Descolo el primer nodo de la listaNodosConectados
 		// Seteo unNodoBloque
 		unNodoBloque->numeroCopia = cantidadCopias;
 		unNodoBloque->numeroNodo = primerNodo->numero;
 		unNodoBloque->numeroDeBloqueDelNodo =
 				(buscaBloqueDisponible(primerNodo))->numero;
-		unNodoBloque->bloqueArchivo=0; //este valor no es el que lleva, MODIFICARLO
+		unNodoBloque->bloqueArchivo = 0; //este valor no es el que lleva, MODIFICARLO
 
 		// Fin seteo unNodoBloque
 
-		list_add(FILESYSTEM->listaNodosConectados, primerNodo); // Encolo el primer nodo de la lista
+		list_add(FILESYSTEM->listaNodos, primerNodo); // Encolo el primer nodo de la lista
 
 		list_add(unElemento->dobleListaUbicacionDelBloqueEnNodo, unNodoBloque);	// Actualizo la estructura
 //se debe descomentar una vez que ya funcionen bien  el protocolo.c
@@ -241,7 +241,7 @@ ubicacionDelBloqueEnNodo* devuelveBloque(char* nombreArchivo, int numeroBloque) 
 	element* ptrArchivo;
 	ubicacionDelBloqueEnNodo* ptrNodoBloque = NULL;
 	bool compNumeroBloque(ubicacionDelBloqueEnNodo* unaUbicacion) {
-return (unaUbicacion->numeroDeBloqueDelNodo == numeroBloque);
+		return (unaUbicacion->numeroDeBloqueDelNodo == numeroBloque);
 	}
 	ptrArchivo = buscarElementoPorNombre(nombreArchivo);
 	if (ptrArchivo == NULL) {
@@ -263,6 +263,7 @@ char* sacarUltimaParte(char* dirArchivoLocal) {
 	sscanf(nombreArchivo, "/%s", nombreArchivo); // Le borro el primer char
 	return nombreArchivo;
 }
+<<<<<<< HEAD
 void guardarFS(fs* filesystem){
 	int i = 0;
 	int finDeLista = 0;
@@ -281,3 +282,45 @@ void guardarFS(fs* filesystem){
 
 
 }
+=======
+
+void marcaNodoDesconectado(int numeroNodo) {
+	nod* ptrNodo;
+
+	bool condicion(nod* unNodo) { //esta es una inner function, declarada dentro de una funcion.
+		return (numeroNodo == unNodo->numero); // quiero el bloque del nodo que contiene al bloque del archivo
+	}
+	ptrNodo = list_find(FILESYSTEM->listaNodos, (void*) condicion);
+	ptrNodo->estado = DESCONECTADO;
+
+}
+
+t_list* buscaListaArchivo(element* ptrArchivo) {
+	t_list* listaBloquesArchivo;
+	int i, numeroCopia = 0;
+
+	bool condicion(ubicacionDelBloqueEnNodo* unUbicacion) {
+
+		return (unUbicacion->numeroCopia == numeroCopia);
+	}
+	listaBloquesArchivo = list_filter(
+			ptrArchivo->dobleListaUbicacionDelBloqueEnNodo, (void*) condicion);
+
+	if (verificaNodoConectado(listaBloquesArchivo)) { //verifica si esta todos los nodos
+
+		for (i = 0;
+				i
+						< (ptrArchivo->dobleListaUbicacionDelBloqueEnNodo->elements_count);
+				i++) {
+			//solicitarBloque
+			//ubicarBloque en memoria con memset()
+		}
+	} else {
+		numeroCopia = 1;
+		//se debe ver que bloque no esta y agregar un nuevo nodoBloque que si este conectado
+        //de forma de dejar la lista con todos los bloques disponibles
+	}
+
+	return listaBloquesArchivo;
+}
+>>>>>>> a19962427955b8969794e447a37090d9a04926fd

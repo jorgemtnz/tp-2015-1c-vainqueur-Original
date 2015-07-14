@@ -2,31 +2,29 @@
 
 int main(int argc, char **argv)
 {
-	int fdJob, fdMarta;
+	// Toda esta secuencia es por job, asi que ir pensando en hacer una void* para
+	// meterlo adentro de un hilo
+	leerArchivoDeConfiguracion();
 
-	// Conexion con Job
-	fdMarta = crearSocket();
-	asociarSocket(fdMarta, PUERTO_MARTA);
-	escucharSocket(fdMarta, CONEXIONES_ACEPTA_MARTA);
+	void* buffer = malloc(sizeof(int));
 
-	while(1){
-	fdJob = aceptarConexionSocket(fdMarta);
+	vg_fdMarta = crearSocket();
+	asociarSocket(vg_fdMarta,vg_martaPuerto);
+	escucharSocket(vg_fdMarta,vg_conexionesPermitidas);
+	vg_fdJob = aceptarConexionSocket(vg_fdMarta);
 
-	// Recibe Pedido
-	char buffer[TAMANIOBUFFER];
-	recibirPorSocket(fdJob,buffer,TAMANIOBUFFER);
+	recibirPorSocket(vg_fdJob,buffer,sizeof(int));
 	printf("Mensaje recibido: %s\n", buffer);
 
-	// Envia pedido
-	char mensaje[] = "Aplica una rutina en\n"
-					 "Nodo 1, Bloque 2\n"
-					 "Nodo 2, Bloque 1\n"
-					 "Nodo 4, Bloque 3\n";
+//	// Envia pedido
+//	char mensaje[] = "Aplica una rutina en\n"
+//					 "Nodo 1, Bloque 2\n"
+//					 "Nodo 2, Bloque 1\n"
+//					 "Nodo 4, Bloque 3\n";
+//
+//	enviarPorSocket(vg_fdJob, mensaje, sizeof(mensaje));
 
-	enviarPorSocket(fdJob, mensaje, sizeof(mensaje));
-	}
-
-	cerrarSocket(fdMarta);
+	cerrarSocket(vg_fdMarta);
 	return 0;
 
 }

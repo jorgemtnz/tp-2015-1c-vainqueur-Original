@@ -2,22 +2,23 @@
 
 /*------------------- CONSOLA------------------------*/
 
-// s	formatearMDFS
+// s	formatearMDFS                prueba minima
 // s    eliminarArchiv
 // s 	renombrarArchivo
 // s	moverArchivo
-// s	crearDirectorio
+// s	crearDirectorio               prueba minima
 // s    eliminarDirectorio
 // s    renombrarDirectorio
 // s	moverDirectorio
-// s	copiarArchivoLocalAlMDFS
-// n	copiarArchivoDelMDFSAlFSLocal
-// n	solicitarMD5deUnArchivoenMDFS
-// s	verUbicacionBloque
+// s	copiarArchivoLocalAlMDFS      prueba minima
+// n	copiarArchivoDelMDFSAlFSLocal , esta no se encuentra en las condiciones mínimas
+// n	solicitarMD5deUnArchivoenMDFS   prueba minima
+// s	verUbicacionBloque              prueba minima
+// s    verBloque                       prueba minima solo pendiente tema socket
 // s	borrarBloque
-// s	copiarBloque
-// s	agregarNodo  			// No debe recibir argumentos // Falta sockets
-// s	eliminarNodo
+// s	copiarBloque                    prueba minima
+// s	agregarNodo  			        prueba minima    // No debe recibir argumentos // Falta sockets
+// s	eliminarNodo                    prueba minima
 // s	mostrarComandos
 // s 	mostrarElementos 		// Yapa
 void renombrarElemento(element* ptrElemento, char* nuevoNombreElemento) {
@@ -247,13 +248,59 @@ void copiarArchivoLocalAlMDFS() {
 }
 
 void copiarArchivoDelMDFSAlFSLocal() {
-	// Falta iplementar
+	// Falta iplementar,  esta implicitamente en las condiciones mínimas
+	char nombreArchivo[LONGITUD_STRINGS];
+	element* archivoMDFS;
+	t_list* listaNodoBloque; // ya filtrada.
+	int i, numeroCopia = 0;
+	ubicacionDelBloqueEnNodo* nodoBLoque = NULL;
+	FILE* archivoLocal; // este es el archivo que se debe crear en el Local
+
+	bool condicion(ubicacionDelBloqueEnNodo* unaUbic) { //esta es una inner function, declarada dentro de una funcion.
+		return (numeroCopia == unaUbic->numeroCopia); //quiero filtrar la lista por el numeroCopia
+	}
+
+	printf(
+			"Ingrese el nombre del archivo que quiere copiar del MDFS al FSlocal");
+	scanf("%s", nombreArchivo);
+
+	archivoMDFS = buscarElementoPorNombre(nombreArchivo);
+	if (archivoMDFS->estado == ESTA_DISPONIBLE) {
+
+		//tendria que tener toda la lista, puede ser un bloque de copia 0 , otro bloque de copia1, etc
+		//listaBloquesArchivo= buscaListaArchivo(ptrArchivo);
+		listaNodoBloque = list_filter(
+				archivoMDFS->dobleListaUbicacionDelBloqueEnNodo,
+				(void*) condicion);
+		//enviamos las solicitudes de bloques
+
+		for (i = 0; i < listaNodoBloque->elements_count;) {
+			nodoBLoque = list_get(listaNodoBloque, i);
+			//	solicitarBloque(nodoBLoque); //aca podria usar la que muestra el bloque, solo que no quiero que se muestre sino que me lo de.
+		}
+
+		// copiar el archivo que esta en memoria al archivo creado
+	} else {
+		perror("[ERROR] No disponible archivo");
+		exit(-1);
+	}
+	//debo buscar todos los bloques de este archivo. filtro la lista
+
+	//hacer un for hasta el tamaño de la lista. e ir pidiendo elemento de la lista
+	//luego para ese elemento se debe pedir a su correspondiente nodo el bloque
+	//posteriormente se debe copiar a memoria este bloque eh ir armando el archivo
+
 }
 void solicitarMD5deUnArchivoenMDFS() {
-	// falta implementar
+// falta implementar, esta en las condiciones minimas
+// se debe factorizar entre esta y la funcion copiarArchivoDelMDFSAlFSLocal();
+	//una vez armado el archivo copiarlo al FS local y luego se debe aplicar el comando md5sum con la funcion system
+//para obtener el numero de md5.
+// se debe aplicar el mismo comando md5sum al archivo original y  se ambos numeros resultados deben ser iguales (esto es solo visual)
+//se puede sacar una funcion en comun con "copiarArchivoDelMDFSAlLocal"
 }
 
-void verUbicacionBloque() {
+ubicacionDelBloqueEnNodo* verUbicacionBloque() {
 	int numeroBloque;
 	char nombreArchivo[LONGITUD_STRINGS];
 
@@ -270,12 +317,20 @@ void verUbicacionBloque() {
 	printf("El bloque %d del archivo %s se encuentra en:\n"
 			"Nodo: %d  -  BloqueDelNodo: %d", numeroBloque, nombreArchivo,
 			ptrNodoBloque->numeroNodo, ptrNodoBloque->numeroDeBloqueDelNodo);
+	return ptrNodoBloque;
+}
+
+void verBloque() {
+	ubicacionDelBloqueEnNodo* ptrNodoBloque;
+	ptrNodoBloque = verUbicacionBloque();
+// solicitarPorSockect() pido el bloque a este nodo y luego lo muestro por pantalla.
+// hago este free porque antes se hizo un malloc en la fucion verUbicacionBloque
 	free(ptrNodoBloque);
 }
 
 void solicitudCopiaDeBloque() {
-	//se esta desarrollando, debe solicitar un bloque a un nodo
-	//usando parte de la funcion de demostar bloque
+//se esta desarrollando, debe solicitar un bloque a un nodo
+//usando parte de la funcion de mostrar bloque
 }
 
 void copiarBloque() {
@@ -302,12 +357,12 @@ void copiarBloque() {
 	ubicacionDestino->numeroDeBloqueDelNodo = numeroBloqDest;
 	ubicacionDestino->numeroNodo = numeroNodoDest;
 	ubicacionDestino->numeroCopia = ptrNodoBloque->numeroCopia + 1;
-	solicitudCopiaDeBloque();// se quiere pedir al nodo que tiene el bloque, dicho bloque
-	//se encuentra en desarrollo, no terminado
+	solicitudCopiaDeBloque(); // se quiere pedir al nodo que tiene el bloque, dicho bloque
+//se encuentra en desarrollo, no terminado
 
 	free(ubicacionDestino);
 	free(ptrNodoBloque);
-	// se implementa segun lo que diga el ayudante.
+// se implementa segun lo que diga el ayudante.
 }
 
 void actualizarListaDeArchivos(ubicacionDelBloqueEnNodo* unaUbicacion,
@@ -324,7 +379,7 @@ void actualizarListaDeArchivos(ubicacionDelBloqueEnNodo* unaUbicacion,
 	}
 	list_remove_by_condition(unArchivo->dobleListaUbicacionDelBloqueEnNodo,
 			(void*) condicion);	// Es una lista doble!!
-	unNodo = list_find(FILESYSTEM->listaNodosConectados, (void*) condicion);
+	unNodo = list_find(FILESYSTEM->listaNodos, (void*) condicion);
 	unNodo->estado = ESTA_DISPONIBLE;
 }
 
@@ -336,7 +391,7 @@ void borrarBloque() {
 			sizeof(ubicacionDelBloqueEnNodo));
 	ubicacionDelBloqueEnNodo* ubicacionNodoBloqueTemp = malloc(
 			sizeof(ubicacionDelBloqueEnNodo));
-	//se declaran las inner function
+//se declaran las inner function
 
 	printf("Ingrese el nombre del archivo: ");
 	fflush(stdin);
@@ -365,7 +420,7 @@ void borrarBloque() {
 			return (nodo->numero == numeroNodo); //quiero buscar el numero del Nodo que tiene el bloqueArchivo
 		}
 		nod* nodo = malloc(sizeof(nod));
-		nodo = list_find(FILESYSTEM->listaNodosConectados, (void*) condicion);
+		nodo = list_find(FILESYSTEM->listaNodos, (void*) condicion);
 
 		bool condicion2(bloq* unBloque) { //esta es una inner function, declarada dentro de una funcion.
 			return (numBloque == unBloque->numero); // quiero el bloque del nodo que contiene al bloque del archivo
@@ -378,10 +433,10 @@ void borrarBloque() {
 		free(bloque);
 	}
 
-	// Seteo miUbicacion
+// Seteo miUbicacion
 	miUbicacion->numeroNodo = numeroNodo;
 	miUbicacion->numeroDeBloqueDelNodo = numBloque;
-	// Fin seteo
+// Fin seteo
 
 	actualizarListaDeArchivos(miUbicacion, ptrArchivo);
 	free(ptrArchivo);
@@ -392,28 +447,22 @@ void borrarBloque() {
 void agregarNodo() { //FALTA VER EL TEMA DE SOCKETS
 
 	nod* nodo;
-
 	nodo = crearNodo(); // la funcion constructora no recibe ningun parametro
 
 //	buscarPorsocketNodo(nodo->numero);// se le manda el numero identificatorio de ese nodo, que el nodo debe guardar
 //  implementame Santiago
-	// por lo que aca debe haber otra funcion que envie ese numero al nodo.
+// por lo que aca debe haber otra funcion que envie ese numero al nodo.
 
-	list_add(FILESYSTEM->listaNodosConectados, nodo);
+	list_add(FILESYSTEM->listaNodos, nodo);
 // Agrega al nodo a la lista de nodos del FS
 }
 
-void eliminarNodo() { //falta implementar
+void eliminarNodo() { //falta implementar lo de sockets
 	int numero;
 
-	bool condicion(nod* unNodo) { //esta es una inner function, declarada dentro de una funcion.
-				return (numero == unNodo->numero); // quiero el bloque del nodo que contiene al bloque del archivo
-			}
-
-printf("ingrese el numero de nodo a eliminar \n");
-scanf("%d", &numero);
-
-list_remove_and_destroy_by_condition(FILESYSTEM->listaNodosConectados, (void*)condicion, (void*)liberaMemoriaNodo);
+	printf("ingrese el numero de nodo a eliminar \n");
+	scanf("%d", &numero);
+	marcaNodoDesconectado(numero);
 }
 
 void mostrarComandos() {
