@@ -6,6 +6,7 @@
 #include <string.h>
 
 #define	ESCRITURA 0
+#define LECTURA 1
 //#define	ESCRITURA_BLOQUE 1
 //#define	INFORMAR_UBICACION_ARCHIVOS	2
 //#define	SOLICITUD_JOB 3

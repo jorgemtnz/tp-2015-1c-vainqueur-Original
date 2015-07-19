@@ -95,7 +95,7 @@ typedef struct t_archivo {
 // Estructura para que el FS le mande un bloque al nodo por socket
 typedef struct t_escritura_bloque {
 	int numeroDeBloque;
-	char* archivo;
+	char* archivo;//contenido del bloque
 } t_escritura_bloque;
 
 // +++++++++++++++++++++++++++++++++++++++ Prototipos +++++++++++++++++++++++++++++++++++++
