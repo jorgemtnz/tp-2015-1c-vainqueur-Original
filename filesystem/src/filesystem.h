@@ -43,6 +43,9 @@
 #define ESTA_DISPONIBLE 0
 #define CONECTADO 1
 #define DESCONECTADO 0
+#define CONEXION_NODO 9
+#define SOLICITUD_ARCHIVO 10
+#define CONECCIONES_ENTRANTES_PERMITIDAS 20
 
 // +++++++++++++++++++++++++++++++++++++++ Estructuras +++++++++++++++++++++++++++++++++++++
 typedef struct bloq {

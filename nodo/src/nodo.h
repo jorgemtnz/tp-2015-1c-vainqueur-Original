@@ -28,6 +28,7 @@
 #define NODO_NO_NUEVO 0
 #define VEINTEMEGAS 20971520
 
+#define CONECCIONES_ENTRANTES_PERMITIDAS 10
 // +++++++++++++++++++++++++++++++++++++++ Estructuras +++++++++++++++++++++++++++++++++++++
 
 typedef struct nodo {

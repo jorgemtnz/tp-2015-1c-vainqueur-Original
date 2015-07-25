@@ -21,9 +21,17 @@ int main() {
 
 	leerArchivoDeConfiguracion(); // /home/utnso/TPOperativos/job/a.cfg
 
+//	se deben crear dos hilos una clienteAMartha y el otro clienteANodo ambos manejan sus interacciones medinate socket
+//todas la variables globales que sean compartidas entre los hilos deben ser sincronizadas.
+
+	//    clienteAMarta
+
 	indicarArchivosAMarta();
 
-	/*int incrementador;
+
+//	clienteANodo
+
+	/*int incrementador; estos hilos son como conexion para el nodo, dependen de lo recibido por marta.
 
 	for(incrementador = 0; incrementador < HILOS_A_LANZAR; incrementador ++){
 		pthread_t tidHiloJob;
@@ -34,6 +42,8 @@ int main() {
 		pthread_create(&tidHiloJob,&atributosDeHilo,conectarConMarta,NULL);
 		pthread_join(tidHiloJob,NULL);
 	}*/
+
+
 	liberarMemoriaVG();
 	return 0;
 }

@@ -4,6 +4,7 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../src/ServConSelect.c \
 ../src/logger.c \
 ../src/mapeo\ y\ redirecciono.c \
 ../src/servidor.c \
@@ -13,6 +14,7 @@ C_SRCS += \
 ../src/testeoModificaElemento.c 
 
 OBJS += \
+./src/ServConSelect.o \
 ./src/logger.o \
 ./src/mapeo\ y\ redirecciono.o \
 ./src/servidor.o \
@@ -22,6 +24,7 @@ OBJS += \
 ./src/testeoModificaElemento.o 
 
 C_DEPS += \
+./src/ServConSelect.d \
 ./src/logger.d \
 ./src/mapeo\ y\ redirecciono.d \
 ./src/servidor.d \

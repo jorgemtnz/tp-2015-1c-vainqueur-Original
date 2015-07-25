@@ -6,6 +6,9 @@ int main(int argc, char **argv)
 	// meterlo adentro de un hilo
 	leerArchivoDeConfiguracion();
 
+//	se deben hacer dos hilos uno servidorAJob y otro clienteAFilesystem ambos manejaran las respectivas interacciones
+
+// servidorAJob
 	void* buffer = malloc(sizeof(int));
 
 	vg_fdMarta = crearSocket();
