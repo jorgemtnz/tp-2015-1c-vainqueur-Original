@@ -15,7 +15,8 @@
 #include <src/commons/temporal.h>
 #include <src/commons/string.h>
 #include <src/commons/txt.h>
-
+#include <semaphore.h>
+#include <pthread.h>
 // +++++++++++++++++++++++++++++++++++++++ Define +++++++++++++++++++++++++++++++++++++
 #define SI 1
 #define NO 0

@@ -6,21 +6,25 @@ void liberaMemoriaArchivoProcesado(t_archivoProcesado* ptrArchivoProcesado) {
 	free(ptrArchivoProcesado);
 }
 
-void liberaMemoriaRelacionNodoBloque(t_relacionNodoBloque* ptrRelacionNodoBloque) {
+void liberaMemoriaRelacionNodoBloque(
+		t_relacionNodoBloque* ptrRelacionNodoBloque) {
 	free(ptrRelacionNodoBloque);
 }
 
 void liberaMemoriaUbicacionBloque(t_ubicacionBloque* ptrUbicacionBloque) {
 
-	list_destroy_and_destroy_elements(ptrUbicacionBloque->listaRelacionesNodoBloque,
-									  liberaMemoriaRelacionNodoBloque);
+	list_destroy_and_destroy_elements(
+			ptrUbicacionBloque->listaRelacionesNodoBloque,
+			(void*) liberaMemoriaRelacionNodoBloque);
 	free(ptrUbicacionBloque);
 }
 
-void liberaMemoriaInformacionArchivo(t_informacionDelArchivo* ptrInformacionArchivo) {
-		free(ptrInformacionArchivo->nombreArchivo);
-	list_destroy_and_destroy_elements(ptrInformacionArchivo->listaUbicacionBloques,
-									  liberaMemoriaInformacionArchivo);
+void liberaMemoriaInformacionArchivo(
+		t_informacionDelArchivo* ptrInformacionArchivo) {
+	free(ptrInformacionArchivo->nombreArchivo);
+	list_destroy_and_destroy_elements(
+			ptrInformacionArchivo->listaUbicacionBloques,
+			(void*) liberaMemoriaInformacionArchivo);
 	free(ptrInformacionArchivo);
 }
 
@@ -31,20 +35,20 @@ void liberaMemoriaNombreFuncion(char* ptrNombreFuncion) {
 void liberaMemoriaSolicitud(t_solicitud* ptrSolicitud) {
 	free(ptrSolicitud->nombreArchivoATrabajar);
 	list_destroy_and_destroy_elements(ptrSolicitud->listaNombresFunciones,
-									  liberaMemoriaSolicitud);
+			(void*)liberaMemoriaSolicitud);
 	free(ptrSolicitud);
 }
 
 void liberaMemoriaMarta(t_estructuraMarta* ptrMarta) {
 	list_destroy_and_destroy_elements(ptrMarta->listaArchivosProcesados,
-									  liberaMemoriaArchivoProcesado);
+			(void*)liberaMemoriaArchivoProcesado);
 	list_destroy_and_destroy_elements(ptrMarta->listaInformacionDelArchivo,
-									  liberaMemoriaInformacionArchivo);
+			(void*)liberaMemoriaInformacionArchivo);
 	list_destroy_and_destroy_elements(ptrMarta->listaSolicitudes,
-									  liberaMemoriaSolicitud);
+			(void*)liberaMemoriaSolicitud);
 	free(ptrMarta);
 }
 
-void liberaVG(){
+void liberaVG() {
 	free(vg_ipFilesystem);
 }

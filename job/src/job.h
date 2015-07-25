@@ -17,7 +17,7 @@
 #include <src/commons/config.h>
 #include <src/commons/collections/list.h>
 #include <pthread.h>
-
+#include <semaphore.h>
 // +++++++++++++++++++++++++++++++++++++++ Define +++++++++++++++++++++++++++++++++++++
 #define SI 1
 #define NO 0
