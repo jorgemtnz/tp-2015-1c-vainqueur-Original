@@ -18,7 +18,7 @@ void* servidorANodo();
 //servidorANodo -
 //clienteANodo -
 int main(int argc, char **argv) {
-	int i,error[4];
+	int i, error[4];
 	pthread_t tidClienteAFS;
 	pthread_t tidServidorAJob;
 	pthread_t tidServidorANodo;
@@ -50,17 +50,57 @@ int main(int argc, char **argv) {
 	return 0;
 }
 
+void* clienteAFS() {
+	int sockTranferencia;
 
-void* clienteAFS(){
+	sockTranferencia = crearSocket();
+	conectarSocket(sockTranferencia, vg_ip_FS, vg_puerto_FS);
+	//comienza la comunicacion se usa sockTranferencia para comunicarse. se debe implementar
+
+	cerrarSocket(sockTranferencia);
 	return NULL;
 }
-void* servidorAJob(){
+void* servidorAJob() {
+	int sockEscucha;
+	int sockTranferencia;
+
+	sockEscucha = crearSocket();
+	asociarSocket(sockEscucha, vg_puerto_Nodo);
+	escucharSocket(sockEscucha, 1);
+	sockTranferencia = aceptarConexionSocket(sockEscucha);
+//sockTranferencia se puede usar para send y recv
+//aca se debe implementar
+
+	cerrarSocket(sockEscucha);
+	cerrarSocket(sockTranferencia);
+
 	return NULL;
 }
 
-void* clienteANodo(){
+void* clienteANodo() {
+	int sockTranferencia;
+
+			sockTranferencia = crearSocket();
+			conectarSocket(sockTranferencia, vg_ip_Nodo,vg_puerto_Nodo);
+			//comienza la comunicacion se usa sockTranferencia para comunicarse. se debe implementar
+
+			cerrarSocket(sockTranferencia);
 	return NULL;
 }
-void* servidorANodo(){
+void* servidorANodo() {
+
+	int sockEscucha;
+	int sockTranferencia;
+
+	sockEscucha = crearSocket();
+	asociarSocket(sockEscucha, vg_puerto_Nodo);
+	escucharSocket(sockEscucha, 1);
+	sockTranferencia = aceptarConexionSocket(sockEscucha);
+//sockTranferencia se puede usar para send y recv
+//aca se debe implementar
+
+	cerrarSocket(sockEscucha);
+	cerrarSocket(sockTranferencia);
+
 	return NULL;
 }

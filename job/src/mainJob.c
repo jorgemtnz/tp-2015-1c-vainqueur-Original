@@ -54,11 +54,20 @@ int main() {
 }
 	//    clienteAMarta
 void* clienteAMartha(){
+	int sockTranferencia;
+
+	sockTranferencia = crearSocket();
+	conectarSocket(sockTranferencia, vg_ipMarta,vg_puertoMarta);
+	//empieza la comunicacion - marta le manda info de los nodos, IP en una variable que sera compartida
+	//y region critica se debe usar mutex
 	//indicarArchivosAMarta();
+	cerrarSocket(sockTranferencia);
 	return NULL;
 }
-//	clienteANodo
+//	clienteANodo se ejecuta solo despues que marta mande la info de los nodos
 void* clienteANodos(){
+	int sockTranferencia;
+//se van a lanzar 2 hilos que van a un nodo,
 
 
 	/*int incrementador; estos hilos son como conexion para el nodo, dependen de lo recibido por marta.
@@ -69,9 +78,12 @@ void* clienteANodos(){
 
 	 pthread_attr_init(&atributosDeHilo);
 
-	 pthread_create(&tidHiloJob,&atributosDeHilo,conectarConMarta,NULL);
+	 pthread_create(&tidHiloJob,&atributosDeHilo,manejaHilo,NULL);
 	 pthread_join(tidHiloJob,NULL);
-	 }*/
 
+	 //sockTranferencia = crearSocket();
+		//conectarSocket(sockTranferencia,variable compartida con direccion IP que manda marta)
+	 }*/
+	//cerrarSocket(sockTranferencia);
 return NULL;
 }

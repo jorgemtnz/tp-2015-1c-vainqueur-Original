@@ -37,6 +37,13 @@ int main(int argc, char **argv)
 }
 
 void* clienteAFS(){
+	int sockTranferencia;
+
+		sockTranferencia = crearSocket();
+		conectarSocket(sockTranferencia,vg_ipFilesystem, vg_puertoFilesystem);
+		//comienza la comunicacion, se usa sockTranferencia para comunicarse. se debe implementar la interaccion
+
+		cerrarSocket(sockTranferencia);
 	return NULL;
 }
 void* servidorAJob(){
@@ -58,7 +65,7 @@ void* servidorAJob(){
 //					 "Nodo 4, Bloque 3\n";
 //
 //	enviarPorSocket(vg_fdJob, mensaje, sizeof(mensaje));
-
+ cerrarSocket(vg_fdJob);
 	cerrarSocket(vg_fdMarta);
 	return NULL;
 }
