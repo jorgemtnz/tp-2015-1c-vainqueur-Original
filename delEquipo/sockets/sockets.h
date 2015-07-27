@@ -25,6 +25,6 @@ void asociarSocket(int sockfd, int puerto);
 void escucharSocket(int sockfd, int conexionesEntrantesPermitidas);
 int  aceptarConexionSocket(int sockfd);
 // Solo para el ciente
-void conectarSocket(int sockfd,char* ip_destino, int puerto);
+int conectarSocket(int sockfd,char* ip_destino, int puerto);
 
 #endif /* SOCKETS_H_ */

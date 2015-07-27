@@ -46,10 +46,10 @@ void * servidorHilo() {
 	char buffer[100];
 
 	fdSocketEscucha = crearSocket();
-	asociarSocket(fdSocketEscucha, 9002);
+	asociarSocket(fdSocketEscucha, 9003);
 	escucharSocket(fdSocketEscucha, CONECCIONES_ENTRANTES_PERMITIDAS);
 
-	sem_post(&semaforoCliente);
+//	sem_post(&semaforoCliente);
 //	sem_wait(&semaforoServidor);
 
 	fdSocketNuevasConecciones = aceptarConexionSocket(fdSocketEscucha);
@@ -74,11 +74,15 @@ void * servidorHilo() {
 void * clienteHilo() {
 	int fdCliente;
 	char buffer[100] = "Mensaje Para Servidor \n";
+	int retorno = -1;
 
 	fdCliente = crearSocket();
 
-	sem_wait(&semaforoCliente);
-	conectarSocket(fdCliente,"127.0.0.1", 9002);
+//	sem_wait(&semaforoCliente);
+	while(retorno<0)
+	{
+		 retorno = conectarSocket(fdCliente,"127.0.0.1", 9003);
+	}
 
 //	sem_post(&semaforoServidor);
 //	sem_wait(&semaforoCliente);

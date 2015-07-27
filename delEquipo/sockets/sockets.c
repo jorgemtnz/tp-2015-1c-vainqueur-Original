@@ -42,7 +42,7 @@ void asociarSocket(int sockfd, int puerto)
 	printf("[OK] Funcion BIND. Vinculada al puerto [ %d ]\n", puerto);
 }
 
-void conectarSocket(int sockfd, char* ip_Destino, int puerto)
+int conectarSocket(int sockfd, char* ip_Destino, int puerto)
 {	// Seteo estructura datosServidor
 	struct sockaddr_in datosServidor;
 	datosServidor.sin_family 	  = AF_INET;
@@ -55,9 +55,10 @@ void conectarSocket(int sockfd, char* ip_Destino, int puerto)
 	if (posibleError == -1)
 	{
 		perror("[ERROR] Funcion connect\n");
-		exit(-1);
+		return(-1);
 	}
 	printf("[OK] Funcion CONNECT\n");
+	return(1);
 }
 
 void escucharSocket(int sockfd, int conexionesEntrantesPermitidas)
