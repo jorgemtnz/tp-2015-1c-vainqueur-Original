@@ -95,18 +95,20 @@ void testleerArchivoDeConfiguracion();
 void conectarConMarta();
 void sendTamanioDe(char* cadena);
 void* indicarArchivosAMarta();
-
+void testleerArchivoDeConfiguracion();
 // +++++++++++++++++++++++++++++++++++ Variables Globales +++++++++++++++++++++++++++++++++++
 
 // El archivo config de job tiene IP_MARTA PUERTO_MARTA MAPPER REDUCE COMBINER ARCHIVOS RESULTADO
 int	   vg_puertoMarta;
 int	   vg_combiner;		// ACEPTA_COMBINER = 1 ; NO_ACEPTA_COMBINER = 0
 int    vg_fdJob;
+int    vg_PuertoNodo;
+char* vg_ipNodo;
 char*  vg_ipMarta;
 char** vg_archivos; 		// Array de strings
 char*  vg_resultado; 	// String de ruta del archivo resultante
 char*  vg_mapperPath; 	// Ruta del archivo mapper
 char*  vg_reducerPath; 	// Ruta del reducer
-char   vg_nombreArchivoConfigJob[LONGPATH];
+char*   vg_nombreArchivoConfigJob;
 
 #endif /* JOB_H_ */

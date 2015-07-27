@@ -19,6 +19,10 @@ void* servidorANodo();
 //clienteANodo -
 int main(int argc, char **argv) {
 	int i, error[4];
+
+	levantarArchivoConfiguracion();
+	testleerArchivoDeConfiguracion();
+
 	pthread_t tidClienteAFS;
 	pthread_t tidServidorAJob;
 	pthread_t tidServidorANodo;
@@ -57,7 +61,7 @@ void* clienteAFS() {
 	void* buffer = "hola desde el nodo";
 	sockTranferencia = crearSocket();
 	while (retorno < 0) {
-		retorno = conectarSocket(sockTranferencia, "127.0.0.1", 9756);
+		retorno = conectarSocket(sockTranferencia, vg_ip_FS, vg_puerto_FS);
 	}
 	//comienza la comunicacion se usa sockTranferencia para comunicarse. se debe implementar
 	enviarPorSocket(sockTranferencia, buffer, strlen(buffer));
@@ -66,18 +70,20 @@ void* clienteAFS() {
 	return NULL;
 }
 void* servidorAJob() {
-//	int sockEscucha;
-//	int sockTranferencia;
-//
-//	sockEscucha = crearSocket();
-//	asociarSocket(sockEscucha, 7990);
-//	escucharSocket(sockEscucha, 1);
-//	sockTranferencia = aceptarConexionSocket(sockEscucha);
-////sockTranferencia se puede usar para send y recv
-////aca se debe implementar
-//
-//	cerrarSocket(sockEscucha);
-//	cerrarSocket(sockTranferencia);
+	int sockEscucha;
+	int sockTranferencia;
+	void* bufferJob[1024];
+
+	sockEscucha = crearSocket();
+	asociarSocket(sockEscucha, vg_puerto_job);
+	escucharSocket(sockEscucha, 1);
+	sockTranferencia = aceptarConexionSocket(sockEscucha);
+//sockTranferencia se puede usar para send y recv
+//aca se debe implementar
+		recibirPorSocket(sockTranferencia, bufferJob, 1024);
+		printf("desde el job  %s\n", bufferJob);
+	cerrarSocket(sockEscucha);
+	cerrarSocket(sockTranferencia);
 
 	return NULL;
 }

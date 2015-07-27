@@ -13,6 +13,7 @@ int main(int argc, char **argv) {
 	// Toda esta secuencia es por job, asi que ir pensando en hacer una void* para
 	// meterlo adentro de un hilo
 	leerArchivoDeConfiguracion();
+	testleerArchivoDeConfiguracion();
 
 	error = sem_init(&semServAJob, 0, 0);
 	errorOtro = sem_init(&semCliFS, 0, 0);
@@ -38,13 +39,11 @@ int main(int argc, char **argv) {
 void* clienteAFS() {
 	int sockTranferencia;
 	int retorno = -1;
-	sem_post(&semServAJob);
-	void* buffer[1025];
+//	sem_post(&semServAJob);
+	void* buffer[1024];
 	void* msg = "hola desde marta";
 	sockTranferencia = crearSocket();
 
-	vg_ipFilesystem = "127.0.0.1";
-	vg_puertoFilesystem = 9750;
 	while (retorno < 0) {
 		retorno = conectarSocket(sockTranferencia, vg_ipFilesystem,
 				vg_puertoFilesystem);
@@ -52,23 +51,23 @@ void* clienteAFS() {
 	//comienza la comunicacion, se usa sockTranferencia para comunicarse. se debe implementar la interaccion
 
 	enviarPorSocket(sockTranferencia, msg, strlen(msg));
-//	recibirPorSocket(sockTranferencia, buffer, 1025);
+//	recibirPorSocket(sockTranferencia, buffer, 1024);
 //	printf("desde el servidor  %s\n", buffer);
 	cerrarSocket(sockTranferencia);
 	return NULL;
 }
 void* servidorAJob() {
 // servidorAJob
-	sem_wait(&semServAJob);
-	void* buffer = malloc(sizeof(int));
+//	sem_wait(&semServAJob);
+	void* bufferJOb = malloc(sizeof(int));
 
 	vg_fdMarta = crearSocket();
 	asociarSocket(vg_fdMarta, vg_martaPuerto);
 	escucharSocket(vg_fdMarta, vg_conexionesPermitidas);
 	vg_fdJob = aceptarConexionSocket(vg_fdMarta);
 
-	recibirPorSocket(vg_fdJob, buffer, sizeof(int));
-	printf("Mensaje recibido: %s\n", buffer);
+	recibirPorSocket(vg_fdJob, bufferJOb, sizeof(int));
+	printf("Mensaje recibido de job: %s\n", bufferJOb);
 
 //	// Envia pedido
 //	char mensaje[] = "Aplica una rutina en\n"

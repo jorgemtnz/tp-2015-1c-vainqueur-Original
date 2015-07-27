@@ -50,7 +50,7 @@ void liberaMemoriaNodo();
 // Funciones Auxiliares recorre la lista y va liberando elemento por elemento mediante la func_destructura
 void liberaMemoriaLista(t_list* lista, int* cantElementos,
 		void (*funcionLiberaElemento)(void*)) ;
-
+void testleerArchivoDeConfiguracion();
 //nodoFunciones
 void levantarArchivoConfiguracion(); //levanta configuración y se lo pasa a las variables globales
 int informarEjecucionAJob(t_nodo* datosDelNodo,
@@ -65,7 +65,8 @@ char* getFileContent(char* nombreDelArchivo) ; //devuelve archivo del tmp
 // +++++++++++++++++++++++++++++++++++ Variables Globales +++++++++++++++++++++++++++++++++++
 int vg_puerto_FS,
 	vg_nodo_Nuevo,
-	vg_puerto_Nodo;
+	vg_puerto_Nodo,
+	vg_puerto_job;
 
 char *vg_ip_FS;
 char *vg_archivo_Bin;

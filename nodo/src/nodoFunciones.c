@@ -6,11 +6,13 @@ void levantarArchivoConfiguracion() {
 	archivoConfig = config_create(RUTACONFIGNODO);
 	vg_puerto_FS = config_get_int_value(archivoConfig, "PUERTO_FS");
 	vg_ip_FS = config_get_string_value(archivoConfig, "IP_FS");
-	vg_archivo_Bin = config_get_string_value(archivoConfig, "ARCHIVO_BIN");
+	vg_puerto_Nodo = config_get_int_value(archivoConfig, "PUERTO_NODO");
 	vg_ip_Nodo = config_get_string_value(archivoConfig, "IP_NODO");
+	vg_puerto_Nodo = config_get_int_value(archivoConfig, "PUERTO_JOB");
+	vg_archivo_Bin = config_get_string_value(archivoConfig, "ARCHIVO_BIN");
+
 	vg_dirTemp = config_get_string_value(archivoConfig, "DIR_TEMP");
 	temporal = config_get_string_value(archivoConfig, "NODO_NUEVO");
-	vg_puerto_Nodo = config_get_int_value(archivoConfig, "PUERTO_NODO");
 
 	if (strcmp(temporal, "SI") == 0) {
 		vg_nodo_Nuevo = NODO_NUEVO;

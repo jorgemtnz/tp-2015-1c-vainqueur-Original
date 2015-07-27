@@ -141,7 +141,7 @@ void solicitudCopiaDeBloque(); // se esta implementando
 char* sacarUltimaParte(char* dirArchivoLocal);
 void marcaNodoDesconectado(int numeroNodo);
 bool verificaNodoConectado(t_list*listaBloquesArchivo);
-
+void testleerArchivoDeConfiguracion();
 t_list* buscaListaArchivo(element* ptrArchivo);
 
 // Funciones de Consola
@@ -176,7 +176,9 @@ void levantarConsola();
 
 // +++++++++++++++++++++++++++++++++++ Variables Globales +++++++++++++++++++++++++++++++++++
 fs* FILESYSTEM;
-int vg_puerto_listen;
+int vg_puerto_listen_marta,
+vg_puerto_listen_nodo;
+
 char** vg_lista_nodos; // array de strings para guardar las IP de los nodos.
 int vg_cant_lista_nodos;
 

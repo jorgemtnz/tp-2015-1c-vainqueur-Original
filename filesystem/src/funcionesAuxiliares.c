@@ -11,13 +11,28 @@ void leerArchivoDeConfiguracion() {	// El archivo config de FS tiene PUERTO_LIST
 //	scanf("%s", nombreArchivoConfigFS);
 	// Fin de interaccion con el usuario
 	char* nombreArchivoConfigFS;
-nombreArchivoConfigFS ="/home/utnso/TPOperativos/filesystem/configuracion.cfg";
+	strcpy(nombreArchivoConfigFS,"/home/utnso/TPOperativos/filesystem/configuracion.cfg");
+
 	t_config* archivoConfig = config_create(nombreArchivoConfigFS);
 
-	vg_puerto_listen = config_get_int_value(archivoConfig, "PUERTO_LISTEN");
-	vg_cant_lista_nodos = config_get_int_value(archivoConfig, "LISTA_NODOS");
+	vg_puerto_listen_marta = config_get_int_value(archivoConfig, "PUERTO_LISTEN_MARTA");
+	vg_puerto_listen_nodo = config_get_int_value(archivoConfig, "PUERTO_LISTEN_NODO");
+	vg_cant_lista_nodos = config_get_int_value(archivoConfig, "LISTA_NODOS_CANT");
 
 	config_destroy(archivoConfig);
+}
+
+void testleerArchivoDeConfiguracion(){
+	int i;
+	printf("*********************** Valores Seteados ***********************\n");
+		printf("Puerto de Nodo:\t[%d]\n",vg_puerto_listen_nodo);
+
+	printf("Puerto de FS:\t[%d]\n",vg_puerto_listen_marta);
+
+	printf("Archivo Bin:\t[%d]\n",vg_cant_lista_nodos);
+
+
+	printf("****************************** FIN ******************************\n");
 }
 
 element* buscarElementoPorNombre(char* nombre) {

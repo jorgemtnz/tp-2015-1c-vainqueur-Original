@@ -11,6 +11,8 @@ int main(int argc, char **argv) {
 	int error, errorOtro;
 
 	 leerArchivoDeConfiguracion();
+//	 testleerArchivoDeConfiguracion();
+
 	error = sem_init(&semServAMartha, 0, 0);
 	errorOtro = sem_init(&semSerANodos, 0, 0);
 	if ((error < 0) || (errorOtro < 0)) {
@@ -55,16 +57,15 @@ void* servidorAMartha() {
 	int sockTranferencia;
 	void* buffer[1024];
 
-//	int vg_puerto = 9750;
 
 	sockEscucha = crearSocket();
-	asociarSocket(sockEscucha, 9750);
+	asociarSocket(sockEscucha, vg_puerto_listen_marta);
 	escucharSocket(sockEscucha, 1);
 	sockTranferencia = aceptarConexionSocket(sockEscucha);
 //sockTranferencia se puede usar para send y recv
 //aca se debe implementar
 	recibirPorSocket(sockTranferencia, buffer, 1024);
-	printf("mensaje de marta:%s \n", buffer);
+	printf("mensaje de marta: %s \n", buffer);
 
 	cerrarSocket(sockEscucha);
 	cerrarSocket(sockTranferencia);
@@ -75,7 +76,7 @@ void* servidorANodos() {
 	//servidor concurrente
 
 
-	vg_puerto_listen = 9756;
+
 	int master_socket, addrlen, sockTransferencia, client_socket[30],
 			max_clients = 30, activity, i, valread, sd;
 	int max_sd;
@@ -90,7 +91,7 @@ void* servidorANodos() {
 		client_socket[i] = 0;
 	}
 	master_socket = crearSocket();
-	asociarSocket(master_socket, vg_puerto_listen);
+	asociarSocket(master_socket, vg_puerto_listen_nodo);
 	escucharSocket(master_socket, CONECCIONES_ENTRANTES_PERMITIDAS);
 
 	while (1) {
@@ -127,7 +128,7 @@ void* servidorANodos() {
 			sockTransferencia = aceptarConexionSocket(master_socket);
 			//se empieza a hablar
 			   recibirPorSocket(sockTransferencia,buffer, 1025);
-			               printf("de nodo%s,\n", buffer);
+			               printf("de nodo  %s,\n", buffer);
 
 			//add new socket to array of sockets
 			for (i = 0; i < max_clients; i++) {

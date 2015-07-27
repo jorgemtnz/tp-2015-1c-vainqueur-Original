@@ -24,8 +24,11 @@ void* clienteAMartha();
 void* clienteANodos();
 
 int main() {
+  	int error, errorOtro;
 
-	int error, errorOtro;
+  	leerArchivoDeConfiguracion(); // /home/utnso/TPOperativos/job/a.cfg
+  		  testleerArchivoDeConfiguracion();
+
 	error = sem_init(&semCliAMartha, 0, 0);
 	errorOtro = sem_init(&semCliANodo, 0, 0);
 	if ((error < 0) || (errorOtro < 0)) {
@@ -33,7 +36,7 @@ int main() {
 		exit(-1);
 	}
 
-	leerArchivoDeConfiguracion(); // /home/utnso/TPOperativos/job/a.cfg
+
 //crearJob() crear las estructuras
 	pthread_t tidClienteAMartha;
 	pthread_t tidClienteANodos;
@@ -73,12 +76,13 @@ void* clienteAMartha(){
 void* clienteANodos(){
 	int sockTranferencia;
 	int retorno = -1;
+	void* msg = "hola desde job";
 
-//	while(retorno<0)
-//		{
-//			 retorno = conectarSocket(,,);
-//		}
-//se van a lanzar 2 hilos que van a un nodo,
+	sockTranferencia = crearSocket();
+	while (retorno < 0) {
+	retorno = conectarSocket(sockTranferencia,vg_ipNodo,vg_PuertoNodo);
+}
+//se van a lanzar n hilos que van a cada nodo, de los que se tenga que conectar
 
 
 	/*int incrementador; estos hilos son como conexion para el nodo, dependen de lo recibido por marta.
@@ -95,6 +99,7 @@ void* clienteANodos(){
 	 //sockTranferencia = crearSocket();
 		//conectarSocket(sockTranferencia,variable compartida con direccion IP que manda marta)
 	 }*/
-	//cerrarSocket(sockTranferencia);
+	enviarPorSocket(sockTranferencia, msg, strlen(msg));
+	cerrarSocket(sockTranferencia);
 return NULL;
 }

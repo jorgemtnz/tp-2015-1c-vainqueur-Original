@@ -3,15 +3,17 @@
 void leerArchivoDeConfiguracion() {
 	// El archivo config de job tiene IP_MARTA PUERTO_MARTA MAPPER REDUCE COMBINER ARCHIVOS RESULTADO
 
-	printf("Ingrese la ruta del archivo de configuracion del job: ");
-	fflush(stdin);
-	scanf("%s", vg_nombreArchivoConfigJob);
-	// /home/utnso/TPOperativos/job/a.cfg
+//	printf("Ingrese la ruta del archivo de configuracion del job: ");
+//	fflush(stdin);
+//	scanf("%s", vg_nombreArchivoConfigJob);
+	// /home/utnso/TPOperativos/job/config_job.cfg
+	vg_nombreArchivoConfigJob = "/home/utnso/TPOperativos/job/config_job.cfg";
 	t_config* archivoConfig = config_create(vg_nombreArchivoConfigJob);
 
 	vg_puertoMarta = config_get_int_value(archivoConfig, "PUERTO_MARTA");
-
+	vg_PuertoNodo =   config_get_int_value(archivoConfig, "PUERTO_NODO");
 	vg_ipMarta 		= strdup(config_get_string_value(archivoConfig, "IP_MARTA"));
+	vg_ipNodo       = strdup(config_get_string_value(archivoConfig, "IP_NODO"));
 	vg_mapperPath 	= strdup(config_get_string_value(archivoConfig, "MAPPER"));
 	vg_reducerPath 	= strdup(config_get_string_value(archivoConfig, "REDUCER"));
 	vg_resultado 	= strdup(config_get_string_value(archivoConfig, "RESULTADO"));
@@ -34,8 +36,10 @@ void testleerArchivoDeConfiguracion(){
 	printf("*********************** Valores Seteados ***********************\n");
 	printf("Path del Config de Jog:\t[%s]\n",vg_nombreArchivoConfigJob);
 	printf("Puerto de Marta:\t[%d]\n",vg_puertoMarta);
-	printf("Acepta combiner:\t[%d]\n",vg_combiner);
+	printf("Puerto de Marta:\t[%d]\n",vg_PuertoNodo);
 	printf("IP marta:\t\t[%s]\n",vg_ipMarta);
+	printf("IP marta:\t\t[%s]\n",vg_ipNodo);
+	printf("Acepta combiner:\t[%d]\n",vg_combiner);
 	printf("Mapper path:\t\t[%s]\n",vg_mapperPath);
 	printf("Reducer path:\t\t[%s]\n",vg_reducerPath);
 	printf("Resultado:\t\t[%s]\n",vg_resultado);

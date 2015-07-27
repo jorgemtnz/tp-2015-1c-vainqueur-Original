@@ -96,7 +96,7 @@ char * generarNombreAlmacenado(char * nombreArchivo, char * nombreFuncion);
 // [generarNombreAlmacenado] genera el nombre del archivo que se almacena en el temporal
 void solicitarBloquesAFilesystem(char * archivoAProcesar);
 void leerArchivoDeConfiguracion();
-
+void testleerArchivoDeConfiguracion();
 // +++++++++++++++++++++++++++++++++++ Variables Globales +++++++++++++++++++++++++++++++++++
 t_estructuraMarta marta;
 int vg_martaPuerto;
