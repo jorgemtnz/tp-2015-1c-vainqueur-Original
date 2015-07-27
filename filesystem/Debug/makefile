@@ -26,14 +26,14 @@ endif
 all: filesystem
 
 dependents:
-	-cd /home/utnso/tp-2015-1c-vainqueur/commons-library/Debug && $(MAKE) all
-	-cd /home/utnso/tp-2015-1c-vainqueur/delEquipo/Debug && $(MAKE) all
+	-cd /home/utnso/TPOperativos/commons-library/Debug && $(MAKE) clean all
+	-cd /home/utnso/TPOperativos/delEquipo/Debug && $(MAKE) clean all
 
 # Tool invocations
-filesystem: $(OBJS) $(USER_OBJS) /home/utnso/tp-2015-1c-vainqueur/commons-library/Debug/libcommons-library.so /home/utnso/tp-2015-1c-vainqueur/delEquipo/Debug/libdelEquipo.so
+filesystem: $(OBJS) $(USER_OBJS) /home/utnso/TPOperativos/commons-library/Debug/libcommons-library.so /home/utnso/TPOperativos/delEquipo/Debug/libdelEquipo.so
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C Linker'
-	gcc -L"/home/utnso/tp-2015-1c-vainqueur/delEquipo/Debug" -L"/home/utnso/tp-2015-1c-vainqueur/commons-library/Debug" -o "filesystem" $(OBJS) $(USER_OBJS) $(LIBS)
+	gcc -L"/home/utnso/TPOperativos/delEquipo/Debug" -L"/home/utnso/TPOperativos/commons-library/Debug" -o "filesystem" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -44,7 +44,7 @@ clean:
 
 .PHONY: all clean dependents
 .SECONDARY:
-/home/utnso/tp-2015-1c-vainqueur/commons-library/Debug/libcommons-library.so:
-/home/utnso/tp-2015-1c-vainqueur/delEquipo/Debug/libdelEquipo.so:
+/home/utnso/TPOperativos/commons-library/Debug/libcommons-library.so:
+/home/utnso/TPOperativos/delEquipo/Debug/libdelEquipo.so:
 
 -include ../makefile.targets

@@ -53,9 +53,11 @@ int main(int argc, char **argv) {
 
 void* clienteAFS() {
 	int sockTranferencia;
-
+	int retorno = -1;
 	sockTranferencia = crearSocket();
-	conectarSocket(sockTranferencia, vg_ip_FS, vg_puerto_FS);
+	while (retorno < 0) {
+		retorno = conectarSocket(sockTranferencia, vg_ip_FS, vg_puerto_FS);
+	}
 	//comienza la comunicacion se usa sockTranferencia para comunicarse. se debe implementar
 
 	cerrarSocket(sockTranferencia);
@@ -80,12 +82,13 @@ void* servidorAJob() {
 
 void* clienteANodo() {
 	int sockTranferencia;
-
-			sockTranferencia = crearSocket();
-			conectarSocket(sockTranferencia, vg_ip_Nodo,vg_puerto_Nodo);
-			//comienza la comunicacion se usa sockTranferencia para comunicarse. se debe implementar
-
-			cerrarSocket(sockTranferencia);
+	int retorno = -1;
+	sockTranferencia = crearSocket();
+	while (retorno < 0) {
+		retorno = conectarSocket(sockTranferencia, vg_ip_Nodo, vg_puerto_Nodo);
+	}
+	//comienza la comunicacion se usa sockTranferencia para comunicarse. se debe implementar
+	cerrarSocket(sockTranferencia);
 	return NULL;
 }
 void* servidorANodo() {

@@ -39,9 +39,12 @@ int main(int argc, char **argv)
 
 void* clienteAFS(){
 	int sockTranferencia;
-
+	int retorno = -1;
 		sockTranferencia = crearSocket();
-		conectarSocket(sockTranferencia,vg_ipFilesystem, vg_puertoFilesystem);
+		while (retorno < 0)
+		{
+		retorno = conectarSocket(sockTranferencia,vg_ipFilesystem, vg_puertoFilesystem);
+		}
 		//comienza la comunicacion, se usa sockTranferencia para comunicarse. se debe implementar la interaccion
 
 		cerrarSocket(sockTranferencia);
