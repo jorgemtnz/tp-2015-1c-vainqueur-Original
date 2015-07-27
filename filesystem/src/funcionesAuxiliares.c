@@ -5,16 +5,17 @@
 void leerArchivoDeConfiguracion() {	// El archivo config de FS tiene PUERTO_LISTEN Y LISTA_NODOS
 
 	// Interaccion por consola para ingresar la ruta del archivo.config
-	char nombreArchivoConfigFS[LONGITUD_STRINGS];
-	printf("Ingrese la ruta del archivo de configuracion del fileSystem: ");
-	fflush(stdin);
-	scanf("%s", nombreArchivoConfigFS);
+//	char nombreArchivoConfigFS[LONGITUD_STRINGS];
+//	printf("Ingrese la ruta del archivo de configuracion del fileSystem: ");
+//	fflush(stdin);
+//	scanf("%s", nombreArchivoConfigFS);
 	// Fin de interaccion con el usuario
-
+	char* nombreArchivoConfigFS;
+nombreArchivoConfigFS ="/home/utnso/TPOperativos/filesystem/configuracion.cfg";
 	t_config* archivoConfig = config_create(nombreArchivoConfigFS);
 
 	vg_puerto_listen = config_get_int_value(archivoConfig, "PUERTO_LISTEN");
-	vg_lista_nodos = config_get_array_value(archivoConfig, "LISTA_NODOS");
+	vg_cant_lista_nodos = config_get_int_value(archivoConfig, "LISTA_NODOS");
 
 	config_destroy(archivoConfig);
 }

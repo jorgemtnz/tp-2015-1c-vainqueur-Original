@@ -1,6 +1,5 @@
 #include "marta.h"
 
-
 sem_t semServAJob;
 sem_t semCliFS;
 
@@ -8,17 +7,16 @@ sem_t semCliFS;
 void* servidorAJob();
 void* clienteAFS();
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
 	int error, errorOtro;
 
 	// Toda esta secuencia es por job, asi que ir pensando en hacer una void* para
 	// meterlo adentro de un hilo
 	leerArchivoDeConfiguracion();
 
-	error = sem_init(&semServAJob,0,0);
-	errorOtro= sem_init(&semCliFS,0,0);
-	if((error<0)||(errorOtro<0)){
+	error = sem_init(&semServAJob, 0, 0);
+	errorOtro = sem_init(&semCliFS, 0, 0);
+	if ((error < 0) || (errorOtro < 0)) {
 		perror("[ERROR]: inicializando semaforo");
 		exit(-1);
 	}
@@ -29,7 +27,7 @@ int main(int argc, char **argv)
 	pthread_attr_init(&atributos1);
 	pthread_attr_init(&atributos2);
 	pthread_create(&tidClienteFS, &atributos1, clienteAFS, NULL);
-	pthread_create(&tidServidorAJob, &atributos2,servidorAJob, NULL);
+	pthread_create(&tidServidorAJob, &atributos2, servidorAJob, NULL);
 
 	pthread_join(tidClienteFS, NULL);
 	pthread_join(tidServidorAJob, NULL);
@@ -37,29 +35,39 @@ int main(int argc, char **argv)
 	return 0;
 }
 
-void* clienteAFS(){
+void* clienteAFS() {
 	int sockTranferencia;
 	int retorno = -1;
-		sockTranferencia = crearSocket();
-		while (retorno < 0)
-		{
-		retorno = conectarSocket(sockTranferencia,vg_ipFilesystem, vg_puertoFilesystem);
-		}
-		//comienza la comunicacion, se usa sockTranferencia para comunicarse. se debe implementar la interaccion
+	sem_post(&semServAJob);
+	void* buffer[1025];
+	void* msg = "hola desde marta";
+	sockTranferencia = crearSocket();
 
-		cerrarSocket(sockTranferencia);
+	vg_ipFilesystem = "127.0.0.1";
+	vg_puertoFilesystem = 9750;
+	while (retorno < 0) {
+		retorno = conectarSocket(sockTranferencia, vg_ipFilesystem,
+				vg_puertoFilesystem);
+	}
+	//comienza la comunicacion, se usa sockTranferencia para comunicarse. se debe implementar la interaccion
+
+	enviarPorSocket(sockTranferencia, msg, strlen(msg));
+//	recibirPorSocket(sockTranferencia, buffer, 1025);
+//	printf("desde el servidor  %s\n", buffer);
+	cerrarSocket(sockTranferencia);
 	return NULL;
 }
-void* servidorAJob(){
+void* servidorAJob() {
 // servidorAJob
+	sem_wait(&semServAJob);
 	void* buffer = malloc(sizeof(int));
 
 	vg_fdMarta = crearSocket();
-	asociarSocket(vg_fdMarta,vg_martaPuerto);
-	escucharSocket(vg_fdMarta,vg_conexionesPermitidas);
+	asociarSocket(vg_fdMarta, vg_martaPuerto);
+	escucharSocket(vg_fdMarta, vg_conexionesPermitidas);
 	vg_fdJob = aceptarConexionSocket(vg_fdMarta);
 
-	recibirPorSocket(vg_fdJob,buffer,sizeof(int));
+	recibirPorSocket(vg_fdJob, buffer, sizeof(int));
 	printf("Mensaje recibido: %s\n", buffer);
 
 //	// Envia pedido
@@ -69,7 +77,7 @@ void* servidorAJob(){
 //					 "Nodo 4, Bloque 3\n";
 //
 //	enviarPorSocket(vg_fdJob, mensaje, sizeof(mensaje));
- cerrarSocket(vg_fdJob);
+	cerrarSocket(vg_fdJob);
 	cerrarSocket(vg_fdMarta);
 	return NULL;
 }

@@ -36,10 +36,12 @@ void solicitarBloquesAFilesystem(char * archivoAProcesar)
 }
 
 void leerArchivoDeConfiguracion() {
-	printf("Ingrese la ruta del archivo de configuracion: ");
-	fflush(stdin);
-	scanf("%s", rutaArchConfig);
+//	printf("Ingrese la ruta del archivo de configuracion: ");
+//	fflush(stdin);
+//	scanf("%s", rutaArchConfig);
 	// /home/utnso/TPOperativos/marta/configMarta.cfg
+	char* rutaArchConfig;
+	rutaArchConfig = "/home/utnso/TPOperativos/marta/configMarta.cfg";
 
 	t_config* archivoConfig = config_create(rutaArchConfig);
 

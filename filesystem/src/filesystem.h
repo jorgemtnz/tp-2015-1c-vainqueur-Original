@@ -178,6 +178,6 @@ void levantarConsola();
 fs* FILESYSTEM;
 int vg_puerto_listen;
 char** vg_lista_nodos; // array de strings para guardar las IP de los nodos.
-
+int vg_cant_lista_nodos;
 
 #endif /* FILESYSTEM_H_ */

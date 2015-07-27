@@ -6,9 +6,11 @@ sem_t semSerANodos;
 void* servidorAMartha();
 void* servidorANodos();
 
-int Prubemain(int argc, char **argv) {
+int main(int argc, char **argv) {
 
 	int error, errorOtro;
+
+	 leerArchivoDeConfiguracion();
 	error = sem_init(&semServAMartha, 0, 0);
 	errorOtro = sem_init(&semSerANodos, 0, 0);
 	if ((error < 0) || (errorOtro < 0)) {
@@ -51,13 +53,18 @@ int Prubemain(int argc, char **argv) {
 void* servidorAMartha() {
 	int sockEscucha;
 	int sockTranferencia;
+	void* buffer[1024];
+
+//	int vg_puerto = 9750;
 
 	sockEscucha = crearSocket();
-	asociarSocket(sockEscucha, vg_puerto_listen);
+	asociarSocket(sockEscucha, 9750);
 	escucharSocket(sockEscucha, 1);
 	sockTranferencia = aceptarConexionSocket(sockEscucha);
 //sockTranferencia se puede usar para send y recv
 //aca se debe implementar
+	recibirPorSocket(sockTranferencia, buffer, 1024);
+	printf("mensaje de marta:%s \n", buffer);
 
 	cerrarSocket(sockEscucha);
 	cerrarSocket(sockTranferencia);
@@ -67,6 +74,8 @@ void* servidorAMartha() {
 void* servidorANodos() {
 	//servidor concurrente
 
+
+	vg_puerto_listen = 9756;
 	int master_socket, addrlen, sockTransferencia, client_socket[30],
 			max_clients = 30, activity, i, valread, sd;
 	int max_sd;
@@ -117,6 +126,9 @@ void* servidorANodos() {
 		if (FD_ISSET(master_socket, &readfds)) {
 			sockTransferencia = aceptarConexionSocket(master_socket);
 			//se empieza a hablar
+			   recibirPorSocket(sockTransferencia,buffer, 1025);
+			               printf("de nodo%s,\n", buffer);
+
 			//add new socket to array of sockets
 			for (i = 0; i < max_clients; i++) {
 				//if position is empty

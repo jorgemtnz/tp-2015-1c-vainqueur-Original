@@ -1,3 +1,4 @@
+
 //use select function to implement concurrent server
 #include <stdio.h>
 #include <string.h>   //strlen
@@ -9,10 +10,10 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <sys/time.h> //FD_SET, FD_ISSET, FD_ZERO macros
-
+#include <sockets/sockets.h>
 #define TRUE   1
 #define FALSE  0
-#define PORT 8888
+#define PORT 9730
 
 int main(int argc , char *argv[])
 {
@@ -116,7 +117,8 @@ int main(int argc , char *argv[])
 
             //inform user of socket number - used in send and receive commands
             printf("New connection , socket fd is %d , ip is : %s , port : %d \n" , new_socket , inet_ntoa(address.sin_addr) , ntohs(address.sin_port));
-
+               recibirPorSocket(new_socket,buffer, 1025);
+               printf("de nodo%s,\n", buffer);
             //send new connection greeting message
             if( send(new_socket, message, strlen(message), 0) != strlen(message) )
             {

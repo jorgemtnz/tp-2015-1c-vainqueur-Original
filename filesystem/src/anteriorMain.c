@@ -1,7 +1,5 @@
 #include "filesystem.h"
 
-#define CONECCIONES_ENTRANTES_PERMITIDAS 4
-
 sem_t semaforoServidor;
 sem_t semaforoCliente;
 
@@ -9,7 +7,7 @@ sem_t semaforoCliente;
 void * servidorHilo();
 void * clienteHilo();
 
-int main() {
+int pruebmain() {
 
 	// Inicializo semaforos en 0
 	//levantarArchivoConfiguracion();

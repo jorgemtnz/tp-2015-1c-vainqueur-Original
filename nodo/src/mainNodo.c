@@ -54,57 +54,59 @@ int main(int argc, char **argv) {
 void* clienteAFS() {
 	int sockTranferencia;
 	int retorno = -1;
+	void* buffer = "hola desde el nodo";
 	sockTranferencia = crearSocket();
 	while (retorno < 0) {
-		retorno = conectarSocket(sockTranferencia, vg_ip_FS, vg_puerto_FS);
+		retorno = conectarSocket(sockTranferencia, "127.0.0.1", 9756);
 	}
 	//comienza la comunicacion se usa sockTranferencia para comunicarse. se debe implementar
+	enviarPorSocket(sockTranferencia, buffer, strlen(buffer));
 
 	cerrarSocket(sockTranferencia);
 	return NULL;
 }
 void* servidorAJob() {
-	int sockEscucha;
-	int sockTranferencia;
-
-	sockEscucha = crearSocket();
-	asociarSocket(sockEscucha, vg_puerto_Nodo);
-	escucharSocket(sockEscucha, 1);
-	sockTranferencia = aceptarConexionSocket(sockEscucha);
-//sockTranferencia se puede usar para send y recv
-//aca se debe implementar
-
-	cerrarSocket(sockEscucha);
-	cerrarSocket(sockTranferencia);
+//	int sockEscucha;
+//	int sockTranferencia;
+//
+//	sockEscucha = crearSocket();
+//	asociarSocket(sockEscucha, 7990);
+//	escucharSocket(sockEscucha, 1);
+//	sockTranferencia = aceptarConexionSocket(sockEscucha);
+////sockTranferencia se puede usar para send y recv
+////aca se debe implementar
+//
+//	cerrarSocket(sockEscucha);
+//	cerrarSocket(sockTranferencia);
 
 	return NULL;
 }
 
 void* clienteANodo() {
-	int sockTranferencia;
-	int retorno = -1;
-	sockTranferencia = crearSocket();
-	while (retorno < 0) {
-		retorno = conectarSocket(sockTranferencia, vg_ip_Nodo, vg_puerto_Nodo);
-	}
-	//comienza la comunicacion se usa sockTranferencia para comunicarse. se debe implementar
-	cerrarSocket(sockTranferencia);
+//	int sockTranferencia;
+//	int retorno = -1;
+//	sockTranferencia = crearSocket();
+//	while (retorno < 0) {
+//		retorno = conectarSocket(sockTranferencia, vg_ip_Nodo, vg_puerto_Nodo);
+//	}
+//	//comienza la comunicacion se usa sockTranferencia para comunicarse. se debe implementar
+//	cerrarSocket(sockTranferencia);
 	return NULL;
 }
 void* servidorANodo() {
 
-	int sockEscucha;
-	int sockTranferencia;
-
-	sockEscucha = crearSocket();
-	asociarSocket(sockEscucha, vg_puerto_Nodo);
-	escucharSocket(sockEscucha, 1);
-	sockTranferencia = aceptarConexionSocket(sockEscucha);
-//sockTranferencia se puede usar para send y recv
-//aca se debe implementar
-
-	cerrarSocket(sockEscucha);
-	cerrarSocket(sockTranferencia);
+//	int sockEscucha;
+//	int sockTranferencia;
+//
+//	sockEscucha = crearSocket();
+//	asociarSocket(sockEscucha, 6890);
+//	escucharSocket(sockEscucha, 1);
+//	sockTranferencia = aceptarConexionSocket(sockEscucha);
+////sockTranferencia se puede usar para send y recv
+////aca se debe implementar
+//
+//	cerrarSocket(sockEscucha);
+//	cerrarSocket(sockTranferencia);
 
 	return NULL;
 }

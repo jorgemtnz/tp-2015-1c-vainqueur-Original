@@ -74,10 +74,10 @@ void* clienteANodos(){
 	int sockTranferencia;
 	int retorno = -1;
 
-	while(retorno<0)
-		{
-			 retorno = conectarSocket(,,);
-		}
+//	while(retorno<0)
+//		{
+//			 retorno = conectarSocket(,,);
+//		}
 //se van a lanzar 2 hilos que van a un nodo,
 
 
