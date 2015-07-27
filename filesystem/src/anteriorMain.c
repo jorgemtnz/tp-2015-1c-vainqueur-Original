@@ -9,7 +9,7 @@ sem_t semaforoCliente;
 void * servidorHilo();
 void * clienteHilo();
 
-int anteriorMain() {
+int main() {
 
 	// Inicializo semaforos en 0
 	//levantarArchivoConfiguracion();
@@ -50,12 +50,12 @@ void * servidorHilo() {
 	escucharSocket(fdSocketEscucha, CONECCIONES_ENTRANTES_PERMITIDAS);
 
 	sem_post(&semaforoCliente);
-	sem_wait(&semaforoServidor);
+//	sem_wait(&semaforoServidor);
 
 	fdSocketNuevasConecciones = aceptarConexionSocket(fdSocketEscucha);
 
-	sem_post(&semaforoCliente);
-	sem_wait(&semaforoServidor);
+//	sem_post(&semaforoCliente);
+//	sem_wait(&semaforoServidor);
 
 	recibirPorSocket(fdSocketNuevasConecciones, buffer, sizeof(buffer));
 	printf("Mensaje Recibido por el servidor : %s \n", buffer);
@@ -63,8 +63,8 @@ void * servidorHilo() {
 
 	enviarPorSocket(fdSocketNuevasConecciones, buffer, sizeof(buffer));
 
-	sem_post(&semaforoCliente);
-	sem_wait(&semaforoServidor);
+//	sem_post(&semaforoCliente);
+//	sem_wait(&semaforoServidor);
 
 	cerrarSocket(fdSocketEscucha);
 
@@ -80,19 +80,19 @@ void * clienteHilo() {
 	sem_wait(&semaforoCliente);
 	conectarSocket(fdCliente,"127.0.0.1", 9002);
 
-	sem_post(&semaforoServidor);
-	sem_wait(&semaforoCliente);
+//	sem_post(&semaforoServidor);
+//	sem_wait(&semaforoCliente);
 
 	enviarPorSocket(fdCliente, buffer, sizeof(buffer));
-
-	sem_post(&semaforoServidor);
-	sem_wait(&semaforoCliente);
+//
+//	sem_post(&semaforoServidor);
+//	sem_wait(&semaforoCliente);
 
 	recibirPorSocket(fdCliente, buffer, sizeof(buffer));
 	printf("Mensaje Recibido por el Cliente: %s \n", buffer);
 
-	sem_post(&semaforoServidor);
-	sem_wait(&semaforoCliente);
+//	sem_post(&semaforoServidor);
+//	sem_wait(&semaforoCliente);
 
 	cerrarSocket(fdCliente);
 	pthread_exit(0);

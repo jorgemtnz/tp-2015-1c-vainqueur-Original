@@ -67,7 +67,7 @@ int ejecutarScriptRedireccionandoIO(char * dirArchivoSalida,
 	return 0;
 }
 
-/* En las librerias no aceptamos main, esto nunca se ejecuta
+/* Esto es un ejemplo de como se puede llamar a la funcion
  int main() {
  printf("Ejecutando \n");
 

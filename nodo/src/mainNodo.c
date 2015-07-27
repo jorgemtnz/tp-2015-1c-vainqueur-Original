@@ -42,6 +42,7 @@ int main(int argc, char **argv) {
 	pthread_create(&tidServidorAJob, &atributos[1], servidorAJob, NULL);
 	pthread_create(&tidServidorANodo, &atributos[2], clienteANodo, NULL);
 	pthread_create(&tidClienteANodo, &atributos[3], servidorANodo, NULL);
+
 	pthread_join(tidClienteAFS, NULL);
 	pthread_join(tidServidorAJob, NULL);
 	pthread_join(tidServidorANodo, NULL);

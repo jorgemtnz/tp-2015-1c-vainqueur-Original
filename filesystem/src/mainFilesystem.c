@@ -6,7 +6,7 @@ sem_t semSerANodos;
 void* servidorAMartha();
 void* servidorANodos();
 
-int main(int argc, char **argv) {
+int Prubemain(int argc, char **argv) {
 
 	int error, errorOtro;
 	error = sem_init(&semServAMartha, 0, 0);
