@@ -3,6 +3,7 @@
 
 sem_t semServAJob;
 sem_t semCliFS;
+
 //prototipos
 void* servidorAJob();
 void* clienteAFS();
