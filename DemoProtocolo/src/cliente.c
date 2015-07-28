@@ -1,6 +1,6 @@
 #include "demo.h"
 
-int main() {
+int mainhg() {
 	int tamanioPaqueteRecibido;
 
 	int fdCliente  = crearSocket();

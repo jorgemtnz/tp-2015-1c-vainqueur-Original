@@ -37,9 +37,9 @@ void testleerArchivoDeConfiguracion(){
 	printf("*********************** Valores Seteados ***********************\n");
 	printf("Path del Config de Jog:\t[%s]\n",vg_nombreArchivoConfigJob);
 	printf("Puerto de Marta:\t[%d]\n",vg_puertoMarta);
-	printf("Puerto de Marta:\t[%d]\n",vg_PuertoNodo);
+	printf("Puerto de Nodo:\t[%d]\n",vg_PuertoNodo);
 	printf("IP marta:\t\t[%s]\n",vg_ipMarta);
-	printf("IP marta:\t\t[%s]\n",vg_ipNodo);
+	printf("IP Nodo:\t\t[%s]\n",vg_ipNodo);
 	printf("Acepta combiner:\t[%d]\n",vg_combiner);
 	printf("Mapper path:\t\t[%s]\n",vg_mapperPath);
 	printf("Reducer path:\t\t[%s]\n",vg_reducerPath);

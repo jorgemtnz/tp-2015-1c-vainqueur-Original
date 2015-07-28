@@ -17,11 +17,6 @@ typedef struct {
 	char * nombre;
 }unaStr;
 
-void imprimirAlumno(unaStr* alumno){
-	printf("Nombre del alumno:\t[%s]\n",alumno->nombre);
-	printf("Edad del alumno:\t[%d]\n",alumno->edad);
-	printf("Promedio del alumno:\t[%.2f]\n",alumno->promedio);
-	printf("\n");
-}
+void imprimirAlumno(unaStr* alumno);
 
 #endif /* DEMO_H_ */

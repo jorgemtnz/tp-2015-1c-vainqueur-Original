@@ -1,4 +1,5 @@
 #include "demo.h"
+void imprimirAlumno(unaStr* alumno);
 
 int main()
 {
@@ -43,4 +44,10 @@ int main()
 
 	cerrarSocket(fdServidor);
 	return 0;
+}
+void imprimirAlumno(unaStr* alumno){
+	printf("Nombre del alumno:\t[%s]\n",alumno->nombre);
+	printf("Edad del alumno:\t[%d]\n",alumno->edad);
+	printf("Promedio del alumno:\t[%.2f]\n",alumno->promedio);
+	printf("\n");
 }
