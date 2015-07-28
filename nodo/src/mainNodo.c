@@ -84,7 +84,7 @@ void* servidorAJob() {
 //sockTranferencia se puede usar para send y recv
 //aca se debe implementar
 	recibirPorSocket(sockTranferencia, bufferJob, 1024);
-	printf("desde el job  %s\n", bufferJob);
+//	printf("desde el job  %s\n", bufferJob);
 	cerrarSocket(sockEscucha);
 	cerrarSocket(sockTranferencia);
 

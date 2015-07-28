@@ -17,10 +17,10 @@ void levantarArchivoConfiguracion() {
 	temporal = strdup(config_get_string_value(archivoConfig, "NODO_NUEVO"));
 
 	if (strcmp(temporal, "SI") == 0) {
-		//vg_nodo_Nuevo = NODO_NUEVO;
+		vg_nodo_Nuevo = NODO_NUEVO;
 	}
 	if (strcmp(temporal, "NO") == 0) {
-		//vg_nodo_Nuevo = NODO_NO_NUEVO;
+		vg_nodo_Nuevo = NODO_NO_NUEVO;
 	}
 
 	free(temporal);

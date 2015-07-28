@@ -70,7 +70,7 @@ void* interpretarPaquete(Paquete* unPaquete, int fdReceptor);
 int vg_puerto_FS,
 	vg_nodo_Nuevo,
 	vg_puerto_Nodo,
-	vg_puerto_job;
+	vg_puerto_job,
   vg_desconectar;
 char *vg_ip_FS;
 char *vg_archivo_Bin;
