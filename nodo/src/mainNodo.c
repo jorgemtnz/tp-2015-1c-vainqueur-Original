@@ -6,10 +6,10 @@ sem_t semCliANodo;
 sem_t semServANodo;
 
 //prototipos
-void* clienteAFS();
-void* servidorAJob();
-void* clienteANodo();
-void* servidorANodo();
+void* clienteAFS(); //-> le pasa la ip y el puerto del nodo ++ solo para conectarFS
+void* servidorAJob(); //->usa el puerto a Job del config ++ solo para atender a un job
+void* clienteANodo(); //->necesita ip y puerto de otro nodo-servidorNodo ++solo para conectarse a otro Nodo
+void* servidorANodo(); //-> usa el puerto del config  ++ solo para atender a otro Nodo
 
 //se deben crear 4 hilos uno clienteAFilesystem y otro servidorAJob, y uno ServidorANodo y otro clienteANodo
 //cada uno debe manejar sus respectivas interacciones
@@ -57,16 +57,22 @@ int main(int argc, char **argv) {
 
 void* clienteAFS() {
 	int sockTranferencia;
+	int desconectar;
 	int retorno = -1;
 	void* buffer = "hola desde el nodo";
 	sockTranferencia = crearSocket();
 	while (retorno < 0) {
 		retorno = conectarSocket(sockTranferencia, vg_ip_FS, vg_puerto_FS);
 	}
-	//comienza la comunicacion se usa sockTranferencia para comunicarse. se debe implementar
-	enviarPorSocket(sockTranferencia, buffer, strlen(buffer));
 
-	cerrarSocket(sockTranferencia);
+	//comienza la comunicacion se usa sockTranferencia para comunicarse. se debe implementar
+	//enviar el puerto y el ip del nodo.
+	enviarPorSocket(sockTranferencia, buffer, strlen(buffer));
+// voy a recibir del FS el pedido del bloque
+	while (vg_desconectar == 1) {
+		recibir(sockTranferencia);
+	}
+
 	return NULL;
 }
 void* servidorAJob() {
@@ -80,8 +86,8 @@ void* servidorAJob() {
 	sockTranferencia = aceptarConexionSocket(sockEscucha);
 //sockTranferencia se puede usar para send y recv
 //aca se debe implementar
-		recibirPorSocket(sockTranferencia, bufferJob, 1024);
-		printf("desde el job  %s\n", bufferJob);
+	recibirPorSocket(sockTranferencia, bufferJob, 1024);
+	printf("desde el job  %s\n", bufferJob);
 	cerrarSocket(sockEscucha);
 	cerrarSocket(sockTranferencia);
 

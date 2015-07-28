@@ -18,7 +18,7 @@
 #include <src/commons/collections/list.h>
 #include <pthread.h>
 #include <semaphore.h>
-
+#include <protocolo/protocolo.h>
 // +++++++++++++++++++++++++++++++++++++++ Define +++++++++++++++++++++++++++++++++++++
 #define RUTACONFIGNODO "/home/utnso/TPOperativos/nodo/Adicionales/CONFIGURACION.cfg"
 #define RUTAMAP "/tmp/"
@@ -27,8 +27,9 @@
 #define NODO_NUEVO 1
 #define NODO_NO_NUEVO 0
 #define VEINTEMEGAS 20971520
-
+#define DESCONECTAR_NODO
 #define CONECCIONES_ENTRANTES_PERMITIDAS 10
+
 // +++++++++++++++++++++++++++++++++++++++ Estructuras +++++++++++++++++++++++++++++++++++++
 
 typedef struct nodo {
@@ -67,7 +68,7 @@ int vg_puerto_FS,
 	vg_nodo_Nuevo,
 	vg_puerto_Nodo,
 	vg_puerto_job;
-
+  vg_desconectar;
 char *vg_ip_FS;
 char *vg_archivo_Bin;
 char	 *vg_dirTemp;

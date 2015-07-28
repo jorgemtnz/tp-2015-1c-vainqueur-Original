@@ -8,6 +8,7 @@ void leerArchivoDeConfiguracion() {
 //	scanf("%s", vg_nombreArchivoConfigJob);
 	// /home/utnso/TPOperativos/job/config_job.cfg
 	vg_nombreArchivoConfigJob = "/home/utnso/TPOperativos/job/config_job.cfg";
+
 	t_config* archivoConfig = config_create(vg_nombreArchivoConfigJob);
 
 	vg_puertoMarta = config_get_int_value(archivoConfig, "PUERTO_MARTA");

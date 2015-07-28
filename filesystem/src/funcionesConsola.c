@@ -247,7 +247,7 @@ void copiarArchivoLocalAlMDFS() {
 	free(dirArchivo);
 }
 
-void copiarArchivoDelMDFSAlFSLocal() {
+FILE* copiarArchivoDelMDFSAlFSLocal() {
 	// Falta iplementar,  esta implicitamente en las condiciones mínimas
 	char nombreArchivo[LONGITUD_STRINGS];
 	element* archivoMDFS;
@@ -276,6 +276,7 @@ void copiarArchivoDelMDFSAlFSLocal() {
 
 		for (i = 0; i < listaNodoBloque->elements_count;) {
 			nodoBLoque = list_get(listaNodoBloque, i);
+			//nodoBLoque->
 			//	solicitarBloque(nodoBLoque); //aca podria usar la que muestra el bloque, solo que no quiero que se muestre sino que me lo de.
 		}
 
@@ -289,19 +290,34 @@ void copiarArchivoDelMDFSAlFSLocal() {
 	//hacer un for hasta el tamaño de la lista. e ir pidiendo elemento de la lista
 	//luego para ese elemento se debe pedir a su correspondiente nodo el bloque
 	//posteriormente se debe copiar a memoria este bloque eh ir armando el archivo
-
+	return archivoLocal;
 }
 void solicitarMD5deUnArchivoenMDFS() {
+	copiarArchivoDelMDFSAlFSLocal();
 // falta implementar, esta en las condiciones minimas
 // se debe factorizar entre esta y la funcion copiarArchivoDelMDFSAlFSLocal();
-	//una vez armado el archivo copiarlo al FS local y luego se debe aplicar el comando md5sum con la funcion system
+	//una vez armado el archivo copiarlo al FS local y luego se debe aplicar el comando md5sum con la funcion system,o usar  execv
 //para obtener el numero de md5.
-// se debe aplicar el mismo comando md5sum al archivo original y  se ambos numeros resultados deben ser iguales (esto es solo visual)
+// se debe aplicar el mismo comando md5sum al archivo original y   ambos numeros resultados deben ser iguales (esto es solo visual)
 //se puede sacar una funcion en comun con "copiarArchivoDelMDFSAlLocal"
 }
 
-ubicacionDelBloqueEnNodo* verUbicacionBloque() {
+ubicacionDelBloqueEnNodo* verUbicacionBloque(char* nombreArchivo,int numeroBloque) {
 	int numeroBloque;
+	ubicacionDelBloqueEnNodo* ptrNodoBloque;
+
+	ptrNodoBloque = devuelveBloqueArchivo(nombreArchivo, numeroBloque);
+	printf("El bloque %d del archivo %s se encuentra en:\n"
+			"Nodo: %d  -  BloqueDelNodo: %d", numeroBloque, nombreArchivo,
+			ptrNodoBloque->numeroNodo, ptrNodoBloque->numeroDeBloqueDelNodo);
+	return ptrNodoBloque;
+}
+
+bloq* verBloque() {
+	int numeroBloque;
+	bloq* bloque;
+	ubicacionDelBloqueEnNodo* ptrNodoBloque;
+	nod* ptrNodo; //que tiene el bloque que quiero
 	char nombreArchivo[LONGITUD_STRINGS];
 
 	ubicacionDelBloqueEnNodo* ptrNodoBloque = malloc(
@@ -313,19 +329,17 @@ ubicacionDelBloqueEnNodo* verUbicacionBloque() {
 	printf("Ingrese el numero de bloque a mostrar");
 	scanf("%d", &numeroBloque);
 
-	ptrNodoBloque = devuelveBloque(nombreArchivo, numeroBloque);
-	printf("El bloque %d del archivo %s se encuentra en:\n"
-			"Nodo: %d  -  BloqueDelNodo: %d", numeroBloque, nombreArchivo,
-			ptrNodoBloque->numeroNodo, ptrNodoBloque->numeroDeBloqueDelNodo);
-	return ptrNodoBloque;
-}
+	ptrNodoBloque = verUbicacionBloque(nombreArchivo, numeroBloque);
+	bool compNumeroNodo(nod* unNodo) {
+			return (unNodo->numero == ptrNodoBloque->numeroNodo);
+		}
+ptrNodo=list_find( FILESYSTEM->listaNodos, (void*)compNumeroNodo);
+enviar(LECTURA,numeroBloque, ptrNodo->fdNodo);
 
-void verBloque() {
-	ubicacionDelBloqueEnNodo* ptrNodoBloque;
-	ptrNodoBloque = verUbicacionBloque();
-// solicitarPorSockect() pido el bloque a este nodo y luego lo muestro por pantalla.
+// solicitarPorSockect(ptrNodo->fdNodo); pido el bloque a este nodo y luego lo muestro por pantalla.
 // hago este free porque antes se hizo un malloc en la fucion verUbicacionBloque
 	free(ptrNodoBloque);
+	return bloque;
 }
 
 void solicitudCopiaDeBloque() {
@@ -600,7 +614,7 @@ case SOLICITAR_MD5_DE_UN_ARCHIVO_EN_MDFS:
 	break;
 
 case VER_BLOQUE:
-
+	verBloque();
 	break;
 
 case BORRAR_BLOQUE:

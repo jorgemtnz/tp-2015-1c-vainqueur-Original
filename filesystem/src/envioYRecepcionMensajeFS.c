@@ -36,6 +36,7 @@ void recibir(int fdReceptor){
 	size_t tamanioMensaje;
 	recibirPorSocket(fdReceptor,&tamanioMensaje,sizeof(int));
 	void* buffer = malloc(tamanioMensaje);
+	recibirPorSocket(fdReceptor,buffer,tamanioMensaje);
 	Paquete* unPaquete = deserializar(buffer,tamanioMensaje);//primer deserializado
 
 

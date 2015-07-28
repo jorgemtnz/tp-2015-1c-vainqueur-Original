@@ -24,9 +24,7 @@ list_destroy_and_destroy_elements(elemento->dobleListaUbicacionDelBloqueEnNodo,
 
 void liberaMemoriaFS() {
 
-	free(FILESYSTEM->ipNodos);
-
-	list_destroy_and_destroy_elements(FILESYSTEM->listaNodos,
+		list_destroy_and_destroy_elements(FILESYSTEM->listaNodos,
 			(void*) liberaMemoriaNodo);
 	list_destroy_and_destroy_elements(FILESYSTEM->listaElementos,
 			(void*)liberaMemoriaElement);

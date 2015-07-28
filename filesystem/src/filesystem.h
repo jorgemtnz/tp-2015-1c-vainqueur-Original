@@ -56,6 +56,9 @@ typedef struct bloq {
 
 typedef struct nod {
 	int numero;
+	int fdNodo;
+	int puerto;
+	char* ipNodo;
 	int estado; //conectado 1  o desconectado 0
 //	long    long tamanio; 2GB  consultar, posiblemente no sea necesario
 	t_list* listaBloques;   //del nodo
@@ -87,7 +90,6 @@ typedef struct fs {
 	int idNodo;  //valor incremental que no se repite
 	t_list* listaNodos;
 	t_list* listaElementos;
-	char** ipNodos;	// Array de strings
 } fs;
 
 // Estructura para el envío de archivos por socket
@@ -98,7 +100,7 @@ typedef struct t_archivo {
 // Estructura para que el FS le mande un bloque al nodo por socket
 typedef struct t_escritura_bloque {
 	int numeroDeBloque;
-	char* archivo;//contenido del bloque
+	char* archivo;  //contenido del bloque
 } t_escritura_bloque;
 
 // +++++++++++++++++++++++++++++++++++++++ Prototipos +++++++++++++++++++++++++++++++++++++
@@ -110,11 +112,10 @@ element* crearElemento();
 void crearFileSystem();
 void inicializarFilesystem();
 
-
 // Funciones Destructoras hace el free de las estructuras para las que se hizo un malloc
 void liberaMemoriaBloque(bloq* bloque);
 void liberaMemoriaNodo(nod* nodo);
-void liberaNodoBloque(ubicacionDelBloqueEnNodo* nodoBloque);// se debe dejar porque se hace un malloc cuando se construye
+void liberaNodoBloque(ubicacionDelBloqueEnNodo* nodoBloque); // se debe dejar porque se hace un malloc cuando se construye
 void liberaMemoriaElement(element* elemento);
 void liberaMemoriaFS();
 
@@ -136,7 +137,8 @@ void copiaDistribuyeYEmpaqueta(char* bloqueListo, int cantBloques,
 int devuelveCantidadElementosArreglo(char** arregloPtrContenidoBloque);	//devuelve la cantidad de venctores en un arreglo (se usa par ala canto de blques originales ya que es un vector muy grande y no todos estas llenos)
 void divideBloques(char** ptrArregloConOracionesParaBloque, element* unElemento);//guarda en un vector donde se almacenan las ultimas posiciones de las oraciones al poner en un bloque listo
 ubicacionDelBloqueEnNodo* devuelveBloque(char* nombreArchivo, int numeroBloque);//recibe un nombre de archivo y un numero de blqoue y devuelve un tipo de datoubicaionNodoBlqoue
-ubicacionDelBloqueEnNodo* verUbicacionBloque(); //se debe modificar , porque solapo la de mostrar bloque
+ubicacionDelBloqueEnNodo* devuelveBloqueArchivo(char* nombreArchivo, int numBloqueArchivo);
+verUbicacionBloque(nombreArchivo, numeroBloque);
 void solicitudCopiaDeBloque(); // se esta implementando
 char* sacarUltimaParte(char* dirArchivoLocal);
 void marcaNodoDesconectado(int numeroNodo);
@@ -157,8 +159,8 @@ void crearDirectorio();
 void eliminarDirectorio();
 void renombrarDirectorio();
 void moverDirectorio();
-void copiarArchivoLocalAlMDFS();      // RECORDAR: CAMBIARLE LOS NULL ?? por que?
-void copiarArchivoDelMDFSAlFSLocal(); // Falta implementar
+void copiarArchivoLocalAlMDFS();     // RECORDAR: CAMBIARLE LOS NULL ?? por que?
+FILE* copiarArchivoDelMDFSAlFSLocal(); // Falta implementar
 void solicitarMD5deUnArchivoenMDFS(); // Falta implementar
 void copiarBloque();				// Falta implementar
 void actualizarListaDeArchivos(ubicacionDelBloqueEnNodo* unaUbicacion,
@@ -166,18 +168,20 @@ void actualizarListaDeArchivos(ubicacionDelBloqueEnNodo* unaUbicacion,
 void borrarBloque();
 void agregarNodo();		// Necesita Sockets?
 void eliminarNodo();	// Falta implementar
+bloq* verBloque();
 void mostrarComandos();
 
 // Consola implementacion
 int idFuncion(char* funcion);
 void aplicarFuncion(int idFuncion);
 void levantarConsola();
-//++++++++++++++++++++++++++++++++++++funciones envio +++++++++++++++++++++++++++++++++++++++
 
+//++++++++++++++++++++++++++++++++++++funciones envio +++++++++++++++++++++++++++++++++++++++
+void recibir(int fdReceptor);
+void interpretarPaquete(Paquete* unPaquete, int fdReceptor);
 // +++++++++++++++++++++++++++++++++++ Variables Globales +++++++++++++++++++++++++++++++++++
 fs* FILESYSTEM;
-int vg_puerto_listen_marta,
-vg_puerto_listen_nodo;
+int vg_puerto_listen_marta, vg_puerto_listen_nodo;
 
 char** vg_lista_nodos; // array de strings para guardar las IP de los nodos.
 int vg_cant_lista_nodos;

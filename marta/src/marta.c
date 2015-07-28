@@ -41,14 +41,14 @@ void leerArchivoDeConfiguracion() {
 //	scanf("%s", rutaArchConfig);
 	// /home/utnso/TPOperativos/marta/configMarta.cfg
 	char* rutaArchConfig;
-	rutaArchConfig = "/home/utnso/TPOperativos/marta/configMarta.cfg";
+	rutaArchConfig = "/home/utnso/TPOperativos/marta/config_Marta.cfg";
 
 	t_config* archivoConfig = config_create(rutaArchConfig);
 
 	vg_puertoFilesystem = config_get_int_value(archivoConfig, "PUERTO_FILESYSTEM");
 	vg_martaPuerto 		= config_get_int_value(archivoConfig, "PUERTO_MARTA");
 	vg_conexionesPermitidas = config_get_int_value(archivoConfig, "CONEXIONES_PERMITIDAS");
-	vg_ipFilesystem 	= strdup(config_get_string_value(archivoConfig, "IP_FILESYSTEM"));
+	//vg_ipFilesystem 	= strdup(config_get_string_value(archivoConfig, "IP_FILESYSTEM"));
 
 	config_destroy(archivoConfig);
 }

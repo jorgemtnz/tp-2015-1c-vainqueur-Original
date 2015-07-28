@@ -9,9 +9,10 @@ void* servidorANodos();
 int main(int argc, char **argv) {
 
 	int error, errorOtro;
-
-	 leerArchivoDeConfiguracion();
-//	 testleerArchivoDeConfiguracion();
+//  crearFileSystem();
+//  inicializarFilesystem();
+	leerArchivoDeConfiguracion();
+	testleerArchivoDeConfiguracion();
 
 	error = sem_init(&semServAMartha, 0, 0);
 	errorOtro = sem_init(&semSerANodos, 0, 0);
@@ -57,13 +58,13 @@ void* servidorAMartha() {
 	int sockTranferencia;
 	void* buffer[1024];
 
-
 	sockEscucha = crearSocket();
 	asociarSocket(sockEscucha, vg_puerto_listen_marta);
 	escucharSocket(sockEscucha, 1);
 	sockTranferencia = aceptarConexionSocket(sockEscucha);
 //sockTranferencia se puede usar para send y recv
 //aca se debe implementar
+	//recibir(sockTranferencia);
 	recibirPorSocket(sockTranferencia, buffer, 1024);
 	printf("mensaje de marta: %s \n", buffer);
 
@@ -75,8 +76,7 @@ void* servidorAMartha() {
 void* servidorANodos() {
 	//servidor concurrente
 
-
-
+	levantarConsola();
 	int master_socket, addrlen, sockTransferencia, client_socket[30],
 			max_clients = 30, activity, i, valread, sd;
 	int max_sd;
@@ -127,18 +127,22 @@ void* servidorANodos() {
 		if (FD_ISSET(master_socket, &readfds)) {
 			sockTransferencia = aceptarConexionSocket(master_socket);
 			//se empieza a hablar
-			   recibirPorSocket(sockTransferencia,buffer, 1025);
-			               printf("de nodo  %s,\n", buffer);
-
+			recibirPorSocket(sockTransferencia, buffer, 1025);
+			printf("de nodo  %s,\n", buffer);
+//debo recibir como primero , la IP y el puerto de este nodo y guardarlo en la lista de nodosConectados
 			//add new socket to array of sockets
 			for (i = 0; i < max_clients; i++) {
 				//if position is empty
 				if (client_socket[i] == 0) {
 					client_socket[i] = sockTransferencia;
+					//guardar en la lista nodosconectados
 					break;
 				}
 			}
 		}
+		// quizas aca se puede levantarConsola() , pero que no este en un while(1)
+		//
+
 		//else its some IO operation on some other socket :)
 		for (i = 0; i < max_clients; i++) {
 			sd = client_socket[i];

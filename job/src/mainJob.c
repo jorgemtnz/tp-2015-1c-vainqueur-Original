@@ -26,7 +26,7 @@ void* clienteANodos();
 int main() {
   	int error, errorOtro;
 
-  	leerArchivoDeConfiguracion(); // /home/utnso/TPOperativos/job/a.cfg
+  	leerArchivoDeConfiguracion(); // /home/utnso/TPOperativos/job/config_job.cfg
   		  testleerArchivoDeConfiguracion();
 
 	error = sem_init(&semCliAMartha, 0, 0);

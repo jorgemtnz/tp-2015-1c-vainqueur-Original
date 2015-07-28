@@ -78,8 +78,8 @@ void crearFileSystem() {
 	filesystem->idNodo = 0; // id de cada nodo se envia al nodo por socket
 	filesystem->listaElementos = list_create();
 	filesystem->listaNodos = list_create();
-	filesystem->ipNodos = NULL; // su id debe venir por sockec
-    //se crea filesystem con el directorio raiz
+
+	//se crea filesystem con el directorio raiz
 	directorioRaiz->directorioPadre =0;
 	directorioRaiz->dobleListaUbicacionDelBloqueEnNodo= list_create();
 	directorioRaiz->estado = DISPONIBLE;

@@ -11,7 +11,8 @@ void leerArchivoDeConfiguracion() {	// El archivo config de FS tiene PUERTO_LIST
 //	scanf("%s", nombreArchivoConfigFS);
 	// Fin de interaccion con el usuario
 	char* nombreArchivoConfigFS;
-	strcpy(nombreArchivoConfigFS,"/home/utnso/TPOperativos/filesystem/configuracion.cfg");
+	nombreArchivoConfigFS = "/home/utnso/TPOperativos/filesystem/config_FS.cfg";
+//	nombreArchivoConfigFS=strdup("/home/utnso/TPOperativos/filesystem/configuracion.cfg");
 
 	t_config* archivoConfig = config_create(nombreArchivoConfigFS);
 
@@ -29,7 +30,7 @@ void testleerArchivoDeConfiguracion(){
 
 	printf("Puerto de FS:\t[%d]\n",vg_puerto_listen_marta);
 
-	printf("Archivo Bin:\t[%d]\n",vg_cant_lista_nodos);
+	printf("Cantidad de nodos minimos:\t[%d]\n",vg_cant_lista_nodos);
 
 
 	printf("****************************** FIN ******************************\n");
@@ -253,11 +254,31 @@ void divideBloques(char** ptrArregloConOracionesParaBloque, element* unElemento)
 	free(bloqueFinal);
 }
 
-ubicacionDelBloqueEnNodo* devuelveBloque(char* nombreArchivo, int numeroBloque) {
+ubicacionDelBloqueEnNodo* devuelveBloque(char* nombreArchivo, int numBloqueArchivo) {
 	element* ptrArchivo;
-	ubicacionDelBloqueEnNodo* ptrNodoBloque = NULL;
+	 ubicacionDelBloqueEnNodo* ptrNodoBloque;
 	bool compNumeroBloque(ubicacionDelBloqueEnNodo* unaUbicacion) {
-		return (unaUbicacion->numeroDeBloqueDelNodo == numeroBloque);
+		return (unaUbicacion->numeroDeBloqueDelNodo == numBloqueArchivo);
+	}
+	ptrArchivo = buscarElementoPorNombre(nombreArchivo);
+	if (ptrArchivo == NULL) {
+		perror("[ERROR]mostrarBloque: no se encuentra el archivo");
+		exit(-1);
+	}
+	ptrNodoBloque = list_find(ptrArchivo->dobleListaUbicacionDelBloqueEnNodo,
+			(void*) compNumeroBloque);
+	if (ptrNodoBloque == NULL) {
+		perror("[ERROR]mostrarBloque: no se encuentra el bloque");
+		exit(-1);
+	}
+	return ptrNodoBloque;
+}
+
+ubicacionDelBloqueEnNodo* devuelveBloqueArchivo(char* nombreArchivo, int numBloqueArchivo) {
+	element* ptrArchivo;
+	 ubicacionDelBloqueEnNodo* ptrNodoBloque;
+	bool compNumeroBloque(ubicacionDelBloqueEnNodo* unaUbicacion) {
+		return (unaUbicacion->bloqueArchivo == numBloqueArchivo);
 	}
 	ptrArchivo = buscarElementoPorNombre(nombreArchivo);
 	if (ptrArchivo == NULL) {
