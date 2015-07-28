@@ -27,7 +27,7 @@
 #define NODO_NUEVO 1
 #define NODO_NO_NUEVO 0
 #define VEINTEMEGAS 20971520
-#define DESCONECTAR_NODO
+//#define DESCONECTAR_NODO
 #define CONECCIONES_ENTRANTES_PERMITIDAS 10
 
 // +++++++++++++++++++++++++++++++++++++++ Estructuras +++++++++++++++++++++++++++++++++++++

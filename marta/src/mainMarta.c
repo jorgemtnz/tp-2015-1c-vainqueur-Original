@@ -43,12 +43,10 @@ void* clienteAFS() {
 	void* buffer[1024];
 	void* msg = "hola desde marta";
 	sockTranferencia = crearSocket();
+	conectarSocketPorPrimeraVez(sockTranferencia, vg_ipFilesystem,
+			vg_puertoFilesystem);
 
-	while (retorno < 0) {
-		retorno = conectarSocket(sockTranferencia, vg_ipFilesystem,
-				vg_puertoFilesystem);
-	}
-	//comienza la comunicacion, se usa sockTranferencia para comunicarse. se debe implementar la interaccion
+//comienza la comunicacion, se usa sockTranferencia para comunicarse. se debe implementar la interaccion
 
 	enviarPorSocket(sockTranferencia, msg, strlen(msg));
 //	recibirPorSocket(sockTranferencia, buffer, 1024);

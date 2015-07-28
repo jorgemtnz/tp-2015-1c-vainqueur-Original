@@ -61,10 +61,7 @@ void* clienteAFS() {
 	int retorno = -1;
 	void* buffer = "hola desde el nodo";
 	sockTranferencia = crearSocket();
-	while (retorno < 0) {
-		retorno = conectarSocket(sockTranferencia, vg_ip_FS, vg_puerto_FS);
-	}
-
+	conectarSocketPorPrimeraVez(sockTranferencia, vg_ip_FS, vg_puerto_FS);
 	//comienza la comunicacion se usa sockTranferencia para comunicarse. se debe implementar
 	//enviar el puerto y el ip del nodo.
 	enviarPorSocket(sockTranferencia, buffer, strlen(buffer));
@@ -98,9 +95,7 @@ void* clienteANodo() {
 //	int sockTranferencia;
 //	int retorno = -1;
 //	sockTranferencia = crearSocket();
-//	while (retorno < 0) {
-//		retorno = conectarSocket(sockTranferencia, vg_ip_Nodo, vg_puerto_Nodo);
-//	}
+//	conectarSocketPorPrimeraVez(sockTranferencia, vg_ip_Nodo, vg_puerto_Nodo);
 //	//comienza la comunicacion se usa sockTranferencia para comunicarse. se debe implementar
 //	cerrarSocket(sockTranferencia);
 	return NULL;

@@ -303,9 +303,7 @@ void solicitarMD5deUnArchivoenMDFS() {
 }
 
 ubicacionDelBloqueEnNodo* verUbicacionBloque(char* nombreArchivo,int numeroBloque) {
-	int numeroBloque;
 	ubicacionDelBloqueEnNodo* ptrNodoBloque;
-
 	ptrNodoBloque = devuelveBloqueArchivo(nombreArchivo, numeroBloque);
 	printf("El bloque %d del archivo %s se encuentra en:\n"
 			"Nodo: %d  -  BloqueDelNodo: %d", numeroBloque, nombreArchivo,
@@ -320,8 +318,7 @@ bloq* verBloque() {
 	nod* ptrNodo; //que tiene el bloque que quiero
 	char nombreArchivo[LONGITUD_STRINGS];
 
-	ubicacionDelBloqueEnNodo* ptrNodoBloque = malloc(
-			sizeof(ubicacionDelBloqueEnNodo));
+	ptrNodoBloque = malloc(	sizeof(ubicacionDelBloqueEnNodo));
 
 	printf("Ingrese el nombre del archivo");
 	scanf("%s", nombreArchivo);

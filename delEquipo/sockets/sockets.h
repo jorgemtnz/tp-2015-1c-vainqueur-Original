@@ -26,5 +26,6 @@ void escucharSocket(int sockfd, int conexionesEntrantesPermitidas);
 int  aceptarConexionSocket(int sockfd);
 // Solo para el ciente
 int conectarSocket(int sockfd,char* ip_destino, int puerto);
+int conectarSocketPorPrimeraVez(int sockfd, char* ip_Destino, int puerto);
 
 #endif /* SOCKETS_H_ */

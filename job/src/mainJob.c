@@ -60,12 +60,7 @@ void* clienteAMartha(){
 	int sockTranferencia;
 	int retorno = -1;
 	sockTranferencia = crearSocket();
-
-	while(retorno<0)
-		{
-			 retorno = conectarSocket(sockTranferencia, vg_ipMarta,vg_puertoMarta);
-		}
-
+	conectarSocketPorPrimeraVez(sockTranferencia, vg_ipMarta,vg_puertoMarta);
 	//empieza la comunicacion - marta le manda info de los nodos, IP en una variable que sera compartida
 	//y region critica se debe usar mutex
 	//indicarArchivosAMarta();
@@ -77,11 +72,8 @@ void* clienteANodos(){
 	int sockTranferencia;
 	int retorno = -1;
 	void* msg = "hola desde job";
-
 	sockTranferencia = crearSocket();
-	while (retorno < 0) {
-	retorno = conectarSocket(sockTranferencia,vg_ipNodo,vg_PuertoNodo);
-}
+	conectarSocketPorPrimeraVez(sockTranferencia,vg_ipNodo,vg_PuertoNodo);
 //se van a lanzar n hilos que van a cada nodo, de los que se tenga que conectar
 
 

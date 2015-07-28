@@ -138,7 +138,7 @@ int devuelveCantidadElementosArreglo(char** arregloPtrContenidoBloque);	//devuel
 void divideBloques(char** ptrArregloConOracionesParaBloque, element* unElemento);//guarda en un vector donde se almacenan las ultimas posiciones de las oraciones al poner en un bloque listo
 ubicacionDelBloqueEnNodo* devuelveBloque(char* nombreArchivo, int numeroBloque);//recibe un nombre de archivo y un numero de blqoue y devuelve un tipo de datoubicaionNodoBlqoue
 ubicacionDelBloqueEnNodo* devuelveBloqueArchivo(char* nombreArchivo, int numBloqueArchivo);
-verUbicacionBloque(nombreArchivo, numeroBloque);
+ubicacionDelBloqueEnNodo* verUbicacionBloque(char* nombreArchivo,int numeroBloque);
 void solicitudCopiaDeBloque(); // se esta implementando
 char* sacarUltimaParte(char* dirArchivoLocal);
 void marcaNodoDesconectado(int numeroNodo);
