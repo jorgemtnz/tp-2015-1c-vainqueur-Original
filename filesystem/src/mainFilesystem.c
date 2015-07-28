@@ -77,64 +77,79 @@ void* servidorANodos() {
 	//servidor concurrente
 
 	levantarConsola();
-	int master_socket, addrlen, sockTransferencia, client_socket[30],
-			max_clients = 30, activity, i, valread, sd;
-	int max_sd;
+	int fdConeccionesEntrantes, addrlen, sockTransferencia,
+			listaClientesConectados[30], cantidadMaximaClientes = 30,
+			numeroDeActividades, contador1, mensajeLeido, fdTemporal;
+	int fdTemporalMaximo;
 	struct sockaddr_in address;
 
 	char buffer[1025];  //data buffer of 1K
 
 	//set of socket descriptors
-	fd_set readfds;
+	//Set de sockets de lectura
+	fd_set setFdLectura;
 	//inicializar el arreglo de socket_clientes
-	for (i = 0; i < max_clients; i++) {
-		client_socket[i] = 0;
+	for (contador1 = 0; contador1 < cantidadMaximaClientes; contador1++) {
+		listaClientesConectados[contador1] = 0;
 	}
-	master_socket = crearSocket();
-	asociarSocket(master_socket, vg_puerto_listen_nodo);
-	escucharSocket(master_socket, CONECCIONES_ENTRANTES_PERMITIDAS);
+	//Creo un socket y lo pongo a escuchar
+	fdConeccionesEntrantes = crearSocket();
+	asociarSocket(fdConeccionesEntrantes, vg_puerto_listen_nodo);
+	escucharSocket(fdConeccionesEntrantes, CONECCIONES_ENTRANTES_PERMITIDAS);
 
 	while (1) {
 		//clear the socket set
-		FD_ZERO(&readfds);
+		//Seteo en 0 el set de sockets de lectura
+		FD_ZERO(&setFdLectura);
 
 		//add master socket to set
-		FD_SET(master_socket, &readfds);
-		max_sd = master_socket;
+		//Agrego el socket de conecciones entrantes al set de lectura
+		FD_SET(fdConeccionesEntrantes, &setFdLectura);
+		fdTemporalMaximo = fdConeccionesEntrantes;
 
 		//add child sockets to set
-		for (i = 0; i < max_clients; i++) {
+		//Agrego los sockets de clientes al set de lectura
+		for (contador1 = 0; contador1 < cantidadMaximaClientes; contador1++) {
 			//socket descriptor
-			sd = client_socket[i];
+			//Fd Temporal
+			fdTemporal = listaClientesConectados[contador1];
 
 			//if valid socket descriptor then add to read list
-			if (sd > 0)
-				FD_SET(sd, &readfds);
+			//Si el fd temporal es valido lo agrego a la lista de lectura
+			if (fdTemporal > 0)
+				FD_SET(fdTemporal, &setFdLectura);
 
 			//highest file descriptor number, need it for the select function
-			if (sd > max_sd)
-				max_sd = sd;
+			//Se setea el numero maximo del file descriptor, se necesita para la funcion select
+			if (fdTemporal > fdTemporalMaximo)
+				fdTemporalMaximo = fdTemporal;
 		}
 
-		//wait for an activity on one of the sockets , timeout is NULL , so wait indefinitely
-		activity = select(max_sd + 1, &readfds, NULL, NULL, NULL);
+		//wait for an numeroDeActividades on one of the sockets , timeout is NULL , so wait indefinitely
+		//Espera indefinidamente actividad de uno de los sockets
+		numeroDeActividades = select(fdTemporalMaximo + 1, &setFdLectura, NULL,
+				NULL, NULL);
 
-		if ((activity < 0) && (errno != EINTR)) {
-			printf("select error");
+		if ((numeroDeActividades < 0) && (errno != EINTR)) {
+			printf("[ERROR]: Error en select");
 		}
 
-		//If something happened on the master socket , then its an incoming connection
-		if (FD_ISSET(master_socket, &readfds)) {
-			sockTransferencia = aceptarConexionSocket(master_socket);
+		//If something happened on the fdConeccionesEntrantes , then its an incoming connection
+		//Si se detecta actividad en fdConeccionesEntrantes, entonces hay una coneccion entrante
+		if (FD_ISSET(fdConeccionesEntrantes, &setFdLectura)) {
+			sockTransferencia = aceptarConexionSocket(fdConeccionesEntrantes);
 			//se empieza a hablar
 			recibirPorSocket(sockTransferencia, buffer, 1025);
-			printf("de nodo  %s,\n", buffer);
-//debo recibir como primero , la IP y el puerto de este nodo y guardarlo en la lista de nodosConectados
+			printf("Recibido del Nodo %s,\n", buffer);
+			//debo recibir como primero , la IP y el puerto de este nodo y guardarlo en la lista de nodosConectados
 			//add new socket to array of sockets
-			for (i = 0; i < max_clients; i++) {
+			//Se agrega el socket nuevo al vector de sockets
+			for (contador1 = 0; contador1 < cantidadMaximaClientes;
+					contador1++) {
 				//if position is empty
-				if (client_socket[i] == 0) {
-					client_socket[i] = sockTransferencia;
+				//Si la posicion en el vector de fd esta vacia (osea disponible)
+				if (listaClientesConectados[contador1] == 0) {
+					listaClientesConectados[contador1] = sockTransferencia;
 					//guardar en la lista nodosconectados
 					break;
 				}
@@ -144,29 +159,36 @@ void* servidorANodos() {
 		//
 
 		//else its some IO operation on some other socket :)
-		for (i = 0; i < max_clients; i++) {
-			sd = client_socket[i];
-
-			if (FD_ISSET(sd, &readfds)) {
+		//Si no es en la coneccion nueva es una operacion de IO en un socket que ya poseiamos
+		for (contador1 = 0; contador1 < cantidadMaximaClientes; contador1++) {
+			fdTemporal = listaClientesConectados[contador1];
+			if (FD_ISSET(fdTemporal, &setFdLectura)) {
 				//Check if it was for closing , and also read the incoming message
-				if ((valread = read(sd, buffer, 1024)) == 0) {
+				//Se chequea si se perdio una coneccion o se cerro una coneccion
+				if ((mensajeLeido = read(fdTemporal, buffer, 1024)) == 0) {
 					//Somebody disconnected , get his details and print
-					getpeername(sd, (struct sockaddr*) &address,
+					//Si alguien se desconecto se obtiene los detalles de quien se desconecto
+					getpeername(fdTemporal, (struct sockaddr*) &address,
 							(socklen_t*) &addrlen);
 					printf("Host disconnected , ip %s , port %d \n",
 							inet_ntoa(address.sin_addr),
 							ntohs(address.sin_port));
 
 					//Close the socket and mark as 0 in list for reuse
-					close(sd);
-					client_socket[i] = 0;
+					//Se cierra el socket caido y se lo marca como no usado en la lista para volverlo a usar
+					close(fdTemporal);
+					listaClientesConectados[contador1] = 0;
 				}
 
 				//Echo back the message that came in
+				//Se devuelve el mensaje a quien lo mando, se hace eco (el eco se hace solamente para enseñar,
+				//no tiene sentido ni utilizacion real para nosotros)
+				//Aca habria que hacer lo que nosotros queramos mandarle al socket
 				else {
 					//set the string terminating NULL byte on the end of the data read
-					buffer[valread] = '\0';
-					send(sd, buffer, strlen(buffer), 0);
+					//Se agrega el '\0' al final de lo leido
+					buffer[mensajeLeido] = '\0';
+					send(fdTemporal, buffer, strlen(buffer), 0);
 				}
 			}
 
