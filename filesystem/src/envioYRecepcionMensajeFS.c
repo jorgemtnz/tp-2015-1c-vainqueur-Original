@@ -2,7 +2,7 @@
 
 void enviar(int tipoDeMensaje, void* t_estructura,int fdDestinatario) {
 	switch (tipoDeMensaje) {
-	case (ESCRITURA): {
+	case (ESCRITURA): { // cuando se manda un bloque
 		t_escritura_bloque* bloqueAEscribir = (t_escritura_bloque*) t_estructura;
 		size_t tamanioPayload = VEINTEMEGAS;
 
@@ -34,26 +34,38 @@ void enviar(int tipoDeMensaje, void* t_estructura,int fdDestinatario) {
 
 void recibir(int fdReceptor){
 	size_t tamanioMensaje;
+
 	recibirPorSocket(fdReceptor,&tamanioMensaje,sizeof(int));
+
 	void* buffer = malloc(tamanioMensaje);
+
 	recibirPorSocket(fdReceptor,buffer,tamanioMensaje);
 	Paquete* unPaquete = deserializar(buffer,tamanioMensaje);//primer deserializado
-
-
+//da un tratamiento al mensaje en especifico
 	 interpretarPaquete ( unPaquete, fdReceptor);
-
-
-
 }
 
 void interpretarPaquete(Paquete* unPaquete, int fdReceptor){
 
 	switch(unPaquete->tipoDeMensaje){
 		case(CONEXION_NODO):{//recibe el mensaje de coneccion de un nodo
-				//aceptar el nodo
-				//validar de que no sea un nodo viejo
+			nod* nodo;
+			 int tamanioStringIp;
+			nodo = crearNodo();  // se crea el nodo como desconectado porque  aun no se
+			                     //ha agregado a la lista de nodos activos(CONECTADOS)
+
+		//primero se le el identificador del nodo que es su numero
+			 memcpy(&(nodo->numero),unPaquete->payLoad, sizeof(int));
+			 size_t desplazamiento = sizeof(nodo->numero);
+			 memcpy(&(nodo->puerto), unPaquete->payLoad+ desplazamiento, sizeof(int));
+			 desplazamiento += sizeof(nodo->puerto);
+			 memcpy(&(tamanioStringIp) , unPaquete->payLoad + desplazamiento,sizeof(int) );
+             nodo->ipNodo[tamanioStringIp];
+			 memcpy(&(nodo->ipNodo), unPaquete->payLoad + desplazamiento, tamanioStringIp);
+						 				//validar de que no sea un nodo viejo
 				//agregarlo
 				//agregar su espacio y en base a eso la cantidad de bloques de las listaBloques de un nodo
+			 list_add(FILESYSTEM->listaNodosActivos, nodo);
 			break;
 		}
 		case(SOLICITUD_ARCHIVO):{//MaRTA pide un archivo

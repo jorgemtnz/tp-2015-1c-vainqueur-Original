@@ -63,8 +63,9 @@ void* clienteAFS() {
 	sockTranferencia = crearSocket();
 	conectarSocketPorPrimeraVez(sockTranferencia, vg_ip_FS, vg_puerto_FS);
 	//comienza la comunicacion se usa sockTranferencia para comunicarse. se debe implementar
-	//enviar el puerto y el ip del nodo.
-	enviarPorSocket(sockTranferencia, buffer, strlen(buffer));
+	//enviar el el idNodo, luego el puerto y el ip del nodo
+	enviar(sockTranferencia);
+//	enviarPorSocket(sockTranferencia, buffer, strlen(buffer));
 // voy a recibir del FS el pedido del bloque
 	while (vg_desconectar == 1) {
 		recibir(sockTranferencia);

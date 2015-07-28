@@ -88,7 +88,7 @@ typedef struct fs {
 	int espacioDisponible;
 	int idElemento; //valor incremental que no se repite
 	int idNodo;  //valor incremental que no se repite
-	t_list* listaNodos;
+	t_list* listaNodosActivos;
 	t_list* listaElementos;
 } fs;
 

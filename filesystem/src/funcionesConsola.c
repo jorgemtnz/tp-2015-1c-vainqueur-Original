@@ -330,7 +330,7 @@ bloq* verBloque() {
 	bool compNumeroNodo(nod* unNodo) {
 			return (unNodo->numero == ptrNodoBloque->numeroNodo);
 		}
-ptrNodo=list_find( FILESYSTEM->listaNodos, (void*)compNumeroNodo);
+ptrNodo=list_find( FILESYSTEM->listaNodosActivos, (void*)compNumeroNodo);
 enviar(LECTURA,numeroBloque, ptrNodo->fdNodo);
 
 // solicitarPorSockect(ptrNodo->fdNodo); pido el bloque a este nodo y luego lo muestro por pantalla.
@@ -390,7 +390,7 @@ void actualizarListaDeArchivos(ubicacionDelBloqueEnNodo* unaUbicacion,
 	}
 	list_remove_by_condition(unArchivo->dobleListaUbicacionDelBloqueEnNodo,
 			(void*) condicion);	// Es una lista doble!!
-	unNodo = list_find(FILESYSTEM->listaNodos, (void*) condicion);
+	unNodo = list_find(FILESYSTEM->listaNodosActivos, (void*) condicion);
 	unNodo->estado = ESTA_DISPONIBLE;
 }
 
@@ -431,7 +431,7 @@ void borrarBloque() {
 			return (nodo->numero == numeroNodo); //quiero buscar el numero del Nodo que tiene el bloqueArchivo
 		}
 		nod* nodo = malloc(sizeof(nod));
-		nodo = list_find(FILESYSTEM->listaNodos, (void*) condicion);
+		nodo = list_find(FILESYSTEM->listaNodosActivos, (void*) condicion);
 
 		bool condicion2(bloq* unBloque) { //esta es una inner function, declarada dentro de una funcion.
 			return (numBloque == unBloque->numero); // quiero el bloque del nodo que contiene al bloque del archivo
@@ -455,16 +455,20 @@ void borrarBloque() {
 	free(ubicacionNodoBloqueTemp);
 }
 
-void agregarNodo() { //FALTA VER EL TEMA DE SOCKETS
+void agregarNodo() { //se decidio que se carga el socket_FD cuando llega a la estructura pero con nodo desconectado
+	int numNodo;    // y luego cuando lo lo quiero agregar entonces lo pongo como nodo conectado
+	nod* nodoAgregar;
+	printf("Ingrese el numero de nodo a agregar: ");
+		fflush(stdin);
+		scanf("%d", &numNodo);
 
-	nod* nodo;
-	nodo = crearNodo(); // la funcion constructora no recibe ningun parametro
+		nod* buscaNodo(nod* nodoLista){
+			return ( nodoLista->numero==numNodo);
+		}
 
-//	buscarPorsocketNodo(nodo->numero);// se le manda el numero identificatorio de ese nodo, que el nodo debe guardar
-//  implementame Santiago
-// por lo que aca debe haber otra funcion que envie ese numero al nodo.
+	nodoAgregar= list_find(FILESYSTEM->listaNodosActivos, (void*)buscaNodo);
+    nodoAgregar->estado = CONECTADO;
 
-	list_add(FILESYSTEM->listaNodos, nodo);
 // Agrega al nodo a la lista de nodos del FS
 }
 

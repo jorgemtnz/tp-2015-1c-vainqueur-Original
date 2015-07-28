@@ -20,10 +20,10 @@ nod* crearNodo() {  //para nodos conectados
 		perror("[ERROR] No se reservo memoria para el Filesystem>..>nodo ");
 		exit(-1);
 	}
-		nodo->numero = FILESYSTEM->idNodo +1; //incremento el valor
-		FILESYSTEM->idNodo = nodo->numero;  //actualizo el id que se ha usado
+		nodo->numero=0;
+		FILESYSTEM->idNodo = nodo->numero;  //actualizo el id que se ha usado  //quizas se deba borrar
 
-	nodo->estado = OPERATIVO;
+	nodo->estado = DESCONECTADO;
 	nodo->listaBloques = list_create();
 	return nodo;
 }
@@ -77,7 +77,7 @@ void crearFileSystem() {
 	filesystem->idElemento = 0;
 	filesystem->idNodo = 0; // id de cada nodo se envia al nodo por socket
 	filesystem->listaElementos = list_create();
-	filesystem->listaNodos = list_create();
+	filesystem->listaNodosActivos = list_create();
 
 	//se crea filesystem con el directorio raiz
 	directorioRaiz->directorioPadre =0;

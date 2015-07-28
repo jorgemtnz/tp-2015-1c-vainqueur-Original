@@ -64,9 +64,8 @@ void* servidorAMartha() {
 	sockTranferencia = aceptarConexionSocket(sockEscucha);
 //sockTranferencia se puede usar para send y recv
 //aca se debe implementar
-	//recibir(sockTranferencia);
-	recibirPorSocket(sockTranferencia, buffer, 1024);
-	printf("mensaje de marta: %s \n", buffer);
+	recibir(sockTranferencia); // se debe implentar posteriormente
+//	recibirPorSocket(sockTranferencia, buffer, 1024);
 
 	cerrarSocket(sockEscucha);
 	cerrarSocket(sockTranferencia);
@@ -76,13 +75,15 @@ void* servidorAMartha() {
 void* servidorANodos() {
 	//servidor concurrente
 
-	levantarConsola();
+
 	int fdConeccionesEntrantes, addrlen, sockTransferencia,
 			listaClientesConectados[30], cantidadMaximaClientes = 30,
 			numeroDeActividades, contador1, mensajeLeido, fdTemporal;
 	int fdTemporalMaximo;
 	struct sockaddr_in address;
 
+	//tenemos el vector clientes conectados, que se conectan por socket y luego
+	//desde consolo lo podemos tomar y agregarlo al  filesystem a nodos activos
 	char buffer[1025];  //data buffer of 1K
 
 	//set of socket descriptors
@@ -139,7 +140,9 @@ void* servidorANodos() {
 		if (FD_ISSET(fdConeccionesEntrantes, &setFdLectura)) {
 			sockTransferencia = aceptarConexionSocket(fdConeccionesEntrantes);
 			//se empieza a hablar
-			recibirPorSocket(sockTransferencia, buffer, 1025);
+
+			recibir(sockTransferencia); // se recibe el numero del nodo, el puerto , la IP.
+//			recibirPorSocket(sockTransferencia, buffer, 1025);
 			printf("Recibido del Nodo %s,\n", buffer);
 			//debo recibir como primero , la IP y el puerto de este nodo y guardarlo en la lista de nodosConectados
 			//add new socket to array of sockets
@@ -157,7 +160,7 @@ void* servidorANodos() {
 		}
 		// quizas aca se puede levantarConsola() , pero que no este en un while(1)
 		//
-
+		levantarConsola();
 		//else its some IO operation on some other socket :)
 		//Si no es en la coneccion nueva es una operacion de IO en un socket que ya poseiamos
 		for (contador1 = 0; contador1 < cantidadMaximaClientes; contador1++) {

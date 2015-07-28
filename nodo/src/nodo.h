@@ -33,7 +33,7 @@
 // +++++++++++++++++++++++++++++++++++++++ Estructuras +++++++++++++++++++++++++++++++++++++
 
 typedef struct nodo {
-	int idNodo;
+	int idNodo; //nuemero del nodo
 	int esNuevo; 	// 1 si es nuevo, 0  no;
 	char* dirArchivoDiscoDuro;
 

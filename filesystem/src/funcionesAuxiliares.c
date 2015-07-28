@@ -1,5 +1,5 @@
 #include "filesystem.h"
-#include <protocolo/protocolo.h>
+
 
 /*------------------------FUNCIONES AUXILIARES---------------------------*/
 void leerArchivoDeConfiguracion() {	// El archivo config de FS tiene PUERTO_LISTEN Y LISTA_NODOS
@@ -93,7 +93,7 @@ int devuelveCantBloquesLista(void*lista, int elementosEnLista) {
 	nod* nodoi;
 	int i;
 	for (i = 0; i <= elementosEnLista; i++) {
-		nodoi = list_get(FILESYSTEM->listaNodos, i);
+		nodoi = list_get(FILESYSTEM->listaNodosActivos, i);
 		cantBloques += nodoi->listaBloques->elements_count;
 	}
 	return cantBloques;
@@ -101,11 +101,11 @@ int devuelveCantBloquesLista(void*lista, int elementosEnLista) {
 
 int devuelveMenorNodoConBloques() {
 	int cantMenorBloques = 60000; // se le puso porque estoy buscando un valor minimo.
-	int elementosEnLista = FILESYSTEM->listaNodos->elements_count;
+	int elementosEnLista = FILESYSTEM->listaNodosActivos->elements_count;
 	int i;
 	nod* nodoi;
 	for (i = 0; i <= elementosEnLista; i++) {
-		nodoi = list_get(FILESYSTEM->listaNodos, i);
+		nodoi = list_get(FILESYSTEM->listaNodosActivos, i);
 		if (nodoi->listaBloques->elements_count < cantMenorBloques)
 			cantMenorBloques = nodoi->listaBloques->elements_count;
 	}
@@ -118,12 +118,12 @@ bool puedoHacerCopias(int cantBloquesOriginales) {
 
 	int cantMenorBloques = 0;
 	nod* nodoi;
-	int elementosEnLista = FILESYSTEM->listaNodos->elements_count;
+	int elementosEnLista = FILESYSTEM->listaNodosActivos->elements_count;
 	int i, promedio;
 	int cantNodosSuperaBloques = 0;
 
 ///-----------------son iguales a 3 nodos--------------
-	if (FILESYSTEM->listaNodos->elements_count == 3) {
+	if (FILESYSTEM->listaNodosActivos->elements_count == 3) {
 		cantMenorBloques = devuelveMenorNodoConBloques();
 		if (cantMenorBloques > cantBloquesOriginales)
 			return true;
@@ -132,7 +132,7 @@ bool puedoHacerCopias(int cantBloquesOriginales) {
 		//-------- son mayor a 3 nodos conectados
 	} else {
 		for (i = 0; i <= elementosEnLista; i++) {
-			nodoi = list_get(FILESYSTEM->listaNodos, i);
+			nodoi = list_get(FILESYSTEM->listaNodosActivos, i);
 			if (nodoi->listaBloques->elements_count > cantBloquesOriginales)
 				cantNodosSuperaBloques++; //son los nodos cuyos bloques son mayores a la cantidad de bloques totales
 		}
@@ -142,7 +142,7 @@ bool puedoHacerCopias(int cantBloquesOriginales) {
 			return true;
 		else {
 			promedio = (cantBloquesOriginales * 3)
-					% FILESYSTEM->listaNodos->elements_count;
+					% FILESYSTEM->listaNodosActivos->elements_count;
 			if (cantMenorBloques >= promedio)
 				return true;
 			else
@@ -173,7 +173,7 @@ void distribucionInicial(char* bloqueListo, element* unElemento) {
 	int cantidadCopias;
 	for (cantidadCopias = COPIAS_BLOQUE; cantidadCopias >= 0;
 			cantidadCopias--) {
-		primerNodo = list_remove(FILESYSTEM->listaNodos, 0); // Descolo el primer nodo de la listaNodosConectados
+		primerNodo = list_remove(FILESYSTEM->listaNodosActivos, 0); // Descolo el primer nodo de la listaNodosConectados
 		// Seteo unNodoBloque
 		unNodoBloque->numeroCopia = cantidadCopias;
 		unNodoBloque->numeroNodo = primerNodo->numero;
@@ -183,7 +183,7 @@ void distribucionInicial(char* bloqueListo, element* unElemento) {
 
 		// Fin seteo unNodoBloque
 
-		list_add(FILESYSTEM->listaNodos, primerNodo); // Encolo el primer nodo de la lista
+		list_add(FILESYSTEM->listaNodosActivos, primerNodo); // Encolo el primer nodo de la lista
 
 		list_add(unElemento->dobleListaUbicacionDelBloqueEnNodo, unNodoBloque);	// Actualizo la estructura
 //se debe descomentar una vez que ya funcionen bien  el protocolo.c
@@ -328,7 +328,7 @@ void marcaNodoDesconectado(int numeroNodo) {
 	bool condicion(nod* unNodo) { //esta es una inner function, declarada dentro de una funcion.
 		return (numeroNodo == unNodo->numero); // quiero el bloque del nodo que contiene al bloque del archivo
 	}
-	ptrNodo = list_find(FILESYSTEM->listaNodos, (void*) condicion);
+	ptrNodo = list_find(FILESYSTEM->listaNodosActivos, (void*) condicion);
 	ptrNodo->estado = DESCONECTADO;
 
 }

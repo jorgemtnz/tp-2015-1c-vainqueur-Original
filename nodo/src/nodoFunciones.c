@@ -1,4 +1,5 @@
 #include "nodo.h"
+#include <protocolo/protocolo.h>
 
 void levantarArchivoConfiguracion() {
 	char* temporal;
@@ -57,14 +58,15 @@ int ejecutarMap(char * nombreArchivoTemporal, char * ptrDireccionMapeo) {
 	return EJECUCIONOK;
 }
 
-void conectarNodo(t_nodo* datosDelNodo) {
-	int fdNodo = crearSocket();
-	int numNodo = datosDelNodo->idNodo;
-	conectarSocket(fdNodo, vg_ip_FS, vg_puerto_FS);
-	printf("Nodo: %d conectado al FS con ip %s mediante el puerto %d \n",
-			numNodo, vg_ip_FS, vg_puerto_FS);
-}
+//void conectarNodo(t_nodo* datosDelNodo) { se hace en el hilo clienteFS
+//	int fdNodo = crearSocket();
+//	int numNodo = datosDelNodo->idNodo;
+//	conectarSocket(fdNodo, vg_ip_FS, vg_puerto_FS);
+//	printf("Nodo: %d conectado al FS con ip %s mediante el puerto %d \n",
+//			numNodo, vg_ip_FS, vg_puerto_FS);
+//}
 //no se puede devolver un array, da error, por eso mejor seria que devuelva un ptr al array
+
 bufferVeinteMegas* getBloque(int numeroDeBloque) {
 	int fdDatosBin = open(vg_archivo_Bin, O_RDONLY, 0);
 	bufferVeinteMegas* buffer = malloc(sizeof(bufferVeinteMegas));
@@ -110,3 +112,36 @@ char* getFileContent(char* nombreDelArchivo) { //devuelve archivo del tmp
 	close(fdArchvTmp);
 	return buffer; // esto que se regresa es un ptr a la primera posición del arreglo
 }
+
+void enviar(int tipoDeMensaje, void* t_estructura,int fdDestinatario) {
+	switch (tipoDeMensaje) {
+	case (CONECCION_NODO): { // cuando se manda un bloque
+//		t_escritura_bloque* bloqueAEscribir = (t_escritura_bloque*) t_estructura;
+//		size_t tamanioPayload = VEINTEMEGAS;
+//
+//		void * payload = malloc(tamanioPayload);
+//		memcpy(payload, &(bloqueAEscribir->numeroDeBloque),
+//				sizeof(bloqueAEscribir->numeroDeBloque));
+//		size_t desplazamietno = sizeof(bloqueAEscribir->numeroDeBloque);
+//		memcpy(payload + desplazamietno, &(bloqueAEscribir->archivo),
+//		VEINTEMEGAS);
+//
+//		PaqueteEnvio * unPaquete = serializar(ESCRITURA, payload,
+//				tamanioPayload);
+//		enviarPorSocket(fdDestinatario,&(unPaquete->tamanioMensaje),sizeof(unPaquete->tamanioMensaje));
+//		enviarPorSocket(fdDestinatario,unPaquete->mensaje,unPaquete->tamanioMensaje);
+//		break;
+	}
+	case (LECTURA): {
+//		int numeroDeBloque = (int*) t_estructura;
+//		size_t tamanioPayload = sizeof(int);
+//		void* payload = malloc(tamanioPayload);
+//		memcpy(payload, &numeroDeBloque, sizeof(int));
+//		PaqueteEnvio* unPaquete = serializar(LECTURA, payload, tamanioPayload);
+//		enviarPorSocket(fdDestinatario,&(unPaquete->tamanioMensaje),sizeof(unPaquete->tamanioMensaje));
+//		enviarPorSocket(fdDestinatario,unPaquete->mensaje,unPaquete->tamanioMensaje);
+//		break;
+	}
+	}
+}
+
