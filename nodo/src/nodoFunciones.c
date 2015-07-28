@@ -3,23 +3,24 @@
 
 void levantarArchivoConfiguracion() {
 	char* temporal;
+
 	t_config* archivoConfig;
 	archivoConfig = config_create(RUTACONFIGNODO);
 	vg_puerto_FS = config_get_int_value(archivoConfig, "PUERTO_FS");
-	vg_ip_FS = config_get_string_value(archivoConfig, "IP_FS");
-	vg_puerto_Nodo = config_get_int_value(archivoConfig, "PUERTO_NODO");
-	vg_ip_Nodo = config_get_string_value(archivoConfig, "IP_NODO");
-	vg_puerto_Nodo = config_get_int_value(archivoConfig, "PUERTO_JOB");
-	vg_archivo_Bin = config_get_string_value(archivoConfig, "ARCHIVO_BIN");
+	vg_ip_FS = strdup(config_get_string_value(archivoConfig, "IP_FS"));
+	vg_puerto_Nodo = config_get_int_value(archivoConfig, "PUERTO_NODO_BASE");
+	vg_ip_Nodo = strdup(config_get_string_value(archivoConfig, "IP_NODO"));
+	vg_puerto_job = config_get_int_value(archivoConfig, "PUERTO_JOB");
+	vg_archivo_Bin = strdup(config_get_string_value(archivoConfig, "ARCHIVO_BIN"));
 
-	vg_dirTemp = config_get_string_value(archivoConfig, "DIR_TEMP");
-	temporal = config_get_string_value(archivoConfig, "NODO_NUEVO");
+	vg_dirTemp = strdup(config_get_string_value(archivoConfig, "DIR_TEMP"));
+	temporal = strdup(config_get_string_value(archivoConfig, "NODO_NUEVO"));
 
 	if (strcmp(temporal, "SI") == 0) {
-		vg_nodo_Nuevo = NODO_NUEVO;
+		//vg_nodo_Nuevo = NODO_NUEVO;
 	}
 	if (strcmp(temporal, "NO") == 0) {
-		vg_nodo_Nuevo = NODO_NO_NUEVO;
+		//vg_nodo_Nuevo = NODO_NO_NUEVO;
 	}
 
 	free(temporal);
@@ -113,35 +114,6 @@ char* getFileContent(char* nombreDelArchivo) { //devuelve archivo del tmp
 	return buffer; // esto que se regresa es un ptr a la primera posición del arreglo
 }
 
-void enviar(int tipoDeMensaje, void* t_estructura,int fdDestinatario) {
-	switch (tipoDeMensaje) {
-	case (CONECCION_NODO): { // cuando se manda un bloque
-//		t_escritura_bloque* bloqueAEscribir = (t_escritura_bloque*) t_estructura;
-//		size_t tamanioPayload = VEINTEMEGAS;
-//
-//		void * payload = malloc(tamanioPayload);
-//		memcpy(payload, &(bloqueAEscribir->numeroDeBloque),
-//				sizeof(bloqueAEscribir->numeroDeBloque));
-//		size_t desplazamietno = sizeof(bloqueAEscribir->numeroDeBloque);
-//		memcpy(payload + desplazamietno, &(bloqueAEscribir->archivo),
-//		VEINTEMEGAS);
-//
-//		PaqueteEnvio * unPaquete = serializar(ESCRITURA, payload,
-//				tamanioPayload);
-//		enviarPorSocket(fdDestinatario,&(unPaquete->tamanioMensaje),sizeof(unPaquete->tamanioMensaje));
-//		enviarPorSocket(fdDestinatario,unPaquete->mensaje,unPaquete->tamanioMensaje);
-//		break;
-	}
-	case (LECTURA): {
-//		int numeroDeBloque = (int*) t_estructura;
-//		size_t tamanioPayload = sizeof(int);
-//		void* payload = malloc(tamanioPayload);
-//		memcpy(payload, &numeroDeBloque, sizeof(int));
-//		PaqueteEnvio* unPaquete = serializar(LECTURA, payload, tamanioPayload);
-//		enviarPorSocket(fdDestinatario,&(unPaquete->tamanioMensaje),sizeof(unPaquete->tamanioMensaje));
-//		enviarPorSocket(fdDestinatario,unPaquete->mensaje,unPaquete->tamanioMensaje);
-//		break;
-	}
-	}
-}
+
+
 

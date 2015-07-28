@@ -20,7 +20,7 @@
 #include <semaphore.h>
 #include <protocolo/protocolo.h>
 // +++++++++++++++++++++++++++++++++++++++ Define +++++++++++++++++++++++++++++++++++++
-#define RUTACONFIGNODO "/home/utnso/TPOperativos/nodo/Adicionales/CONFIGURACION.cfg"
+#define RUTACONFIGNODO "/home/utnso/TPOperativos/nodo/config_nodo.cfg"
 #define RUTAMAP "/tmp/"
 #define EJECUCIONOK 1
 #define EJECUCIONFALLO -1
@@ -62,7 +62,10 @@ void conectarNodo(t_nodo* datosDelNodo); //se conecta el nodo al filesystem
 bufferVeinteMegas* getBloque(int numeroDeBloque); // devuelve un bloque determinado devuelve un puntero al buffer echo con malloc, se debe hacer luego el free
 int setBloque(int numeroDeBloque, bufferVeinteMegas buffer) ;//pone un la info de un bloque en el archivo
 char* getFileContent(char* nombreDelArchivo) ; //devuelve archivo del tmp
-
+//++++++++++++++++++++++++++++++++++++funciones envio +++++++++++++++++++++++++++++++++++++++
+void recibir(int fdReceptor);
+void enviar(int tipoDeMensaje, void* t_estructura,int fdDestinatario);
+void interpretarPaquete(Paquete* unPaquete, int fdReceptor);
 // +++++++++++++++++++++++++++++++++++ Variables Globales +++++++++++++++++++++++++++++++++++
 int vg_puerto_FS,
 	vg_nodo_Nuevo,
@@ -73,5 +76,6 @@ char *vg_ip_FS;
 char *vg_archivo_Bin;
 char	 *vg_dirTemp;
 char	 *vg_ip_Nodo;
+t_nodo *vg_nodo;
 
 #endif /* NODO2_SRC_NODO_H_ */

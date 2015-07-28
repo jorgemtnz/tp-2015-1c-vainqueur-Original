@@ -19,7 +19,7 @@ void* servidorANodo(); //-> usa el puerto del config  ++ solo para atender a otr
 //clienteANodo -
 int main(int argc, char **argv) {
 	int i, error[4];
-
+	crearNodo();
 	levantarArchivoConfiguracion();
 	testleerArchivoDeConfiguracion();
 
@@ -56,15 +56,14 @@ int main(int argc, char **argv) {
 }
 
 void* clienteAFS() {
-	int sockTranferencia;
-	int desconectar;
-	int retorno = -1;
-	void* buffer = "hola desde el nodo";
+	int sockTranferencia = 0;
+
+
 	sockTranferencia = crearSocket();
-	conectarSocketPorPrimeraVez(sockTranferencia, vg_ip_FS, vg_puerto_FS);
+	conectarSocketPorPrimeraVez(sockTranferencia, vg_ip_FS, vg_puerto_FS);//lo hardcodeo por ahora
 	//comienza la comunicacion se usa sockTranferencia para comunicarse. se debe implementar
 	//enviar el el idNodo, luego el puerto y el ip del nodo
-	enviar(sockTranferencia);
+	enviar(CONECXION_NODO,vg_nodo,sockTranferencia);
 //	enviarPorSocket(sockTranferencia, buffer, strlen(buffer));
 // voy a recibir del FS el pedido del bloque
 	while (vg_desconectar == 1) {

@@ -26,33 +26,6 @@ void testleerArchivoDeConfiguracion() {
 			"****************************** FIN ******************************\n");
 }
 
-void recibir(int fdReceptor) {
-	size_t tamanioMensaje;
-	recibirPorSocket(fdReceptor, &tamanioMensaje, sizeof(int));
-	void* buffer = malloc(tamanioMensaje);
-	recibirPorSocket(fdReceptor, buffer, tamanioMensaje);
-	Paquete* unPaquete = deserializar(buffer, tamanioMensaje); //primer deserializado
 
-	interpretarPaquete(unPaquete, fdReceptor);
-
-}
-
-void interpretarPaquete(Paquete* unPaquete, int fdReceptor) {
-
-	switch (unPaquete->tipoDeMensaje) {
-	case (LECTURA): { //se debe previamente haber habierto el archivo bin del nodo
-		// acceder al bloque del nodo y ese string es el que se manda de vuelta.
-		//enviar();     // envia por socket el bloque al servidor
-		break;
-	}
-		case(DESCONECTAR_NODO):{// quizas se deba poner en el nodo.h, --- verificar al hacer pull
-
-          cerrarSocket(fdReceptor);
-          vg_desconectar = 1;// para salir del while en el hilo para el clienteFS
-		}
-
-			break;
-	}
-}
 
 
