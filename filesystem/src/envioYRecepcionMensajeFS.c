@@ -32,7 +32,7 @@ void enviar(int tipoDeMensaje, void* t_estructura,int fdDestinatario) {
 	}
 }
 
-void recibir(int fdReceptor){
+void* recibir(int fdReceptor){
 	size_t tamanioMensaje;
 
 	recibirPorSocket(fdReceptor,&tamanioMensaje,sizeof(int));
@@ -45,7 +45,7 @@ void recibir(int fdReceptor){
 	 interpretarPaquete ( unPaquete, fdReceptor);
 }
 
-void interpretarPaquete(Paquete* unPaquete, int fdReceptor){
+void* interpretarPaquete(Paquete* unPaquete, int fdReceptor){
 
 	switch(unPaquete->tipoDeMensaje){
 		case(CONEXION_NODO):{//recibe el mensaje de coneccion de un nodo
@@ -73,6 +73,12 @@ void interpretarPaquete(Paquete* unPaquete, int fdReceptor){
 			//usar la funcion enviar de arriba para serializar esa lista y mandarsela a MaRTA
 
 			break;
+		}
+		case(BLOQUE):{//problema porque hay dos funciones de consola que solicitan un bloque copiar bloque y la funcion de md5
+			char* bloque;
+			memcpy(bloque,unPaquete->payLoad,VEINTEMEGAS);
+			return bloque;
+
 		}
 	}
 

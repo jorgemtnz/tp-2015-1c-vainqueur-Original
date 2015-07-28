@@ -177,8 +177,9 @@ void aplicarFuncion(int idFuncion);
 void levantarConsola();
 
 //++++++++++++++++++++++++++++++++++++funciones envio +++++++++++++++++++++++++++++++++++++++
-void recibir(int fdReceptor);
-void interpretarPaquete(Paquete* unPaquete, int fdReceptor);
+void* recibir(int fdReceptor);
+void* interpretarPaquete(Paquete* unPaquete, int fdReceptor);
+void enviar(int tipoDeMensaje, void* t_estructura,int fdDestinatario);
 // +++++++++++++++++++++++++++++++++++ Variables Globales +++++++++++++++++++++++++++++++++++
 fs* FILESYSTEM;
 int vg_puerto_listen_marta, vg_puerto_listen_nodo;

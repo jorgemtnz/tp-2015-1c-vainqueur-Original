@@ -63,9 +63,9 @@ bufferVeinteMegas* getBloque(int numeroDeBloque); // devuelve un bloque determin
 int setBloque(int numeroDeBloque, bufferVeinteMegas buffer) ;//pone un la info de un bloque en el archivo
 char* getFileContent(char* nombreDelArchivo) ; //devuelve archivo del tmp
 //++++++++++++++++++++++++++++++++++++funciones envio +++++++++++++++++++++++++++++++++++++++
-void recibir(int fdReceptor);
+void* recibir(int fdReceptor);
 void enviar(int tipoDeMensaje, void* t_estructura,int fdDestinatario);
-void interpretarPaquete(Paquete* unPaquete, int fdReceptor);
+void* interpretarPaquete(Paquete* unPaquete, int fdReceptor);
 // +++++++++++++++++++++++++++++++++++ Variables Globales +++++++++++++++++++++++++++++++++++
 int vg_puerto_FS,
 	vg_nodo_Nuevo,
