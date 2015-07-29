@@ -14,26 +14,28 @@ void enviar(int tipoDeMensaje, void* t_estructura, int fdDestinatario)
 	{ // cuando se manda una conecxion de nodo
 
 		t_nodo* unNodo = (t_nodo*) t_estructura;
-		int tamanioStringIp = strlen(vg_ip_Nodo);
+		int tamanioStringIp = sizeof(char) * (strlen(vg_ip_Nodo) + 1);
 
-		size_t tamanioPayload = sizeof(vg_nodo->idNodo) + sizeof(vg_puerto_Nodo)
-				+ tamanioStringIp + sizeof(int); //el ultimo sizeof(int) es para agregarle el tamanio del string al payload
+		int tamanioPayload = sizeof(vg_nodo->idNodo) + sizeof(vg_puerto_Nodo)
+				+ tamanioStringIp + sizeof(int) + sizeof(vg_nodo->esNuevo); //el ultimo sizeof(int) es para agregarle el tamanio del string al payload
 
 		void* payload = malloc(tamanioPayload);
 
-		memcpy(payload, &(vg_nodo->idNodo), sizeof(int));
-
-		size_t desplazamiento = sizeof(vg_nodo->idNodo);
+		memcpy(payload, &(vg_nodo->idNodo), sizeof(vg_nodo->idNodo));
+		int desplazamiento = sizeof(vg_nodo->idNodo);
 
 		memcpy(payload + desplazamiento, &(vg_puerto_Nodo),
-
 				sizeof(vg_puerto_Nodo));
-
 		desplazamiento += sizeof(vg_puerto_Nodo);
-		memcpy(payload + desplazamiento, &(tamanioStringIp),
-				sizeof(tamanioStringIp));
-		desplazamiento += sizeof(tamanioStringIp);
-		memcpy(payload + desplazamiento, vg_ip_Nodo, tamanioStringIp);
+
+		memcpy(payload + desplazamiento, &(tamanioStringIp), tamanioStringIp);
+		desplazamiento += tamanioStringIp;
+
+		memcpy(payload + desplazamiento, &(vg_ip_Nodo), tamanioStringIp);
+		desplazamiento += tamanioStringIp;
+
+		memcpy(payload + desplazamiento, &(vg_nodo->esNuevo), sizeof(vg_nodo->esNuevo));
+		desplazamiento += sizeof(vg_nodo->esNuevo);
 
 		PaqueteEnvio* unPaquete = serializar(tipoDeMensaje, payload,
 				tamanioPayload);
@@ -44,6 +46,7 @@ void enviar(int tipoDeMensaje, void* t_estructura, int fdDestinatario)
 				unPaquete->tamanioMensaje);
 		printf("mensaje enviado al servidor");
 		break;
+
 	}
 	case (BLOQUE):
 	{

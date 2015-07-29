@@ -9,8 +9,8 @@ void* servidorANodos();
 int main(int argc, char **argv) {
 
 	int error, errorOtro;
-//  crearFileSystem();
-//  inicializarFilesystem();
+    crearFileSystem();
+
 	leerArchivoDeConfiguracion();
 	testleerArchivoDeConfiguracion();
 
@@ -141,7 +141,7 @@ void* servidorANodos() {
 			sockTransferencia = aceptarConexionSocket(fdConeccionesEntrantes);
 			//se empieza a hablar
 
-			recibir(sockTransferencia); // se recibe el numero del nodo, el puerto , la IP.
+			recibir(sockTransferencia); // se recibe el numero del nodo, el puerto , la IP, y si es nuevo el nodo y luego agrega el nodo al FS como no conectado.
 //			recibirPorSocket(sockTransferencia, buffer, 1025);
 			printf("Recibido del Nodo %s,\n", buffer);
 			//debo recibir como primero , la IP y el puerto de este nodo y guardarlo en la lista de nodosConectados
@@ -173,14 +173,16 @@ void* servidorANodos() {
 					//Si alguien se desconecto se obtiene los detalles de quien se desconecto
 					getpeername(fdTemporal, (struct sockaddr*) &address,
 							(socklen_t*) &addrlen);
-					printf("Host disconnected , ip %s , port %d \n",
-							inet_ntoa(address.sin_addr),
-							ntohs(address.sin_port));
+//					printf("Host disconnected , ip %s , port %d \n",
+//							inet_ntoa(address.sin_addr),
+//							ntohs(address.sin_port));
 
 					//Close the socket and mark as 0 in list for reuse
 					//Se cierra el socket caido y se lo marca como no usado en la lista para volverlo a usar
 					close(fdTemporal);
 					listaClientesConectados[contador1] = 0;
+					marcarNodoDesconectado(fdTemporal); // lo marca como desconectado en listaNodosActivos del FS
+					FILESYSTEM->listaNodosActivos;
 				}
 
 				//Echo back the message that came in
@@ -190,12 +192,13 @@ void* servidorANodos() {
 				else {
 					//set the string terminating NULL byte on the end of the data read
 					//Se agrega el '\0' al final de lo leido
-					buffer[mensajeLeido] = '\0';
-					send(fdTemporal, buffer, strlen(buffer), 0);
+//					buffer[mensajeLeido] = '\0';
+//					send(fdTemporal, buffer, strlen(buffer), 0);
 				}
 			}
 
-		}levantarConsola();
+		}
+		levantarConsola();
 
 	}
 

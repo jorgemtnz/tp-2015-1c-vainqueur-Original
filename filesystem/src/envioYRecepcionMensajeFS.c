@@ -60,12 +60,24 @@ void* interpretarPaquete(Paquete* unPaquete, int fdReceptor){
 			 memcpy(&(nodo->puerto), unPaquete->payLoad+ desplazamiento, sizeof(int));
 			 desplazamiento += sizeof(nodo->puerto);
 			 memcpy(&(tamanioStringIp) , unPaquete->payLoad + desplazamiento,sizeof(int) );
-             nodo->ipNodo[tamanioStringIp];
+			 nodo->ipNodo[tamanioStringIp];
+
 			 memcpy(&(nodo->ipNodo), unPaquete->payLoad + desplazamiento, tamanioStringIp);
+			 desplazamiento +=tamanioStringIp;
+			 memcpy(&(nodo->esNuevo), unPaquete->payLoad + desplazamiento, sizeof(int));
+
 						 				//validar de que no sea un nodo viejo
+			 if ( nodo->esNuevo == SI)
+			 {
 				//agregarlo
 				//agregar su espacio y en base a eso la cantidad de bloques de las listaBloques de un nodo
 			 list_add(FILESYSTEM->listaNodosActivos, nodo);
+			 } else{
+				 nodo->estado = CONECTADO;
+			 }
+
+             if( FILESYSTEM->listaNodosActivos->elements_count > vg_cant_MinNodosOperar)
+            	 FILESYSTEM->estado = OPERATIVO;
 			break;
 		}
 		case(SOLICITUD_ARCHIVO):{//MaRTA pide un archivo

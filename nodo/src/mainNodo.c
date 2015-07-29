@@ -19,10 +19,10 @@ void* servidorANodo(); //-> usa el puerto del config  ++ solo para atender a otr
 //clienteANodo -
 int main(int argc, char **argv) {
 	int i, error[4];
-	crearNodo();
+	vg_nodo =  crearNodo();
 	levantarArchivoConfiguracion();
 	testleerArchivoDeConfiguracion();
-	enviar(CONECXION_NODO,vg_nodo,4);
+
 	pthread_t tidClienteAFS;
 	pthread_t tidServidorAJob;
 	pthread_t tidServidorANodo;

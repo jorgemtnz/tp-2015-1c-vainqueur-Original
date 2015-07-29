@@ -46,6 +46,8 @@
 #define CONEXION_NODO 9
 #define SOLICITUD_ARCHIVO 10
 #define CONECCIONES_ENTRANTES_PERMITIDAS 20
+#define SI 1
+#define NO 0
 
 // +++++++++++++++++++++++++++++++++++++++ Estructuras +++++++++++++++++++++++++++++++++++++
 typedef struct bloq {
@@ -58,6 +60,7 @@ typedef struct nod {
 	int numero;
 	int fdNodo;
 	int puerto;
+	int esNuevo;
 	char* ipNodo;
 	int estado; //conectado 1  o desconectado 0
 //	long    long tamanio; 2GB  consultar, posiblemente no sea necesario
@@ -145,6 +148,7 @@ void marcaNodoDesconectado(int numeroNodo);
 bool verificaNodoConectado(t_list*listaBloquesArchivo);
 void testleerArchivoDeConfiguracion();
 t_list* buscaListaArchivo(element* ptrArchivo);
+void marcarNodoDesconectado(fdTemporal);
 
 // Funciones de Consola
 void renombrarElemento(element* ptrElemento, char* nuevoNombreElemento);
@@ -185,6 +189,6 @@ fs* FILESYSTEM;
 int vg_puerto_listen_marta, vg_puerto_listen_nodo;
 
 char** vg_lista_nodos; // array de strings para guardar las IP de los nodos.
-int vg_cant_lista_nodos;
+int vg_cant_MinNodosOperar;
 
 #endif /* FILESYSTEM_H_ */
