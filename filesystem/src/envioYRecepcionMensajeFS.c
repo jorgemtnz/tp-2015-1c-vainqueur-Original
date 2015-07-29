@@ -67,14 +67,16 @@ void* interpretarPaquete(Paquete* unPaquete, int fdReceptor){
 			 desplazamiento +=tamanioStringIp;
 			 memcpy(&(nodo->esNuevo), unPaquete->payLoad + desplazamiento, sizeof(int));
 
-						 				//validar de que no sea un nodo viejo
-			 if ( nodo->esNuevo == SI)
+						 				//validar de que no sea un nodo viejo, esto es si se lo mando el nodo
+			 // es innecesario. porque tengo el control de estos en el FS.
+			 if ( esNuevo(nodo->numero))
 			 {
 				//agregarlo
 				//agregar su espacio y en base a eso la cantidad de bloques de las listaBloques de un nodo
 			 list_add(FILESYSTEM->listaNodosActivos, nodo);
 			 } else{
-				 nodo->estado = CONECTADO;
+				 buscaNodoCambiaConectado(nodo->numero);
+
 			 }
 
              if( FILESYSTEM->listaNodosActivos->elements_count > vg_cant_MinNodosOperar)

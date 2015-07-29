@@ -149,7 +149,8 @@ bool verificaNodoConectado(t_list*listaBloquesArchivo);
 void testleerArchivoDeConfiguracion();
 t_list* buscaListaArchivo(element* ptrArchivo);
 void marcarNodoDesconectado(fdTemporal);
-
+bool esNuevo(int numeroNodo);
+void buscaNodoCambiaConectado(int numeroNodo);
 // Funciones de Consola
 void renombrarElemento(element* ptrElemento, char* nuevoNombreElemento);
 void moverElemento(element* elementoOrigen, element* directorioDestino);

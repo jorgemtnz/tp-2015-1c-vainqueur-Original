@@ -28,10 +28,10 @@ void enviar(int tipoDeMensaje, void* t_estructura, int fdDestinatario)
 				sizeof(vg_puerto_Nodo));
 		desplazamiento += sizeof(vg_puerto_Nodo);
 
-		memcpy(payload + desplazamiento, &(tamanioStringIp), tamanioStringIp);
-		desplazamiento += tamanioStringIp;
+		memcpy(payload + desplazamiento, &(tamanioStringIp), sizeof(int));
+		desplazamiento += sizeof(int);
 
-		memcpy(payload + desplazamiento, &(vg_ip_Nodo), tamanioStringIp);
+		memcpy(payload + desplazamiento, vg_ip_Nodo, tamanioStringIp);
 		desplazamiento += tamanioStringIp;
 
 		memcpy(payload + desplazamiento, &(vg_nodo->esNuevo), sizeof(vg_nodo->esNuevo));
@@ -44,6 +44,13 @@ void enviar(int tipoDeMensaje, void* t_estructura, int fdDestinatario)
 				sizeof(int));
 		enviarPorSocket(fdDestinatario, unPaquete->mensaje,
 				unPaquete->tamanioMensaje);
+// solo si el ayudante dice que se debe hacer
+		//ftell() para decir donde esta el ptro del archivo de lect/ escritura
+//		int fdArchivo =abreArchivo(RUTACONFIGNODO);
+//        // debo cambiar el SI del archivo config
+//
+//		cierraArchivo(fdArchivo);
+
 		printf("mensaje enviado al servidor");
 		break;
 
@@ -103,6 +110,17 @@ void* interpretarPaquete(Paquete* unPaquete, int fdReceptor)
 		vg_desconectar = 1;	// para salir del while en el hilo para el clienteFS
 		break;
 	}
+	case (ESCRITURA):{
+		int numeroDeBloque;
+		char* bloque;
+		memcpy(&numeroDeBloque,	unPaquete->payLoad, sizeof(int));
+		size_t desplazamiento = sizeof(int);
+		memcpy(bloque,unPaquete->payLoad + desplazamiento, VEINTEMEGAS);
+		setBloque(numeroDeBloque, bloque);
+break;
+	}
+
+
 	default:
 		return NULL;
 	}	// del switch

@@ -435,3 +435,24 @@ void marcarNodoDesconectado( fdTemporal)
 	ptrNodoModif = list_find(FILESYSTEM->listaNodosActivos, (void*) buscaNodo);
 	ptrNodoModif->estado = DESCONECTADO;
 }
+
+bool esNuevo(int numeroNodo){
+
+	void* buscaNodo( nod* unNodo){
+		return( unNodo->numero == numeroNodo);
+	}
+
+	return (list_find(FILESYSTEM->listaNodosActivos, (void*)buscaNodo) == NULL);
+
+}
+
+void buscaNodoCambiaConectado(int numeroNodo){
+	nod* nodoMOdif;
+	void* buscaNodo( nod* unNodo){
+			return( unNodo->numero == numeroNodo);
+		}
+
+	nodoMOdif= list_find(FILESYSTEM->listaNodosActivos, (void*)buscaNodo);
+	nodoMOdif->estado = CONECTADO;
+
+}
