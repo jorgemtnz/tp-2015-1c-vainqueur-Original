@@ -21,39 +21,31 @@
 // s	eliminarNodo                    prueba minima
 // s	mostrarComandos
 // s 	mostrarElementos 		// Yapa
-void renombrarElemento(element* ptrElemento, char* nuevoNombreElemento)
-{
+void renombrarElemento(element* ptrElemento, char* nuevoNombreElemento) {
 	strcpy(ptrElemento->nombre, nuevoNombreElemento);
 }
-void moverElemento(element* elementoOrigen, element* directorioDestino)
-{ // Valido que no se quiera mover dentro de un archivo
-	if (directorioDestino->tipoElemento == ESDIRECTORIO)
-	{ // Hago el cambio de directorio padre con el index del directorio padre
+void moverElemento(element* elementoOrigen, element* directorioDestino) { // Valido que no se quiera mover dentro de un archivo
+	if (directorioDestino->tipoElemento == ESDIRECTORIO) { // Hago el cambio de directorio padre con el index del directorio padre
 		elementoOrigen->directorioPadre = directorioDestino->index;
-	}
-	else
-	{
+	} else {
 		perror(
 				"[ERROR]no se puede mover. El directorio destino no es un tipo directorio");
 		exit(-1);
 	}
 }
-void eliminarElemento(char* nombreElemento)
-{
+void eliminarElemento(char* nombreElemento) {
 	int i;
 	int elementosEnLista = FILESYSTEM->listaElementos->elements_count;
 	int sonIguales;
 
-	for (i = 0; i <= elementosEnLista; i++)
-	{
+	for (i = 0; i <= elementosEnLista; i++) {
 		element* elementoi;
 		elementoi = list_get(FILESYSTEM->listaElementos, i);
 		sonIguales = string_equals_ignore_case(elementoi->nombre,
 				nombreElemento);
 // Si las cadenas son iguales => encontro string => lo elimino
 
-		if (sonIguales)
-		{
+		if (sonIguales) {
 			list_remove(FILESYSTEM->listaElementos, i);
 		}
 
@@ -61,14 +53,12 @@ void eliminarElemento(char* nombreElemento)
 	}
 } // Sirve para archivos y directorios
 
-void formatearMDFS()
-{
+void formatearMDFS() {
 	liberaMemoriaFS();
 	inicializarFilesystem();
 }
 
-void eliminarArchivo()
-{
+void eliminarArchivo() {
 	char nombreArchivo[LONGITUD_STRINGS];
 	printf("Ingrese el nombre del archivo que desea eliminar: ");
 	fflush(stdin);
@@ -76,8 +66,7 @@ void eliminarArchivo()
 	eliminarElemento(nombreArchivo);
 }
 
-void renombrarArchivo()
-{
+void renombrarArchivo() {
 	char nombreArchivo[LONGITUD_STRINGS], nuevoNombreArchivo[LONGITUD_STRINGS];
 	element* ptrArchivo;
 
@@ -90,16 +79,14 @@ void renombrarArchivo()
 	scanf("%s", nuevoNombreArchivo);
 
 	ptrArchivo = buscarElementoPorNombre(nombreArchivo);
-	if (ptrArchivo == NULL)
-	{
+	if (ptrArchivo == NULL) {
 		perror("[ERROR] No existe el archivo");
 		exit(-1);
 	}
 	renombrarElemento(ptrArchivo, nuevoNombreArchivo);
 }
 
-void moverArchivo()
-{
+void moverArchivo() {
 	char nombreArchivo[LONGITUD_STRINGS];
 	char nombreDirectorioDestino[LONGITUD_STRINGS];
 	element* ptrArchivo;
@@ -115,19 +102,15 @@ void moverArchivo()
 
 	directorioDestino = buscarElementoPorNombre(nombreDirectorioDestino);
 	ptrArchivo = buscarElementoPorNombre(nombreArchivo);
-	if ((directorioDestino == NULL) || (ptrArchivo == NULL))
-	{
+	if ((directorioDestino == NULL) || (ptrArchivo == NULL)) {
 		perror("[ERROR] No se puede mover el archivo");
 		exit(-1);
-	}
-	else
-	{
+	} else {
 		moverElemento(ptrArchivo, directorioDestino);
 	}
 }
 
-void crearDirectorio()
-{
+void crearDirectorio() {
 	element* carpetaNueva;
 	element* padre;
 	int indexPadre;
@@ -147,8 +130,7 @@ void crearDirectorio()
 	nombrePadre = strdup(sacarUltimaParte(dirPadre));
 	padre = buscarElementoPorNombre(nombrePadre);
 
-	if (padre == NULL)
-	{
+	if (padre == NULL) {
 		perror("Numero invalido de directorio padre\n");
 		exit(-1);
 	}
@@ -158,12 +140,9 @@ void crearDirectorio()
 	carpetaNueva->nombre = strdup(nombre);
 	carpetaNueva->estado = DISPONIBLE;
 	carpetaNueva->tipoElemento = ESDIRECTORIO;
-	if (!list_is_empty(FILESYSTEM->listaElementos))
-	{
+	if (!list_is_empty(FILESYSTEM->listaElementos)) {
 		carpetaNueva->index = FILESYSTEM->listaElementos->elements_count += 1;
-	}
-	else
-	{ // Primera vez
+	} else { // Primera vez
 		carpetaNueva->index = 1;
 	}
 	carpetaNueva->directorioPadre = indexPadre;
@@ -173,8 +152,7 @@ void crearDirectorio()
 	list_add(FILESYSTEM->listaElementos, carpetaNueva);
 }
 
-void eliminarDirectorio()
-{
+void eliminarDirectorio() {
 	char nombreDirectorio[LONGITUD_STRINGS];
 
 	printf("Ingrese el nombre del Directorio: ");
@@ -183,8 +161,7 @@ void eliminarDirectorio()
 	eliminarElemento(nombreDirectorio);
 }
 
-void renombrarDirectorio()
-{
+void renombrarDirectorio() {
 	element* ptrDirectorio;
 	char nombreDirectorio[LONGITUD_STRINGS],
 			nuevoNombreDirectorio[LONGITUD_STRINGS];
@@ -198,16 +175,14 @@ void renombrarDirectorio()
 	scanf("%s", nuevoNombreDirectorio);
 
 	ptrDirectorio = buscarElementoPorNombre(nombreDirectorio);
-	if (ptrDirectorio == NULL)
-	{
+	if (ptrDirectorio == NULL) {
 		perror("[ERROR] No existe el directorio");
 		exit(-1);
 	}
 	renombrarElemento(ptrDirectorio, nuevoNombreDirectorio);
 }
 
-void moverDirectorio()
-{
+void moverDirectorio() {
 	char nombreDirectorioOrigen[LONGITUD_STRINGS];
 	char nombreDirectorioDestino[LONGITUD_STRINGS];
 	element* directorioOrigen;
@@ -224,8 +199,7 @@ void moverDirectorio()
 	directorioDestino = buscarElementoPorNombre(nombreDirectorioDestino);
 	directorioOrigen = buscarElementoPorNombre(nombreDirectorioOrigen);
 
-	if ((directorioDestino == NULL) || (directorioOrigen == NULL))
-	{
+	if ((directorioDestino == NULL) || (directorioOrigen == NULL)) {
 		perror("[ERROR] No se puede mover el directorio");
 		exit(EXIT_FAILURE);
 	}
@@ -233,8 +207,7 @@ void moverDirectorio()
 	moverElemento(directorioOrigen, directorioDestino);
 }
 
-void copiarArchivoLocalAlMDFS()
-{
+void copiarArchivoLocalAlMDFS() {
 	// La copia la crea en la raiz
 	char dirArchivoLocal[LONGITUD_STRINGS];
 	char* nombreArchivo;
@@ -275,8 +248,7 @@ void copiarArchivoLocalAlMDFS()
 	free(dirArchivo);
 }
 
-FILE* copiarArchivoDelMDFSAlFSLocal()
-{
+FILE* copiarArchivoDelMDFSAlFSLocal() {
 	// Falta iplementar,  esta implicitamente en las condiciones mínimas
 	char nombreArchivo[LONGITUD_STRINGS];
 	element* archivoMDFS;
@@ -285,8 +257,7 @@ FILE* copiarArchivoDelMDFSAlFSLocal()
 	ubicacionDelBloqueEnNodo* nodoBLoque = NULL;
 	FILE* archivoLocal; // este es el archivo que se debe crear en el Local
 
-	bool condicion(ubicacionDelBloqueEnNodo* unaUbic)
-	{ //esta es una inner function, declarada dentro de una funcion.
+	bool condicion(ubicacionDelBloqueEnNodo* unaUbic) { //esta es una inner function, declarada dentro de una funcion.
 		return (numeroCopia == unaUbic->numeroCopia); //quiero filtrar la lista por el numeroCopia
 	}
 
@@ -295,8 +266,7 @@ FILE* copiarArchivoDelMDFSAlFSLocal()
 	scanf("%s", nombreArchivo);
 
 	archivoMDFS = buscarElementoPorNombre(nombreArchivo);
-	if (archivoMDFS->estado == ESTA_DISPONIBLE)
-	{
+	if (archivoMDFS->estado == ESTA_DISPONIBLE) {
 
 		//tendria que tener toda la lista, puede ser un bloque de copia 0 , otro bloque de copia1, etc
 		//listaBloquesArchivo= buscaListaArchivo(ptrArchivo);
@@ -305,17 +275,14 @@ FILE* copiarArchivoDelMDFSAlFSLocal()
 				(void*) condicion);
 		//enviamos las solicitudes de bloques
 
-		for (i = 0; i < listaNodoBloque->elements_count;)
-		{
+		for (i = 0; i < listaNodoBloque->elements_count;) {
 			nodoBLoque = list_get(listaNodoBloque, i);
 			//nodoBLoque->
 			//	solicitarBloque(nodoBLoque); //aca podria usar la que muestra el bloque, solo que no quiero que se muestre sino que me lo de.
 		}
 
 		// copiar el archivo que esta en memoria al archivo creado
-	}
-	else
-	{
+	} else {
 		perror("[ERROR] No disponible archivo");
 		exit(-1);
 	}
@@ -326,8 +293,7 @@ FILE* copiarArchivoDelMDFSAlFSLocal()
 	//posteriormente se debe copiar a memoria este bloque eh ir armando el archivo
 	return archivoLocal;
 }
-void solicitarMD5deUnArchivoenMDFS()
-{
+void solicitarMD5deUnArchivoenMDFS() {
 	copiarArchivoDelMDFSAlFSLocal();
 // falta implementar, esta en las condiciones minimas
 // se debe factorizar entre esta y la funcion copiarArchivoDelMDFSAlFSLocal();
@@ -338,8 +304,7 @@ void solicitarMD5deUnArchivoenMDFS()
 }
 
 ubicacionDelBloqueEnNodo* verUbicacionBloque(char* nombreArchivo,
-		int numeroBloque)
-{
+		int numeroBloque) {
 	ubicacionDelBloqueEnNodo* ptrNodoBloque;
 	ptrNodoBloque = devuelveBloqueArchivo(nombreArchivo, numeroBloque);
 	printf("El bloque %d del archivo %s se encuentra en:\n"
@@ -348,14 +313,13 @@ ubicacionDelBloqueEnNodo* verUbicacionBloque(char* nombreArchivo,
 	return ptrNodoBloque;
 }
 
-char* verBloque()
-{
+char* verBloque() {
 	int numeroBloque;
 	bloq* bloque;
 	ubicacionDelBloqueEnNodo* ptrNodoBloque;
 	nod* ptrNodo; //que tiene el bloque que quiero
 	char nombreArchivo[LONGITUD_STRINGS];
-    char* contenidoBloque;
+	char* contenidoBloque;
 
 	ptrNodoBloque = malloc(sizeof(ubicacionDelBloqueEnNodo));
 
@@ -366,27 +330,23 @@ char* verBloque()
 	scanf("%d", &numeroBloque);
 
 	ptrNodoBloque = verUbicacionBloque(nombreArchivo, numeroBloque);
-	bool compNumeroNodo(nod* unNodo)
-	{
+	bool compNumeroNodo(nod* unNodo) {
 		return (unNodo->numero == ptrNodoBloque->numeroNodo);
 	}
 	ptrNodo = list_find(FILESYSTEM->listaNodosActivos, (void*) compNumeroNodo);
 	enviar(LECTURA, numeroBloque, ptrNodo->fdNodo);
-
 
 // hago este free porque antes se hizo un malloc en la fucion verUbicacionBloque
 	free(ptrNodoBloque);
 	return contenidoBloque;
 }
 
-void solicitudCopiaDeBloque()
-{
+void solicitudCopiaDeBloque() {
 //se esta desarrollando, debe solicitar un bloque a un nodo
 //usando parte de la funcion de mostrar bloque
 }
 
-void copiarBloque()
-{
+void copiarBloque() {
 
 	int numeroBloque = 0, numeroNodoDest, numeroBloqDest;
 	char nombreArchivo[LONGITUD_STRINGS];
@@ -419,16 +379,13 @@ void copiarBloque()
 }
 
 void actualizarListaDeArchivos(ubicacionDelBloqueEnNodo* unaUbicacion,
-		element* unArchivo)
-{
+		element* unArchivo) {
 	int nodoABuscar = unaUbicacion->numeroNodo;
 	int bloqueABuscar = unaUbicacion->numeroDeBloqueDelNodo;
 	nod* unNodo = NULL;
-	bool condicion(ubicacionDelBloqueEnNodo* ubicacionDeLista)
-	{
+	bool condicion(ubicacionDelBloqueEnNodo* ubicacionDeLista) {
 		if (ubicacionDeLista->numeroNodo == nodoABuscar
-				&& ubicacionDeLista->numeroDeBloqueDelNodo == bloqueABuscar)
-		{
+				&& ubicacionDeLista->numeroDeBloqueDelNodo == bloqueABuscar) {
 			return true;
 		}
 		return false;
@@ -439,8 +396,7 @@ void actualizarListaDeArchivos(ubicacionDelBloqueEnNodo* unaUbicacion,
 	unNodo->estado = ESTA_DISPONIBLE;
 }
 
-void borrarBloque()
-{
+void borrarBloque() {
 	int numBloque, numeroNodo;
 	char nombreArchivo[LONGITUD_STRINGS];
 	element* ptrArchivo = malloc(sizeof(element));
@@ -458,8 +414,7 @@ void borrarBloque()
 	fflush(stdin);
 	scanf("%d", &numBloque);
 
-	bool condicion3(ubicacionDelBloqueEnNodo* unaUbic)
-	{ //esta es una inner function, declarada dentro de una funcion.
+	bool condicion3(ubicacionDelBloqueEnNodo* unaUbic) { //esta es una inner function, declarada dentro de una funcion.
 		return (numBloque == unaUbic->bloqueArchivo); //quiero buscar el bloque del archivo que me pidieron
 	}
 
@@ -470,22 +425,17 @@ void borrarBloque()
 	numBloque = ubicacionNodoBloqueTemp->numeroDeBloqueDelNodo;
 	numeroNodo = ubicacionNodoBloqueTemp->numeroNodo;
 
-	if (ptrArchivo == NULL)
-	{
+	if (ptrArchivo == NULL) {
 		perror("[ERROR] No se puede borrar el bloque archivo invalido");
 		exit(-1);
-	}
-	else
-	{
-		bool condicion(nod* nodo)
-		{ //esta es una inner function, declarada dentro de una funcion.
+	} else {
+		bool condicion(nod* nodo) { //esta es una inner function, declarada dentro de una funcion.
 			return (nodo->numero == numeroNodo); //quiero buscar el numero del Nodo que tiene el bloqueArchivo
 		}
 		nod* nodo = malloc(sizeof(nod));
 		nodo = list_find(FILESYSTEM->listaNodosActivos, (void*) condicion);
 
-		bool condicion2(bloq* unBloque)
-		{ //esta es una inner function, declarada dentro de una funcion.
+		bool condicion2(bloq* unBloque) { //esta es una inner function, declarada dentro de una funcion.
 			return (numBloque == unBloque->numero); // quiero el bloque del nodo que contiene al bloque del archivo
 		}
 		bloq* bloque = malloc(sizeof(bloq));
@@ -507,27 +457,27 @@ void borrarBloque()
 	free(ubicacionNodoBloqueTemp);
 }
 
-void agregarNodo()
-{ //se decidio que se carga el socket_FD cuando llega a la estructura pero con nodo desconectado
+void agregarNodo() { //se decidio que se carga el socket_FD cuando llega a la estructura pero con nodo desconectado
 	int numNodo; // y luego cuando lo lo quiero agregar entonces lo pongo como nodo conectado
 	nod* nodoAgregar;
 	printf("Ingrese el numero de nodo a agregar: ");
 	fflush(stdin);
 	scanf("%d", &numNodo);
 
-	nod* buscaNodo(nod* nodoLista)
-	{
+	bool buscaNodo(nod* nodoLista) {
 		return (nodoLista->numero == numNodo);
 	}
 
 	nodoAgregar = list_find(FILESYSTEM->listaNodosActivos, (void*) buscaNodo);
+	if(nodoAgregar ==NULL)
+		printf("nodo no encontrado\n");
+	else
 	nodoAgregar->estado = CONECTADO;
 
 // Agrega al nodo a la lista de nodos del FS
 }
 
-void eliminarNodo()
-{ //falta implementar lo de sockets
+void eliminarNodo() { //falta implementar lo de sockets
 	int numero;
 
 	printf("ingrese el numero de nodo a eliminar \n");
@@ -535,10 +485,9 @@ void eliminarNodo()
 	marcaNodoDesconectado(numero);
 }
 
-void mostrarComandos()
-{
-	char* funcionesConsola[] =
-	{ "formatearMDFS", "eliminarArchivo", "renombrarArchivo",
+void mostrarComandos() {
+	char* funcionesConsola[] = { "formatearMDFS", "eliminarArchivo",
+			"renombrarArchivo",
 			"moverArchivos",	 // Archivos
 			"crearDirectorio", "eliminarDirectorio", "renombrarDirectorio",
 			"moverDirectorio",  // Directorios
@@ -548,20 +497,19 @@ void mostrarComandos()
 			"agregarNodo", "eliminarNodo", // Nodos
 			"mostrarComandos", "mostrarElementos" };
 
-	char* descripcionesConsola[] =
-	{ "Descrpcion de la funcion 1", "Descripcion de la funcion 2",
-			"Descripcion de la funcion 3", "Descripcion de la funcion 4",
-			"Descripcion de la funcion 5", "Descripcion de la funcion 6",
-			"Descripcion de la funcion 7", "Descripcion de la funcion 8",
-			"Descripcion de la funcion 9", "Descripcion de la funcion 10",
-			"Descripcion de la funcion 11", "Descripcion de la funcion 12",
-			"Descripcion de la funcion 13", "Descripcion de la funcion 14",
-			"Descripcion de la funcion 15", "Descripcion de la funcion 16",
-			"Descripcion de la funcion 17", "Descripcion de la funcion 18" };
+	char* descripcionesConsola[] = { "Descrpcion de la funcion 1",
+			"Descripcion de la funcion 2", "Descripcion de la funcion 3",
+			"Descripcion de la funcion 4", "Descripcion de la funcion 5",
+			"Descripcion de la funcion 6", "Descripcion de la funcion 7",
+			"Descripcion de la funcion 8", "Descripcion de la funcion 9",
+			"Descripcion de la funcion 10", "Descripcion de la funcion 11",
+			"Descripcion de la funcion 12", "Descripcion de la funcion 13",
+			"Descripcion de la funcion 14", "Descripcion de la funcion 15",
+			"Descripcion de la funcion 16", "Descripcion de la funcion 17",
+			"Descripcion de la funcion 18" };
 
 	int contador = 0;
-	while (contador <= NUMEROFUNCIONESCONSOLA - 1)
-	{
+	while (contador <= NUMEROFUNCIONESCONSOLA - 1) {
 		printf("*------------------------------------------*\n");
 		printf("COMANDO 	= %s\n", funcionesConsola[contador]);
 		printf("DESCRIPCION = %s\n", descripcionesConsola[contador]);
@@ -571,24 +519,25 @@ void mostrarComandos()
 }
 
 // ---------CONSOLA IMPLEMENTACION------
-void mostrarElementos()
-{
+void limpiarPantalla(){
+	system("clear");
+}
+
+void mostrarElementos() {
 	int elementosEnLista = FILESYSTEM->listaElementos->elements_count;
 	int i;
-	for (i = 0; i < elementosEnLista; i++)
-	{
+	for (i = 0; i < elementosEnLista; i++) {
 		element* elementoi;
 		elementoi = list_get(FILESYSTEM->listaElementos, i);
 		printf("Index:%d   Elemento:%s\n", elementoi->index, elementoi->nombre);
 	}
 }
 
-int idFuncion(char* funcion)
-{
+int idFuncion(char* funcion) {
 	int i;
 
-	char* funcionesConsola[] =
-	{ "formatearMDFS", "eliminarArchivo", "renombrarArchivo",
+	char* funcionesConsola[] = { "formatearMDFS", "eliminarArchivo",
+			"renombrarArchivo",
 			"moverArchivos",	 // Archivos
 			"crearDirectorio", "eliminarDirectorio", "renombrarDirectorio",
 			"moverDirectorio",  // Directorios
@@ -605,13 +554,9 @@ int idFuncion(char* funcion)
 	return (i <= NUMEROFUNCIONESCONSOLA - 1) ? (i + 1) : -1;
 }
 
-void aplicarFuncion(int idFuncion)
-{ //selecciona un case en base al numero que llevaba el contador y aplica la funcion recibe el dir
-	switch (idFuncion)
-	{
+void aplicarFuncion(int idFuncion) { //selecciona un case en base al numero que llevaba el contador y aplica la funcion recibe el dir
 
-	enum nomFun
-	{
+	enum nomFun {
 		FORMATEAR_MDFS = 1,
 		ELIMINAR_ARCHIVO,
 		RENOMBRAR_ARCHIVO,
@@ -632,226 +577,167 @@ void aplicarFuncion(int idFuncion)
 		MOSTRAR_ELEMENTOS
 	};
 // Lo que hace el enum es convertirme lo que dice en enteros
+	switch (idFuncion) {
+	case FORMATEAR_MDFS:
+		if (FILESYSTEM->estado == OPERATIVO) {
+			formatearMDFS();
+		} else {
+			printf("aun no operativo el FS");
+		}
 
-case FORMATEAR_MDFS:
-	if (FILESYSTEM->estado == OPERATIVO)
-	{
-		formatearMDFS();
-	}
-	else
-	{
-		printf("aun no operativo el FS");
-	}
+		break;
 
-	break;
+	case ELIMINAR_ARCHIVO:
+		if (FILESYSTEM->estado == OPERATIVO) {
+			eliminarArchivo();
+		} else {
+			printf("aun no operativo el FS");
+		}
 
-case ELIMINAR_ARCHIVO:
-	if (FILESYSTEM->estado == OPERATIVO)
-	{
-		eliminarArchivo();
-	}
-	else
-	{
-		printf("aun no operativo el FS");
-	}
+		break;
 
-	break;
+	case RENOMBRAR_ARCHIVO:
+		if (FILESYSTEM->estado == OPERATIVO) {
+			renombrarArchivo();
+		} else {
+			printf("aun no operativo el FS");
+		}
 
-case RENOMBRAR_ARCHIVO:
-	if (FILESYSTEM->estado == OPERATIVO)
-	{
-		renombrarArchivo();
-	}
-	else
-	{
-		printf("aun no operativo el FS");
-	}
+		break;
 
-	break;
+	case MOVER_ARCHIVOS:
+		if (FILESYSTEM->estado == OPERATIVO) {
+			moverArchivo();
+		} else {
+			printf("aun no operativo el FS");
+		}
 
-case MOVER_ARCHIVOS:
-	if (FILESYSTEM->estado == OPERATIVO)
-	{
-		moverArchivo();
-	}
-	else
-	{
-		printf("aun no operativo el FS");
-	}
+		break;
 
-	break;
+	case CREAR_DIRECTORIO:
+		if (FILESYSTEM->estado == OPERATIVO) {
+			crearDirectorio();
+		} else {
+			printf("aun no operativo el FS");
+		}
 
-case CREAR_DIRECTORIO:
-	if (FILESYSTEM->estado == OPERATIVO)
-	{
-		crearDirectorio();
-	}
-	else
-	{
-		printf("aun no operativo el FS");
-	}
+		break;
 
-	break;
+	case ELIMINAR_DIRECTORIO:
+		if (FILESYSTEM->estado == OPERATIVO) {
+			eliminarDirectorio();
+		} else {
+			printf("aun no operativo el FS");
+		}
 
-case ELIMINAR_DIRECTORIO:
-	if (FILESYSTEM->estado == OPERATIVO)
-	{
-		eliminarDirectorio();
-	}
-	else
-	{
-		printf("aun no operativo el FS");
-	}
+		break;
 
-	break;
+	case RENOMBRAR_DIRECTORIO:
+		if (FILESYSTEM->estado == OPERATIVO) {
+			renombrarDirectorio();
+		} else {
+			printf("aun no operativo el FS");
+		}
 
-case RENOMBRAR_DIRECTORIO:
-	if (FILESYSTEM->estado == OPERATIVO)
-	{
-		renombrarDirectorio();
-	}
-	else
-	{
-		printf("aun no operativo el FS");
-	}
+		break;
 
-	break;
+	case MOVER_DIRECTORIO:
+		if (FILESYSTEM->estado == OPERATIVO) {
+			moverDirectorio();
+		} else {
+			printf("aun no operativo el FS");
+		}
 
-case MOVER_DIRECTORIO:
-	if (FILESYSTEM->estado == OPERATIVO)
-	{
-		moverDirectorio();
-	}
-	else
-	{
-		printf("aun no operativo el FS");
-	}
+		break;
 
-	break;
+	case COPIAR_ARCHIVO_LOCAL_AL_MDFS:
+		if (FILESYSTEM->estado == OPERATIVO) {
+			copiarArchivoLocalAlMDFS();
+		} else {
+			printf("aun no operativo el FS");
+		}
 
-case COPIAR_ARCHIVO_LOCAL_AL_MDFS:
-	if (FILESYSTEM->estado == OPERATIVO)
-	{
-		copiarArchivoLocalAlMDFS();
-	}
-	else
-	{
-		printf("aun no operativo el FS");
-	}
+		break;
 
-	break;
+	case COPIAR_ARCHIVO_DEL_MDFS_AL_FS_LOCAL:
+		if (FILESYSTEM->estado == OPERATIVO) {
+			copiarArchivoDelMDFSAlFSLocal();
+		} else {
+			printf("aun no operativo el FS");
+		}
 
-case COPIAR_ARCHIVO_DEL_MDFS_AL_FS_LOCAL:
-	if (FILESYSTEM->estado == OPERATIVO)
-	{
-		copiarArchivoDelMDFSAlFSLocal();
-	}
-	else
-	{
-		printf("aun no operativo el FS");
-	}
+		break;
 
-	break;
+	case SOLICITAR_MD5_DE_UN_ARCHIVO_EN_MDFS:
+		if (FILESYSTEM->estado == OPERATIVO) {
+			solicitarMD5deUnArchivoenMDFS();
+		} else {
+			printf("aun no operativo el FS");
+		}
 
-case SOLICITAR_MD5_DE_UN_ARCHIVO_EN_MDFS:
-	if (FILESYSTEM->estado == OPERATIVO)
-	{
-		solicitarMD5deUnArchivoenMDFS();
-	}
-	else
-	{
-		printf("aun no operativo el FS");
-	}
+		break;
 
-	break;
+	case VER_BLOQUE:
+		if (FILESYSTEM->estado == OPERATIVO) {
+			verBloque();
+		} else {
+			printf("aun no operativo el FS");
+		}
 
-case VER_BLOQUE:
-	if (FILESYSTEM->estado == OPERATIVO)
-	{
-		verBloque();
-	}
-	else
-	{
-		printf("aun no operativo el FS");
-	}
+		break;
 
-	break;
+	case BORRAR_BLOQUE:
+		if (FILESYSTEM->estado == OPERATIVO) {
+			borrarBloque();
+		} else {
+			printf("aun no operativo el FS");
+		}
 
-case BORRAR_BLOQUE:
-	if (FILESYSTEM->estado == OPERATIVO)
-	{
-		borrarBloque();
-	}
-	else
-	{
-		printf("aun no operativo el FS");
-	}
+		break;
 
-	break;
+	case COPIAR_BLOQUE:
+		if (FILESYSTEM->estado == OPERATIVO) {
+			copiarBloque();
+		} else {
+			printf("aun no operativo el FS");
+		}
 
-case COPIAR_BLOQUE:
-	if (FILESYSTEM->estado == OPERATIVO)
-	{
-		copiarBloque();
-	}
-	else
-	{
-		printf("aun no operativo el FS");
-	}
+		break;
 
-	break;
+	case AGREGAR_NODO:
+		agregarNodo();
+		break;
 
-case AGREGAR_NODO:
-	agregarNodo();
-	break;
+	case ELIMINAR_NODO:
+		if (FILESYSTEM->estado == OPERATIVO) {
+			eliminarNodo();
+		} else {
+			printf("aun no operativo el FS");
+		}
 
-case ELIMINAR_NODO:
-	if (FILESYSTEM->estado == OPERATIVO)
-	{
-		eliminarNodo();
-	}
-	else
-	{
-		printf("aun no operativo el FS");
-	}
+		break;
 
-	break;
+	case MOSTRAR_COMANDOS: {
 
-case MOSTRAR_COMANDOS:
-{
-	if (FILESYSTEM->estado == OPERATIVO)
-	{
 		mostrarComandos();
-	}
-	else
-	{
-		printf("aun no operativo el FS");
-	}
 
-	break;
-}
+	}
+		break;
 
-case MOSTRAR_ELEMENTOS:
-	if (FILESYSTEM->estado == OPERATIVO)
-	{
+	case MOSTRAR_ELEMENTOS:
+
 		mostrarElementos();
-	}
-	else
-	{
-		printf("aun no operativo el FS");
-	}
 
-	break;
+		break;
 
-case -1:
-	printf("--Ojo ese comando no existe!! proba con mostrarComandos\n");
-	break;
+	case -1:
+		printf("--Ojo ese comando no existe!! proba con mostrarComandos\n");
+		break;
 
 	}
 }
 
-void levantarConsola()
-{
+void levantarConsola() {
 	char comando[50];
 	int idFunc;
 

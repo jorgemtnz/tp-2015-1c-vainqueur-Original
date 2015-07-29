@@ -427,7 +427,7 @@ t_list* buscaListaArchivo(element* ptrArchivo)
 void marcarNodoDesconectado( fdTemporal)
 {
 	nod* ptrNodoModif;
-	nod* buscaNodo(nod* unNodo)
+	bool buscaNodo(nod* unNodo)
 	{
 		return (unNodo->fdNodo == fdTemporal);
 	}
@@ -438,7 +438,7 @@ void marcarNodoDesconectado( fdTemporal)
 
 bool esNuevo(int numeroNodo){
 
-	void* buscaNodo( nod* unNodo){
+	bool buscaNodo( nod* unNodo){
 		return( unNodo->numero == numeroNodo);
 	}
 
@@ -448,7 +448,7 @@ bool esNuevo(int numeroNodo){
 
 void buscaNodoCambiaConectado(int numeroNodo){
 	nod* nodoMOdif;
-	void* buscaNodo( nod* unNodo){
+	bool buscaNodo( nod* unNodo){
 			return( unNodo->numero == numeroNodo);
 		}
 

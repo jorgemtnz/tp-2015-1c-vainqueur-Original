@@ -75,11 +75,8 @@
 				</externalSettings>
 				<externalSettings containerId="delEquipo;" factoryId="org.eclipse.cdt.core.cfg.export.settings.sipplier">
 					<externalSetting>
-						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/Sockets"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/delEquipo"/>
-						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/Sockets/Debug"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/delEquipo/Debug"/>
-						<entry flags="RESOLVED" kind="libraryFile" name="Sockets" srcPrefixMapping="" srcRootPath=""/>
 						<entry flags="RESOLVED" kind="libraryFile" name="delEquipo" srcPrefixMapping="" srcRootPath=""/>
 					</externalSetting>
 				</externalSettings>

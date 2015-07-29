@@ -42,9 +42,10 @@ void enviar(int tipoDeMensaje, void* t_estructura, int fdDestinatario)
 
 		PaqueteEnvio* unPaquete = serializar(tipoDeMensaje, payload,
 				tamanioPayload);
-
+        printf("antes de enviar el paquete\n");
 		enviarPorSocket(fdDestinatario, &(unPaquete->tamanioMensaje),
 				sizeof(int));
+		printf("se envio la primera parte del mansaje\n");
 		enviarPorSocket(fdDestinatario, unPaquete->mensaje,
 				unPaquete->tamanioMensaje);
 // solo si el ayudante dice que se debe hacer

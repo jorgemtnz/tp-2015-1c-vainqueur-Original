@@ -198,6 +198,8 @@ void* servidorANodos() {
 			}
 
 		}
+		printf("elementos lista %d\n", FILESYSTEM->listaNodosActivos->elements_count);
+
 		levantarConsola();
 
 	}
