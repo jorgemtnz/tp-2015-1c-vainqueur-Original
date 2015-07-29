@@ -14,7 +14,7 @@ void enviar(int tipoDeMensaje, void* t_estructura, int fdDestinatario)
 	{ // cuando se manda una conecxion de nodo
 
 		t_nodo* unNodo = (t_nodo*) t_estructura;
-		int tamanioStringIp = sizeof(char) * (strlen(vg_ip_Nodo) + 1);
+		int tamanioStringIp = strlen(vg_ip_Nodo);
 
 		int tamanioPayload = sizeof(vg_nodo->idNodo) + sizeof(vg_puerto_Nodo)
 				+ tamanioStringIp + sizeof(int) + sizeof(vg_nodo_Nuevo) + sizeof(vg_tamanioArchivo); //el ultimo sizeof(int) es para agregarle el tamanio del string al payload
@@ -33,6 +33,10 @@ void enviar(int tipoDeMensaje, void* t_estructura, int fdDestinatario)
 
 		memcpy(payload + desplazamiento, vg_ip_Nodo, tamanioStringIp);
 		desplazamiento += tamanioStringIp;
+//mostrar lo que se guardo
+		char* mostrame = malloc(tamanioStringIp);
+		  memcpy(mostrame,payload-tamanioStringIp,tamanioStringIp);
+		  printf("%s\n\n",mostrame);
 
 		memcpy(payload + desplazamiento, &(vg_nodo_Nuevo), sizeof(vg_nodo_Nuevo));
 		desplazamiento += sizeof(vg_nodo_Nuevo);
@@ -45,7 +49,7 @@ void enviar(int tipoDeMensaje, void* t_estructura, int fdDestinatario)
         printf("antes de enviar el paquete\n");
 		enviarPorSocket(fdDestinatario, &(unPaquete->tamanioMensaje),
 				sizeof(int));
-		printf("se envio la primera parte del mansaje\n");
+		printf("se envio la primera parte del mensaje\n");
 		enviarPorSocket(fdDestinatario, unPaquete->mensaje,
 				unPaquete->tamanioMensaje);
 // solo si el ayudante dice que se debe hacer

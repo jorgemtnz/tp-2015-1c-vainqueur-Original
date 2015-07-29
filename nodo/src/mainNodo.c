@@ -19,7 +19,9 @@ void* servidorANodo(); //-> usa el puerto del config  ++ solo para atender a otr
 //clienteANodo -
 int main(int argc, char **argv) {
 	int i, error[4];
+
 	vg_nodo =  crearNodo();
+
 	levantarArchivoConfiguracion();
 	testleerArchivoDeConfiguracion();
 
