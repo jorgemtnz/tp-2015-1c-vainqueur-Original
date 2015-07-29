@@ -36,3 +36,5 @@ RemoteSystemsTempFiles/
 # Debug files
 *.dSYM/
 
+*.bin
+prueba.txt

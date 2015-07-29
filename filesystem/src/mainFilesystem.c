@@ -75,7 +75,6 @@ void* servidorAMartha() {
 void* servidorANodos() {
 	//servidor concurrente
 
-
 	int fdConeccionesEntrantes, addrlen, sockTransferencia,
 			listaClientesConectados[30], cantidadMaximaClientes = 30,
 			numeroDeActividades, contador1, mensajeLeido, fdTemporal;
@@ -194,6 +193,7 @@ void* servidorANodos() {
 					//Se agrega el '\0' al final de lo leido
 //					buffer[mensajeLeido] = '\0';
 //					send(fdTemporal, buffer, strlen(buffer), 0);
+					recibir(fdTemporal);
 				}
 			}
 

@@ -15,9 +15,9 @@ t_nodo* crearNodo() {
 		printf("Ingrese el numero de nodo: ");
 		fflush(stdin);
 		scanf("%d", &numNodo);
-		ptrNodo->esNuevo = NODO_NUEVO;
+
 		ptrNodo->idNodo = numNodo;
-		ptrNodo->dirArchivoDiscoDuro = '\0';
+
 	}
 
 	return ptrNodo;

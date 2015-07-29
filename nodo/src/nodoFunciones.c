@@ -12,8 +12,9 @@ void levantarArchivoConfiguracion() {
 	vg_ip_Nodo = strdup(config_get_string_value(archivoConfig, "IP_NODO"));
 	vg_puerto_job = config_get_int_value(archivoConfig, "PUERTO_JOB");
 	vg_archivo_Bin = strdup(config_get_string_value(archivoConfig, "ARCHIVO_BIN"));
-
+	vg_puerto_job = config_get_long_value(archivoConfig, "TAMANIO_ARCHIVO");
 	vg_dirTemp = strdup(config_get_string_value(archivoConfig, "DIR_TEMP"));
+
 	temporal = strdup(config_get_string_value(archivoConfig, "NODO_NUEVO"));
 
 	if (strcmp(temporal, "SI") == 0) {

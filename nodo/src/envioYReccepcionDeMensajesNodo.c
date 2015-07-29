@@ -17,7 +17,7 @@ void enviar(int tipoDeMensaje, void* t_estructura, int fdDestinatario)
 		int tamanioStringIp = sizeof(char) * (strlen(vg_ip_Nodo) + 1);
 
 		int tamanioPayload = sizeof(vg_nodo->idNodo) + sizeof(vg_puerto_Nodo)
-				+ tamanioStringIp + sizeof(int) + sizeof(vg_nodo->esNuevo); //el ultimo sizeof(int) es para agregarle el tamanio del string al payload
+				+ tamanioStringIp + sizeof(int) + sizeof(vg_nodo_Nuevo) + sizeof(vg_tamanioArchivo); //el ultimo sizeof(int) es para agregarle el tamanio del string al payload
 
 		void* payload = malloc(tamanioPayload);
 
@@ -34,8 +34,11 @@ void enviar(int tipoDeMensaje, void* t_estructura, int fdDestinatario)
 		memcpy(payload + desplazamiento, vg_ip_Nodo, tamanioStringIp);
 		desplazamiento += tamanioStringIp;
 
-		memcpy(payload + desplazamiento, &(vg_nodo->esNuevo), sizeof(vg_nodo->esNuevo));
-		desplazamiento += sizeof(vg_nodo->esNuevo);
+		memcpy(payload + desplazamiento, &(vg_nodo_Nuevo), sizeof(vg_nodo_Nuevo));
+		desplazamiento += sizeof(vg_nodo_Nuevo);
+
+		memcpy(payload + desplazamiento, &(vg_tamanioArchivo), sizeof(vg_tamanioArchivo));
+
 
 		PaqueteEnvio* unPaquete = serializar(tipoDeMensaje, payload,
 				tamanioPayload);
@@ -117,7 +120,7 @@ void* interpretarPaquete(Paquete* unPaquete, int fdReceptor)
 		size_t desplazamiento = sizeof(int);
 		memcpy(bloque,unPaquete->payLoad + desplazamiento, VEINTEMEGAS);
 		setBloque(numeroDeBloque, bloque);
-break;
+    break;
 	}
 
 

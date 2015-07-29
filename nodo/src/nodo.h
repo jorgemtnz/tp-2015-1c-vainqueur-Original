@@ -34,8 +34,7 @@
 
 typedef struct nodo {
 	int idNodo; //nuemero del nodo
-	int esNuevo; 	// 1 si es nuevo, 0  no;
-	char* dirArchivoDiscoDuro;
+
 
 } t_nodo;
 
@@ -76,6 +75,7 @@ char *vg_ip_FS;
 char *vg_archivo_Bin;
 char	 *vg_dirTemp;
 char	 *vg_ip_Nodo;
+long vg_tamanioArchivo;
 t_nodo *vg_nodo;
 
 #endif /* NODO2_SRC_NODO_H_ */

@@ -11,6 +11,7 @@ C_SRCS += \
 ../src/testBuscaBloqueYMarcaOcupado.c \
 ../src/testCliente.c \
 ../src/testCrearFilesystem.c \
+../src/testEmpaquetado.c \
 ../src/testeoModificaElemento.c 
 
 OBJS += \
@@ -21,6 +22,7 @@ OBJS += \
 ./src/testBuscaBloqueYMarcaOcupado.o \
 ./src/testCliente.o \
 ./src/testCrearFilesystem.o \
+./src/testEmpaquetado.o \
 ./src/testeoModificaElemento.o 
 
 C_DEPS += \
@@ -31,6 +33,7 @@ C_DEPS += \
 ./src/testBuscaBloqueYMarcaOcupado.d \
 ./src/testCliente.d \
 ./src/testCrearFilesystem.d \
+./src/testEmpaquetado.d \
 ./src/testeoModificaElemento.d 
 
 

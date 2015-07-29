@@ -21,8 +21,8 @@ nod* crearNodo() {  //para nodos conectados
 		exit(-1);
 	}
 		nodo->numero=0;
-		FILESYSTEM->idNodo = nodo->numero;  //actualizo el id que se ha usado  //quizas se deba borrar
 
+    nodo->tamanioNodo=0;
 	nodo->estado = DESCONECTADO;
 	nodo->listaBloques = list_create();
 	return nodo;

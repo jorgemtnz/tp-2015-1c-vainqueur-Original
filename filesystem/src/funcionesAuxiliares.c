@@ -456,3 +456,9 @@ void buscaNodoCambiaConectado(int numeroNodo){
 	nodoMOdif->estado = CONECTADO;
 
 }
+
+int dameCantBloques(long tamanioNodo){
+
+	return tamanioNodo % VEINTEMEGAS;  // en C "NO SE LLAMA MOD" sino que se usa el simbolo de porcentaje (%)
+	// 3 % 2 = 1 (se efectua una division entera y el residuo seria 1 que es lo que devuelve el operador %)
+}

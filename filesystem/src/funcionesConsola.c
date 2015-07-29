@@ -348,13 +348,14 @@ ubicacionDelBloqueEnNodo* verUbicacionBloque(char* nombreArchivo,
 	return ptrNodoBloque;
 }
 
-bloq* verBloque()
+char* verBloque()
 {
 	int numeroBloque;
 	bloq* bloque;
 	ubicacionDelBloqueEnNodo* ptrNodoBloque;
 	nod* ptrNodo; //que tiene el bloque que quiero
 	char nombreArchivo[LONGITUD_STRINGS];
+    char* contenidoBloque;
 
 	ptrNodoBloque = malloc(sizeof(ubicacionDelBloqueEnNodo));
 
@@ -372,10 +373,10 @@ bloq* verBloque()
 	ptrNodo = list_find(FILESYSTEM->listaNodosActivos, (void*) compNumeroNodo);
 	enviar(LECTURA, numeroBloque, ptrNodo->fdNodo);
 
-// solicitarPorSockect(ptrNodo->fdNodo); pido el bloque a este nodo y luego lo muestro por pantalla.
+
 // hago este free porque antes se hizo un malloc en la fucion verUbicacionBloque
 	free(ptrNodoBloque);
-	return bloque;
+	return contenidoBloque;
 }
 
 void solicitudCopiaDeBloque()

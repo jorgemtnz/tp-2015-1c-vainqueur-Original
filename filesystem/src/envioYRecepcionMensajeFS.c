@@ -66,10 +66,23 @@ void* interpretarPaquete(Paquete* unPaquete, int fdReceptor){
 			 memcpy(&(nodo->ipNodo), unPaquete->payLoad + desplazamiento, tamanioStringIp);
 			 desplazamiento +=tamanioStringIp;
 			 memcpy(&(nodo->esNuevo), unPaquete->payLoad + desplazamiento, sizeof(int));
+			 desplazamiento +=sizeof(int);
+
+			 memcpy(&(nodo->tamanioNodo), unPaquete->payLoad + desplazamiento, sizeof(long));
+// debo crear los bloques en base a el tamanio
+			 int cantBloques = dameCantBloques(nodo->tamanioNodo);
+			 int i;
+			 bloq* unBloque;
+
+			 for (i=0; i < cantBloques; i++){
+				 unBloque =  crearBloque();
+				 unBloque->numero = i;
+				 list_add(nodo->listaBloques, unBloque);
+			 }
 
 						 				//validar de que no sea un nodo viejo, esto es si se lo mando el nodo
 			 // es innecesario. porque tengo el control de estos en el FS.
-			 if ( esNuevo(nodo->numero))
+			 if ( !esNuevo(nodo->numero))
 			 {
 				//agregarlo
 				//agregar su espacio y en base a eso la cantidad de bloques de las listaBloques de un nodo
@@ -81,6 +94,7 @@ void* interpretarPaquete(Paquete* unPaquete, int fdReceptor){
 
              if( FILESYSTEM->listaNodosActivos->elements_count > vg_cant_MinNodosOperar)
             	 FILESYSTEM->estado = OPERATIVO;
+             printf("FS operativo");
 			break;
 		}
 		case(SOLICITUD_ARCHIVO):{//MaRTA pide un archivo

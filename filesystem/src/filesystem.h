@@ -57,6 +57,7 @@ typedef struct bloq {
 } bloq;
 
 typedef struct nod {
+	long tamanioNodo;
 	int numero;
 	int fdNodo;
 	int puerto;
@@ -151,6 +152,8 @@ t_list* buscaListaArchivo(element* ptrArchivo);
 void marcarNodoDesconectado(fdTemporal);
 bool esNuevo(int numeroNodo);
 void buscaNodoCambiaConectado(int numeroNodo);
+int dameCantBloques(long tamanioNodo);
+
 // Funciones de Consola
 void renombrarElemento(element* ptrElemento, char* nuevoNombreElemento);
 void moverElemento(element* elementoOrigen, element* directorioDestino);
@@ -173,7 +176,7 @@ void actualizarListaDeArchivos(ubicacionDelBloqueEnNodo* unaUbicacion,
 void borrarBloque();
 void agregarNodo();		// Necesita Sockets?
 void eliminarNodo();	// Falta implementar
-bloq* verBloque();
+char* verBloque();
 void mostrarComandos();
 
 // Consola implementacion
