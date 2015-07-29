@@ -54,7 +54,7 @@ void* recibir(int fdReceptor) {
 }
 
 void* interpretarPaquete(Paquete* unPaquete, int fdReceptor) {
-
+     printf("entre en interpretar paquete");
 	switch (unPaquete->tipoDeMensaje) {
 	case (CONEXION_NODO): { //recibe el mensaje de coneccion de un nodo
 		nod* nodo;
@@ -70,9 +70,9 @@ void* interpretarPaquete(Paquete* unPaquete, int fdReceptor) {
 		desplazamiento += sizeof(nodo->puerto);
 		memcpy(&(tamanioStringIp), unPaquete->payLoad + desplazamiento,
 				sizeof(int));
-		nodo->ipNodo[tamanioStringIp];
+		nodo->ipNodo = malloc(tamanioStringIp);
 
-		memcpy(&(nodo->ipNodo), unPaquete->payLoad + desplazamiento,
+		memcpy(nodo->ipNodo, unPaquete->payLoad + desplazamiento,
 				tamanioStringIp);
 		desplazamiento += tamanioStringIp;
 		memcpy(&(nodo->esNuevo), unPaquete->payLoad + desplazamiento,

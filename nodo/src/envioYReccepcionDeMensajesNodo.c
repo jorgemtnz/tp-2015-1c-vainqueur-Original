@@ -21,6 +21,7 @@ void enviar(int tipoDeMensaje, void* t_estructura, int fdDestinatario)
 
 		void* payload = malloc(tamanioPayload);
 
+
 		memcpy(payload, &(vg_nodo->idNodo), sizeof(vg_nodo->idNodo));
 		int desplazamiento = sizeof(vg_nodo->idNodo);
 
@@ -43,9 +44,9 @@ void enviar(int tipoDeMensaje, void* t_estructura, int fdDestinatario)
 
 		memcpy(payload + desplazamiento, &(vg_tamanioArchivo), sizeof(vg_tamanioArchivo));
 
-
 		PaqueteEnvio* unPaquete = serializar(tipoDeMensaje, payload,
 				tamanioPayload);
+
         printf("antes de enviar el paquete\n");
 		enviarPorSocket(fdDestinatario, &(unPaquete->tamanioMensaje),
 				sizeof(int));

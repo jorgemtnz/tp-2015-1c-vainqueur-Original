@@ -142,7 +142,7 @@ void* servidorANodos() {
 
 			recibir(sockTransferencia); // se recibe el numero del nodo, el puerto , la IP, y si es nuevo el nodo y luego agrega el nodo al FS como no conectado.
 //			recibirPorSocket(sockTransferencia, buffer, 1025);
-			printf("Recibido del Nodo %s,\n", buffer);
+			printf("Recibido del Nodo  luego de recibir por funcion recibir(sockTransferencia) \n");
 			//debo recibir como primero , la IP y el puerto de este nodo y guardarlo en la lista de nodosConectados
 			//add new socket to array of sockets
 			//Se agrega el socket nuevo al vector de sockets
