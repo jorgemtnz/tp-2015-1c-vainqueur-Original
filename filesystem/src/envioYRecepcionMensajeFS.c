@@ -81,7 +81,10 @@ void* interpretarPaquete(Paquete* unPaquete, int fdReceptor) {
 
 		memcpy(&(nodo->tamanioNodo), unPaquete->payLoad + desplazamiento,
 				sizeof(long));
-// debo crear los bloques en base a el tamanio
+		//mostrar lo recibido
+
+
+		// debo crear los bloques en base a el tamanio
 		int cantBloques = dameCantBloques(nodo->tamanioNodo);
 		int i;
 		bloq* unBloque;
