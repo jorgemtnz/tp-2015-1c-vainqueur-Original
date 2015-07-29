@@ -211,8 +211,15 @@ void distribucionInicial(char* bloqueListo, element* unElemento)
 		list_add(FILESYSTEM->listaNodosActivos, primerNodo); // Encolo el primer nodo de la lista
 
 		list_add(unElemento->dobleListaUbicacionDelBloqueEnNodo, unNodoBloque);	// Actualizo la estructura
-//se debe descomentar una vez que ya funcionen bien  el protocolo.c
-//		empaquetarYMandarPorSocket(bloqueListo, unNodoBloque);
+//aca se debe mandar el bloque al nodo
+		t_escritura_bloque* bloqueAEscribir;
+		bloqueAEscribir->numeroDeBloque = unNodoBloque->numeroDeBloqueDelNodo;
+		bloqueAEscribir->archivo = strdup(bloqueListo);
+
+		enviar(ESCRITURA, bloqueAEscribir, primerNodo->fdNodo);
+
+		//+++++++
+
 	}
 	free(unNodoBloque);
 }
@@ -222,7 +229,7 @@ void copiaDistribuyeYEmpaqueta(char* bloqueListo, int cantBloques,
 {
 	if (puedoHacerCopias(cantBloques))
 	{	// Esta hace la simulacion para ver si
-		// se pueden hacer las copias del archivo
+		// se pueden hacer las 3 copias del archivo
 		distribucionInicial(bloqueListo, elemento);
 	}
 	else
@@ -254,7 +261,7 @@ void divideBloques(char** ptrArregloConOracionesParaBloque, element* unElemento)
 	j = 0;
 	while (ptrArregloConOracionesParaBloque[posicionOracion] != NULL)
 	{ // lo hacemos porque queremos saber
-		//la cantidad de bloques que se deben planificar  para luego mandarselos a la funcion que verifica si se puede hacer la copia
+	  //la cantidad de bloques que se deben planificar  para luego mandarselos a la funcion que verifica si se puede hacer la copia
 		tamanioTemporal =
 				sizeof(ptrArregloConOracionesParaBloque[posicionOracion]);
 		if (tamanioTemporal != VEINTEMEGAS)
@@ -426,5 +433,5 @@ void marcarNodoDesconectado( fdTemporal)
 	}
 
 	ptrNodoModif = list_find(FILESYSTEM->listaNodosActivos, (void*) buscaNodo);
-    ptrNodoModif->estado = DESCONECTADO;
+	ptrNodoModif->estado = DESCONECTADO;
 }

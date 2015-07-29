@@ -4,7 +4,7 @@ void enviar(int tipoDeMensaje, void* t_estructura,int fdDestinatario) {
 	switch (tipoDeMensaje) {
 	case (ESCRITURA): { // cuando se manda un bloque
 		t_escritura_bloque* bloqueAEscribir = (t_escritura_bloque*) t_estructura;
-		size_t tamanioPayload = VEINTEMEGAS;
+		size_t tamanioPayload = VEINTEMEGAS + sizeof(bloqueAEscribir->numeroDeBloque);
 
 		void * payload = malloc(tamanioPayload);
 		memcpy(payload, &(bloqueAEscribir->numeroDeBloque),
@@ -17,6 +17,7 @@ void enviar(int tipoDeMensaje, void* t_estructura,int fdDestinatario) {
 				tamanioPayload);
 		enviarPorSocket(fdDestinatario,&(unPaquete->tamanioMensaje),sizeof(unPaquete->tamanioMensaje));
 		enviarPorSocket(fdDestinatario,unPaquete->mensaje,unPaquete->tamanioMensaje);
+		printf("bloque enviado");
 		break;
 	}
 	case (LECTURA): {

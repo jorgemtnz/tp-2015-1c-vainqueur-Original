@@ -270,6 +270,7 @@ void copiarArchivoLocalAlMDFS()
 	archivoEntrante->tamanio = *ptrTamanioDePagina;
 
 	divideBloques(&buffer[0], archivoEntrante);
+
 	free(archivoEntrante);
 	free(dirArchivo);
 }
