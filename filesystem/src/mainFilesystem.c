@@ -160,7 +160,7 @@ void* servidorANodos() {
 		}
 		// quizas aca se puede levantarConsola() , pero que no este en un while(1)
 		//
-		levantarConsola();
+
 		//else its some IO operation on some other socket :)
 		//Si no es en la coneccion nueva es una operacion de IO en un socket que ya poseiamos
 		for (contador1 = 0; contador1 < cantidadMaximaClientes; contador1++) {
@@ -195,7 +195,7 @@ void* servidorANodos() {
 				}
 			}
 
-		}
+		}levantarConsola();
 
 	}
 

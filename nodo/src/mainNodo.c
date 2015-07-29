@@ -22,7 +22,7 @@ int main(int argc, char **argv) {
 	crearNodo();
 	levantarArchivoConfiguracion();
 	testleerArchivoDeConfiguracion();
-
+	enviar(CONECXION_NODO,vg_nodo,4);
 	pthread_t tidClienteAFS;
 	pthread_t tidServidorAJob;
 	pthread_t tidServidorANodo;
