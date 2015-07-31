@@ -10,7 +10,7 @@ int main(int argc, char **argv) {
 
 	int error, errorOtro;
     crearFileSystem();
-
+    logger = log_create("LOG_Filesystem.log", "Filesystem", false, LOG_LEVEL_INFO); //Inicializacion logger
 	leerArchivoDeConfiguracion();
 	testleerArchivoDeConfiguracion();
 
@@ -32,24 +32,25 @@ int main(int argc, char **argv) {
 	pthread_join(tidServidorAMartha, NULL);
 	pthread_join(tidServidorANodos, NULL);
 
-//	se escribe en pseudocodigo lo que se debe hacer para luego irlo programando
-//crearFilesystem
-//inicializar filesystem
-//leer archivoDeConfiguracion
-//crear hilos, uno servidorAMartha y otro servidorANodos y hacer uso del join para que el hilo del main los espere
-//
-//servidorAMartha
-//se encarga de las comunicaciones con Martha. debe ser un servidor que se conecta con un solo cliente
-//dentro de un ciclo infinito -donde martha es quien se conecta.
-//manejar los mensajes por socket
-//1. mensaje de martha que pide ubicacion de archivos
-//
-//servidorANodos
-//se encarga de las comunicaciones con los nodos, debe ser un hilo concurrente con select- donde se recibe
-//una cantidad de nodos en el archivo de configuracion
-//levantarConsola y en funcion de  lo que se va pidiendo se debe
-//dentro de un ciclo infinito manejar mensajes por socket
+	//	se escribe en pseudocodigo lo que se debe hacer para luego irlo programando
+	//crearFilesystem
+	//inicializar filesystem
+	//leer archivoDeConfiguracion
+	//crear hilos, uno servidorAMartha y otro servidorANodos y hacer uso del join para que el hilo del main los espere
+	//
+	//servidorAMartha
+	//se encarga de las comunicaciones con Martha. debe ser un servidor que se conecta con un solo cliente
+	//dentro de un ciclo infinito -donde martha es quien se conecta.
+	//manejar los mensajes por socket
+	//1. mensaje de martha que pide ubicacion de archivos
+	//
+	//servidorANodos
+	//se encarga de las comunicaciones con los nodos, debe ser un hilo concurrente con select- donde se recibe
+	//una cantidad de nodos en el archivo de configuracion
+	//levantarConsola y en funcion de  lo que se va pidiendo se debe
+	//dentro de un ciclo infinito manejar mensajes por socket
 
+	log_destroy(logger); //Destruyo el logger
 	return 0;
 }
 
@@ -131,7 +132,9 @@ void* servidorANodos() {
 				NULL, NULL);
 
 		if ((numeroDeActividades < 0) && (errno != EINTR)) {
-			printf("[ERROR]: Error en select");
+			perror("[ERROR]: Error en select");
+			log_error(logger,"[ERROR]: Error en select");
+			exit(-1);
 		}
 
 		//If something happened on the fdConeccionesEntrantes , then its an incoming connection
