@@ -1,6 +1,8 @@
 #include "filesystem.h"
 
 void enviar(int tipoDeMensaje, void* t_estructura, int fdDestinatario) {
+	int len=0;
+
 	switch (tipoDeMensaje) {
 	case (ESCRITURA): { // cuando se manda un bloque
 		t_escritura_bloque* bloqueAEscribir = (t_escritura_bloque*) t_estructura;
@@ -16,21 +18,25 @@ void enviar(int tipoDeMensaje, void* t_estructura, int fdDestinatario) {
 
 		PaqueteEnvio * unPaquete = serializar(ESCRITURA, payload,
 				tamanioPayload);
+		len = sizeof(unPaquete->tamanioMensaje);
 		enviarPorSocket(fdDestinatario, &(unPaquete->tamanioMensaje),
-				sizeof(unPaquete->tamanioMensaje));
+				&len);
+		len= unPaquete->tamanioMensaje;
 		enviarPorSocket(fdDestinatario, unPaquete->mensaje,
-				unPaquete->tamanioMensaje);
+				&len);
 		printf("[INFO]:Bloque enviado\n");
 		break;
 	}
 	case (LECTURA): {
+		int len=0;
 		int numeroDeBloque = (int*) t_estructura;
 		size_t tamanioPayload = sizeof(int);
 		void* payload = malloc(tamanioPayload);
 		memcpy(payload, &numeroDeBloque, sizeof(int));
 		PaqueteEnvio* unPaquete = serializar(LECTURA, payload, tamanioPayload);
+		len = sizeof(unPaquete->tamanioMensaje);
 		enviarPorSocket(fdDestinatario, &(unPaquete->tamanioMensaje),
-				sizeof(unPaquete->tamanioMensaje));
+				&len);
 		enviarPorSocket(fdDestinatario, unPaquete->mensaje,
 				unPaquete->tamanioMensaje);
 		break;

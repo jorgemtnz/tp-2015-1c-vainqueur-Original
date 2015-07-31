@@ -99,8 +99,10 @@ void* cliente(){
     while ( !feof( archivo ) )
     {
         fread ( &Buffer, sizeof(char), 1, archivo ); //lee byte en byte
-        if( !feof( archivo ) )
-            enviarPorSocket(sock,&Buffer, sizeof(char));
+        if( !feof( archivo ) ){
+        	int len = sizeof(char);
+            enviarPorSocket(sock,&Buffer, &len);
+        }
     }
     sem_post(&semaforoServidor);
 

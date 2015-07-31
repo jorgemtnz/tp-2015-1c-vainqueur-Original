@@ -32,10 +32,11 @@ int main()
 	int fdCliente = aceptarConexionSocket(fdServidor);
 
 	printf("El tamanio que esto mandando, tamanioMensaje = %d\n",unPaq->tamanioMensaje);
-	enviarPorSocket(fdCliente,&(unPaq->tamanioMensaje),sizeof(int));
+	int len = sizeof(int);
+	enviarPorSocket(fdCliente,&(unPaq->tamanioMensaje),&len);
 	// Manda cuanto pesa el mensaje
 
-	enviarPorSocket(fdCliente, unPaq->mensaje, tamanioMensaje);
+	enviarPorSocket(fdCliente, unPaq->mensaje, &tamanioMensaje);
 	// Manda el mensaje en si
 
 

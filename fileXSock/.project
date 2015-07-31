@@ -4,6 +4,7 @@
 	<comment></comment>
 	<projects>
 		<project>delEquipo</project>
+		<project>commons-library</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
