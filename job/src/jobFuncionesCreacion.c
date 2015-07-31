@@ -5,7 +5,8 @@ t_solicitudDeTrabajo* crearSolicitudDeTrabajo() {
 	ptrSolicitudDeTrabajo = malloc(sizeof(t_solicitudDeTrabajo));
 
 	if (ptrSolicitudDeTrabajo == NULL){
-		perror("[ERROR] No se aloco memoria para SolicitudDeTrabajo pertenece a la estructura Job>..>SolicitudDeTrabajo");
+		perror("[ERROR]: No se aloco memoria para SolicitudDeTrabajo pertenece a la estructura Job>..>SolicitudDeTrabajo");
+		log_error(logger,"[ERROR]: No se aloco memoria para SolicitudDeTrabajo pertenece a la estructura Job>..>SolicitudDeTrabajo");
 		exit(-1);
 	}
 	else {
@@ -23,6 +24,7 @@ t_relacionNodoBloque* crearRelacionNodoBloque() {
 
 	if (ptrRelacionNodoBloque == NULL) {
 		perror("[ERROR] No se aloco memoria para RelacionNodoBloque pertenece a la estructura Job>..>RelacionNodoBloque");
+		log_error(logger,"[ERROR] No se aloco memoria para RelacionNodoBloque pertenece a la estructura Job>..>RelacionNodoBloque");
 		exit(-1);
 	}
 	else {
@@ -38,6 +40,7 @@ t_relacionNodoArchTemp* crearRelacionNodoArchTemp() {
 
 	if (ptrRelacionNodoArchTemp == NULL) {
 		perror("[ERROR] No se aloco memoria para RelacionNodoArchTemp pertenece a la estructura Job>..>RelacionNodoArchTemp");
+		log_error(logger,"[ERROR] No se aloco memoria para RelacionNodoArchTemp pertenece a la estructura Job>..>RelacionNodoArchTemp");
 		exit(-1);
 	}
 	else {
@@ -52,6 +55,7 @@ t_tareaMap* crearTareaMap() {
 	ptrTareaMap = malloc(sizeof(t_tareaMap));
 	if (ptrTareaMap == NULL) {
 		perror("[ERROR] No se aloco memoria para TareaMap pertenece a la estructura Job>..>TareaMap");
+		log_error(logger,"[ERROR] No se aloco memoria para TareaMap pertenece a la estructura Job>..>TareaMap");
 		exit(-1);
 	}
 	else {
@@ -67,6 +71,7 @@ t_tareaReduce* creaTareaReduce() {
 	ptrTareaReduce = malloc(sizeof(t_tareaReduce));
 	if (ptrTareaReduce == NULL) {
 		perror("[ERROR] No se aloco memoria para TareaReduce pertenece a la estructura Job>..>TareaReduce");
+		log_error(logger,"[ERROR] No se aloco memoria para TareaReduce pertenece a la estructura Job>..>TareaReduce");
 		exit(-1);
 	}
 	else {
@@ -83,6 +88,7 @@ t_job* crearJob() {
 
 	if (ptrJob == NULL) {
 		perror("[ERROR] No se aloco memoria para Job pertenece a la estructura Job");
+		log_error(logger,"[ERROR] No se aloco memoria para Job pertenece a la estructura Job");
 		exit(-1);
 	}
 	ptrJob->listasTareasMap = list_create();
