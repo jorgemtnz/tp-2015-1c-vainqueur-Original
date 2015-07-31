@@ -1,15 +1,15 @@
 #include "marta.h"
 
 // Terminadas
-char* recibirSolicitudDeJob(){
+char* recibirSolicitudDeJob() {
 	t_solicitud* solicitudTrabajo = malloc(sizeof(t_solicitud));
 	char buffer[TAMANIO_SOLICITUD];
 	vg_fdMarta = crearSocket();
-	asociarSocket(vg_fdMarta,vg_martaPuerto);
-	escucharSocket(vg_fdMarta,vg_conexionesPermitidas);
+	asociarSocket(vg_fdMarta, vg_martaPuerto);
+	escucharSocket(vg_fdMarta, vg_conexionesPermitidas);
 	vg_fdJob = aceptarConexionSocket(vg_fdMarta);
 
-	recibirPorSocket(vg_fdJob,buffer,TAMANIO_SOLICITUD);
+	recibirPorSocket(vg_fdJob, buffer, TAMANIO_SOLICITUD);
 	// Deserealizar buffer recibido que representa solicitudTrabajo
 
 	return buffer;
@@ -26,13 +26,12 @@ char * generarNombreAlmacenado(char * nombreArchivo, char * nombreFuncion) {
 	return nombreArchivoAux;
 }
 
-void solicitarBloquesAFilesystem(char * archivoAProcesar)
-{
+void solicitarBloquesAFilesystem(char * archivoAProcesar) {
 	int fdMarta = crearSocket();
-	conectarSocket(fdMarta, vg_ipFilesystem,vg_puertoFilesystem);
+	conectarSocket(fdMarta, vg_ipFilesystem, vg_puertoFilesystem);
 	char mensaje[100] = "Solicito el archivo: ";
 	strcat(mensaje, archivoAProcesar);
-	enviarPorSocket(fdMarta,mensaje,sizeof(mensaje));
+	enviarPorSocket(fdMarta, mensaje, sizeof(mensaje));
 }
 
 void leerArchivoDeConfiguracion() {
@@ -41,18 +40,28 @@ void leerArchivoDeConfiguracion() {
 //	scanf("%s", rutaArchConfig);
 	// /home/utnso/TPOperativos/marta/configMarta.cfg
 	char* rutaArchConfig;
+	t_config* archivoConfig = NULL;
 	rutaArchConfig = "/home/utnso/TPOperativos/marta/config_Marta.cfg";
+	if (checkearRutaArchivoConfig(rutaArchConfig) == -1) {
+		perror("[ERROR]: Archivo de configuracion no encontrado");
+		log_error(logger, "[ERROR]: Archivo de configuracion no encontrado");
+		exit(-1);
+	}
 
-	t_config* archivoConfig = config_create(rutaArchConfig);
+	else {
+		archivoConfig = config_create(rutaArchConfig);
+		vg_puertoFilesystem = config_get_int_value(archivoConfig,
+				"PUERTO_FILESYSTEM");
+		vg_martaPuerto = config_get_int_value(archivoConfig, "PUERTO_MARTA");
+		vg_conexionesPermitidas = config_get_int_value(archivoConfig,
+				"CONEXIONES_PERMITIDAS");
+		vg_ipFilesystem = strdup(
+				config_get_string_value(archivoConfig, "IP_FILESYSTEM"));
 
-	vg_puertoFilesystem = config_get_int_value(archivoConfig, "PUERTO_FILESYSTEM");
-	vg_martaPuerto 		= config_get_int_value(archivoConfig, "PUERTO_MARTA");
-	vg_conexionesPermitidas = config_get_int_value(archivoConfig, "CONEXIONES_PERMITIDAS");
-	vg_ipFilesystem 	= strdup(config_get_string_value(archivoConfig, "IP_FILESYSTEM"));
+	}
 
 	config_destroy(archivoConfig);
 }
-
 
 // Sin terminar
 
@@ -63,7 +72,6 @@ void leerArchivoDeConfiguracion() {
 //int  mandarNodoBloque(int numeroBloque);			// Falta implementar
 //void noRepiteNodo();								// Falta implementar
 //void evaluarSolicitudMapper(char * nombreArchivo);  // Falta implementar
-
 
 // void evaluarSolicitudMapper(char * nombreArchivo) {
 // t_informacionDelArchivo* ptrInformacionDelArchivo;
