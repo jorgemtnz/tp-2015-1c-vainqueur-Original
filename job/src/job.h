@@ -16,8 +16,10 @@
 #include <src/commons/txt.h>
 #include <src/commons/config.h>
 #include <src/commons/collections/list.h>
+#include <src/commons/log.h>
 #include <pthread.h>
 #include <semaphore.h>
+#include <mapeoAMemoria/mapeoAMemoria.h>
 // +++++++++++++++++++++++++++++++++++++++ Define +++++++++++++++++++++++++++++++++++++
 #define SI 1
 #define NO 0
@@ -31,7 +33,11 @@
 #define DIR_MAPP "/tmp/"
 #define LONGPATH 200
 #define HILOS_A_LANZAR 5
-
+//-------tp nuevo-------
+#define BUF_SIZE 50
+#define BUF_ARCH 4096
+#define MAPPER_SIZE 4096
+t_log* logger;
 // +++++++++++++++++++++++++++++++++++++++ Estructuras +++++++++++++++++++++++++++++++++++++
 typedef struct SolicitudDeTrabajo{
 	char* archvATrabajar;
@@ -69,7 +75,13 @@ typedef struct Job {
 	// son solicitudes porque  job  pide a marta varias,
 	// sobre diferentes archivos
 }t_job;
-
+//++++++++++++++++++++++++++++++++++++struct hilo mapper++++++++++++++++++++++++++++++++++++
+typedef struct estructura_mapper {
+	char ip_nodo[20];
+	int puerto_nodo;
+	int bloque;
+	char nombreArchivoTemporal[100];
+} __attribute__((packed)) t_mapper;
 // +++++++++++++++++++++++++++++++++++++++ Prototipos +++++++++++++++++++++++++++++++++++++
 // Funciones Creacion    todas ellas crean con malloc la estructura y la inicializan con valores
 t_solicitudDeTrabajo* crearSolicitudDeTrabajo();
@@ -96,6 +108,10 @@ void conectarConMarta();
 void sendTamanioDe(char* cadena);
 void* indicarArchivosAMarta();
 void testleerArchivoDeConfiguracion();
+//++++++++++++++++++++++funciones tp n+++++++++++++++++++++++++++++++++++++++++++++++++++++
+void* hilo_mapper(t_mapper*);
+char* getFileContent(char*);
+
 // +++++++++++++++++++++++++++++++++++ Variables Globales +++++++++++++++++++++++++++++++++++
 
 // El archivo config de job tiene IP_MARTA PUERTO_MARTA MAPPER REDUCE COMBINER ARCHIVOS RESULTADO

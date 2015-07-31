@@ -1,9 +1,6 @@
 #include "nodo.h"
 #include <protocolo/protocolo.h>
-unsigned int sizeFileDatos;//VARIABLES GLOBALES
-char* fileDeDatos;//VARAIBLES GLOBALES
-t_log* logger_archivo;
-t_log* logger; //log en pantalla y archivo de log
+
 void levantarArchivoConfiguracion() {
 	char* temporal;
 
@@ -224,3 +221,42 @@ char* getFileContent(char* nombreDelArchivo) { //devuelve archivo del tmp
 	return buffer; // esto que se regresa es un ptr a la primera posición del arreglo
 }
 */
+//+++++++++++++++++++++++funciones tp n+++++++++++++++++++++
+int estaEnListaNodos(int socket){
+	int i,tamanio;
+	int* nodoDeLaLista;
+	tamanio=list_size(listaNodosConectados);
+	for(i=0;i<tamanio;i++){
+		nodoDeLaLista=list_get(listaNodosConectados,i);
+		if(*nodoDeLaLista==socket){
+			return 0;
+		}
+	}
+	return -1;
+}
+
+int estaEnListaMappers(int socket){
+	int i,tamanio;
+	int* mapperDeLaLista;
+	tamanio=list_size(listaMappersConectados);
+	for(i=0;i<tamanio;i++){
+		mapperDeLaLista=list_get(listaMappersConectados,i);
+		if(*mapperDeLaLista==socket){
+			return 0;
+		}
+	}
+	return -1;
+}
+
+int estaEnListaReducers(int socket){
+	int i,tamanio;
+	int* reducerDeLaLista;
+	tamanio=list_size(listaReducersConectados);
+	for(i=0;i<tamanio;i++){
+		reducerDeLaLista=list_get(listaReducersConectados,i);
+		if(*reducerDeLaLista==socket){
+			return 0;
+		}
+	}
+	return -1;
+}
