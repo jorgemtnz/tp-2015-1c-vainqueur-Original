@@ -9,7 +9,7 @@ void* clienteAFS();
 
 int main(int argc, char **argv) {
 	int error, errorOtro;
-
+	logger = log_create("LOG_Marta.log", "Marta", false, LOG_LEVEL_INFO); //Inicializacion logger
 	// Toda esta secuencia es por job, asi que ir pensando en hacer una void* para
 	// meterlo adentro de un hilo
 	leerArchivoDeConfiguracion();
@@ -18,7 +18,8 @@ int main(int argc, char **argv) {
 	error = sem_init(&semServAJob, 0, 0);
 	errorOtro = sem_init(&semCliFS, 0, 0);
 	if ((error < 0) || (errorOtro < 0)) {
-		perror("[ERROR]: inicializando semaforo");
+		perror("[ERROR]: Inicializando semaforo");
+		log_error(logger, "[ERROR]: Inicializando semaforo");
 		exit(-1);
 	}
 
@@ -33,7 +34,9 @@ int main(int argc, char **argv) {
 	pthread_join(tidClienteFS, NULL);
 	pthread_join(tidServidorAJob, NULL);
 //	se deben hacer dos hilos uno servidorAJob y otro clienteAFilesystem ambos manejaran las respectivas interacciones
+	log_destroy(logger); //Destruyo el logger
 	return 0;
+
 }
 
 void* clienteAFS() {

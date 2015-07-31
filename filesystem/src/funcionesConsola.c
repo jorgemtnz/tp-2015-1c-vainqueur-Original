@@ -30,6 +30,8 @@ void moverElemento(element* elementoOrigen, element* directorioDestino) { // Val
 	} else {
 		perror(
 				"[ERROR]no se puede mover. El directorio destino no es un tipo directorio");
+		log_error(logger,
+				"[ERROR]no se puede mover. El directorio destino no es un tipo directorio");
 		exit(-1);
 	}
 }
@@ -70,17 +72,18 @@ void renombrarArchivo() {
 	char nombreArchivo[LONGITUD_STRINGS], nuevoNombreArchivo[LONGITUD_STRINGS];
 	element* ptrArchivo;
 
-	printf("Ingrese nombre de archivo a renombrar");
+	printf("Ingrese nombre de archivo a renombrar: ");
 	fflush(stdin);
 	scanf("%s", nombreArchivo);
 
-	printf("Ingrese nuevo nombre para el archivo");
+	printf("Ingrese nuevo nombre para el archivo: ");
 	fflush(stdin);
 	scanf("%s", nuevoNombreArchivo);
 
 	ptrArchivo = buscarElementoPorNombre(nombreArchivo);
 	if (ptrArchivo == NULL) {
 		perror("[ERROR] No existe el archivo");
+		log_error(logger, "[ERROR] No existe el archivo");
 		exit(-1);
 	}
 	renombrarElemento(ptrArchivo, nuevoNombreArchivo);
@@ -92,18 +95,19 @@ void moverArchivo() {
 	element* ptrArchivo;
 	element* directorioDestino;
 
-	printf("Ingrese nombre de archivo que desea mover:");
+	printf("Ingrese nombre de archivo que desea mover: ");
 	fflush(stdin);
 	scanf("%s", nombreArchivo);
 
-	printf("Ingrese el nombre del directorio destino");
+	printf("Ingrese el nombre del directorio destino: ");
 	fflush(stdin);
 	scanf("%s", nombreDirectorioDestino);
 
 	directorioDestino = buscarElementoPorNombre(nombreDirectorioDestino);
 	ptrArchivo = buscarElementoPorNombre(nombreArchivo);
 	if ((directorioDestino == NULL) || (ptrArchivo == NULL)) {
-		perror("[ERROR] No se puede mover el archivo");
+		perror("[ERROR] No se puede mover el archivo: ");
+		log_error(logger, "[ERROR] No se puede mover el archivo: ");
 		exit(-1);
 	} else {
 		moverElemento(ptrArchivo, directorioDestino);
@@ -131,7 +135,8 @@ void crearDirectorio() {
 	padre = buscarElementoPorNombre(nombrePadre);
 
 	if (padre == NULL) {
-		perror("Numero invalido de directorio padre\n");
+		perror("[ERROR]:Numero invalido de directorio padre\n");
+		log_error(logger, "[ERROR]:Numero invalido de directorio padre\n");
 		exit(-1);
 	}
 	indexPadre = padre->index;
@@ -177,6 +182,7 @@ void renombrarDirectorio() {
 	ptrDirectorio = buscarElementoPorNombre(nombreDirectorio);
 	if (ptrDirectorio == NULL) {
 		perror("[ERROR] No existe el directorio");
+		log_error(logger, "[ERROR] No existe el directorio");
 		exit(-1);
 	}
 	renombrarElemento(ptrDirectorio, nuevoNombreDirectorio);
@@ -201,6 +207,7 @@ void moverDirectorio() {
 
 	if ((directorioDestino == NULL) || (directorioOrigen == NULL)) {
 		perror("[ERROR] No se puede mover el directorio");
+		log_error(logger, "[ERROR] No se puede mover el directorio");
 		exit(EXIT_FAILURE);
 	}
 
@@ -284,6 +291,7 @@ FILE* copiarArchivoDelMDFSAlFSLocal() {
 		// copiar el archivo que esta en memoria al archivo creado
 	} else {
 		perror("[ERROR] No disponible archivo");
+		log_error(logger, "[ERROR] No disponible archivo");
 		exit(-1);
 	}
 	//debo buscar todos los bloques de este archivo. filtro la lista
@@ -427,6 +435,8 @@ void borrarBloque() {
 
 	if (ptrArchivo == NULL) {
 		perror("[ERROR] No se puede borrar el bloque archivo invalido");
+		log_error(logger,
+				"[ERROR] No se puede borrar el bloque archivo invalido");
 		exit(-1);
 	} else {
 		bool condicion(nod* nodo) { //esta es una inner function, declarada dentro de una funcion.
@@ -469,10 +479,10 @@ void agregarNodo() { //se decidio que se carga el socket_FD cuando llega a la es
 	}
 
 	nodoAgregar = list_find(FILESYSTEM->listaNodosActivos, (void*) buscaNodo);
-	if(nodoAgregar ==NULL)
+	if (nodoAgregar == NULL)
 		printf("nodo no encontrado\n");
 	else
-	nodoAgregar->estado = CONECTADO;
+		nodoAgregar->estado = CONECTADO;
 
 // Agrega al nodo a la lista de nodos del FS
 }
@@ -480,7 +490,7 @@ void agregarNodo() { //se decidio que se carga el socket_FD cuando llega a la es
 void eliminarNodo() { //falta implementar lo de sockets
 	int numero;
 
-	printf("ingrese el numero de nodo a eliminar \n");
+	printf("Ingrese el numero de nodo a eliminar ");
 	scanf("%d", &numero);
 	marcaNodoDesconectado(numero);
 }
@@ -519,7 +529,7 @@ void mostrarComandos() {
 }
 
 // ---------CONSOLA IMPLEMENTACION------
-void limpiarPantalla(){
+void limpiarPantalla() {
 	system("clear");
 }
 
@@ -582,7 +592,8 @@ void aplicarFuncion(int idFuncion) { //selecciona un case en base al numero que 
 		if (FILESYSTEM->estado == OPERATIVO) {
 			formatearMDFS();
 		} else {
-			printf("aun no operativo el FS");
+			perror("Aun no esta operativo el FS");
+			log_error(logger, "Aun no esta operativo el FS");
 		}
 
 		break;
@@ -591,7 +602,8 @@ void aplicarFuncion(int idFuncion) { //selecciona un case en base al numero que 
 		if (FILESYSTEM->estado == OPERATIVO) {
 			eliminarArchivo();
 		} else {
-			printf("aun no operativo el FS");
+			perror("Aun no esta operativo el FS");
+			log_error(logger, "Aun no esta operativo el FS");
 		}
 
 		break;
@@ -600,7 +612,8 @@ void aplicarFuncion(int idFuncion) { //selecciona un case en base al numero que 
 		if (FILESYSTEM->estado == OPERATIVO) {
 			renombrarArchivo();
 		} else {
-			printf("aun no operativo el FS");
+			perror("Aun no esta operativo el FS");
+			log_error(logger, "Aun no esta operativo el FS");
 		}
 
 		break;
@@ -609,7 +622,8 @@ void aplicarFuncion(int idFuncion) { //selecciona un case en base al numero que 
 		if (FILESYSTEM->estado == OPERATIVO) {
 			moverArchivo();
 		} else {
-			printf("aun no operativo el FS");
+			perror("Aun no esta operativo el FS");
+			log_error(logger, "Aun no esta operativo el FS");
 		}
 
 		break;
@@ -618,7 +632,8 @@ void aplicarFuncion(int idFuncion) { //selecciona un case en base al numero que 
 		if (FILESYSTEM->estado == OPERATIVO) {
 			crearDirectorio();
 		} else {
-			printf("aun no operativo el FS");
+			perror("Aun no esta operativo el FS");
+			log_error(logger, "Aun no esta operativo el FS");
 		}
 
 		break;
@@ -627,7 +642,8 @@ void aplicarFuncion(int idFuncion) { //selecciona un case en base al numero que 
 		if (FILESYSTEM->estado == OPERATIVO) {
 			eliminarDirectorio();
 		} else {
-			printf("aun no operativo el FS");
+			perror("Aun no esta operativo el FS");
+			log_error(logger, "Aun no esta operativo el FS");
 		}
 
 		break;
@@ -636,7 +652,8 @@ void aplicarFuncion(int idFuncion) { //selecciona un case en base al numero que 
 		if (FILESYSTEM->estado == OPERATIVO) {
 			renombrarDirectorio();
 		} else {
-			printf("aun no operativo el FS");
+			perror("Aun no esta operativo el FS");
+			log_error(logger, "Aun no esta operativo el FS");
 		}
 
 		break;
@@ -645,7 +662,8 @@ void aplicarFuncion(int idFuncion) { //selecciona un case en base al numero que 
 		if (FILESYSTEM->estado == OPERATIVO) {
 			moverDirectorio();
 		} else {
-			printf("aun no operativo el FS");
+			perror("Aun no esta operativo el FS");
+			log_error(logger, "Aun no esta operativo el FS");
 		}
 
 		break;
@@ -654,7 +672,8 @@ void aplicarFuncion(int idFuncion) { //selecciona un case en base al numero que 
 		if (FILESYSTEM->estado == OPERATIVO) {
 			copiarArchivoLocalAlMDFS();
 		} else {
-			printf("aun no operativo el FS");
+			perror("Aun no esta operativo el FS");
+			log_error(logger, "Aun no esta operativo el FS");
 		}
 
 		break;
@@ -663,7 +682,8 @@ void aplicarFuncion(int idFuncion) { //selecciona un case en base al numero que 
 		if (FILESYSTEM->estado == OPERATIVO) {
 			copiarArchivoDelMDFSAlFSLocal();
 		} else {
-			printf("aun no operativo el FS");
+			perror("Aun no esta operativo el FS");
+			log_error(logger, "Aun no esta operativo el FS");
 		}
 
 		break;
@@ -672,7 +692,8 @@ void aplicarFuncion(int idFuncion) { //selecciona un case en base al numero que 
 		if (FILESYSTEM->estado == OPERATIVO) {
 			solicitarMD5deUnArchivoenMDFS();
 		} else {
-			printf("aun no operativo el FS");
+			perror("Aun no esta operativo el FS");
+			log_error(logger, "Aun no esta operativo el FS");
 		}
 
 		break;
@@ -681,7 +702,8 @@ void aplicarFuncion(int idFuncion) { //selecciona un case en base al numero que 
 		if (FILESYSTEM->estado == OPERATIVO) {
 			verBloque();
 		} else {
-			printf("aun no operativo el FS");
+			perror("Aun no esta operativo el FS");
+			log_error(logger, "Aun no esta operativo el FS");
 		}
 
 		break;
@@ -690,7 +712,8 @@ void aplicarFuncion(int idFuncion) { //selecciona un case en base al numero que 
 		if (FILESYSTEM->estado == OPERATIVO) {
 			borrarBloque();
 		} else {
-			printf("aun no operativo el FS");
+			perror("Aun no esta operativo el FS");
+			log_error(logger, "Aun no esta operativo el FS");
 		}
 
 		break;
@@ -699,7 +722,8 @@ void aplicarFuncion(int idFuncion) { //selecciona un case en base al numero que 
 		if (FILESYSTEM->estado == OPERATIVO) {
 			copiarBloque();
 		} else {
-			printf("aun no operativo el FS");
+			perror("Aun no esta operativo el FS");
+			log_error(logger, "Aun no esta operativo el FS");
 		}
 
 		break;
@@ -712,7 +736,8 @@ void aplicarFuncion(int idFuncion) { //selecciona un case en base al numero que 
 		if (FILESYSTEM->estado == OPERATIVO) {
 			eliminarNodo();
 		} else {
-			printf("aun no operativo el FS");
+			perror("Aun no esta operativo el FS");
+			log_error(logger, "Aun no esta operativo el FS");
 		}
 
 		break;
@@ -731,7 +756,9 @@ void aplicarFuncion(int idFuncion) { //selecciona un case en base al numero que 
 		break;
 
 	case -1:
-		printf("--Ojo ese comando no existe!! proba con mostrarComandos\n");
+		perror("--Ojo ese comando no existe!! proba con mostrarComandos");
+		log_error(logger,
+				"--Ojo ese comando no existe!! proba con mostrarComandos");
 		break;
 
 	}

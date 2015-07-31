@@ -15,6 +15,7 @@
 #include <src/commons/temporal.h>
 #include <src/commons/string.h>
 #include <src/commons/txt.h>
+#include <src/commons/log.h>
 #include <semaphore.h>
 #include <pthread.h>
 // +++++++++++++++++++++++++++++++++++++++ Define +++++++++++++++++++++++++++++++++++++
@@ -107,6 +108,6 @@ int vg_fdJob;
 char rutaArchConfig[LONGPATH];
 char * vg_ipFilesystem;
 unsigned char resultado; // Esta variable recibe el valor de respuesta de exito o no del JOB
-
+t_log* logger; //VG del logger
 
 #endif /* MARTA_H_ */

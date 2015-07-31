@@ -14,12 +14,16 @@
 #include <src/commons/collections/list.h>
 #include <src/commons/txt.h>
 #include <src/commons/config.h>
+#include <src/commons/log.h>
 #include <pthread.h>
 #include <sockets/sockets.h>
 #include <string.h>
 #include <semaphore.h>
 #include <stdbool.h>
 #include <protocolo/protocolo.h>
+#include <configExtras/configExtras.h>
+#include <configExtras/configExtras.h>
+
 // +++++++++++++++++++++++++++++++++++++++ Define +++++++++++++++++++++++++++++++++++++
 #define ESDIRECTORIO 1
 #define ESARCHIVO 0
@@ -153,6 +157,7 @@ void marcarNodoDesconectado(fdTemporal);
 bool esNuevo(int numeroNodo);
 void buscaNodoCambiaConectado(int numeroNodo);
 int dameCantBloques(long tamanioNodo);
+char *dame_md5(char *archivo);
 
 // Funciones de Consola
 void renombrarElemento(element* ptrElemento, char* nuevoNombreElemento);
@@ -194,5 +199,7 @@ int vg_puerto_listen_marta, vg_puerto_listen_nodo;
 
 char** vg_lista_nodos; // array de strings para guardar las IP de los nodos.
 int vg_cant_MinNodosOperar;
+
+t_log* logger; //VG del logger
 
 #endif /* FILESYSTEM_H_ */
