@@ -84,7 +84,7 @@ void enviar(int tipoDeMensaje, void* t_estructura, int fdDestinatario)
 
 	}
 }
-void* recibir(int fdReceptor)
+void* recibirFS(int fdReceptor)
 {
 	size_t tamanioMensaje;
 	recibirPorSocket(fdReceptor, &tamanioMensaje, sizeof(int));

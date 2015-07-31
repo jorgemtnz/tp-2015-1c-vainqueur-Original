@@ -69,7 +69,7 @@ void* clienteAFS() {
 //	enviarPorSocket(sockTranferencia, buffer, strlen(buffer));
 // voy a recibir del FS el pedido del bloque
 	while (vg_desconectar == 1) {
-		recibir(sockTranferencia);
+		recibirFS(sockTranferencia);
 	}
 
 	return NULL;
