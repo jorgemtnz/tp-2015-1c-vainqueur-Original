@@ -34,7 +34,7 @@ char* serializarListaNodosActivos(char* cadena_serializada_hasta_ahora,
 			centinela++) {
 
 		ptrNodo = list_get(FILESYSTEM->listaNodosActivos, centinela);
-        serializarNodo(cadena_serializada_hasta_ahora, ptrNodo);
+//        serializarNodo(cadena_serializada_hasta_ahora, ptrNodo);
 	}
 
 	return serializado;
