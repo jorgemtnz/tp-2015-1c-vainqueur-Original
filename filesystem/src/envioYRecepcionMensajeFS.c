@@ -38,7 +38,7 @@ void enviar(int tipoDeMensaje, void* t_estructura, int fdDestinatario) {
 		enviarPorSocket(fdDestinatario, &(unPaquete->tamanioMensaje),
 				&len);
 		enviarPorSocket(fdDestinatario, unPaquete->mensaje,
-				unPaquete->tamanioMensaje);
+				&len);
 		break;
 	}
 	}

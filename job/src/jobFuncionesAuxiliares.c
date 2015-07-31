@@ -73,7 +73,8 @@ void sendTamanioDe(char* cadena) {
 	int msgSize = strlen(cadena);
 	char* cadenaMsgSize = malloc(sizeof(int));
 	sprintf(cadenaMsgSize, "%d", msgSize);
-	enviarPorSocket(vg_fdJob, cadenaMsgSize, sizeof(int));
+	int size = sizeof(int);
+	enviarPorSocket(vg_fdJob, cadenaMsgSize, &size);
 	free(cadenaMsgSize);
 }
 

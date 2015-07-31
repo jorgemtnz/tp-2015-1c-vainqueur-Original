@@ -31,7 +31,8 @@ void solicitarBloquesAFilesystem(char * archivoAProcesar) {
 	conectarSocket(fdMarta, vg_ipFilesystem, vg_puertoFilesystem);
 	char mensaje[100] = "Solicito el archivo: ";
 	strcat(mensaje, archivoAProcesar);
-	enviarPorSocket(fdMarta, mensaje, sizeof(mensaje));
+	int length =  sizeof(mensaje);
+	enviarPorSocket(fdMarta, mensaje, &length);
 }
 
 void leerArchivoDeConfiguracion() {
