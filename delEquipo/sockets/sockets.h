@@ -12,18 +12,31 @@
 #include <unistd.h>     //close  usleep
 #include <netdb.h> 		//gethostbyname
 #include <netinet/in.h>
-#include<fcntl.h> //fcntl
+#include <fcntl.h>
+
+# define CHUNK_SIZE 512
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 typedef struct t_paquete {
-			int8_t tipoMensaje;
-			int16_t payloadTamanio;
-		} Header;
+	int8_t tipoMensaje;
+	int16_t payloadTamanio;
+} Header;
 
-		typedef struct{
-			char* ip;
-			int puerto;
-		} t_equipo;
+typedef struct {
+	char* ip;
+	int puerto;
+} t_equipo;
+
+typedef struct {
+
+	fd_set master;
+	fd_set temp;
+	int listener;
+	int maxSock;
+	char* buffer;
+	int buffersize;
+
+} t_struct_select;
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Funciones

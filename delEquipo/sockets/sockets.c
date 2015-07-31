@@ -1,5 +1,4 @@
 #include "sockets.h"
-# define CHUNK_SIZE 512
 
 int recv_timeout(int s, int timeout) {
 	int size_recv, total_size = 0;
@@ -282,5 +281,60 @@ int mandarMensaje(int unSocket, int8_t tipo, int tamanio, void *buffer) {
 
 //			}
 
+}
+
+int getSocketChanged(t_struct_select* params) {
+
+	params->temp = params->master;
+
+	//--Multiplexa conexiones
+	if (select(params->maxSock + 1, &params->temp, NULL, NULL, NULL ) == -1)
+		exitError("Select");
+
+	//--Cicla las conexiones para ver cual cambió
+	int i;
+	for (i = 0; i <= params->maxSock; i++) {
+
+		//--Si el i° socket no cambió
+		if (!FD_ISSET(i, &params->temp))
+			continue;
+
+		//--Si el que cambió es el listener
+		if (i == params->listener) {
+
+			//--Gestiona nueva conexión
+			int socketNuevaConexion;
+			if((socketNuevaConexion = accept(params->listener, NULL, 0)) == -1)
+				exitError("Accept");
+			else {
+				//--Agrega el nuevo listener
+				FD_SET(socketNuevaConexion, &params->master);
+
+				if (socketNuevaConexion > params->maxSock)
+					params->maxSock = socketNuevaConexion;
+
+				printf("Nueva conexion, socket numero %d \n", socketNuevaConexion);
+			}
+
+		} else {
+
+			//--Gestiona un cliente ya conectado
+			int nBytes;
+			if ((nBytes = recibir(i, params->buffer, params->buffersize)) <= 0) {
+				//--Si cerró la conexión o hubo error
+				if (nBytes == 0)
+					printf("Fin de conexion del socket %d. \n", i);
+				else
+					error_show("Recv: %s", strerror(errno));
+				//--Cierra la conexión y lo saca de la lista
+				close(i);
+				FD_CLR(i, &params->master);
+			} else {
+				return i;
+			}
+		}
+	}
+
+	return -1;
 }
 
