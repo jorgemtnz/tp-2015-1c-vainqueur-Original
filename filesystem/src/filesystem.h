@@ -22,6 +22,7 @@
 #include <stdbool.h>
 #include <protocolo/protocolo.h>
 #include <configExtras/configExtras.h>
+#include <configExtras/configExtras.h>
 
 // +++++++++++++++++++++++++++++++++++++++ Define +++++++++++++++++++++++++++++++++++++
 #define ESDIRECTORIO 1
@@ -156,6 +157,7 @@ void marcarNodoDesconectado(fdTemporal);
 bool esNuevo(int numeroNodo);
 void buscaNodoCambiaConectado(int numeroNodo);
 int dameCantBloques(long tamanioNodo);
+char *dame_md5(char *archivo);
 
 // Funciones de Consola
 void renombrarElemento(element* ptrElemento, char* nuevoNombreElemento);
