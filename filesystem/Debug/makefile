@@ -26,8 +26,8 @@ endif
 all: filesystem
 
 dependents:
-	-cd /home/utnso/TPOperativos/commons-library/Debug && $(MAKE) all
-	-cd /home/utnso/TPOperativos/delEquipo/Debug && $(MAKE) all
+	-cd /home/utnso/TPOperativos/commons-library/Debug && $(MAKE) clean all
+	-cd /home/utnso/TPOperativos/delEquipo/Debug && $(MAKE) clean all
 
 # Tool invocations
 filesystem: $(OBJS) $(USER_OBJS) /home/utnso/TPOperativos/commons-library/Debug/libcommons-library.so /home/utnso/TPOperativos/delEquipo/Debug/libdelEquipo.so

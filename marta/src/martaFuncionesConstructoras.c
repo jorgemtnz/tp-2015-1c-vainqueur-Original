@@ -1,29 +1,30 @@
 #include "marta.h"
 
 t_archivoProcesado* crearArchivoProcesado() {
-	t_archivoProcesado* ptrArchivoProcesado=NULL;
+	t_archivoProcesado* ptrArchivoProcesado = NULL;
 
 	if (malloc(sizeof(t_archivoProcesado)) == NULL) {
 		perror(
-				"No se aloco memoria para ArchivoProcesado pertenece a la estructura "
-						"Marta>..>ubicacionBloque>listaArchivoProcesado>ArchivoProcesado");
+				"[ERROR]: No se aloco memoria para ArchivoProcesado pertenece a la estructura Marta>..>ubicacionBloque>listaArchivoProcesado>ArchivoProcesado");
+		log_error(logger, "[ERROR]: No se aloco memoria para ArchivoProcesado pertenece a la estructura Marta>..>ubicacionBloque>listaArchivoProcesado>ArchivoProcesado");
 		exit(-1);
-	}else{
-		ptrArchivoProcesado->aplicoMapper=NO;
-		ptrArchivoProcesado->estado=NO_MAPEADO;
-		ptrArchivoProcesado->nombreArchProcesado='\0';
-		ptrArchivoProcesado->numeroNodo=0;
-		ptrArchivoProcesado->ubicacion='\0';
+	} else {
+		ptrArchivoProcesado->aplicoMapper = NO;
+		ptrArchivoProcesado->estado = NO_MAPEADO
+		;
+		ptrArchivoProcesado->nombreArchProcesado = '\0';
+		ptrArchivoProcesado->numeroNodo = 0;
+		ptrArchivoProcesado->ubicacion = '\0';
 		return ptrArchivoProcesado;
 	}
 }
 
 t_relacionNodoBloque* crearRelacionNodoBloque() {
-	t_relacionNodoBloque* ptrRelacionNodoBloque=NULL;
+	t_relacionNodoBloque* ptrRelacionNodoBloque = NULL;
 	if (malloc(sizeof(t_ubicacionBloque)) == NULL) {
 		perror(
-				"No se aloco memoria para RelacionNodoBloque pertenece a la estructura "
-						"Marta>..>ubicacionBloque>listaRelacionNodoBloque>RelacionNodoBloque");
+				"[ERROR]: No se aloco memoria para RelacionNodoBloque pertenece a la estructura Marta>..>ubicacionBloque>listaRelacionNodoBloque>RelacionNodoBloque");
+		log_error(logger, "[ERROR]: No se aloco memoria para RelacionNodoBloque pertenece a la estructura Marta>..>ubicacionBloque>listaRelacionNodoBloque>RelacionNodoBloque");
 		exit(-1);
 	} else {
 		ptrRelacionNodoBloque->estado = 0;
@@ -34,11 +35,10 @@ t_relacionNodoBloque* crearRelacionNodoBloque() {
 }
 
 t_ubicacionBloque* crearUbicacionBloque() {
-	t_ubicacionBloque* ptrUbicacionBloque=NULL;
+	t_ubicacionBloque* ptrUbicacionBloque = NULL;
 	if (malloc(sizeof(t_ubicacionBloque)) == NULL) {
-		perror(
-				"No se aloco memoria para ubicacionArchivo pertenece a la estructura "
-						"Marta>..>listaUbicacionBloque>ubicacionBloque");
+		perror(	"[ERROR]: No se aloco memoria para ubicacionArchivo pertenece a la estructura Marta>..>listaUbicacionBloque>ubicacionBloque");
+		log_error(logger, "[ERROR]: No se aloco memoria para ubicacionArchivo pertenece a la estructura Marta>..>listaUbicacionBloque>ubicacionBloque");
 		exit(-1);
 	} else {
 		ptrUbicacionBloque->numero = 0;
@@ -48,11 +48,11 @@ t_ubicacionBloque* crearUbicacionBloque() {
 }
 
 t_informacionDelArchivo* crearInformacionArchivo() {
-	t_informacionDelArchivo* ptrInformacionArchivo=NULL;
+	t_informacionDelArchivo* ptrInformacionArchivo = NULL;
 	if (malloc(sizeof(t_informacionDelArchivo)) == NULL) {
 		perror(
-				"No se aloco memoria para informacionArchivo pertenece a la estructura "
-						"Marta>listaInformacionArchivo");
+				"[ERROR]: No se aloco memoria para informacionArchivo pertenece a la estructura Marta>listaInformacionArchivo");
+		log_error(logger, "[ERROR]: No se aloco memoria para informacionArchivo pertenece a la estructura Marta>listaInformacionArchivo");
 		exit(-1);
 	} else {
 		ptrInformacionArchivo->enUso = NO;
@@ -64,11 +64,11 @@ t_informacionDelArchivo* crearInformacionArchivo() {
 }
 
 t_solicitud* crearSolicitud() {
-	t_solicitud* ptrSolicitud=NULL;
+	t_solicitud* ptrSolicitud = NULL;
 	if (malloc(sizeof(t_solicitud)) == NULL) {
 		perror(
-				"No se aloco memoria para estructura solicitud pertenece a la estructura "
-						"Marta>listaSolicitudes>Solicitud");
+				"[ERROR]:No se aloco memoria para estructura solicitud pertenece a la estructura Marta>listaSolicitudes>Solicitud");
+		log_error(logger, "[ERROR]:No se aloco memoria para estructura solicitud pertenece a la estructura Marta>listaSolicitudes>Solicitud");
 		exit(-1);
 	} else {
 		ptrSolicitud->estado = EN_ESPERA;
@@ -81,9 +81,10 @@ t_solicitud* crearSolicitud() {
 }
 
 t_estructuraMarta* crearMarta() {
-	t_estructuraMarta* ptrMarta=NULL;
+	t_estructuraMarta* ptrMarta = NULL;
 	if (malloc(sizeof(t_estructuraMarta)) == NULL) {
-		perror("No se aloco memoria para estructura marta");
+		perror("[ERROR]:No se aloco memoria para estructura marta");
+		log_error(logger, "[ERROR]:No se aloco memoria para estructura marta");
 		exit(-1);
 	} else {
 
