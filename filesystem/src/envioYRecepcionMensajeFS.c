@@ -20,7 +20,7 @@ void enviar(int tipoDeMensaje, void* t_estructura, int fdDestinatario) {
 				sizeof(unPaquete->tamanioMensaje));
 		enviarPorSocket(fdDestinatario, unPaquete->mensaje,
 				unPaquete->tamanioMensaje);
-		printf("bloque enviado");
+		printf("[INFO]:Bloque enviado\n");
 		break;
 	}
 	case (LECTURA): {
@@ -54,7 +54,7 @@ void* recibir(int fdReceptor) {
 }
 
 void* interpretarPaquete(Paquete* unPaquete, int fdReceptor) {
-     printf("entre en interpretar paquete");
+     printf("Entre en interpretar paquete\n");
 	switch (unPaquete->tipoDeMensaje) {
 	case (CONEXION_NODO): { //recibe el mensaje de coneccion de un nodo
 		nod* nodo;
@@ -109,7 +109,7 @@ void* interpretarPaquete(Paquete* unPaquete, int fdReceptor) {
 		if (FILESYSTEM->listaNodosActivos->elements_count
 				> vg_cant_MinNodosOperar)
 			FILESYSTEM->estado = OPERATIVO;
-		printf("FS operativo");
+		printf("FS operativo\n");
 		break;
 	}
 	case (SOLICITUD_ARCHIVO): {				//MaRTA pide un archivo

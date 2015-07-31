@@ -5,7 +5,9 @@
 bloq* crearBloque() { //constructor del bloque
 	bloq* bloque = malloc(sizeof(bloq));
 	if (bloque == NULL) {
-		perror("[ERROR] No se reservo memoria para el Filesystem>..>bloque ");
+		perror("[ERROR] No se reservo memoria para el Filesystem>..>bloque");
+		log_error(logger,
+				"[ERROR] No se reservo memoria para el Filesystem>..>bloque");
 		exit(-1);
 	}
 	bloque->numero = 0; // cuando se cree se le va cambiando desde la funcion que llama
@@ -17,7 +19,9 @@ bloq* crearBloque() { //constructor del bloque
 nod* crearNodo() {  //para nodos conectados
 	nod* nodo = malloc(sizeof(nod));
 	if (nodo == NULL) {
-		perror("[ERROR] No se reservo memoria para el Filesystem>..>nodo ");
+		perror("[ERROR] No se reservo memoria para el Filesystem>..>nodo");
+		log_error(logger,
+				"[ERROR] No se reservo memoria para el Filesystem>..>nodo");
 		exit(-1);
 	}
 		nodo->numero=0;
@@ -34,6 +38,8 @@ ubicacionDelBloqueEnNodo* crearUbicacionDelBloqueEnNodo() {
 	if (unaUbicacion == NULL) {
 		perror(
 				"[ERROR] No se reservo memoria para el Filesystem>..>ubicacionDelBloqueEnNodo");
+		log_error(logger,
+				"[ERROR] No se reservo memoria para el Filesystem>..>ubicacionDelBloqueEnNodo");
 		exit(-1);
 	}
 	unaUbicacion->numeroCopia = 0; //este valor se setea posteriormente
@@ -47,6 +53,8 @@ element* crearElemento(char* nombre) { //crea un elemento generico para despues 
 	element* elemento = malloc(sizeof(element)); //creamos espacio para el elemnto
 	if (elemento == NULL) {
 		perror(
+				"[ERROR] No se reservo memoria para el Filesystem>..>elemento directorio o archivo ");
+		log_error(logger,
 				"[ERROR] No se reservo memoria para el Filesystem>..>elemento directorio o archivo ");
 		exit(-1);
 	}
@@ -70,6 +78,8 @@ void crearFileSystem() {
 
 	if (filesystem == NULL) {
 		perror("[ERROR] No se reservo memoria para el Filesystem ");
+		log_error(logger,
+				"[ERROR] No se reservo memoria para el Filesystem ");
 		exit(-1);
 	}
 	filesystem->estado = NOOPERATIVO;
