@@ -126,5 +126,6 @@ char*  vg_resultado; 	// String de ruta del archivo resultante
 char*  vg_mapperPath; 	// Ruta del archivo mapper
 char*  vg_reducerPath; 	// Ruta del reducer
 char*   vg_nombreArchivoConfigJob;
+t_log* logger; //VG del logger
 
 #endif /* JOB_H_ */

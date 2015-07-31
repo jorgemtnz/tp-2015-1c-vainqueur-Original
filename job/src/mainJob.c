@@ -25,14 +25,16 @@ void* clienteANodos();
 
 int main() {
   	int error, errorOtro;
+  	logger = log_create("LOG_Job.log", "Job", false, LOG_LEVEL_INFO); //Inicializacion logger
 
   	leerArchivoDeConfiguracion(); // /home/utnso/TPOperativos/job/config_job.cfg
-  		  testleerArchivoDeConfiguracion();
+  	testleerArchivoDeConfiguracion();
 
 	error = sem_init(&semCliAMartha, 0, 0);
 	errorOtro = sem_init(&semCliANodo, 0, 0);
 	if ((error < 0) || (errorOtro < 0)) {
-		perror("[ERROR]: inicializando semaforo");
+		perror("[ERROR]: Inicializando semaforo");
+		log_error(logger, "[ERROR]: Inicializando semaforo");
 		exit(-1);
 	}
 
@@ -62,6 +64,7 @@ int main() {
 
 
 	liberarMemoriaVG();
+	log_destroy(logger); //Destruyo el logger
 	return 0;
 }
 	//    clienteAMarta
@@ -92,8 +95,8 @@ void* hilo_mapper(t_mapper* mapperStruct){
 
 
 	if((nodo_sock=socket(AF_INET,SOCK_STREAM,0))==-1){ //si función socket devuelve -1 es error
-		perror("socket");
-		log_error(logger,"Fallo la creación del socket (conexión mapper-nodo)");
+		perror("[ERROR]: Fallo la creación del socket (conexión mapper-nodo)");
+		log_error(logger,"[ERROR]: Fallo la creación del socket (conexión mapper-nodo)");
 		exit(1);
 	}
 
@@ -103,34 +106,34 @@ void* hilo_mapper(t_mapper* mapperStruct){
 	memset(&(nodo_addr.sin_zero),'\0',8);
 
 	if((connect(nodo_sock,(struct sockaddr *)&nodo_addr,sizeof(struct sockaddr)))==-1){
-		perror("connect");
-		log_error(logger,"Fallo la conexión con MaRTA");
+		perror("[ERROR]: Fallo la conexión con MaRTA");
+		log_error(logger,"[ERROR]: Fallo la conexión con MaRTA");
 		exit(1);
 	}
 	strcpy(identificacion,"soy mapper");
 	if(send(nodo_sock,identificacion,sizeof(identificacion),0)==-1){
-		perror("send");
-		log_error(logger,"Fallo el envío de identificación mapper-nodo");
+		perror("[ERROR]: Fallo el envío de identificación mapper-nodo");
+		log_error(logger,"[ERROR]: Fallo el envío de identificación mapper-nodo");
 	}
 	/*Conexión mapper-nodo establecida*/
-	log_info(logger,"Hilo mapper conectado al Nodo con IP: %s,en el Puerto: %d",mapperStruct->ip_nodo,mapperStruct->puerto_nodo);
+	log_info(logger,"[ERROR]: Hilo mapper conectado al Nodo con IP: %s,en el Puerto: %d",mapperStruct->ip_nodo,mapperStruct->puerto_nodo);
 
 	if(send(nodo_sock,&(mapperStruct->bloque),sizeof(int),0)==-1){
-		perror("send");
-		log_error(logger,"Fallo el envio del bloque a mapear hacia el Nodo");
+		perror("[ERROR]: Fallo el envio del bloque a mapear hacia el Nodo");
+		log_error(logger,"[ERROR]: Fallo el envio del bloque a mapear hacia el Nodo");
 		exit(-1);
 	}
 
 	if(send(nodo_sock,&(mapperStruct->nombreArchivoTemporal),100,0)==-1){
-		perror("send");
-		log_error(logger,"Fallo el envio del nombre del archivo temporal a guardar el Map");
+		perror("[ERROR]: Fallo el envio del nombre del archivo temporal a guardar el Map");
+		log_error(logger,"[ERROR]: Fallo el envio del nombre del archivo temporal a guardar el Map");
 		exit(-1);
 	}
 
 	//envío la rutina mapper
 	if(send(nodo_sock,vg_mapperPath,MAPPER_SIZE,0)==-1){
-		perror("send");
-		log_error(logger,"Fallo el envio de la rutina mapper");
+		perror("[ERROR]: Fallo el envio de la rutina mapper");
+		log_error(logger,"[ERROR]: Fallo el envio de la rutina mapper");
 		exit(1);
 	}
 
@@ -145,20 +148,20 @@ char* getFileContent(char* path){
 	fileDescriptor = open(path,O_RDWR);
 		/*Chequeo de apertura del file exitosa*/
 			if (fileDescriptor==-1){
-				perror("open");
-				log_error(logger,"Fallo la apertura del file de datos");
+				perror("[ERROR]: Fallo la apertura del file de datos");
+				log_error(logger,"[ERROR]: Fallo la apertura del file de datos");
 				exit(-1);
 			}
 	if(fstat(fileDescriptor,&estadoDelFile)==-1){//guardo el estado del archivo de datos en la estructura
-			perror("fstat");
-			log_error(logger,"Falló el fstat");
+			perror("[ERROR]: Falló el fstat");
+			log_error(logger,"[ERROR]: Falló el fstat");
 			exit(-1);
 		}
 	fileMapeado=mmap(0,estadoDelFile.st_size,(PROT_WRITE|PROT_READ|PROT_EXEC),MAP_SHARED,fileDescriptor,0);
 	/*Chequeo de mmap exitoso*/
 		if (fileMapeado==MAP_FAILED){
-			perror("mmap");
-			log_error(logger,"Falló el mmap, no se pudo asignar la direccion de memoria para el archivo solicitado");
+			perror("[ERROR]: Falló el mmap, no se pudo asignar la direccion de memoria para el archivo solicitado");
+			log_error(logger,"[ERROR]: Falló el mmap, no se pudo asignar la direccion de memoria para el archivo solicitado");
 			exit(-1);
 		}
 	close(fileDescriptor); //Cierro el archivo
