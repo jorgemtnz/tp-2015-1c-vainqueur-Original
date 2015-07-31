@@ -1,4 +1,5 @@
 #include "protocolo.h"
+//objetivo devolver el paquete para el envio
 
 PaqueteEnvio* serializar(int tipoDeMensaje, void* payLoad, int tamanioPayLoad){
 	PaqueteEnvio* paqueteAEnviar = malloc(sizeof(PaqueteEnvio));
@@ -12,7 +13,7 @@ PaqueteEnvio* serializar(int tipoDeMensaje, void* payLoad, int tamanioPayLoad){
 	paqueteAEnviar->tamanioMensaje = tamanioDelMensaje;
 	return paqueteAEnviar;
 }
-
+// devolver el paquete para recepcion( y luego interpretar el paquete)
 Paquete* deserializar(void* buffer, int tamnioMensaje) {
 	Paquete* paqueteDeserial = malloc(sizeof(Paquete));
 	memcpy(&(paqueteDeserial->tipoDeMensaje),buffer,sizeof(int));

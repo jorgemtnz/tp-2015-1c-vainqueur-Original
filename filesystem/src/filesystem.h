@@ -23,7 +23,7 @@
 #include <protocolo/protocolo.h>
 #include <configExtras/configExtras.h>
 #include <configExtras/configExtras.h>
-
+#include <sys/wait.h>
 // +++++++++++++++++++++++++++++++++++++++ Define +++++++++++++++++++++++++++++++++++++
 #define ESDIRECTORIO 1
 #define ESARCHIVO 0

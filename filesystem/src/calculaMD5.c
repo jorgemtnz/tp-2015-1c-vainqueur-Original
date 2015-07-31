@@ -1,10 +1,7 @@
 #include "filesystem.h"
-
-
-
 #include <sys/wait.h>
 
-
+//da como resultado el md5 de un archivo
 char *dame_md5(char *archivo){
 	int fd[2];
 	int pidHijo;
