@@ -40,3 +40,5 @@ RemoteSystemsTempFiles/
 prueba.txt
 *.mk
 *.orig
+subdir.mk
+
