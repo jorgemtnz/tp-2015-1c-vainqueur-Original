@@ -5,23 +5,17 @@
  *      Author: utnso
  */
 
-#ifndef PARAARCHIVO_PARAARCHIVO_H_
-#define PARAARCHIVO_PARAARCHIVO_H_
-/*
- * util.h
- *
- *  Created on: 24/4/2015
- *      Author: utnso
- */
 
-#ifndef UTIL_H_
-#define UTIL_H_
+
+
+#ifndef PARAARCHIVO_H_
+#define PARAARCHIVO_H_
 
 #include <stdbool.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include <commons/string.h>
+#include <src/commons/string.h>
 #include <sys/stat.h>
 #include <sys/mman.h>
 #include <stdlib.h>
@@ -38,8 +32,6 @@ void file_mmap_free(void* mapped, char* filename);
 
 
 
-#endif /* UTIL_H_ */
+#endif
 
 
-
-#endif /* PARAARCHIVO_PARAARCHIVO_H_ */
