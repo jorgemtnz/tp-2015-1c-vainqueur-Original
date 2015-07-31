@@ -16,6 +16,7 @@
 #include <src/commons/txt.h>
 #include <src/commons/config.h>
 #include <src/commons/collections/list.h>
+#include <src/commons/log.h>
 #include <pthread.h>
 #include <semaphore.h>
 #include <protocolo/protocolo.h>
@@ -31,8 +32,10 @@
 #define VEINTEMEGAS 20971520
 //#define DESCONECTAR_NODO
 #define CONECCIONES_ENTRANTES_PERMITIDAS 10
+//+++++++tp n++++++++
 #define BLOCK_SIZE 20971520 //block size 20MB
 #define BUF_SIZE 50
+#define MAPPER_SIZE 4096
 // +++++++++++++++++++++++++++++++++++++++ Estructuras +++++++++++++++++++++++++++++++++++++
 
 typedef struct nodo {
@@ -82,5 +85,32 @@ char	 *vg_dirTemp;
 char	 *vg_ip_Nodo;
 long vg_tamanioArchivo;
 t_nodo *vg_nodo;
+//--------------funciones declarada tp n-----------------
+char* mapearFileDeDatos();
+void setBloque(int bloque,char* datos);
+char* getBloque(int bloque);
+char* getFileContent(char* nombre);
+void* manejador_de_escuchas(); //Hilo que va a manejar las conexiones
 
+int estaEnListaNodos(int socket);
+int estaEnListaMappers(int socket);
+int estaEnListaReducers(int socket);
+//-------------------------------------
+unsigned int sizeFileDatos;//VARIABLES GLOBALES
+char* fileDeDatos;//VARAIBLES GLOBALES
+t_log* logger_archivo;
+t_log* logger; //log en pantalla y archivo de log
+fd_set master; // conjunto maestro de descriptores de fichero
+fd_set read_fds; // conjunto temporal de descriptores de fichero para select()
+int fdmax;//Numero maximo de descriptores de fichero
+int conectorFS; //socket para conectarse al FS
+int listener; //socket encargado de escuchar nuevas conexiones
+struct sockaddr_in remote_client; //Direccion del cliente que se conectará
+char mensaje[BUF_SIZE]; //Mensaje que recivirá de los clientes
+t_list* listaNodosConectados; //Lista con los nodos conectados
+t_list* listaMappersConectados; //Lista con los mappers conectados
+t_list* listaReducersConectados; //lista con los reducers conectados
+int* socketNodo; //para identificar los que son nodos conectados
+int* socketMapper; //para identificar los que son mappers conectados
+int* socketReducer;
 #endif /* NODO2_SRC_NODO_H_ */
